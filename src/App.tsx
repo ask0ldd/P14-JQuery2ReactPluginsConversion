@@ -5,6 +5,7 @@ function App() {
   return (
     <main>
       <form className='mainform'>
+        
         <h2>1. Personnal</h2>
 
         <label htmlFor="firstname">Firstname</label>
