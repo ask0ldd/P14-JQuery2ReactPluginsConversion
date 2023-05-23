@@ -10,7 +10,8 @@
   width: 360px;
 }
 
-.mainform input[type="text"] {
+.mainform input[type="text"],
+.mainform input[type="number"] {
   border: 1px solid #c5c5c5;
   background: #f6f6f6;
   padding: 0.5em 1em 0.45em 1em;

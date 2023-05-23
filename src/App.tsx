@@ -6,27 +6,40 @@ function App() {
     <main>
       <form className='mainform'>
         <h2>1. Personnal</h2>
-        <label>Firstname</label>
-        <input type="text"></input>
-        <label className='defaultSpacing'>Lastname</label>
-        <input type="text"></input>
-        <label className='defaultSpacing'>Birthdate</label>
-        <input type="text"></input>
+
+        <label htmlFor="firstname">Firstname</label>
+        <input id="firstname" type="text"/>
+
+        <label htmlFor="lastname" className='defaultSpacing'>Lastname</label>
+        <input id="lastname" type="text"/>
+
+        <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
+        <input id="birthdate" type="text"/>
+
         <h2>2. Address</h2>
-        <label>Street</label>
-        <input id="street" type="text"></input>
-        <label className='defaultSpacing'>City</label>
-        <input id="city" type="text"></input>
-        <label className='defaultSpacing'>State</label>
-        <input id="state" type="text"></input>
-        <label className='defaultSpacing'>ZIP Code</label>
-        <input id="zip-code" type="text"></input>
+
+        <label htmlFor="street">Street</label>
+        <input id="street" type="text"/>
+
+        <label htmlFor="city" className='defaultSpacing'>City</label>
+        <input id="city" type="text"/>
+
+        <label htmlFor="state" className='defaultSpacing'>State</label>
+        <input id="state" type="text"/>
+
+        <label htmlFor="zip-code" className='defaultSpacing'>ZIP Code</label>
+        <input id="zip-code" type="number"/>
+
         <h2>3. Professional</h2>
-        <label>Integration Date</label>
-        <input id="integration-date" type="text"></input>
-        <label className='defaultSpacing'>Departement</label>
-        <input type="text"></input>
-        <input type="submit" value="Add this Employee"></input>
+
+        <label htmlFor="start-date">Integration Date</label>
+        <input id="start-date" type="text"/>
+
+        <label htmlFor="department" className='defaultSpacing'>Departement</label>
+        <input name="department" id="department" type="text"/>
+
+        <input type="submit" value="Add this Employee"/>
+
       </form>
     </main>
   )
