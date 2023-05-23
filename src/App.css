@@ -7,7 +7,24 @@
 .mainform {
   display: flex;
   flex-direction: column;
+  width: 360px;
 }
 
-.mainform input {
+.mainform input[type="text"] {
+  border: 1px solid #c5c5c5;
+  background: #f6f6f6;
+  padding: 0.5em 1em 0.45em 1em;
+  color: #454545;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  margin-top: 0.325rem;
+}
+
+.mainform input[type="submit"] {
+  margin-top: 2.325rem;
+  height: 32px;
+}
+
+label.defaultSpacing {
+  margin-top: 1rem;
 }
