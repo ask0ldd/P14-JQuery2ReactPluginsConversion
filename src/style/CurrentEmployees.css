@@ -8,7 +8,7 @@
 table {
   border-collapse: collapse;
   margin-top: 0.75rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 tr {
@@ -72,6 +72,16 @@ td {
   display: flex;
   height: 100%;
   align-items: center;
+}
+
+.paginationActivePage {
+  background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #979797;
+  padding: 0.5em 1em;
+  cursor: pointer;
 }
 
 #infosContainer {
