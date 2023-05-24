@@ -1,9 +1,9 @@
 import '../App.css'
 import '../style/CurrentEmployees.css'
-import Table from '../components/table/Table'
-import Entries from '../components/table/Entries'
-import SearchModule from '../components/table/SearchModule'
-import Pagination from '../components/table/Pagination'
+import Table from '../components/DatasTable/Table'
+import NDisplayedSelect from '../components/DatasTable/NDisplayedSelect'
+import SearchModule from '../components/DatasTable/SearchModule'
+import Pagination from '../components/DatasTable/Pagination'
 
 function CurrentEmployees() {
 
@@ -11,7 +11,7 @@ function CurrentEmployees() {
     <main className='mainCE'>
       <h1>Current Employees</h1>
       <div id="entriesNSearchContainer">
-        <Entries/>
+        <NDisplayedSelect/>
         <SearchModule/>
       </div>
       <Table/>
