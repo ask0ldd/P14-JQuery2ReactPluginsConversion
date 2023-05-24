@@ -7,8 +7,8 @@ function CustomRouter() {
     return(
         <Router>
             <Routes>
-                <Route path="/employee-list" element={<CurrentEmployees />} />
                 <Route path="/" element={<App />} />
+                <Route path="/employee-list" element={<CurrentEmployees />} />
             </Routes>
         </Router>
     )

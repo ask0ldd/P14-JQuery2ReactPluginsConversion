@@ -4,10 +4,17 @@
   padding: 2rem;
 }
 
+a {
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+}
+
 .mainform {
   display: flex;
   flex-direction: column;
   width: 360px;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
 }
 
 .mainform input[type="text"],
@@ -17,13 +24,14 @@
   padding: 0.5em 1em 0.45em 1em;
   color: #454545;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1em;
   margin-top: 0.325rem;
 }
 
 .mainform input[type="submit"] {
   margin-top: 2.325rem;
   height: 32px;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
 }
 
 label.defaultSpacing {

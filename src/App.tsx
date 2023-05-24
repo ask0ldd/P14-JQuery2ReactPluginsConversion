@@ -1,17 +1,19 @@
 import './App.css'
+import { Link } from 'react-router-dom'
 
 function App() {
 
   return (
     <main>
+      <Link to={`/employee-list`}>View Current Employees</Link>
       <form className='mainform'>
         
         <h2>1. Personnal</h2>
 
-        <label htmlFor="firstname">Firstname</label>
+        <label htmlFor="firstname">First Name</label>
         <input id="firstname" type="text"/>
 
-        <label htmlFor="lastname" className='defaultSpacing'>Lastname</label>
+        <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
         <input id="lastname" type="text"/>
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
