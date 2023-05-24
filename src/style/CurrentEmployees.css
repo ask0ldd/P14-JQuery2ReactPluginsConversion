@@ -34,24 +34,6 @@ td {
   justify-content: space-between;
 }
 
-#entriesContainer {
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-}
-
-#searchContainer {
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-}
-
-#searchContainer label {
-  display: flex;
-  height: 100%;
-  align-items: center;
-}
-
 .mainCE input[type="text"] {
   border: 1px solid #c5c5c5;
   background: #f6f6f6;
@@ -59,29 +41,6 @@ td {
   color: #454545;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
-}
-
-#paginationContainer {
-  display: flex;
-  flex-direction: row;
-  column-gap: 1rem;
-  align-items: center;
-}
-
-#paginationContainer span {
-  display: flex;
-  height: 100%;
-  align-items: center;
-}
-
-.paginationActivePage {
-  background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #979797;
-  padding: 0.5em 1em;
-  cursor: pointer;
 }
 
 #infosContainer {

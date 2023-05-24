@@ -1,3 +1,5 @@
+import '../../style/table/Pagination.css'
+
 function Pagination() {
 
     return (

@@ -1,3 +1,5 @@
+import '../../style/table/SearchModule.css'
+
 function SearchModule() {
 
     return (

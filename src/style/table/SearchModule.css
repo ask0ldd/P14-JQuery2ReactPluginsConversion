@@ -1,0 +1,11 @@
+#searchContainer {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+#searchContainer label {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}

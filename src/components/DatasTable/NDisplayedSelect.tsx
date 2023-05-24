@@ -1,3 +1,5 @@
+import '../../style/table/NDisplayedSelect.css'
+
 function NDisplayedSelect() {
 
     const NDisplayedOptions = ['10', '25', '50', '100']
