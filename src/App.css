@@ -5,8 +5,11 @@
 }
 
 a {
+  display: block;
   font-family: "Jost", sans-serif;
   font-size: 1rem;
+  text-align: center;
+  width: 100%;
 }
 
 .mainform {
