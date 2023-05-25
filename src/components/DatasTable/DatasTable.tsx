@@ -9,9 +9,11 @@ export interface IProps {
     tableDatasKeys : Array<string>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tableDatas : Array<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    tableDatasSetter : any
 }
 
-function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
+function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas, tableDatasSetter} : IProps){
 
     return(
         <>
@@ -19,7 +21,7 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
                 <NDisplayedSelect/>
                 <SearchModule/>
             </div>
-            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatas}/>
+            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatas} tableDatasSetter={tableDatasSetter}/>
             <div id="infosNPaginationContainer">
                 <NEntries nEntries={tableDatas.length}/>
                 <Pagination/>

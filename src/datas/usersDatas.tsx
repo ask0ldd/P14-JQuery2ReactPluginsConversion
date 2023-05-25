@@ -1,4 +1,4 @@
-const userDatas = [{"id":1,"firstName":"Dawn","lastName":"Greenshiels","street":"3 Center Pass","city":"Houston","zipCode":"77255","state":"TX","birthDate":"01/07/2022","startingDate":"20/05/2023","department":"Human Ressources"},
+const usersDatas = [{"id":1,"firstName":"Dawn","lastName":"Greenshiels","street":"3 Center Pass","city":"Houston","zipCode":"77255","state":"TX","birthDate":"01/07/2022","startingDate":"20/05/2023","department":"Human Ressources"},
 {"id":2,"firstName":"Artemas","lastName":"FitzAlan","street":"9334 Forest Road","city":"Greensboro","zipCode":"27415","state":"NC","birthDate":"07/12/2022","startingDate":"26/09/2022","department":"Human Ressources"},
 {"id":3,"firstName":"Woodie","lastName":"Pardew","street":"411 Cardinal Way","city":"Harrisburg","zipCode":"17126","state":"PA","birthDate":"13/11/2022","startingDate":"14/01/2023","department":"Marketing"},
 {"id":4,"firstName":"Ophelia","lastName":"Chark","street":"4342 Lake View Avenue","city":"Los Angeles","zipCode":"90050","state":"CA","birthDate":"29/11/2022","startingDate":"26/03/2023","department":"Sales"},
@@ -99,4 +99,4 @@ const userDatas = [{"id":1,"firstName":"Dawn","lastName":"Greenshiels","street":
 {"id":99,"firstName":"Tonya","lastName":"Ormerod","street":"36 Delaware Trail","city":"Harrisburg","zipCode":"17126","state":"PA","birthDate":"31/10/2022","startingDate":"20/04/2023","department":"Legal"},
 {"id":100,"firstName":"Bret","lastName":"Vanyatin","street":"57533 Ohio Plaza","city":"Columbia","zipCode":"29203","state":"SC","birthDate":"28/11/2022","startingDate":"09/08/2022","department":"Marketing"}]
 
-export default userDatas
+export default usersDatas

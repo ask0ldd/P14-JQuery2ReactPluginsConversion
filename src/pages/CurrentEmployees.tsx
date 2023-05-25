@@ -1,23 +1,23 @@
 import '../App.css'
 import '../style/CurrentEmployees.css'
-import userDatas from '../datas/usersDatasTen'
+import usersDatas from '../datas/usersDatasTen'
 import DatasTable from '../components/DatasTable/DatasTable'
 import { useState } from 'react'
 
-// columnsNames Datakeys
-
 function CurrentEmployees() {
 
-  // const tableColumnsNames : Array<string> = Object.getOwnPropertyNames(userDatas[0])
+  const frCollator = new Intl.Collator('fr')
 
   const columnsNames = ['First Name', 'Last Name', 'Start Date', 'Department', 'Birthdate', 'Street', 'City', 'State', 'Zip Code']
   const dataKeys = ['firstName', 'lastName', 'startingDate', 'department', 'birthDate', 'street', 'city', 'state', 'zipCode']
+
+  const [tableDatas, setTableDatas] = useState(usersDatas.sort((a,b) => frCollator.compare(a['firstName'], b['firstName'])));
 
 
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableColumnsNames={columnsNames} tableDatasKeys={dataKeys} tableDatas={userDatas}/>
+      <DatasTable tableColumnsNames={columnsNames} tableDatasKeys={dataKeys} tableDatas={tableDatas} tableDatasSetter={setTableDatas}/>
     </main>
   )
 }
@@ -37,3 +37,6 @@ export default CurrentEmployees
     "startingDate":"09/08/2022"},
     "department":"human ressources"
 */
+
+
+// const tableColumnsNames : Array<string> = Object.getOwnPropertyNames(userDatas[0])

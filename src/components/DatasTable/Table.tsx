@@ -8,7 +8,7 @@ function isLastRow(index : number, lastRowIndex : number){
   return index === lastRowIndex ? ' bottomblackborder' : ''
 }
 
-function Table({tableColumnsNames, tableDatasKeys, tableDatas} : IProps) {
+function Table({tableColumnsNames, tableDatasKeys, tableDatas, tableDatasSetter} : IProps) {
 
     return (
         <table>
