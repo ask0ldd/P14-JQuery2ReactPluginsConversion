@@ -3,6 +3,7 @@ import '../style/CurrentEmployees.css'
 import usersDatas from '../datas/usersDatasTen'
 import DatasTable from '../components/DatasTable/DatasTable'
 import { useState, useEffect } from 'react'
+import { IUSersDatas } from '../datas/usersDatasTen'
 
 function CurrentEmployees() {
 
@@ -16,7 +17,7 @@ function CurrentEmployees() {
   const [ordering, setOrdering] = useState({column : '', direction : 'asc'})
 
   useEffect(() => {
-    if(ordering.column !=='') setTableDatas(usersDatas.sort((a,b) => frCollator.compare(a[ordering.column as keyof typeof a], b[ordering.column as keyof typeof b])))
+    if(ordering.column !=='') setTableDatas(usersDatas.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
   }, [ordering])
 
 
