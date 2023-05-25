@@ -9,7 +9,7 @@ function NDisplayedSelect() {
     <div id="entriesContainer">
         Show
         <select>
-            {NDisplayedOptions.map((opt) => (<option>{opt}</option>))}
+            {NDisplayedOptions.map((opt, index) => (<option key={'opt'+index}>{opt}</option>))}
         </select>
         entries
     </div>

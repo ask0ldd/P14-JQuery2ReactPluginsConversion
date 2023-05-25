@@ -17,7 +17,30 @@ tr {
 
 th {
   text-align: left;
+  position: relative;
 }
+
+/*th::after {
+  content: "▲";
+  position: absolute;
+  display: block;
+  opacity: 0.125;
+  right: 10px;
+  line-height: 9px;
+  font-size: 0.8em;
+  top: 50%;
+}
+
+th::before {
+  content: "▼";
+  position: absolute;
+  display: block;
+  opacity: 0.125;
+  right: 10px;
+  line-height: 9px;
+  font-size: 0.8em;
+  bottom: 50%;
+}*/
 
 table tr.bottomblackborder {
   border-bottom: 1px solid #111;

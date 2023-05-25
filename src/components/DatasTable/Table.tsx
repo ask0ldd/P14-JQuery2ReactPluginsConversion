@@ -1,5 +1,13 @@
 import { IProps } from "./DatasTable"
 
+function isRowOdd(index : number){
+ return index%2 === 1 ? 'odd' : ''
+}
+
+function isLastRow(index : number, lastRowIndex : number){
+  return index === lastRowIndex ? ' bottomblackborder' : ''
+}
+
 function Table({tableColumnsNames, tableDatasKeys, tableDatas} : IProps) {
 
     return (
@@ -10,18 +18,7 @@ function Table({tableColumnsNames, tableDatasKeys, tableDatas} : IProps) {
           </tr>
         </thead>
         <tbody>
-          <tr className='odd'>
-            {tableDatasKeys.map(key => (<td>{tableDatas[0][key]}</td>))}
-          </tr>
-          <tr>
-            {tableDatasKeys.map(key => (<td>{tableDatas[1][key]}</td>))}
-          </tr>
-          <tr className='odd'>
-            {tableDatasKeys.map(key => (<td>{tableDatas[2][key]}</td>))}
-          </tr>
-          <tr className='bottomblackborder'>
-            {tableDatasKeys.map(key => (<td>{tableDatas[3][key]}</td>))}
-          </tr>
+          {tableDatas.map((datarow, index) => (<tr className={isRowOdd(index) + isLastRow(index, tableDatas.length-1)}>{tableDatasKeys.map(key => (<td>{datarow[key]}</td>))}</tr>))}
         </tbody>
       </table>        
     )
