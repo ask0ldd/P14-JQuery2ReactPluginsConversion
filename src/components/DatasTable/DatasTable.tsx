@@ -5,23 +5,13 @@ import Pagination from './Pagination'
 import NEntries from './NEntries'
 
 export interface IProps {
-    tableColumns : Array<string>
-    tableDatas : Array<string> | Array<Date> | Array<number>
+    tableColumnsNames : Array<string>
+    tableDatasKeys : Array<string>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    tableDatas : Array<any>
 }
 
-function DatasTable({tableColumns, tableDatas} : IProps){
-
-    /*const Datas = [
-        {
-            'firstName' : 'john',
-            'lastName' : 'doe',
-            'birthDate' : '01/01/1985',
-            'startDate' : '27/03/22',
-            'street' : '31 baker street',
-            'city' : 'new york',
-            
-        }
-    ]*/
+function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
 
     return(
         <>
@@ -29,9 +19,9 @@ function DatasTable({tableColumns, tableDatas} : IProps){
                 <NDisplayedSelect/>
                 <SearchModule/>
             </div>
-            <Table tableColumns={tableColumns} tableDatas={tableDatas}/>
+            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatas}/>
             <div id="infosNPaginationContainer">
-                <NEntries/>
+                <NEntries nEntries={tableDatas.length}/>
                 <Pagination/>
             </div>
         </>
@@ -39,17 +29,3 @@ function DatasTable({tableColumns, tableDatas} : IProps){
 }
 
 export default DatasTable
-
-/*
-[
-    {"id":1,
-    "firstName":"Bernarr",
-    "lastName":"Camilleri",
-    "street":"4 Starling Plaza",
-    "city":"Rossosh’",
-    "zipCode":"624282",
-    "state":null,
-    "birthDate":"04/06/2022",
-    "startingDate":"09/08/2022"},
-    "department":"human ressources"
-*/

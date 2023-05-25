@@ -1,6 +1,10 @@
-function NEntries(){
+interface IProps{
+    nEntries:number
+}
+
+function NEntries({nEntries} : IProps){
     return(
-        <div id="infosContainer">Showing 1 to 2 of 2 entries</div>
+        <div id="infosContainer">Showing 1 of {nEntries} entries</div>
     )
 }
 

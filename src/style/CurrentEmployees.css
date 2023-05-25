@@ -15,6 +15,10 @@ tr {
   border-bottom: 1px solid #ddd;
 }
 
+th {
+  text-align: left;
+}
+
 table tr.bottomblackborder {
   border-bottom: 1px solid #111;
 }
