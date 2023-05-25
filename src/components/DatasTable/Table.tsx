@@ -8,13 +8,13 @@ function isLastRow(index : number, lastRowIndex : number){
   return index === lastRowIndex ? ' bottomblackborder' : ''
 }
 
-function Table({tableColumnsNames, tableDatasKeys, tableDatas, tableDatasSetter} : IProps) {
+function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering} : IProps) {
 
     return (
         <table>
         <thead>
           <tr className='bottomblackborder'>
-          {tableColumnsNames.map(name => (<th>{name}</th>))}
+          {tableColumnsNames.map((name, index) => (<th onClick={() => setOrdering({column : tableDatasKeys[index], direction : 'asc'})}>{name}</th>))}
           </tr>
         </thead>
         <tbody>
