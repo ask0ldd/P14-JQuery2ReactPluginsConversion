@@ -16,7 +16,7 @@ function NDisplayedSelect({setDisplayingRange} : IProps)
     return (
     <div id="entriesContainer">
         Show
-        <select onChange={(e) => setDisplayingRange([0, e.target.value != null ? parseInt(e.target.value) : 100]) /* should update select active option if 100 */}> 
+        <select onChange={(e) => setDisplayingRange([0, e.target.value != null ? parseInt(e.target.value) : 50]) /* should update select active option if 100 */}> 
             {NDisplayedOptions.map((opt, index) => (<option value={parseInt(opt)} key={'opt'+index}>{opt}</option>))}
         </select>
         entries

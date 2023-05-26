@@ -3,25 +3,30 @@ import NDisplayedSelect from './NDisplayedSelect'
 import SearchModule from './SearchModule'
 import Pagination from './Pagination'
 import NEntries from './NEntries'
-
-interface IOrdering{
-    column : string
-    direction : string
-}
+import { useState, useEffect } from 'react'
+import { IUSersDatas } from '../../datas/usersDatasTen'
 
 export interface IProps {
     tableColumnsNames : Array<string>
     tableDatasKeys : Array<string>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tableDatas : Array<any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setOrdering : any
-    ordering : IOrdering
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setDisplayingRange : any
 }
 
-function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, ordering, setDisplayingRange} : IProps){
+function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
+
+    const frCollator = new Intl.Collator('en')
+  
+    const [tableDatasState, setTableDatas] = useState([...tableDatas]);
+    const [ordering, setOrdering] = useState({column : '', direction : 'asc'})
+    const [displayingRange, setDisplayingRange] = useState([0, 10])
+  
+    // react to any ordering state update
+    useEffect(() => {
+      // [...usersDatas] avoid mutation
+      if(ordering.column !== '' && ordering.direction === 'asc') setTableDatas([...tableDatas].sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
+      if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas([...tableDatas].sort((a,b) => frCollator.compare(b[ordering.column as keyof IUSersDatas], a[ordering.column as keyof IUSersDatas])))
+    }, [ordering.column, ordering.direction])
 
     // console.log(setOrdering)
     return(
@@ -30,9 +35,9 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering,
                 <NDisplayedSelect setDisplayingRange={setDisplayingRange}/>
                 <SearchModule/>
             </div>
-            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatas} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayingRange}/>
+            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatasState.slice(displayingRange[0], displayingRange[1])} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayingRange}/>
             <div id="infosNPaginationContainer">
-                <NEntries nEntries={tableDatas.length}/>
+                <NEntries nEntries={tableDatasState.slice(displayingRange[0], displayingRange[1]).length}/>
                 <Pagination/>
             </div>
         </>

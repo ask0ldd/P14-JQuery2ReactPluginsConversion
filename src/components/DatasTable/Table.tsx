@@ -1,4 +1,19 @@
-import { IProps } from "./DatasTable"
+interface IOrdering{
+  column : string
+  direction : string
+}
+
+export interface IProps {
+  tableColumnsNames : Array<string>
+  tableDatasKeys : Array<string>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tableDatas : Array<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setOrdering : any
+  ordering : IOrdering
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setDisplayingRange : any
+}
 
 function isRowOdd(index : number){
  return index%2 === 1 ? 'odd' : ''
