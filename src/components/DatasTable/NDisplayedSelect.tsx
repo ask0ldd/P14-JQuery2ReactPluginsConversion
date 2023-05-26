@@ -8,7 +8,7 @@ interface IProps{
 
 function NDisplayedSelect({setDisplayingRange} : IProps) 
 {
-    const selectElement = useRef<HTMLSelectElement>(null)
+    // const selectElement = useRef<HTMLSelectElement>(null)
 
     const NDisplayedOptions = ['10', '25', '50', '100']
     // const defaultOptionIndex = 0;
@@ -16,7 +16,7 @@ function NDisplayedSelect({setDisplayingRange} : IProps)
     return (
     <div id="entriesContainer">
         Show
-        <select ref={selectElement} onChange={() => setDisplayingRange([0, selectElement.current?.value != null ? parseInt(selectElement.current?.value) : 100])}>
+        <select onChange={(e) => setDisplayingRange([0, e.target.value != null ? parseInt(e.target.value) : 100]) /* should update select active option if 100 */}> 
             {NDisplayedOptions.map((opt, index) => (<option value={parseInt(opt)} key={'opt'+index}>{opt}</option>))}
         </select>
         entries

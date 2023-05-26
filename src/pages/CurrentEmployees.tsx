@@ -16,7 +16,7 @@ function CurrentEmployees() {
   // move to datasdable compo
   const [tableDatas, setTableDatas] = useState([...usersDatas]);
   const [ordering, setOrdering] = useState({column : '', direction : 'asc'})
-  const [displayingRange, setDisplayingRange] = useState([0, 20])
+  const [displayingRange, setDisplayingRange] = useState([0, 10])
 
   // react to any ordering state update
   useEffect(() => {
@@ -28,7 +28,6 @@ function CurrentEmployees() {
 
   return (
     <main className='mainCE'>
-      {displayingRange}
       <h1>Current Employees</h1>
       <DatasTable tableColumnsNames={columnsNames} tableDatasKeys={dataKeys} tableDatas={[...tableDatas].slice(displayingRange[0], displayingRange[1])} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayingRange}/>
     </main>
