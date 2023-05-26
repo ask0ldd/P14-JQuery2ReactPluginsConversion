@@ -10,18 +10,19 @@ export interface IProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tableDatas : Array<any>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    tableDatasSetter : any
+    setOrdering : any
 }
 
-function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas, tableDatasSetter} : IProps){
+function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering} : IProps){
 
+    // console.log(setOrdering)
     return(
         <>
             <div id="entriesNSearchContainer">
                 <NDisplayedSelect/>
                 <SearchModule/>
             </div>
-            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatas} tableDatasSetter={tableDatasSetter}/>
+            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatas} setOrdering={setOrdering}/>
             <div id="infosNPaginationContainer">
                 <NEntries nEntries={tableDatas.length}/>
                 <Pagination/>

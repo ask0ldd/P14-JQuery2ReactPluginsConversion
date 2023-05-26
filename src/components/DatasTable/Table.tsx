@@ -10,11 +10,14 @@ function isLastRow(index : number, lastRowIndex : number){
 
 function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering} : IProps) {
 
+    // const handleClick = () => setOrdering({column : 'lastName', direction : 'asc'})
+    // console.log(setOrdering)
+
     return (
         <table>
         <thead>
           <tr className='bottomblackborder'>
-          {tableColumnsNames.map((name, index) => (<th onClick={() => setOrdering({column : tableDatasKeys[index], direction : 'asc'})}>{name}</th>))}
+          {tableColumnsNames.map((name, index) => (<th style={{cursor:'pointer'}} onClick={() => {console.log('ordering called'); setOrdering({column : tableDatasKeys[index], direction : 'asc'})}}>{name}</th>))}
           </tr>
         </thead>
         <tbody>
@@ -47,3 +50,7 @@ export default Table
   </tr>
 </tbody>
 </table> */
+
+/*
+{tableColumnsNames.map((name, index) => (<th onClick={() => {setOrdering({column : tableDatasKeys[index], direction : 'asc'})}}>{name}</th>))}
+*/

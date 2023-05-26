@@ -12,14 +12,15 @@ function CurrentEmployees() {
   const columnsNames = ['First Name', 'Last Name', 'Start Date', 'Department', 'Birthdate', 'Street', 'City', 'State', 'Zip Code']
   const dataKeys = ['firstName', 'lastName', 'startingDate', 'department', 'birthDate', 'street', 'city', 'state', 'zipCode']
 
-  const [tableDatas, setTableDatas] = useState(usersDatas.sort((a,b) => frCollator.compare(a['firstName'], b['firstName'])));
-
+  const [tableDatas, setTableDatas] = useState([...usersDatas].sort((a,b) => frCollator.compare(a['firstName'], b['firstName'])));
   const [ordering, setOrdering] = useState({column : '', direction : 'asc'})
 
   useEffect(() => {
-    if(ordering.column !=='') setTableDatas(usersDatas.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
-  }, [ordering])
-
+    if(ordering.column !== '') setTableDatas([...usersDatas].sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
+    console.log(usersDatas)
+    console.log(ordering)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ordering.column, ordering.direction])
 
   return (
     <main className='mainCE'>
