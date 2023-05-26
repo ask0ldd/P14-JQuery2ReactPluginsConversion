@@ -1,6 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '../../style/table/NDisplayedSelect.css'
+import { useRef } from 'react'
 
-function NDisplayedSelect() {
+interface IProps{
+    setDisplayingRange :any
+}
+
+function NDisplayedSelect({setDisplayingRange} : IProps) 
+{
+    const selectElement = useRef<HTMLSelectElement>(null)
 
     const NDisplayedOptions = ['10', '25', '50', '100']
     // const defaultOptionIndex = 0;
@@ -8,8 +16,8 @@ function NDisplayedSelect() {
     return (
     <div id="entriesContainer">
         Show
-        <select>
-            {NDisplayedOptions.map((opt, index) => (<option key={'opt'+index}>{opt}</option>))}
+        <select ref={selectElement} onSelect={() => setDisplayingRange([0, selectElement.current?.value])}>
+            {NDisplayedOptions.map((opt, index) => (<option value={parseInt(opt)} key={'opt'+index}>{opt}</option>))}
         </select>
         entries
     </div>
