@@ -8,16 +8,24 @@ function isLastRow(index : number, lastRowIndex : number){
   return index === lastRowIndex ? ' bottomblackborder' : ''
 }
 
-function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering} : IProps) {
+function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, ordering} : IProps) {
 
     // const handleClick = () => setOrdering({column : 'lastName', direction : 'asc'})
     // console.log(setOrdering)
+
+    function handleOrderingClick(index : number){
+      // if clicking on the already active column, invert sorting direction
+      if(ordering.column === tableDatasKeys[index]) 
+        return ordering.direction === 'asc' ? setOrdering({column : tableDatasKeys[index], direction : 'desc'}) :  setOrdering({column : tableDatasKeys[index], direction : 'asc'})
+      // if clicking on a different column sorting asc this new column
+      return setOrdering({column : tableDatasKeys[index], direction : 'asc'})
+    }
 
     return (
         <table>
         <thead>
           <tr className='bottomblackborder'>
-          {tableColumnsNames.map((name, index) => (<th style={{cursor:'pointer'}} onClick={() => {console.log('ordering called'); setOrdering({column : tableDatasKeys[index], direction : 'asc'})}}>{name}</th>))}
+          {tableColumnsNames.map((name, index) => (<th style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}</th>))}
           </tr>
         </thead>
         <tbody>

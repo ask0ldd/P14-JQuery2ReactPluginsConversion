@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import '../App.css'
 import '../style/CurrentEmployees.css'
 import usersDatas from '../datas/usersDatasTen'
@@ -16,16 +17,14 @@ function CurrentEmployees() {
   const [ordering, setOrdering] = useState({column : '', direction : 'asc'})
 
   useEffect(() => {
-    if(ordering.column !== '') setTableDatas([...usersDatas].sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
-    console.log(usersDatas)
-    console.log(ordering)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if(ordering.column !== '' && ordering.direction === 'asc') setTableDatas([...usersDatas].sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
+    if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas([...usersDatas].sort((a,b) => frCollator.compare(b[ordering.column as keyof IUSersDatas], a[ordering.column as keyof IUSersDatas])))
   }, [ordering.column, ordering.direction])
 
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableColumnsNames={columnsNames} tableDatasKeys={dataKeys} tableDatas={tableDatas} setOrdering={setOrdering}/>
+      <DatasTable tableColumnsNames={columnsNames} tableDatasKeys={dataKeys} tableDatas={tableDatas} setOrdering={setOrdering} ordering={ordering}/>
     </main>
   )
 }
