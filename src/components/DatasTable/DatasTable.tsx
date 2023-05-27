@@ -27,26 +27,26 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
   
     const [tableDatasState, setTableDatas] = useState([...tableDatas]);
     const [ordering, setOrdering] = useState({column : '', direction : 'asc'})
-    const [displayingRange, setDisplayingRange] = useState([0, 10])
+    const [displayRules, setDisplayRules] = useState({currentPage : 0, nEntriesPerPage : 10})
+    // currentPage / nEntriesPerPage / searchString / orderDirection / orderTargetColumn
   
     // react to any ordering state update
     useEffect(() => {
-      // [...usersDatas] avoid mutation
+      // [...usersDatas] to avoid any mutation
       if(ordering.column !== '' && ordering.direction === 'asc') setTableDatas([...tableDatas].sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
       if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas([...tableDatas].sort((a,b) => frCollator.compare(b[ordering.column as keyof IUSersDatas], a[ordering.column as keyof IUSersDatas])))
     }, [ordering.column, ordering.direction])
 
-    // console.log(setOrdering)
     return(
         <>  
-            <DatasTableContext.Provider value={{range : displayingRange}}>
+            <DatasTableContext.Provider value={{range : displayRules}}>
                 <div id="entriesNSearchContainer">
-                    <NDisplayedSelect setDisplayingRange={setDisplayingRange}/>
+                    <NDisplayedSelect setDisplayRules={setDisplayRules}/>
                     <SearchModule/>
                 </div>
-                <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatasState.slice(displayingRange[0], displayingRange[1])} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayingRange}/>
+                <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatasState.slice(displayRules.currentPage, displayRules.nEntriesPerPage)} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayRules}/>
                 <div id="infosNPaginationContainer">
-                    <NEntries nEntries={tableDatasState.slice(displayingRange[0], displayingRange[1]).length} totalEntries={tableDatasState.length}/>
+                    <NEntries nEntries={tableDatasState.slice(displayRules.currentPage, displayRules.nEntriesPerPage).length} totalEntries={tableDatasState.length}/>
                     <Pagination/>
                 </div>
             </DatasTableContext.Provider>
