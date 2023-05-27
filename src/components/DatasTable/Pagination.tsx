@@ -8,15 +8,27 @@ interface IProps{
   totalEntries: number
 }
 
-/* deal with max next onclick*/
-
 function Pagination({currentPage, setDisplayRules, nEntriesPerPage, totalEntries} : IProps) {
+
+    function prevPage(){
+      setDisplayRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+    }
+
+    function nextPage(){
+      setDisplayRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+    }
+
+    function enoughEntriesLeftForNextPage(){
+      return currentPage * nEntriesPerPage < totalEntries
+    }
 
     return (
         <div id="paginationContainer">
-          <span style={{cursor:'pointer'}} onClick={() => setDisplayRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})}>Previous</span>
+          {currentPage > 1 && <span style={{marginRight:'0.5rem'}} onClick={() => prevPage()}>Previous</span>}
+          {currentPage > 1 && <div className="paginationInactivePage" onClick={() => prevPage()}>{currentPage-1}</div>}
           <div className="paginationActivePage">{currentPage}</div>
-          <span style={{cursor:'pointer'}} onClick={() => setDisplayRules({currentPage: currentPage+1*nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})}>Next</span>
+          {enoughEntriesLeftForNextPage() && <div className="paginationInactivePage" onClick={() => nextPage()}>{currentPage+1}</div>}
+          {enoughEntriesLeftForNextPage() && <span style={{marginLeft:'0.5rem'}} onClick={() => nextPage()}>Next</span>}
         </div>
     )
 }
