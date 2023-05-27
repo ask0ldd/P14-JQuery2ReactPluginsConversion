@@ -7,6 +7,13 @@ import Pagination from './Pagination'
 import NEntries from './NEntries'
 import { useState, useEffect } from 'react'
 import { IUSersDatas } from '../../datas/usersDatasTen'
+import {createContext} from 'react'
+
+interface IDatasTableContext{
+    range? : any
+}
+
+export const DatasTableContext = createContext<IDatasTableContext>({})
 
 interface IProps {
     tableColumnsNames : Array<string>
@@ -31,16 +38,18 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
 
     // console.log(setOrdering)
     return(
-        <>
-            <div id="entriesNSearchContainer">
-                <NDisplayedSelect setDisplayingRange={setDisplayingRange}/>
-                <SearchModule/>
-            </div>
-            <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatasState.slice(displayingRange[0], displayingRange[1])} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayingRange}/>
-            <div id="infosNPaginationContainer">
-                <NEntries nEntries={tableDatasState.slice(displayingRange[0], displayingRange[1]).length} totalEntries={tableDatasState.length}/>
-                <Pagination/>
-            </div>
+        <>  
+            <DatasTableContext.Provider value={{range : displayingRange}}>
+                <div id="entriesNSearchContainer">
+                    <NDisplayedSelect setDisplayingRange={setDisplayingRange}/>
+                    <SearchModule/>
+                </div>
+                <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatasState.slice(displayingRange[0], displayingRange[1])} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayingRange}/>
+                <div id="infosNPaginationContainer">
+                    <NEntries nEntries={tableDatasState.slice(displayingRange[0], displayingRange[1]).length} totalEntries={tableDatasState.length}/>
+                    <Pagination/>
+                </div>
+            </DatasTableContext.Provider>
         </>
     )
 }

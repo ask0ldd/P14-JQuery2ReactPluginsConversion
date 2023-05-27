@@ -1,3 +1,6 @@
+import { useContext } from "react"
+import { DatasTableContext } from "./DatasTable"
+
 interface IOrdering{
   column : string
   direction : string
@@ -25,6 +28,11 @@ function isLastRow(index : number, lastRowIndex : number){
 
 function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, ordering} : IProps) {
 
+    const context = useContext(DatasTableContext)
+
+    console.log(context)
+    console.log(context.range)
+
     // const handleClick = () => setOrdering({column : 'lastName', direction : 'asc'})
     // console.log(setOrdering)
 
@@ -40,11 +48,11 @@ function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, orde
         <table>
         <thead>
           <tr className='bottomblackborder'>
-          {tableColumnsNames.map((name, index) => (<th style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}</th>))}
+          {tableColumnsNames.map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}</th>))}
           </tr>
         </thead>
         <tbody>
-          {tableDatas.map((datarow, index) => (<tr className={isRowOdd(index) + isLastRow(index, tableDatas.length-1)}>{tableDatasKeys.map(key => (<td>{datarow[key]}</td>))}</tr>))}
+          {tableDatas.map((datarow, index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, tableDatas.length-1)}>{tableDatasKeys.map(key => (<td key={'tdtable-'+key+'-'+index}>{datarow[key]}</td>))}</tr>))}
         </tbody>
       </table>        
     )
