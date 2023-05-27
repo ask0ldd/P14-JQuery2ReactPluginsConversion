@@ -66,7 +66,7 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
                 <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={[...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayRules}/>
                 <div id="infosNPaginationContainer">
                     <NEntries nEntries={tableDatasState.slice(firstDisplayedEntry, lastDisplayedEntry).length} totalEntries={tableDatasState.length}/>
-                    <Pagination currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>
+                    <Pagination totalEntries={tableDatasState.length} currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>
                 </div>
             </DatasTableContext.Provider>
         </>

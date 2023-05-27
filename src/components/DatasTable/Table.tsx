@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext } from "react"
 import { DatasTableContext } from "./DatasTable"
 
@@ -9,12 +10,9 @@ interface IOrdering{
 export interface IProps {
   tableColumnsNames : Array<string>
   tableDatasKeys : Array<string>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tableDatas : Array<any>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setOrdering : any
   ordering : IOrdering
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setDisplayingRange : any
 }
 
@@ -34,7 +32,6 @@ function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, orde
     // console.log(context.range)
     // console.log(tableDatas)
 
-    // const handleClick = () => setOrdering({column : 'lastName', direction : 'asc'})
     // console.log(setOrdering)
 
     function handleOrderingClick(index : number){
@@ -60,29 +57,3 @@ function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, orde
 }
 
 export default Table
-
-/*<table>
-<thead>
-  <tr className='bottomblackborder'>
-    <th>First Name</th><th>Last Name</th><th>Start Date</th><th>Birthdate</th><th>Street</th><th>City</th><th>State</th><th>Zip Code</th>
-  </tr>
-</thead>
-<tbody>
-  <tr className='odd'>
-    <td>Firstname</td><td>Lastname</td><td>Start Date</td><td>Birthdate</td><td>Street</td><td>City</td><td>State</td><td>Zip Code</td>
-  </tr>
-  <tr>
-    <td>Firstname</td><td>Lastname</td><td>Start Date</td><td>Birthdate</td><td>Street</td><td>City</td><td>State</td><td>Zip Code</td>
-  </tr>
-  <tr className='odd'>
-    <td>Firstname</td><td>Lastname</td><td>Start Date</td><td>Birthdate</td><td>Street</td><td>City</td><td>State</td><td>Zip Code</td>
-  </tr>
-  <tr className='bottomblackborder'>
-    <td>Firstname</td><td>Lastname</td><td>Start Date</td><td>Birthdate</td><td>Street</td><td>City</td><td>State</td><td>Zip Code</td>
-  </tr>
-</tbody>
-</table> */
-
-/*
-{tableColumnsNames.map((name, index) => (<th onClick={() => {setOrdering({column : tableDatasKeys[index], direction : 'asc'})}}>{name}</th>))}
-*/

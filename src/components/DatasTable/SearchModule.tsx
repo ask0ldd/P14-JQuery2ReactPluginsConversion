@@ -7,7 +7,7 @@ interface IProps{
 
 function SearchModule({setSearchString} : IProps) {
 
-
+    /* oninput should bring the user back to page 1 */
 
     return (
         <div id="searchContainer">
