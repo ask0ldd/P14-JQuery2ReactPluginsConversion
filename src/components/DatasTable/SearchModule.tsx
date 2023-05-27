@@ -1,11 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '../../style/table/SearchModule.css'
 
-function SearchModule() {
+interface IProps{
+    setSearchString: any
+}
+
+function SearchModule({setSearchString} : IProps) {
+
+
 
     return (
         <div id="searchContainer">
         <label htmlFor='search'>Search:</label>
-        <input id='search' type="text"/>
+        <input contentEditable id='search' type="text" onInput={(e)=> setSearchString(e.currentTarget.value)}/>
         </div>
     )
     
