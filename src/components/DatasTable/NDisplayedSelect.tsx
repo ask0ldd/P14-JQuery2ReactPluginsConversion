@@ -19,7 +19,7 @@ function NDisplayedSelect({setDisplayRules} : IProps)
         Show
         <select onChange={(e) => 
             {
-                const currentPage = 0
+                const currentPage = 1
                 const nEntriesPerPage = e.target.value != null ? parseInt(e.target.value) : 50
                 setDisplayRules({currentPage, nEntriesPerPage})
             }}
