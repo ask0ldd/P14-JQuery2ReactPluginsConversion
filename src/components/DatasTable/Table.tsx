@@ -30,8 +30,9 @@ function Table({tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, orde
 
     const context = useContext(DatasTableContext)
 
-    console.log(context)
-    console.log(context.range)
+    // console.log(context)
+    // console.log(context.range)
+    // console.log(tableDatas)
 
     // const handleClick = () => setOrdering({column : 'lastName', direction : 'asc'})
     // console.log(setOrdering)

@@ -35,15 +35,18 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
     useEffect(() => {
         // [...usersDatas] to avoid any mutation
         let filteredTable
-        if(searchString !== '') {filteredTable = [...tableDatas].filter(row => {
-            for (const property in row) if(property.includes(searchString)) return true
-            return false
-        })}else{
+        if(searchString !== '') 
+        {
+            filteredTable = [...tableDatas].filter(row => {
+                // check if one of the properties of a row contain the searchString
+                for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
+                return false
+            })}else{
             filteredTable = [...tableDatas]
         }
-        console.log('filtered: ', filteredTable)
-        if(ordering.column !== '' && ordering.direction === 'asc') setTableDatas((filteredTable).sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
-        if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas((filteredTable).sort((a,b) => frCollator.compare(b[ordering.column as keyof IUSersDatas], a[ordering.column as keyof IUSersDatas])))
+        if(ordering.column === '') return setTableDatas(filteredTable)
+        if(ordering.column !== '' && ordering.direction === 'asc') return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUSersDatas], b[ordering.column as keyof IUSersDatas])))
+        if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUSersDatas], a[ordering.column as keyof IUSersDatas])))
     }, [ordering.column, ordering.direction, displayRules.currentPage, searchString])
 
     const firstDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage)
@@ -51,7 +54,7 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
     // console.log('first: ', firstDisplayedEntry)
     // console.log('last: ', lastDisplayedEntry)
 
-    console.log('search: ', searchString)
+    // console.log('search: ', searchString)
 
     return(
         <>  
