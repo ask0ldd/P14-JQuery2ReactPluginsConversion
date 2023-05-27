@@ -49,6 +49,11 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
         if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUSersDatas], a[ordering.column as keyof IUSersDatas])))
     }, [ordering.column, ordering.direction, displayRules.currentPage, searchString])
 
+    // searchString update should set currentpage to 1
+    useEffect(()=>{
+        setDisplayRules({...displayRules, currentPage : 1})
+    }, [searchString])
+
     const firstDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage)
     const lastDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage)
     // console.log('first: ', firstDisplayedEntry)
