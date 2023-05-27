@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import '../../style/table/NDisplayedSelect.css'
-import { useRef } from 'react'
 
 interface IProps{
     setDisplayingRange :any

@@ -3,8 +3,6 @@ import '../App.css'
 import '../style/CurrentEmployees.css'
 import usersDatas from '../datas/usersDatas'
 import DatasTable from '../components/DatasTable/DatasTable'
-import { useState, useEffect } from 'react'
-import { IUSersDatas } from '../datas/usersDatasTen'
 
 function CurrentEmployees() {
 
@@ -37,5 +35,3 @@ export default CurrentEmployees
 
 
 // const tableColumnsNames : Array<string> = Object.getOwnPropertyNames(userDatas[0])
-
-/* .slice(displayingRange[0], displayingRange[1]) */

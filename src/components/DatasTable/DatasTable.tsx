@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 import Table from './Table'
 import NDisplayedSelect from './NDisplayedSelect'
 import SearchModule from './SearchModule'
@@ -6,10 +8,9 @@ import NEntries from './NEntries'
 import { useState, useEffect } from 'react'
 import { IUSersDatas } from '../../datas/usersDatasTen'
 
-export interface IProps {
+interface IProps {
     tableColumnsNames : Array<string>
     tableDatasKeys : Array<string>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tableDatas : Array<any>
 }
 
@@ -37,7 +38,7 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
             </div>
             <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={tableDatasState.slice(displayingRange[0], displayingRange[1])} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayingRange}/>
             <div id="infosNPaginationContainer">
-                <NEntries nEntries={tableDatasState.slice(displayingRange[0], displayingRange[1]).length}/>
+                <NEntries nEntries={tableDatasState.slice(displayingRange[0], displayingRange[1]).length} totalEntries={tableDatasState.length}/>
                 <Pagination/>
             </div>
         </>
