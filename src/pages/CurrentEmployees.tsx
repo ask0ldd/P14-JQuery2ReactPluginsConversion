@@ -19,19 +19,24 @@ function CurrentEmployees() {
 
 export default CurrentEmployees
 
-/*
-[
-    {"id":1,
-    "firstName":"Bernarr",
-    "lastName":"Camilleri",
-    "street":"4 Starling Plaza",
-    "city":"Rossosh’",
-    "zipCode":"624282",
-    "state":null,
-    "birthDate":"04/06/2022",
-    "startingDate":"09/08/2022"},
-    "department":"human ressources"
-*/
-
-
 // const tableColumnsNames : Array<string> = Object.getOwnPropertyNames(userDatas[0])
+
+interface IColumnDefElement 
+{
+  th : string
+  datakey : string
+  sortable : boolean
+  datatype : string
+}
+
+const columnsDefinition : Array<IColumnDefElement> = [
+  { th: 'First Name', datakey: 'firstName', sortable: true, datatype: 'string' },
+  { th: 'Last Name', datakey: 'lastName', sortable: true, datatype: 'string' },
+  { th: 'Start Date', datakey: 'startingDate', sortable: true, datatype: 'date' },
+  { th: 'Department', datakey: 'department', sortable: true, datatype: 'string' },
+  { th: 'Birthdate', datakey: 'birthdate', sortable: true, datatype: 'date' },
+  { th: 'Street', datakey: 'street', sortable: true, datatype: 'string' },
+  { th: 'City', datakey: 'city', sortable: true, datatype: 'string' },
+  { th: 'State', datakey: 'state', sortable: true, datatype: 'string' },
+  { th: 'Zip Code', datakey: 'zipCode', sortable: true, datatype: 'number' },
+]
