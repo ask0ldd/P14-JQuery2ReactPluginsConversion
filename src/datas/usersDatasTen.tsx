@@ -1,4 +1,4 @@
-export interface IUSersDatas {
+export interface IUsersDatas {
     firstName : string
     lastName : string
     street : string

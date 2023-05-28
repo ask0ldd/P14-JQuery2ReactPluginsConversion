@@ -2,32 +2,11 @@
 import { useContext } from "react"
 import { DatasTableContext } from "./DatasTable"
 import '../../style/table/Table.css'
+import { IUsersDatas } from "../../datas/usersDatasTen"
 
-interface IOrdering{
-  column : string
-  direction : string
-}
+function Table() {
 
-export interface IProps {
-  tableColumnsNames : Array<string>
-  tableDatasKeys : Array<string>
-  tableDatas : Array<any>
-  setOrdering : any
-  ordering : IOrdering
-  setDisplayingRange : any
-}
-
-function isRowOdd(index : number){
- return index%2 === 1 ? 'odd' : ''
-}
-
-function isLastRow(index : number, lastRowIndex : number){
-  return index === lastRowIndex ? ' bottomblackborder' : ''
-}
-
-function Table(/*{tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, ordering} : IProps*/) {
-
-    const {displayRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setDisplayRules, setOrdering, setSearchString} = useContext(DatasTableContext)
+    const {displayRules, tableDatasState, ordering, tableColumnsNames, tableDatasKeys, setOrdering} = useContext(DatasTableContext)
 
     function handleOrderingClick(index : number){
       // if clicking on the already active column, invert sorting direction
@@ -50,10 +29,32 @@ function Table(/*{tableColumnsNames, tableDatasKeys, tableDatas, setOrdering, or
           </tr>
         </thead>
         <tbody>
-          {[...rowsToDisplay].map((datarow, index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, tableDatasState.length-1)}>{[...tableDatasKeys].map(key => (<td key={'tdtable-'+key+'-'+index}>{datarow[key]}</td>))}</tr>))}
+          {[...rowsToDisplay].map((datarow : IUsersDatas , index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, tableDatasState.length-1)}>{[...tableDatasKeys].map((key : string) => (<td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>))}</tr>))}
         </tbody>
       </table>        
     )
 }
 
 export default Table
+
+function isRowOdd(index : number){
+  return index%2 === 1 ? 'odd' : ''
+ }
+ 
+ function isLastRow(index : number, lastRowIndex : number){
+   return index === lastRowIndex ? ' bottomblackborder' : ''
+ }
+
+interface IOrdering{
+  column : string
+  direction : string
+}
+
+export interface IProps {
+  tableColumnsNames : Array<string>
+  tableDatasKeys : Array<string>
+  tableDatas : Array<any>
+  setOrdering : any
+  ordering : IOrdering
+  setDisplayingRange : any
+}

@@ -3,10 +3,6 @@ import '../../style/table/NDisplayedSelect.css'
 import { DatasTableContext } from "./DatasTable"
 import { useContext } from "react"
 
-/*interface IProps{
-    setDisplayRules :any
-}*/
-
 function NDisplayedSelect() 
 {
     // const selectElement = useRef<HTMLSelectElement>(null)

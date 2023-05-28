@@ -1,12 +1,7 @@
 import { DatasTableContext } from "./DatasTable"
 import { useContext } from "react"
 
-/*interface IProps{
-    nEntries: number
-    totalEntries: number
-}*/
-
-function NEntries(/*{nEntries, totalEntries} : IProps*/){
+function NEntries(){
 
     const {tableDatasState, displayRules} = useContext(DatasTableContext)
 
@@ -21,3 +16,8 @@ function NEntries(/*{nEntries, totalEntries} : IProps*/){
 }
 
 export default NEntries
+
+/*interface IProps{
+    nEntries: number
+    totalEntries: number
+}*/
