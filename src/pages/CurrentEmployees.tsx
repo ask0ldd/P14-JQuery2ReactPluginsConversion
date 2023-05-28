@@ -6,10 +6,15 @@ import DatasTable from '../components/DatasTable/DatasTable'
 
 function CurrentEmployees() {
 
+  // check if usersDatas properties match columnsDefinition datakeys // should check for each object ?
+  let isDefinitionMatchingDatas = true
+  const tableDatasPropertiesList = Object.getOwnPropertyNames(usersDatas[0])
+  columnsDefinition.forEach(definition => {if(tableDatasPropertiesList.includes(definition.datakey) === false) isDefinitionMatchingDatas = false })
+
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable columnsDefinition={columnsDefinition} tableDatas={[...usersDatas]}/>
+      {isDefinitionMatchingDatas ? <DatasTable columnsDefinition={columnsDefinition} tableDatas={[...usersDatas]}/> : <div>Users datas are missing some mandatory dataKeys.</div>}
     </main>
   )
 }

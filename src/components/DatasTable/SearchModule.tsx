@@ -11,8 +11,6 @@ function SearchModule() {
 
     const { setSearchString } = useContext(DatasTableContext)
 
-    /* oninput should bring the user back to page 1 */
-
     return (
         <div id="searchContainer">
         <label htmlFor='search'>Search:</label>

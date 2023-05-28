@@ -42,7 +42,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
         if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUsersDatas], a[ordering.column as keyof IUsersDatas])))
     }, [ordering.column, ordering.direction, displayRules.currentPage, searchString])
 
-    // searchString update sets back currentpage to 1
+    // when typing into the searchbar, the currentpage is set back to 1
     useEffect(()=>{
         setDisplayRules({...displayRules, currentPage : 1})
     }, [searchString])
@@ -70,7 +70,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 
 export default DatasTable
 
-interface IDatasTableContext{ // define states interfaces to replace any
+interface IDatasTableContext{
     displayRules? : IDisplayRules
     tableDatasState : Array<IUsersDatas>
     ordering? : IOrdering

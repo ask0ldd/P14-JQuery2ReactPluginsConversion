@@ -18,7 +18,6 @@ function Table() {
 
     const firstDisplayedEntry = displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage) : 0
     const lastDisplayedEntry =  displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage) : 10
-
     const rowsToDisplay = [...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)
 
     return (
@@ -29,7 +28,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {[...rowsToDisplay].map((datarow : IUsersDatas , index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, tableDatasState.length-1)}>{[...tableDatasKeys].map((key : string) => (<td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>))}</tr>))}
+          {[...rowsToDisplay].map((datarow, index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, tableDatasState.length-1)}>{[...tableDatasKeys].map((key : string) => (<td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>))}</tr>))}
         </tbody>
       </table>        
     )
@@ -45,7 +44,7 @@ function isRowOdd(index : number){
    return index === lastRowIndex ? ' bottomblackborder' : ''
  }
 
-interface IOrdering{
+/*interface IOrdering{
   column : string
   direction : string
 }
@@ -54,7 +53,7 @@ export interface IProps {
   tableColumnsNames : Array<string>
   tableDatasKeys : Array<string>
   tableDatas : Array<any>
-  setOrdering : any
+  setOrdering({column, direction} : IOrdering) : void
   ordering : IOrdering
   setDisplayingRange : any
-}
+}*/
