@@ -1,16 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import '../../style/table/NDisplayedSelect.css'
+import { DatasTableContext } from "./DatasTable"
+import { useContext } from "react"
 
-interface IProps{
+/*interface IProps{
     setDisplayRules :any
-}
+}*/
 
-function NDisplayedSelect({setDisplayRules} : IProps) 
+function NDisplayedSelect() 
 {
     // const selectElement = useRef<HTMLSelectElement>(null)
 
     const NDisplayedOptions = ['10', '25', '50', '100']
     // const defaultOptionIndex = 0;
+
+    const {setDisplayRules} = useContext(DatasTableContext)
 
      /* should update select active option if 100 */
 

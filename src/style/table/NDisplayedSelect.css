@@ -12,3 +12,6 @@
   font-family: "Jost", sans-serif;
   font-size: 1rem;
 }
+#entriesContainer select:focus {
+  outline: 1px solid #213547;
+}

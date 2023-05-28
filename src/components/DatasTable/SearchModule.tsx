@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import '../../style/table/SearchModule.css'
+import { DatasTableContext } from "./DatasTable"
+import { useContext } from "react"
 
-interface IProps{
+/*interface IProps{
     setSearchString: any
-}
+}*/
 
-function SearchModule({setSearchString} : IProps) {
+function SearchModule() {
+
+    const { setSearchString } = useContext(DatasTableContext)
 
     /* oninput should bring the user back to page 1 */
 

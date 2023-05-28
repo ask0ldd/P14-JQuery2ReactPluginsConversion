@@ -9,8 +9,16 @@ import { useState, useEffect } from 'react'
 import { IUSersDatas } from '../../datas/usersDatasTen'
 import {createContext} from 'react'
 
-interface IDatasTableContext{
-    range? : any
+interface IDatasTableContext{ // define states interfaces to replace any
+    displayRules? : any
+    tableDatasState? : any
+    ordering? : any
+    searchString? : string
+    tableColumnsNames? : Array<string>
+    tableDatasKeys? : Array<string>
+    setDisplayRules? : any
+    setOrdering? : any
+    setSearchString? : any
 }
 
 export const DatasTableContext = createContext<IDatasTableContext>({})
@@ -26,7 +34,7 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
     const frCollator = new Intl.Collator('en')
   
     // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
-    const [tableDatasState, setTableDatas] = useState([...tableDatas]);
+    const [tableDatasState, setTableDatas] = useState<Array<object>>([...tableDatas]);
     const [ordering, setOrdering] = useState({column : '', direction : 'asc'})
     const [displayRules, setDisplayRules] = useState({currentPage : 1, nEntriesPerPage : 10})
     const [searchString, setSearchString] = useState<string>('')
@@ -63,10 +71,10 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
 
     return(
         <>  
-            <DatasTableContext.Provider value={{range : displayRules}}>
+            <DatasTableContext.Provider value={{displayRules, tableDatasState, ordering, searchString, setDisplayRules, setOrdering, setSearchString}}>
                 <div id="entriesNSearchContainer">
-                    <NDisplayedSelect setDisplayRules={setDisplayRules}/>
-                    <SearchModule setSearchString={setSearchString}/>
+                    <NDisplayedSelect/>
+                    <SearchModule/>
                 </div>
                 <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={[...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayRules}/>
                 <div id="infosNPaginationContainer">
@@ -79,3 +87,7 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
 }
 
 export default DatasTable
+
+/*
+<Pagination totalEntries={tableDatasState.length} currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>
+*/
