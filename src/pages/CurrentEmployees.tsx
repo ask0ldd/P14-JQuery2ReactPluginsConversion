@@ -6,13 +6,13 @@ import DatasTable from '../components/DatasTable/DatasTable'
 
 function CurrentEmployees() {
 
-  const columnsNames = ['First Name', 'Last Name', 'Start Date', 'Department', 'Birthdate', 'Street', 'City', 'State', 'Zip Code']
-  const dataKeys = ['firstName', 'lastName', 'startingDate', 'department', 'birthDate', 'street', 'city', 'state', 'zipCode']
+  /*const columnsNames = ['First Name', 'Last Name', 'Start Date', 'Department', 'Birthdate', 'Street', 'City', 'State', 'Zip Code']
+  const dataKeys = ['firstName', 'lastName', 'startingDate', 'department', 'birthDate', 'street', 'city', 'state', 'zipCode']*/
 
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableColumnsNames={columnsNames} tableDatasKeys={dataKeys} tableDatas={[...usersDatas]}/>
+      <DatasTable columnsDefinition={columnsDefinition} tableDatas={[...usersDatas]}/>
     </main>
   )
 }
@@ -21,7 +21,7 @@ export default CurrentEmployees
 
 // const tableColumnsNames : Array<string> = Object.getOwnPropertyNames(userDatas[0])
 
-interface IColumnDefElement 
+export interface IColumnDefElement 
 {
   th : string
   datakey : string

@@ -7,31 +7,15 @@ import Pagination from './Pagination'
 import NEntries from './NEntries'
 import { useState, useEffect } from 'react'
 import { IUSersDatas } from '../../datas/usersDatasTen'
+import { IColumnDefElement } from '../../pages/CurrentEmployees'
 import {createContext} from 'react'
 
-interface IDatasTableContext{ // define states interfaces to replace any
-    displayRules? : any
-    tableDatasState? : any
-    ordering? : any
-    searchString? : string
-    tableColumnsNames? : Array<string>
-    tableDatasKeys? : Array<string>
-    setDisplayRules? : any
-    setOrdering? : any
-    setSearchString? : any
-}
-
-export const DatasTableContext = createContext<IDatasTableContext>({})
-
-interface IProps {
-    tableColumnsNames : Array<string>
-    tableDatasKeys : Array<string>
-    tableDatas : Array<any>
-}
-
-function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
+function DatasTable({columnsDefinition, tableDatas} : IProps){
 
     const frCollator = new Intl.Collator('en')
+
+    const tableColumnsNames : Array<string> = columnsDefinition.reduce((accu : Array<string>, column) => {accu.push(column.th); return accu}, [])
+    const tableDatasKeys : Array<string> = columnsDefinition.reduce((accu : Array<string>, column) => {accu.push(column.datakey); return accu}, [])
   
     // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
     const [tableDatasState, setTableDatas] = useState<Array<object>>([...tableDatas]);
@@ -87,6 +71,27 @@ function DatasTable({tableColumnsNames, tableDatasKeys, tableDatas} : IProps){
 }
 
 export default DatasTable
+
+interface IDatasTableContext{ // define states interfaces to replace any
+    displayRules? : any
+    tableDatasState? : any
+    ordering? : any
+    searchString? : string
+    tableColumnsNames? : Array<string>
+    tableDatasKeys? : Array<string>
+    setDisplayRules? : any
+    setOrdering? : any
+    setSearchString? : any
+}
+
+export const DatasTableContext = createContext<IDatasTableContext>({})
+
+interface IProps {
+    columnsDefinition : Array<IColumnDefElement>
+    tableDatas : Array<any>
+}
+
+
 
 /*
 <Pagination totalEntries={tableDatasState.length} currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>
