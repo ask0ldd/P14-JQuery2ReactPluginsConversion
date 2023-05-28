@@ -32,6 +32,9 @@
 
 .paginationActivePage:hover {
   outline: 1px solid #213547;
+  background: #fff;
+  opacity: 1;
+  box-shadow: 0px 4px 8px #61798f;
 }
 
 .paginationInactivePage {
@@ -42,9 +45,12 @@
   border: 1px solid #979797;
   padding: 0.5em 1em;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .paginationInactivePage:hover {
   outline: 1px solid #213547;
+  background: #fff;
+  opacity: 1;
+  box-shadow: 0px 4px 8px #61798f;
 }
