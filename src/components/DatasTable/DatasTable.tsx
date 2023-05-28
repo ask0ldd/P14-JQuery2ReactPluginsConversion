@@ -42,14 +42,13 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
         if(ordering.column !== '' && ordering.direction === 'desc') setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUsersDatas], a[ordering.column as keyof IUsersDatas])))
     }, [ordering.column, ordering.direction, displayRules.currentPage, searchString])
 
-    // searchString update should set currentpage to 1
+    // searchString update sets back currentpage to 1
     useEffect(()=>{
         setDisplayRules({...displayRules, currentPage : 1})
     }, [searchString])
 
     // console.log('first: ', firstDisplayedEntry)
     // console.log('last: ', lastDisplayedEntry)
-
     // console.log('search: ', searchString)
 
     return(
@@ -72,15 +71,15 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 export default DatasTable
 
 interface IDatasTableContext{ // define states interfaces to replace any
-    displayRules? : any
+    displayRules? : IDisplayRules
     tableDatasState : Array<IUsersDatas>
-    ordering? : any
+    ordering? : IOrdering
     searchString? : string
     tableColumnsNames : Array<string>
     tableDatasKeys : Array<string>
-    setDisplayRules? : any
-    setOrdering? : any
-    setSearchString? : any
+    setDisplayRules?({currentPage, nEntriesPerPage} : IDisplayRules) : void
+    setOrdering?({column, direction} : IOrdering) : void
+    setSearchString?(string : string) : void
 }
 
 export const DatasTableContext = createContext<IDatasTableContext>({tableDatasState : [],tableColumnsNames : [], tableDatasKeys: []})
@@ -99,8 +98,6 @@ interface IOrdering{
     column : string
     direction : 'asc' | 'desc'
 }
-
-
 
 /*
 <Pagination totalEntries={tableDatasState.length} currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>

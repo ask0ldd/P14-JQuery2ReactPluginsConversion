@@ -21,7 +21,7 @@ function NDisplayedSelect()
             {
                 const currentPage = 1
                 const nEntriesPerPage = e.target.value != null ? parseInt(e.target.value) : 50
-                setDisplayRules({currentPage, nEntriesPerPage})
+                setDisplayRules && setDisplayRules({currentPage, nEntriesPerPage})
             }}
         >
             {NDisplayedOptions.map((opt, index) => (<option value={parseInt(opt)} key={'opt'+index}>{opt}</option>))}

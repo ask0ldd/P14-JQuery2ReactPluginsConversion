@@ -16,7 +16,7 @@ function SearchModule() {
     return (
         <div id="searchContainer">
         <label htmlFor='search'>Search:</label>
-        <input contentEditable id='search' type="text" onInput={(e)=> setSearchString(e.currentTarget.value)}/>
+        <input contentEditable id='search' type="text" onInput={(e)=> setSearchString && setSearchString(e.currentTarget.value)}/>
         </div>
     )
     

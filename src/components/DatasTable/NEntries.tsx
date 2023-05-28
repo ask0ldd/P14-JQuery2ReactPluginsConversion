@@ -5,8 +5,8 @@ function NEntries(){
 
     const {tableDatasState, displayRules} = useContext(DatasTableContext)
 
-    const firstDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage)
-    const lastDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage)
+    const firstDisplayedEntry = displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage) : 0
+    const lastDisplayedEntry =  displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage) : 10
     const displayedRows = tableDatasState.slice(firstDisplayedEntry, lastDisplayedEntry).length
     const totalEntries = tableDatasState.length
 

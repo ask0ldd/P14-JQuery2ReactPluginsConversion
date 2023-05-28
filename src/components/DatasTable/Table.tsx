@@ -10,14 +10,14 @@ function Table() {
 
     function handleOrderingClick(index : number){
       // if clicking on the already active column, invert sorting direction
-      if(ordering.column === tableDatasKeys[index]) 
-        return ordering.direction === 'asc' ? setOrdering({column : tableDatasKeys[index], direction : 'desc'}) :  setOrdering({column : tableDatasKeys[index], direction : 'asc'})
+      if(ordering?.column === tableDatasKeys[index]) 
+        return ordering.direction === 'asc' ? setOrdering && setOrdering({column : tableDatasKeys[index], direction : 'desc'}) :  setOrdering && setOrdering({column : tableDatasKeys[index], direction : 'asc'})
       // if clicking on a different column sorting asc this new column
-      return setOrdering({column : tableDatasKeys[index], direction : 'asc'})
+      return setOrdering && setOrdering({column : tableDatasKeys[index], direction : 'asc'})
     }
 
-    const firstDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage)
-    const lastDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage)
+    const firstDisplayedEntry = displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage) : 0
+    const lastDisplayedEntry =  displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage) : 10
 
     const rowsToDisplay = [...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)
 
