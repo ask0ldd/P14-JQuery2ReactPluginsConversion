@@ -46,8 +46,8 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
         setDisplayRules({...displayRules, currentPage : 1})
     }, [searchString])
 
-    const firstDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage)
-    const lastDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage)
+    /*const firstDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage)
+    const lastDisplayedEntry = Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage)*/
     // console.log('first: ', firstDisplayedEntry)
     // console.log('last: ', lastDisplayedEntry)
 
@@ -55,14 +55,14 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 
     return(
         <>  
-            <DatasTableContext.Provider value={{displayRules, tableDatasState, ordering, searchString, setDisplayRules, setOrdering, setSearchString}}>
+            <DatasTableContext.Provider value={{displayRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setDisplayRules, setOrdering, setSearchString}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>
                     <SearchModule/>
                 </div>
-                <Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={[...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayRules}/>
+                <Table/>
                 <div id="infosNPaginationContainer">
-                    <NEntries nEntries={tableDatasState.slice(firstDisplayedEntry, lastDisplayedEntry).length} totalEntries={tableDatasState.length}/>
+                    <NEntries/>
                     <Pagination totalEntries={tableDatasState.length} currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>
                 </div>
             </DatasTableContext.Provider>
@@ -70,21 +70,25 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     )
 }
 
+/*
+<Table tableColumnsNames={tableColumnsNames} tableDatasKeys={tableDatasKeys} tableDatas={[...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)} setOrdering={setOrdering} ordering={ordering} setDisplayingRange={setDisplayRules}/>
+*/
+
 export default DatasTable
 
 interface IDatasTableContext{ // define states interfaces to replace any
     displayRules? : any
-    tableDatasState? : any
+    tableDatasState : any
     ordering? : any
     searchString? : string
-    tableColumnsNames? : Array<string>
-    tableDatasKeys? : Array<string>
+    tableColumnsNames : Array<string>
+    tableDatasKeys : Array<string>
     setDisplayRules? : any
     setOrdering? : any
     setSearchString? : any
 }
 
-export const DatasTableContext = createContext<IDatasTableContext>({})
+export const DatasTableContext = createContext<IDatasTableContext>({tableDatasState : [],tableColumnsNames : [], tableDatasKeys: []})
 
 interface IProps {
     columnsDefinition : Array<IColumnDefElement>

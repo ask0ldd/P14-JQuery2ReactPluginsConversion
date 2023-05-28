@@ -6,9 +6,6 @@ import DatasTable from '../components/DatasTable/DatasTable'
 
 function CurrentEmployees() {
 
-  /*const columnsNames = ['First Name', 'Last Name', 'Start Date', 'Department', 'Birthdate', 'Street', 'City', 'State', 'Zip Code']
-  const dataKeys = ['firstName', 'lastName', 'startingDate', 'department', 'birthDate', 'street', 'city', 'state', 'zipCode']*/
-
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
@@ -34,7 +31,7 @@ const columnsDefinition : Array<IColumnDefElement> = [
   { th: 'Last Name', datakey: 'lastName', sortable: true, datatype: 'string' },
   { th: 'Start Date', datakey: 'startingDate', sortable: true, datatype: 'date' },
   { th: 'Department', datakey: 'department', sortable: true, datatype: 'string' },
-  { th: 'Birthdate', datakey: 'birthdate', sortable: true, datatype: 'date' },
+  { th: 'Birthdate', datakey: 'birthDate', sortable: true, datatype: 'date' },
   { th: 'Street', datakey: 'street', sortable: true, datatype: 'string' },
   { th: 'City', datakey: 'city', sortable: true, datatype: 'string' },
   { th: 'State', datakey: 'state', sortable: true, datatype: 'string' },

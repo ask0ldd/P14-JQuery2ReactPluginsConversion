@@ -5,56 +5,6 @@
   font-size: 1rem;
 }
 
-table {
-  border-collapse: collapse;
-  margin-top: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-tr {
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  text-align: left;
-  position: relative;
-}
-
-/*th::after {
-  content: "▲";
-  position: absolute;
-  display: block;
-  opacity: 0.125;
-  right: 10px;
-  line-height: 9px;
-  font-size: 0.8em;
-  top: 50%;
-}
-
-th::before {
-  content: "▼";
-  position: absolute;
-  display: block;
-  opacity: 0.125;
-  right: 10px;
-  line-height: 9px;
-  font-size: 0.8em;
-  bottom: 50%;
-}*/
-
-table tr.bottomblackborder {
-  border-bottom: 1px solid #111;
-}
-
-th,
-td {
-  padding: 10px 18px;
-}
-
-.odd {
-  background-color: #f9f9f9;
-}
-
 #entriesNSearchContainer,
 #infosNPaginationContainer {
   display: flex;
