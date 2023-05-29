@@ -8,7 +8,7 @@ function CustomSelect({options} : IProps){
     
     return(
         <div className="selectContainer">
-            <SelectContext.Provider value={{options : options, activeOption}}>
+            <SelectContext.Provider value={{options, activeOption, setActiveOption}}>
                 <SelectLabel/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -18,7 +18,7 @@ function CustomSelect({options} : IProps){
 
 export default CustomSelect
 
-export const SelectContext = createContext({options : []})
+export const SelectContext = createContext<ISelectContext>({options : []})
 
 interface IOption{
     id : string
@@ -28,6 +28,12 @@ interface IOption{
 
 interface IProps{
     options : Array<IOption>
+}
+
+interface ISelectContext{
+    options: Array<IOption>
+    activeOption? : string
+    setActiveOption?(option : string) : void
 }
 
 /*
