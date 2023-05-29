@@ -3,13 +3,13 @@ import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
 import {createContext, useState} from 'react'
 
-function CustomSelect({options} : IProps){
+function CustomSelect({options, selectId} : IProps){ /* select id to integrated to various keys identifiers */
 
     const [activeOption, setActiveOption] = useState(options[0])
     
     return(
         <div className="selectContainer">
-            <SelectContext.Provider value={{options, activeOption, setActiveOption}}>
+            <SelectContext.Provider value={{selectId, options, activeOption, setActiveOption}}>
                 <SelectLabel/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -19,7 +19,7 @@ function CustomSelect({options} : IProps){
 
 export default CustomSelect
 
-export const SelectContext = createContext<ISelectContext>({options : []})
+export const SelectContext = createContext<ISelectContext>({selectId : '', options : []})
 
 interface IOption{
     label : string
@@ -28,10 +28,12 @@ interface IOption{
 
 interface IProps{
     options : Array<IOption>
+    selectId : string
 }
 
 interface ISelectContext{
-    options: Array<IOption>
+    selectId : string
+    options : Array<IOption>
     activeOption? : IOption
     setActiveOption?(option : IOption) : void
 }
