@@ -4,7 +4,7 @@ import {createContext, useState} from 'react'
 
 function CustomSelect({options} : IProps){
 
-    const [activeOption, setActiveOption] = useState(options[0].id)
+    const [activeOption, setActiveOption] = useState(options[0])
     
     return(
         <div className="selectContainer">
@@ -21,7 +21,6 @@ export default CustomSelect
 export const SelectContext = createContext<ISelectContext>({options : []})
 
 interface IOption{
-    id : string
     label : string
     value : string
 }
@@ -32,8 +31,8 @@ interface IProps{
 
 interface ISelectContext{
     options: Array<IOption>
-    activeOption? : string
-    setActiveOption?(option : string) : void
+    activeOption? : IOption
+    setActiveOption?(option : IOption) : void
 }
 
 /*

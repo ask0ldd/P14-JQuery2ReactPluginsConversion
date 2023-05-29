@@ -1,5 +1,6 @@
 import './App.css'
 import { Link } from 'react-router-dom'
+import CustomSelect from './components/CustomSelect/CustomSelect'
 
 function App() {
 
@@ -39,11 +40,13 @@ function App() {
         <input id="start-date" type="text"/>
 
         <label htmlFor="department" className='defaultSpacing'>Departement</label>
-        <input name="department" id="department" type="text"/>
+        {/*<input name="department" id="department" type="text"/>*/}
+        <CustomSelect options={[{label:'test1', value:'test1'}, {label:'test2', value:'test2'}]}/>
 
         <input type="submit" value="Add this Employee"/>
 
       </form>
+      
     </main>
   )
 }
