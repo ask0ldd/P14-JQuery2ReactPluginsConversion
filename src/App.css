@@ -44,3 +44,7 @@ a {
 label.defaultSpacing {
   margin-top: 1rem;
 }
+
+.mainform input:focus {
+  outline: 1px solid #213547;
+}

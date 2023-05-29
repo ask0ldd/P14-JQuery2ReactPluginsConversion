@@ -3,13 +3,11 @@ import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
 import {createContext, useState, useEffect} from 'react'
 
-function CustomSelect({options, selectId} : IProps){ /* select id to integrated to various keys identifiers */
+/* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
+function CustomSelect({options, selectId} : IProps){
 
     const [activeOption, setActiveOption] = useState(options[0])
     const [optionsListVisibility, setOptionsListVisibility] = useState(false)
-
-    /*useEffect(()=>{
-    }, [optionsListVisibility])*/
     
     return(
         <div className="selectContainer">
@@ -46,13 +44,12 @@ interface ISelectContext{
     options : Array<IOption>
     activeOption? : IOption
     optionsListVisibility : boolean
-    setActiveOption(option : IOption) : void
-    setOptionsListVisibility(bool : boolean) : void
+    setActiveOption : (option : IOption) => void
+    setOptionsListVisibility : (bool : boolean) => void
 }
 
 /*
 
-optionsList
-defaultOption
+should add later a way to define the default Option
 
 */

@@ -47,7 +47,7 @@ function App() {
           {label:'Marketing', value:'Marketing'}, 
           {label:'Legal', value:'Legal'}, 
           {label:'Sales', value:'Sales'}
-        ]}/>
+        ]} selectId='department'/>
 
         <input type="submit" value="Add this Employee"/>
 
