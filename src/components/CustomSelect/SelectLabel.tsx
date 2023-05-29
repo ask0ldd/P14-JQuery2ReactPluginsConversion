@@ -5,11 +5,11 @@ import '../../style/select/SelectLabel.css'
 
 function SelectLabel(){
 
-    const {activeOption} = useContext(SelectContext)
+    const {activeOption, optionsListVisibility, setOptionsListVisibility} = useContext(SelectContext)
 
     // update active descendant
     return(
-        <span tabIndex={0} aria-controls="customListbox" id="customSelectLabel" role="combobox" 
+        <span onClick={() => {if(setOptionsListVisibility) setOptionsListVisibility(!optionsListVisibility)}} tabIndex={0} aria-controls="customListbox" id="customSelectLabel" role="combobox" 
         aria-haspopup="listbox" aria-activedescendant={activeOption?.value} 
         aria-expanded="false" className="customSelectLabel">
             {activeOption?.label}

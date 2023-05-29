@@ -6,10 +6,11 @@ import {createContext, useState} from 'react'
 function CustomSelect({options, selectId} : IProps){ /* select id to integrated to various keys identifiers */
 
     const [activeOption, setActiveOption] = useState(options[0])
+    const [optionsListVisibility, setOptionsListVisibility] = useState(false)
     
     return(
         <div className="selectContainer">
-            <SelectContext.Provider value={{selectId, options, activeOption, setActiveOption}}>
+            <SelectContext.Provider value={{selectId, options, activeOption, optionsListVisibility, setActiveOption, setOptionsListVisibility}}>
                 <SelectLabel/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -19,7 +20,13 @@ function CustomSelect({options, selectId} : IProps){ /* select id to integrated 
 
 export default CustomSelect
 
-export const SelectContext = createContext<ISelectContext>({selectId : '', options : []})
+export const SelectContext = createContext<ISelectContext>({
+    selectId : '', 
+    options : [], 
+    optionsListVisibility : false, 
+    setActiveOption : () => false, 
+    setOptionsListVisibility : () => false
+})
 
 interface IOption{
     label : string
@@ -35,7 +42,9 @@ interface ISelectContext{
     selectId : string
     options : Array<IOption>
     activeOption? : IOption
-    setActiveOption?(option : IOption) : void
+    optionsListVisibility : boolean
+    setActiveOption(option : IOption) : void
+    setOptionsListVisibility(bool : boolean) : void
 }
 
 /*
