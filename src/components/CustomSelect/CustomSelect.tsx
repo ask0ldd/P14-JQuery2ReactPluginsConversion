@@ -1,12 +1,14 @@
 import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
-import {createContext} from 'react'
+import {createContext, useState} from 'react'
 
 function CustomSelect({options} : IProps){
 
+    const [activeOption, setActiveOption] = useState(options[0].id)
+    
     return(
         <div className="selectContainer">
-            <SelectContext.Provider value={options}>
+            <SelectContext.Provider value={{options : options, activeOption}}>
                 <SelectLabel/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -16,7 +18,7 @@ function CustomSelect({options} : IProps){
 
 export default CustomSelect
 
-export const SelectContext = createContext({})
+export const SelectContext = createContext({options : []})
 
 interface IOption{
     id : string
