@@ -41,7 +41,13 @@ function App() {
 
         <label htmlFor="department" className='defaultSpacing'>Departement</label>
         {/*<input name="department" id="department" type="text"/>*/}
-        <CustomSelect options={[{label:'test1', value:'test1'}, {label:'test2', value:'test2'}]}/>
+        <CustomSelect options={[
+          {label:'Engineering', value:'Engineering'}, 
+          {label:'Human Ressources', value:'Human Ressources'}, 
+          {label:'Marketing', value:'Marketing'}, 
+          {label:'Legal', value:'Legal'}, 
+          {label:'Sales', value:'Sales'}
+        ]}/>
 
         <input type="submit" value="Add this Employee"/>
 
