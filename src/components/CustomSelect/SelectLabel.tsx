@@ -13,7 +13,7 @@ function SelectLabel(){
         aria-haspopup="listbox" aria-activedescendant={activeOption?.value} 
         aria-expanded="false" className="customSelectLabel">
             {activeOption?.label}
-            <img className="customSelectArrow" src="./icons/select-arrow.svg"/>
+            <img className={optionsListVisibility ? "customSelectOpen" : "customSelectArrow"} src="./icons/select-arrow.svg"/>
         </span>
     )
 }

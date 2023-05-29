@@ -15,3 +15,7 @@
 .customSelectOptionsContainer li {
   padding: 0.5em 1em 0.45em 1em;
 }
+
+.customSelectOptionsContainer li:hover {
+  background: #e7e7e7;
+}

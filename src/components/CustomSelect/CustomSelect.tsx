@@ -1,12 +1,15 @@
 import '../../style/select/CustomSelect.css'
 import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
-import {createContext, useState} from 'react'
+import {createContext, useState, useEffect} from 'react'
 
 function CustomSelect({options, selectId} : IProps){ /* select id to integrated to various keys identifiers */
 
     const [activeOption, setActiveOption] = useState(options[0])
     const [optionsListVisibility, setOptionsListVisibility] = useState(false)
+
+    /*useEffect(()=>{
+    }, [optionsListVisibility])*/
     
     return(
         <div className="selectContainer">
