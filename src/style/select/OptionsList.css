@@ -1,0 +1,17 @@
+.customSelectOptionsContainer {
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5em 1em 0.45em 1em;
+  /*display: none;*/
+  position: absolute;
+  left: 0;
+  top: 32px;
+  z-index: 100;
+  background: #f6f6f6;
+  overflow: hidden;
+  border: 1px solid #c5c5c5;
+}
+
+.customSelectOptionsContainer li {
+  padding: 0.5em 0.6em 0.45em 0.6em;
+}

@@ -1,3 +1,4 @@
+import '../../style/select/CustomSelect.css'
 import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
 import {createContext, useState} from 'react'

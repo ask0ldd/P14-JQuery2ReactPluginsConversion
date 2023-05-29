@@ -10,10 +10,10 @@ function SelectLabel(){
     // update active descendant
     return(
         <span tabIndex={0} aria-controls="customListbox" id="customSelectLabel" role="combobox" 
-        aria-haspopup="listbox" aria-activedescendant="${selectedOptionId[0].value}" 
+        aria-haspopup="listbox" aria-activedescendant={activeOption?.value} 
         aria-expanded="false" className="customSelectLabel">
             {activeOption?.label}
-            <img className="customSelectArrow" src="../../assets/icons/select-arrow.svg"/>
+            <img className="customSelectArrow" src="./icons/select-arrow.svg"/>
         </span>
     )
 }
