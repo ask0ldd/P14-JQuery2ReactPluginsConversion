@@ -19,10 +19,22 @@ function CustomSelect({options, selectId} : IProps){
 
     useEffect(() => {
 
-        window.addEventListener('keydown', e => keyboardListener(e))
+        function keyboardListener(e : KeyboardEvent){
+            console.log(document.activeElement?.id)
+    
+            if(document.activeElement?.id === 'customSelectLabel'){
+                if(e.code == "Enter" || e.code == "NumpadEnter") {openSelectOptions(e);}
+                if(e.code == "ArrowUp") {prevOption(e)/*e.preventDefault(); setActiveOption(options[getActiveOptionIndex(options, activeOption)-1])*/}
+                if(e.code == "ArrowDown") {nextOption(e)}
+                if(e.code == "Escape") {e.preventDefault(); closeSelectOptions(e);}
+            }
+        }
 
+        window.addEventListener('keydown', keyboardListener)
+
+        // soutenance : clean up to avoid having two listeners active cause useEffect is triggered twice in strict mode
         return () => {
-            window.removeEventListener('keydown', e => keyboardListener(e))
+            window.removeEventListener('keydown', keyboardListener)
         }
 
     }, [])
@@ -36,17 +48,6 @@ function CustomSelect({options, selectId} : IProps){
         </div>
     )
 
-    function keyboardListener(e : KeyboardEvent){
-        console.log(document.activeElement?.id)
-
-        if(document.activeElement?.id === 'customSelectLabel'){
-            if(e.code == "Enter" || e.code == "NumpadEnter") {openSelectOptions(e);}
-            if(e.code == "ArrowUp") {e.preventDefault(); setActiveOption(options[getActiveOptionIndex(activeOption)-1])}
-            if(e.code == "ArrowDown") {e.preventDefault(); setActiveOption(options[getActiveOptionIndex(activeOption)+1])}
-            if(e.code == "Escape") {e.preventDefault(); closeSelectOptions(e);}
-        }
-    }
-
     function openSelectOptions(e : KeyboardEvent){
         e.preventDefault(); setOptionsListVisibility(true);
     }
@@ -55,10 +56,31 @@ function CustomSelect({options, selectId} : IProps){
         e.preventDefault(); if(optionsListVisibility) setOptionsListVisibility(false);
     }
 
+    function prevOption(e : KeyboardEvent){
+        e.preventDefault()
+        const prevOptionIndex = getActiveOptionIndex(activeOption)-1
+        setActiveOption(options[1])
+    }
+
+    function nextOption(e : KeyboardEvent){
+        e.preventDefault()
+        const nextOptionIndex = getActiveOptionIndex(activeOption)+1
+        setActiveOption(options[2])
+    }
+
     function getActiveOptionIndex(activeOption : IOption) : number{
-        let activeOptionIndex = 0
-        options.forEach((option, index) => {if(activeOption.value === option.value) activeOptionIndex = index})
-        return activeOptionIndex
+        /*let activeOptionIndex = 0
+        options.map((option, index) => {
+                if(activeOption.value === option.value) { 
+                    activeOptionIndex = index
+                }
+            }
+        )
+        return activeOptionIndex*/
+        console.log(options)
+        console.log(options.indexOf({label : activeOption.label, value : activeOption.value}))
+        console.log({label : activeOption.label, value : activeOption.value})
+        return options.indexOf({label : activeOption.label, value : activeOption.value})
     }
 }
 
