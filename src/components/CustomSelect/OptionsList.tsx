@@ -1,6 +1,7 @@
 import '../../style/select/OptionsList.css'
 import {useContext} from 'react'
 import { SelectContext } from './CustomSelect'
+import Option from './Option'
 
 function OptionsList(){
 
@@ -13,7 +14,7 @@ function OptionsList(){
 
     return(
         optionsListVisibility ? <ul tabIndex={-1} id="customListbox" aria-labelledby="customSelectLabel" className="customSelectOptionsContainer" role="listbox">
-            {options.map((option, index) => <li onClick={() => {setActiveOption(options[index]); setOptionsListVisibility(false);}} key={selectId+'-option-'+index} value={option.value}>{option.label}</li>)}
+            {options.map((option, index) => <Option index={index} option={option}/>)}
         </ul> : <></>
     )
 }
