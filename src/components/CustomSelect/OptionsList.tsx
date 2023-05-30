@@ -9,8 +9,8 @@ function OptionsList(){
 
     /* li key should have a specific string added => the name of the component, pass as props at select creation then add in each key of each subcompo */
 
-    console.log(optionsListVisibility)
-    console.log(activeOption)
+    /*console.log(optionsListVisibility)
+    console.log(activeOption)*/
 
     return(
         optionsListVisibility ? <ul tabIndex={-1} id="customListbox" aria-labelledby="customSelectLabel" className="customSelectOptionsContainer" role="listbox">

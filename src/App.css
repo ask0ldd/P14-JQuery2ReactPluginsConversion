@@ -34,9 +34,10 @@ a {
 
 .mainform input[type="submit"] {
   margin-top: 2.325rem;
-  height: 32px;
+  /*height: 32px;*/
   font-family: "Jost", sans-serif;
   font-size: 1rem;
+  padding: 0.5em 0.6em 0.45em 0.6em;
   background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
   border: 1px solid #979797;
 }
