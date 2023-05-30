@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {useContext} from 'react'
 import { SelectContext } from './CustomSelect'
-import '../../style/select/SelectLabel.css'
+import '../../style/select/ComboBox.css'
 
-function SelectLabel(){
+function SelectComboBox(){ // shouldbe combobox and not select label
 
     const { activeOption, optionsListVisibility, setOptionsListVisibility } = useContext(SelectContext)
 
-    // update active descendant
     return(
         <span onBlur={() => {if(setOptionsListVisibility) setOptionsListVisibility(false)}} 
         onClick={() => {if(setOptionsListVisibility) setOptionsListVisibility(!optionsListVisibility)}} 
@@ -21,4 +20,4 @@ function SelectLabel(){
     )
 }
 
-export default SelectLabel
+export default SelectComboBox

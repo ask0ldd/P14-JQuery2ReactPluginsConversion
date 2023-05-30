@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import '../../style/select/CustomSelect.css'
-import SelectLabel from "./SelectLabel"
+import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
 import {createContext, useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 
 /* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
-function CustomSelect({options, selectId} : IProps){
+function CustomSelect({options, selectId} : IProps){ // should be able to pass the id of the element labelling the select
 
     // updated state (always returning th old version) not accessible into event listeners so we need some kind of duplicated state placed into a ref
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
@@ -35,7 +35,7 @@ function CustomSelect({options, selectId} : IProps){
     return(
         <div className="selectContainer">
             <SelectContext.Provider value={{selectId, options, activeOption, optionsListVisibility, setActiveOption, setOptionsListVisibility}}>
-                <SelectLabel/>
+                <SelectComboBox/>
                 <OptionsList/>
             </SelectContext.Provider>
         </div>
