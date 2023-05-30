@@ -13,9 +13,13 @@ export function useSelectKeyboardListener(
     useEffect(() => {
   
         function keyboardListener(e : KeyboardEvent){
-            if(e.code == "Escape") {closeSelectOptions(e)}
+            // if optionslist visible, always close when esc
+            if(e.code == "Escape" && isOptionsListVisible()) {closeSelectOptions(e)}
+            // only when the select is in focus
             if(document.activeElement?.id === 'customSelectLabel'){
-                if(e.code == "Enter" || e.code == "NumpadEnter") {openSelectOptions(e)}
+                if(e.code == "Enter" || e.code == "NumpadEnter") {
+                    !isOptionsListVisible() ? openSelectOptions(e) : closeSelectOptions(e)
+                }
                 if(e.code == "ArrowUp") {prevOption(e)}
                 if(e.code == "ArrowDown") {nextOption(e)}
             }
@@ -65,6 +69,10 @@ export function useSelectKeyboardListener(
         e.preventDefault()
         setOptionsListVisibility(true)
         return console.log(optionsListVisibilityRef.current)
+    }
+
+    function isOptionsListVisible(){
+        return optionsListVisibilityRef.current === true
     }
 
 }

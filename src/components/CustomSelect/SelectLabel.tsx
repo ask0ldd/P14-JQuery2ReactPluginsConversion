@@ -9,9 +9,12 @@ function SelectLabel(){
 
     // update active descendant
     return(
-        <span onClick={() => {if(setOptionsListVisibility) setOptionsListVisibility(!optionsListVisibility)}} tabIndex={0} aria-controls="customListbox" id="customSelectLabel" role="combobox" 
+        <span onBlur={() => {if(setOptionsListVisibility) setOptionsListVisibility(false)}} 
+        onClick={() => {if(setOptionsListVisibility) setOptionsListVisibility(!optionsListVisibility)}} 
+        tabIndex={0} aria-controls="customListbox" id="customSelectLabel" role="combobox" 
         aria-haspopup="listbox" aria-activedescendant={activeOption?.value} 
-        aria-expanded={optionsListVisibility} className={optionsListVisibility ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}>
+        aria-expanded={optionsListVisibility} className={optionsListVisibility ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}
+        >
             {activeOption?.label}
             <img className={optionsListVisibility ? "customSelectOpen" : "customSelectArrow"} src="./icons/select-arrow.svg"/>
         </span>
@@ -19,7 +22,3 @@ function SelectLabel(){
 }
 
 export default SelectLabel
-
-/*
-style={{outline: optionsListVisibility ? '1px solid #213547' : 'none'}}
-*/
