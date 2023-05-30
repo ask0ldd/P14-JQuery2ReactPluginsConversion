@@ -11,7 +11,7 @@ function SelectLabel(){
     return(
         <span onClick={() => {if(setOptionsListVisibility) setOptionsListVisibility(!optionsListVisibility)}} tabIndex={0} aria-controls="customListbox" id="customSelectLabel" role="combobox" 
         aria-haspopup="listbox" aria-activedescendant={activeOption?.value} 
-        aria-expanded="false" className={optionsListVisibility ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}>
+        aria-expanded={optionsListVisibility} className={optionsListVisibility ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}>
             {activeOption?.label}
             <img className={optionsListVisibility ? "customSelectOpen" : "customSelectArrow"} src="./icons/select-arrow.svg"/>
         </span>
