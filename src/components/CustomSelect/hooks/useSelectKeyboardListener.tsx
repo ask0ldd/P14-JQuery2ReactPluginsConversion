@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, MutableRefObject } from 'react'
 import { IOption } from '../CustomSelect'
 

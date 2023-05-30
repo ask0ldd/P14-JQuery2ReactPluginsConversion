@@ -13,7 +13,7 @@ function Option({index, option} : IProps){
     }
 
     return (
-        <li style={isOptionActive(options[index]) ? {background:'#dddddd'} : {}} onClick={() => {setActiveOption(options[index]); setOptionsListVisibility(false);}} value={option.value}>{option.label}</li>
+        <li role="option" id={option.value} data-value={option.value} aria-selected={isOptionActive(options[index])} style={isOptionActive(options[index]) ? {background:'#dddddd'} : {}} onClick={() => {setActiveOption(options[index]); setOptionsListVisibility(false);}} value={option.value}>{option.label}</li>
     )
 }
 

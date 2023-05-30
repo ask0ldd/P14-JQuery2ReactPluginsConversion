@@ -2,7 +2,8 @@
 import '../../style/select/CustomSelect.css'
 import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
-import {createContext, useState, useEffect, useRef, MutableRefObject} from 'react'
+import {createContext, useState, useRef} from 'react'
+import { useSelectKeyboardListener } from './hooks/useSelectKeyboardListener'
 
 /* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
 function CustomSelect({options, selectId} : IProps){
@@ -23,26 +24,13 @@ function CustomSelect({options, selectId} : IProps){
         optionsListVisibilityRef.current = bool
     }
 
-    useEffect(() => {
-  
-        function keyboardListener(e : KeyboardEvent){
-            if(e.code == "Escape") {closeSelectOptions(e)}
-            if(document.activeElement?.id === 'customSelectLabel'){
-                if(e.code == "Enter" || e.code == "NumpadEnter") {openSelectOptions(e)}
-                if(e.code == "ArrowUp") {prevOption(e)}
-                if(e.code == "ArrowDown") {nextOption(e)}
-            }
-        }
-
-        window.addEventListener('keydown', keyboardListener)
-
-        // soutenance : clean up to avoid having two listeners active cause useEffect is triggered twice in strict mode
-        return () => {
-            window.removeEventListener('keydown', keyboardListener)
-        }
-
-    }, [])
-
+    useSelectKeyboardListener(
+        [...options], 
+        activeOptionRef, 
+        optionsListVisibilityRef, 
+        setActiveOption, 
+        setOptionsListVisibility
+    )
    
     return(
         <div className="selectContainer">
@@ -53,43 +41,6 @@ function CustomSelect({options, selectId} : IProps){
         </div>
     )
 
-
-    function prevOption(e : KeyboardEvent){
-        e.preventDefault()
-        const prevOptionIndex = getActiveOptionIndex(activeOptionRef)
-        if(prevOptionIndex < 1) return false
-        setActiveOption(options[prevOptionIndex-1])
-    }
-
-    function nextOption(e : KeyboardEvent){
-        e.preventDefault()
-        const nextOptionIndex = getActiveOptionIndex(activeOptionRef)
-        if(nextOptionIndex >= options.length-1) return false
-        setActiveOption(options[nextOptionIndex+1])
-    }
-  
-    function getActiveOptionIndex(activeOption : MutableRefObject<IOption>) : number{
-        let activeIndex = 0
-        for(let index = 0; index < options.length; index++){
-            if(activeOption.current.value === options[index].value) {
-                activeIndex = index
-                return activeIndex
-            }
-        }
-        return activeIndex
-    }
-
-    function closeSelectOptions(e : KeyboardEvent){
-        e.preventDefault()
-        if(optionsListVisibilityRef.current === true ) setOptionsListVisibility(false)
-        return console.log(optionsListVisibilityRef.current)
-    }
-
-    function openSelectOptions(e : KeyboardEvent){
-        e.preventDefault()
-        setOptionsListVisibility(true)
-        return console.log(optionsListVisibilityRef.current)
-    }
 }
 
 export default CustomSelect
