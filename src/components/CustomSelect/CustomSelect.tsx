@@ -5,7 +5,7 @@ import {createContext, useState, useEffect} from 'react'
 
 window.addEventListener('keydown', e => keyboardListener(e))
 
-// will be linked to optionsListVisibility to access this state out of the component
+// soutenance : will be linked to optionsListVisibility to access this state out of the component
 let getListVisibility : () => boolean
 
 /* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
@@ -67,6 +67,7 @@ function keyboardListener(e : KeyboardEvent){
         // if the list is open, any key pressed besides arrowup and arrowdown should close it
         return this.#closeList()
     }*/
+    /*console.log(document.activeElement)*/
 
     // if(optionsListVisibility)
     if(getListVisibility()){

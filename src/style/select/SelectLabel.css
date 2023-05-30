@@ -18,4 +18,9 @@
   font-family: "Jost", sans-serif;
   font-size: 1rem;
   margin-top: 0.325rem;
+  outline: none;
+}
+
+.customSelectLabel-active {
+  outline: 1px solid #454545;
 }

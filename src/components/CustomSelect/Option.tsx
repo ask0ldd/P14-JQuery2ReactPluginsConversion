@@ -5,7 +5,7 @@ import { IOption } from './CustomSelect'
 
 function Option({index, option} : IProps){
 
-    const {selectId, options, activeOption, optionsListVisibility, setActiveOption, setOptionsListVisibility} = useContext(SelectContext)
+    const {selectId, options, activeOption, setActiveOption, setOptionsListVisibility} = useContext(SelectContext)
 
     function isOptionActive(option : IOption)
     {
