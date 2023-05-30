@@ -2,7 +2,7 @@
 import { useEffect, MutableRefObject } from 'react'
 import { IOption } from '../CustomSelect'
 
-export function useSelectKeyboardListener(
+export function useKeyboardHandler(
     options : Array<IOption>, 
     activeOptionRef : MutableRefObject<IOption>, 
     optionsListVisibilityRef : MutableRefObject<boolean>, 

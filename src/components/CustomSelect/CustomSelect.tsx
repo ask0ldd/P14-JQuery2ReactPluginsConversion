@@ -3,7 +3,7 @@ import '../../style/select/CustomSelect.css'
 import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
 import {createContext, useState, useRef} from 'react'
-import { useSelectKeyboardListener } from './hooks/useSelectKeyboardListener'
+import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 
 /* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
 function CustomSelect({options, selectId} : IProps){
@@ -24,7 +24,7 @@ function CustomSelect({options, selectId} : IProps){
         optionsListVisibilityRef.current = bool
     }
 
-    useSelectKeyboardListener(
+    useKeyboardHandler(
         [...options], 
         activeOptionRef, 
         optionsListVisibilityRef, 
