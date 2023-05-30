@@ -20,8 +20,25 @@ export function useSelectKeyboardListener(
                 if(e.code == "Enter" || e.code == "NumpadEnter") {
                     !isOptionsListVisible() ? openSelectOptions(e) : closeSelectOptions(e)
                 }
-                if(e.code == "ArrowUp") {prevOption(e)}
-                if(e.code == "ArrowDown") {nextOption(e)}
+                if(e.code == "Space" && !isOptionsListVisible()) {
+                    openSelectOptions(e)
+                }
+                if(e.code == "ArrowUp") {
+                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    setPrevOptionActive(e)
+                }
+                if(e.code == "ArrowDown") {
+                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    setNextOptionActive(e)
+                }
+                if(e.code == "Home") {
+                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    setFirstOptionActive(e)
+                }
+                if(e.code == "End") {
+                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    setLastOptionActive(e)
+                }
             }
         }
 
@@ -34,14 +51,24 @@ export function useSelectKeyboardListener(
 
     }, [])
 
-    function prevOption(e : KeyboardEvent){
+    function setFirstOptionActive(e : KeyboardEvent){
+        e.preventDefault()
+        setActiveOption(options[0])
+    }
+
+    function setLastOptionActive(e : KeyboardEvent){
+        e.preventDefault()
+        setActiveOption(options[options.length-1])
+    }
+
+    function setPrevOptionActive(e : KeyboardEvent){
         e.preventDefault()
         const prevOptionIndex = getActiveOptionIndex(activeOptionRef)
         if(prevOptionIndex < 1) return false
         setActiveOption(options[prevOptionIndex-1])
     }
 
-    function nextOption(e : KeyboardEvent){
+    function setNextOptionActive(e : KeyboardEvent){
         e.preventDefault()
         const nextOptionIndex = getActiveOptionIndex(activeOptionRef)
         if(nextOptionIndex >= options.length-1) return false
