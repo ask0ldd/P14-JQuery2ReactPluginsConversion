@@ -1,11 +1,11 @@
 import '../../style/select/OptionsList.css'
-import {useContext} from 'react'
+import { useContext } from 'react'
 import { SelectContext } from './CustomSelect'
 import { IOption } from './CustomSelect'
 
 function Option({index, option} : IProps){
 
-    const {selectId, options, activeOption, setActiveOption, setOptionsListVisibility} = useContext(SelectContext)
+    const { options, activeOption, setActiveOption, setOptionsListVisibility } = useContext(SelectContext)
 
     function isOptionActive(option : IOption)
     {

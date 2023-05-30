@@ -5,7 +5,7 @@ import '../../style/select/SelectLabel.css'
 
 function SelectLabel(){
 
-    const {activeOption, optionsListVisibility, setOptionsListVisibility} = useContext(SelectContext)
+    const { activeOption, optionsListVisibility, setOptionsListVisibility } = useContext(SelectContext)
 
     // update active descendant
     return(
