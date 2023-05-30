@@ -7,8 +7,13 @@ function Option({index, option} : IProps){
 
     const {selectId, options, activeOption, optionsListVisibility, setActiveOption, setOptionsListVisibility} = useContext(SelectContext)
 
+    function isOptionActive(option : IOption)
+    {
+        return activeOption?.value === option?.value
+    }
+
     return (
-        <li onClick={() => {setActiveOption(options[index]); setOptionsListVisibility(false);}} key={selectId+'-option-'+index} value={option.value}>{option.label}</li>
+        <li style={isOptionActive(options[index]) ? {background:'#dddddd'} : {}} onClick={() => {setActiveOption(options[index]); setOptionsListVisibility(false);}} value={option.value}>{option.label}</li>
     )
 }
 
