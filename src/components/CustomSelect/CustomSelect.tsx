@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import '../../style/select/CustomSelect.css'
 import SelectLabel from "./SelectLabel"
 import OptionsList from "./OptionsList"
@@ -13,23 +14,18 @@ function CustomSelect({options, selectId} : IProps){
 
     const [activeOption, setActiveOption] = useState(options[0])
     const [optionsListVisibility, setOptionsListVisibility] = useState(false)
-    const [activeKeyboardListener, setActiveKeyboardListener] = useState(false)
 
     //getListVisibility = () => optionsListVisibility
 
-    // why two listeners added to window
-    if(activeKeyboardListener !== true) {
-        setActiveKeyboardListener(true)
-        window.addEventListener('keydown', e => keyboardListener(e))
-    }
+    useEffect(() => {
 
-    /*useEffect(() => {
-        if(activeKeyboardListener !== true) {
-            setActiveKeyboardListener(true)
-            window.addEventListener('keydown', e => keyboardListener(e))
+        window.addEventListener('keydown', e => keyboardListener(e))
+
+        return () => {
+            window.removeEventListener('keydown', e => keyboardListener(e))
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])*/
+
+    }, [])
    
     return(
         <div className="selectContainer">
@@ -41,15 +37,28 @@ function CustomSelect({options, selectId} : IProps){
     )
 
     function keyboardListener(e : KeyboardEvent){
-        console.log('keyboard')
+        console.log(document.activeElement?.id)
 
-        if(e.code == "Enter" || e.code == "NumpadEnter") {e.preventDefault(); setOptionsListVisibility(true);}
-    
-        //if(optionsListVisibility === true){
-            if(e.code == "ArrowUp") {e.preventDefault();}
-            if(e.code == "ArrowDown") {e.preventDefault(); setOptionsListVisibility(false);}
-            if(e.code == "Escape") {e.preventDefault(); setOptionsListVisibility(false);}
-        // }
+        if(document.activeElement?.id === 'customSelectLabel'){
+            if(e.code == "Enter" || e.code == "NumpadEnter") {openSelectOptions(e);}
+            if(e.code == "ArrowUp") {e.preventDefault(); setActiveOption(options[getActiveOptionIndex(activeOption)-1])}
+            if(e.code == "ArrowDown") {e.preventDefault(); setActiveOption(options[getActiveOptionIndex(activeOption)+1])}
+            if(e.code == "Escape") {e.preventDefault(); closeSelectOptions(e);}
+        }
+    }
+
+    function openSelectOptions(e : KeyboardEvent){
+        e.preventDefault(); setOptionsListVisibility(true);
+    }
+
+    function closeSelectOptions(e : KeyboardEvent){
+        e.preventDefault(); if(optionsListVisibility) setOptionsListVisibility(false);
+    }
+
+    function getActiveOptionIndex(activeOption : IOption) : number{
+        let activeOptionIndex = 0
+        options.forEach((option, index) => {if(activeOption.value === option.value) activeOptionIndex = index})
+        return activeOptionIndex
     }
 }
 
