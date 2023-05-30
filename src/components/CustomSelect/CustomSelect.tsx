@@ -24,17 +24,17 @@ function CustomSelect({options, selectId} : IProps){
     
             if(document.activeElement?.id === 'customSelectLabel'){
                 if(e.code == "Enter" || e.code == "NumpadEnter") {openSelectOptions(e);}
-                if(e.code == "ArrowUp") {prevOption(e)/*e.preventDefault(); setActiveOption(options[getActiveOptionIndex(options, activeOption)-1])*/}
+                if(e.code == "ArrowUp") {prevOption(e)}
                 if(e.code == "ArrowDown") {nextOption(e)}
-                if(e.code == "Escape") {e.preventDefault(); closeSelectOptions(e);}
+                if(e.code == "Escape") {closeSelectOptions(e);}
             }
         }
 
-        window.addEventListener('keydown', keyboardListener)
+        window.addEventListener('keyup', keyboardListener)
 
         // soutenance : clean up to avoid having two listeners active cause useEffect is triggered twice in strict mode
         return () => {
-            window.removeEventListener('keydown', keyboardListener)
+            window.removeEventListener('keyup', keyboardListener)
         }
 
     }, [])
@@ -59,28 +59,28 @@ function CustomSelect({options, selectId} : IProps){
     function prevOption(e : KeyboardEvent){
         e.preventDefault()
         const prevOptionIndex = getActiveOptionIndex(activeOption)-1
-        setActiveOption(options[1])
+        if(prevOptionIndex < 0) return
+        setActiveOption(options[prevOptionIndex])
     }
 
     function nextOption(e : KeyboardEvent){
         e.preventDefault()
         const nextOptionIndex = getActiveOptionIndex(activeOption)+1
-        setActiveOption(options[2])
+        if(nextOptionIndex > options.length-1) return
+        setActiveOption(options[nextOptionIndex])
     }
 
     function getActiveOptionIndex(activeOption : IOption) : number{
-        /*let activeOptionIndex = 0
-        options.map((option, index) => {
-                if(activeOption.value === option.value) { 
-                    activeOptionIndex = index
-                }
+        let activeIndex = 0
+        for(let index = 0; index < options.length; index++){
+            if(activeOption.value == options[index].value) {
+                console.log(activeOption.value)
+                console.log(options[index].value)
+                console.log(index)
+                activeIndex = index
             }
-        )
-        return activeOptionIndex*/
-        console.log(options)
-        console.log(options.indexOf({label : activeOption.label, value : activeOption.value}))
-        console.log({label : activeOption.label, value : activeOption.value})
-        return options.indexOf({label : activeOption.label, value : activeOption.value})
+        }
+        return activeIndex
     }
 }
 
