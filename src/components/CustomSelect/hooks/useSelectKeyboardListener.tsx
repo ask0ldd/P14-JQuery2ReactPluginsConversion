@@ -20,8 +20,8 @@ export function useSelectKeyboardListener(
                 if(e.code == "Enter" || e.code == "NumpadEnter") {
                     !isOptionsListVisible() ? openSelectOptions(e) : closeSelectOptions(e)
                 }
-                if(e.code == "Space" && !isOptionsListVisible()) {
-                    openSelectOptions(e)
+                if(e.code == "Space") {
+                    !isOptionsListVisible() ? openSelectOptions(e) : closeSelectOptions(e)
                 }
                 if(e.code == "ArrowUp") {
                     if(!isOptionsListVisible()) setOptionsListVisibility(true)
@@ -38,6 +38,12 @@ export function useSelectKeyboardListener(
                 if(e.code == "End") {
                     if(!isOptionsListVisible()) setOptionsListVisibility(true)
                     setLastOptionActive(e)
+                }
+                if(e.code == "PageUp" && isOptionsListVisible()) {
+                    setMinusTenOptionActive(e)
+                }
+                if(e.code == "PageDown" && isOptionsListVisible()) {
+                    setPlusTenOptionActive(e)
                 }
             }
         }
@@ -61,18 +67,30 @@ export function useSelectKeyboardListener(
         setActiveOption(options[options.length-1])
     }
 
+    function setMinusTenOptionActive(e : KeyboardEvent){
+        e.preventDefault()
+        const activeOptionIndex = getActiveOptionIndex(activeOptionRef)
+        options[activeOptionIndex - 10] != null ? setActiveOption(options[activeOptionIndex - 10]) : setFirstOptionActive(e)
+    }
+
+    function setPlusTenOptionActive(e : KeyboardEvent){
+        e.preventDefault()
+        const activeOptionIndex = getActiveOptionIndex(activeOptionRef)
+        options[activeOptionIndex + 10] != null ? setActiveOption(options[activeOptionIndex + 10]) : setLastOptionActive(e)
+    }
+
     function setPrevOptionActive(e : KeyboardEvent){
         e.preventDefault()
-        const prevOptionIndex = getActiveOptionIndex(activeOptionRef)
-        if(prevOptionIndex < 1) return false
-        setActiveOption(options[prevOptionIndex-1])
+        const prevOptionIndex = getActiveOptionIndex(activeOptionRef)-1
+        if(prevOptionIndex < 0) return false
+        setActiveOption(options[prevOptionIndex])
     }
 
     function setNextOptionActive(e : KeyboardEvent){
         e.preventDefault()
-        const nextOptionIndex = getActiveOptionIndex(activeOptionRef)
-        if(nextOptionIndex >= options.length-1) return false
-        setActiveOption(options[nextOptionIndex+1])
+        const nextOptionIndex = getActiveOptionIndex(activeOptionRef)+1
+        if(nextOptionIndex > options.length-1) return false
+        setActiveOption(options[nextOptionIndex])
     }
   
     function getActiveOptionIndex(activeOption : MutableRefObject<IOption>) : number{
