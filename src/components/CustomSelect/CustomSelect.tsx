@@ -5,8 +5,14 @@ import OptionsList from "./OptionsList"
 import {createContext, useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 
+/*
+should add later a way to define the default Option
+improve keyboard handler highlighted / selected
+
+*/
+
 /* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
-function CustomSelect({options, selectId} : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({options, selectId, labelledBy} : IProps){ // should be able to pass the id of the element labelling the select
 
     // updated state (always returning th old version) not accessible into event listeners so we need some kind of duplicated state placed into a ref
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
@@ -17,24 +23,24 @@ function CustomSelect({options, selectId} : IProps){ // should be able to pass t
         activeOptionRef.current = {...option}
     }
 
-    const [optionsListVisibility, _setOptionsListVisibility] = useState<boolean>(false)
-    const optionsListVisibilityRef = useRef<boolean>(optionsListVisibility)
-    function setOptionsListVisibility(bool : boolean){
-        _setOptionsListVisibility(bool)
-        optionsListVisibilityRef.current = bool
+    const [isListboxExpanded, _setListboxAsExpanded] = useState<boolean>(false)
+    const isListboxExpandedRef = useRef<boolean>(isListboxExpanded)
+    function setListboxAsExpanded(bool : boolean){
+        _setListboxAsExpanded(bool)
+        isListboxExpandedRef.current = bool
     }
 
     useKeyboardHandler(
         [...options], 
         activeOptionRef, 
-        optionsListVisibilityRef, 
+        isListboxExpandedRef, 
         setActiveOption, 
-        setOptionsListVisibility
+        setListboxAsExpanded
     )
    
     return(
         <div className="selectContainer">
-            <SelectContext.Provider value={{selectId, options, activeOption, optionsListVisibility, setActiveOption, setOptionsListVisibility}}>
+            <SelectContext.Provider value={{selectId, options, activeOption, isListboxExpanded: isListboxExpanded, labelledBy, setActiveOption, setListboxAsExpanded: setListboxAsExpanded}}>
                 <SelectComboBox/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -48,9 +54,9 @@ export default CustomSelect
 export const SelectContext = createContext<ISelectContext>({
     selectId : '', 
     options : [], 
-    optionsListVisibility : false, 
+    isListboxExpanded : false, 
     setActiveOption : () => false, 
-    setOptionsListVisibility : () => false
+    setListboxAsExpanded : () => false
 })
 
 export interface IOption{
@@ -61,21 +67,15 @@ export interface IOption{
 interface IProps{
     options : Array<IOption>
     selectId : string
+    labelledBy : string
 }
 
 interface ISelectContext{
     selectId : string
     options : Array<IOption>
+    labelledBy? : string
     activeOption? : IOption
-    optionsListVisibility : boolean
+    isListboxExpanded : boolean
     setActiveOption : (option : IOption) => void
-    setOptionsListVisibility : (bool : boolean) => void
+    setListboxAsExpanded : (bool : boolean) => void
 }
-
-
-
-/*
-
-should add later a way to define the default Option
-
-*/

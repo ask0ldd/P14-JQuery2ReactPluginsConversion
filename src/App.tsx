@@ -39,9 +39,9 @@ function App() {
         <label htmlFor="start-date">Integration Date</label>
         <input id="start-date" type="text"/>
 
-        <label htmlFor="department" className='defaultSpacing'>Departement</label>
+        <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
         {/*<input name="department" id="department" type="text"/>*/}
-        <CustomSelect options={[
+        <CustomSelect labelledBy="department-label" options={[
           {label:'Engineering', value:'Engineering'}, 
           {label:'Human Ressources', value:'Human Ressources'}, 
           {label:'Marketing', value:'Marketing'}, 

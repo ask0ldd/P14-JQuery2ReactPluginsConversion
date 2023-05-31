@@ -5,12 +5,12 @@ import Option from './Option'
 
 function OptionsList(){
 
-    const { selectId, options, optionsListVisibility } = useContext(SelectContext)
+    const { selectId, options, isListboxExpanded } = useContext(SelectContext)
 
     /* li key should have a specific string added => the name of the component, pass as props at select creation then add in each key of each subcompo */
 
     return(
-        optionsListVisibility ? 
+        isListboxExpanded ? 
         <ul tabIndex={-1} id="customListbox" aria-labelledby="customSelectLabel" className="customSelectOptionsContainer" role="listbox">
             {options.map((option, index) => <Option key={selectId+'-option-'+index} index={index} option={option}/>)}
         </ul> 

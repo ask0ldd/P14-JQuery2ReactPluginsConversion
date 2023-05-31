@@ -5,7 +5,7 @@ import { IOption } from './CustomSelect'
 
 function Option({index, option} : IProps){
 
-    const { options, activeOption, setActiveOption, setOptionsListVisibility } = useContext(SelectContext)
+    const { options, activeOption, setActiveOption, setListboxAsExpanded } = useContext(SelectContext)
 
     function isOptionActive(option : IOption)
     {
@@ -13,7 +13,7 @@ function Option({index, option} : IProps){
     }
 
     return (
-        <li role="option" id={option.value} data-value={option.value} aria-selected={isOptionActive(options[index])} style={isOptionActive(options[index]) ? {background:'#dfdfdf'} : {}} onClick={() => {setActiveOption(options[index]); setOptionsListVisibility(false);}} value={option.value}>{option.label}</li>
+        <li role="option" id={option.value} data-value={option.value} aria-selected={isOptionActive(options[index])} style={isOptionActive(options[index]) ? {background:'#dfdfdf'} : {}} onClick={() => {setActiveOption(options[index]); setListboxAsExpanded(false);}} value={option.value}>{option.label}</li>
     )
 }
 
