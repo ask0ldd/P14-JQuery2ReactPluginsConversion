@@ -6,15 +6,19 @@ import {createContext, useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 
 /*
-should add later a way to define the default Option
+add a way to define the default Option or a non option default value
 improve keyboard handler highlighted / selected
-
+deal with error if options values are not unique
+style override
+override arrow color
+scrollbar if too many options / max height listbox
+si touche cliquee > option commencant par cette touche
 */
 
-/* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
+/* selectId added at the head of each react key of the component / subcomponents to ensure their unicity */
 function CustomSelect({options, selectId, labelledBy, /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
 
-    // updated state (always returning th old version) not accessible into event listeners so we need some kind of duplicated state placed into a ref
+    // updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
     const [activeOption, _setActiveOption] = useState<IOption>({...options[0]}) // deal with error if options missing
     const activeOptionRef = useRef<IOption>(activeOption)
