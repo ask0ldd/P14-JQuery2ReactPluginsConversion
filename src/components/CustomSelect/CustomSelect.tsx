@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import '../../style/select/CustomSelect.css'
+import './style/CustomSelect.css'
 import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
 import {createContext, useState, useRef} from 'react'

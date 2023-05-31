@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext } from "react"
 import { DatasTableContext } from "./DatasTable"
-import '../../style/table/Table.css'
+import './style/Table.css'
 import { IUsersDatas } from "../../datas/usersDatasTen"
 
 function Table() {

@@ -1,4 +1,4 @@
-import '../../style/select/OptionsList.css'
+import './style/OptionsList.css'
 import { useContext } from 'react'
 import { SelectContext } from './CustomSelect'
 import { IOption } from './CustomSelect'

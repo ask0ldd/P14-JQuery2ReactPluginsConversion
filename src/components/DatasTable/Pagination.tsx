@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import '../../style/table/Pagination.css'
+import './style/Pagination.css'
 
 interface IProps{
   currentPage: number

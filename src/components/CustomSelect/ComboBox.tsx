@@ -1,6 +1,6 @@
 import {useContext} from 'react'
 import { SelectContext } from './CustomSelect'
-import '../../style/select/ComboBox.css'
+import './style/ComboBox.css'
 
 function SelectComboBox(){
 
