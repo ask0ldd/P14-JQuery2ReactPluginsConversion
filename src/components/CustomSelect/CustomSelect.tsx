@@ -16,7 +16,7 @@ function CustomSelect({options, selectId, labelledBy} : IProps){ // should be ab
 
     // updated state (always returning th old version) not accessible into event listeners so we need some kind of duplicated state placed into a ref
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
-    const [activeOption, _setActiveOption] = useState<IOption>({...options[0]})
+    const [activeOption, _setActiveOption] = useState<IOption>({...options[0]}) // deal with error if options missing
     const activeOptionRef = useRef<IOption>(activeOption)
     function setActiveOption(option : IOption){
         _setActiveOption({...option})
@@ -52,7 +52,8 @@ function CustomSelect({options, selectId, labelledBy} : IProps){ // should be ab
 export default CustomSelect
 
 export const SelectContext = createContext<ISelectContext>({
-    selectId : '', 
+    selectId : '',
+    activeOption : {label:'', value:''},
     options : [], 
     isListboxExpanded : false, 
     setActiveOption : () => false, 
@@ -74,7 +75,7 @@ interface ISelectContext{
     selectId : string
     options : Array<IOption>
     labelledBy? : string
-    activeOption? : IOption
+    activeOption : IOption
     isListboxExpanded : boolean
     setActiveOption : (option : IOption) => void
     setListboxAsExpanded : (bool : boolean) => void

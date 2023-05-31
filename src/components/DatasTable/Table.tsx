@@ -21,7 +21,7 @@ function Table() {
     const rowsToDisplay = [...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)
 
     return (
-        <table>
+        <table aria-label="Current Employees">
         <thead>
           <tr className='bottomblackborder'>
           {[...tableColumnsNames].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}</th>))}
