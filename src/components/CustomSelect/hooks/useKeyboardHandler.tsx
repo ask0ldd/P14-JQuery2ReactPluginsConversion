@@ -9,7 +9,7 @@ export function useKeyboardHandler(
     setActiveOption : (option : IOption) => void,
     setListboxAsExpanded : (bool : boolean) => void
 ){
-
+    
     useEffect(() => {
   
         function keyboardListener(e : KeyboardEvent){
@@ -51,8 +51,17 @@ export function useKeyboardHandler(
                 // typing a-z/0-9 => go to the first option starting with the type letter / TODO : implement cycling through the valid options
                 if(numbersNLetters.includes(e.key.toLowerCase())) {
                     if(!isListboxExpanded()) setListboxAsExpanded(true)
-                    const selectedOption = [...options].filter(option => option.value[0].toLowerCase() === e.key.toLowerCase() )
-                    if(selectedOption?.length) setActiveOption(selectedOption[0])
+                    // extracts the options starting with the pressed letter
+                    const optionsStartingWithPressedLetter = [...options].filter(option => option.value[0].toLowerCase() === e.key.toLowerCase() )
+                    if(optionsStartingWithPressedLetter?.length) {
+                        // find the index of the activeOption within this subarray
+                        const indexActiveOption = [...optionsStartingWithPressedLetter].reduce((accu, option, index) => option.value === activeOptionRef.current.value ? accu = index : accu, -1)
+                        // index = -1 => the activeOption isn't in this subarray => the first option of the subarray becomes the active option
+                        // index >= 0 => the activeOption is part of this subarray => the following option becomes the active option
+                        // index = subarray.length-1 => rotate back at the start of the subarray => the first option of the subarray becomes the active option
+                        if(indexActiveOption === -1 || indexActiveOption === optionsStartingWithPressedLetter.length-1) return setActiveOption(optionsStartingWithPressedLetter[0])
+                        return setActiveOption(optionsStartingWithPressedLetter[indexActiveOption+1])
+                    }
                 }
             }
         }

@@ -46,7 +46,10 @@ function App() {
           {label:'Human Ressources', value:'Human Ressources'}, 
           {label:'Marketing', value:'Marketing'}, 
           {label:'Legal', value:'Legal'}, 
-          {label:'Sales', value:'Sales'}
+          {label:'Sales', value:'Sales'},
+          {label:'Sales1', value:'Sales1'},
+          {label:'Sales2', value:'Sales2'},
+          {label:'Sales3', value:'Sales3'},
         ]} selectId='department'/>
 
         <input type="submit" value="Add this Employee"/>
