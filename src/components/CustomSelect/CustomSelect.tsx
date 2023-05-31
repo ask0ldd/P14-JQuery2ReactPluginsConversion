@@ -12,7 +12,7 @@ improve keyboard handler highlighted / selected
 */
 
 /* selectId added at the head of each react key of the component / subcomponents to enforce their unicity */
-function CustomSelect({options, selectId, labelledBy} : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({options, selectId, labelledBy, /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
 
     // updated state (always returning th old version) not accessible into event listeners so we need some kind of duplicated state placed into a ref
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
@@ -40,7 +40,7 @@ function CustomSelect({options, selectId, labelledBy} : IProps){ // should be ab
    
     return(
         <div className="selectContainer">
-            <SelectContext.Provider value={{selectId, options, activeOption, isListboxExpanded: isListboxExpanded, labelledBy, setActiveOption, setListboxAsExpanded: setListboxAsExpanded}}>
+            <SelectContext.Provider value={{selectId, options, activeOption, isListboxExpanded, labelledBy, setActiveOption, setListboxAsExpanded: setListboxAsExpanded}}>
                 <SelectComboBox/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -69,6 +69,7 @@ interface IProps{
     options : Array<IOption>
     selectId : string
     labelledBy : string
+    // styleOverride? : object
 }
 
 interface ISelectContext{
@@ -79,4 +80,5 @@ interface ISelectContext{
     isListboxExpanded : boolean
     setActiveOption : (option : IOption) => void
     setListboxAsExpanded : (bool : boolean) => void
+    // styleOverride? : object
 }

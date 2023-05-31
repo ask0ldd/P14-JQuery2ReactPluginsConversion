@@ -5,44 +5,46 @@ import { IOption } from '../CustomSelect'
 export function useKeyboardHandler(
     options : Array<IOption>, 
     activeOptionRef : MutableRefObject<IOption>, 
-    optionsListVisibilityRef : MutableRefObject<boolean>, 
+    isListboxExpandedRef : MutableRefObject<boolean>, 
     setActiveOption : (option : IOption) => void,
-    setOptionsListVisibility : (bool : boolean) => void
+    setListboxAsExpanded : (bool : boolean) => void
 ){
 
     useEffect(() => {
   
         function keyboardListener(e : KeyboardEvent){
-            // if optionslist visible, always close when esc
-            if(e.code == "Escape" && isOptionsListVisible()) {closeSelectOptions(e)}
-            // only when the select is in focus
+
+            // out of focus
+            if(e.code == "Escape" && isListboxExpanded()) {closeSelectOptions(e)}
+
+            // when in focus
             if(document.activeElement?.id === 'customSelectLabel'){
                 if(e.code == "Enter" || e.code == "NumpadEnter") {
-                    !isOptionsListVisible() ? openSelectOptions(e) : closeSelectOptions(e)
+                    !isListboxExpanded() ? openSelectOptions(e) : closeSelectOptions(e)
                 }
                 if(e.code == "Space") {
-                    !isOptionsListVisible() ? openSelectOptions(e) : closeSelectOptions(e)
+                    !isListboxExpanded() ? openSelectOptions(e) : closeSelectOptions(e)
                 }
                 if(e.code == "ArrowUp") {
-                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    if(!isListboxExpanded()) setListboxAsExpanded(true)
                     setPrevOptionActive(e)
                 }
                 if(e.code == "ArrowDown") {
-                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    if(!isListboxExpanded()) setListboxAsExpanded(true)
                     setNextOptionActive(e)
                 }
                 if(e.code == "Home") {
-                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    if(!isListboxExpanded()) setListboxAsExpanded(true)
                     setFirstOptionActive(e)
                 }
                 if(e.code == "End") {
-                    if(!isOptionsListVisible()) setOptionsListVisibility(true)
+                    if(!isListboxExpanded()) setListboxAsExpanded(true)
                     setLastOptionActive(e)
                 }
-                if(e.code == "PageUp" && isOptionsListVisible()) {
+                if(e.code == "PageUp" && isListboxExpanded()) {
                     setMinusTenOptionActive(e)
                 }
-                if(e.code == "PageDown" && isOptionsListVisible()) {
+                if(e.code == "PageDown" && isListboxExpanded()) {
                     setPlusTenOptionActive(e)
                 }
             }
@@ -50,7 +52,7 @@ export function useKeyboardHandler(
 
         window.addEventListener('keydown', keyboardListener)
 
-        // soutenance : clean up to avoid having two listeners active cause useEffect is triggered twice in strict mode
+        // soutenance : clean up to avoid having two listeners active => since useEffect is triggered twice in strict mode
         return () => {
             window.removeEventListener('keydown', keyboardListener)
         }
@@ -106,18 +108,18 @@ export function useKeyboardHandler(
 
     function closeSelectOptions(e : KeyboardEvent){
         e.preventDefault()
-        if(optionsListVisibilityRef.current === true ) setOptionsListVisibility(false)
-        return console.log(optionsListVisibilityRef.current)
+        if(isListboxExpandedRef.current === true ) setListboxAsExpanded(false)
+        // return console.log(isListboxExpandedRef.current)
     }
 
     function openSelectOptions(e : KeyboardEvent){
         e.preventDefault()
-        setOptionsListVisibility(true)
-        return console.log(optionsListVisibilityRef.current)
+        setListboxAsExpanded(true)
+        // return console.log(isListboxExpandedRef.current)
     }
 
-    function isOptionsListVisible(){
-        return optionsListVisibilityRef.current === true
+    function isListboxExpanded(){
+        return isListboxExpandedRef.current === true
     }
 
 }

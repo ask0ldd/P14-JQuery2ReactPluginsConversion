@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {useContext} from 'react'
 import { SelectContext } from './CustomSelect'
 import '../../style/select/ComboBox.css'
 
-function SelectComboBox(){ // shouldbe combobox and not select label
+function SelectComboBox(){
 
     const { activeOption, isListboxExpanded, labelledBy, setListboxAsExpanded } = useContext(SelectContext)
 
