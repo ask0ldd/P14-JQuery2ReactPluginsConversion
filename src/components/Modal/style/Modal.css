@@ -7,10 +7,11 @@ dialog {
   display: flex;
   flex-direction: column;
   padding: 1rem 1rem 1.5rem 1rem;
-  border: 1px solid black;
+  border: 1px solid #454545;
   border-radius: 6px;
   font-family: "Jost", sans-serif;
   font-size: 1rem;
+  overflow: visible;
 }
 
 dialog::backdrop {

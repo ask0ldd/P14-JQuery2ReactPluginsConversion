@@ -9,8 +9,15 @@
   width: 2rem;
   height: 2rem;
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 1px;
   right: 0rem;
   top: -2rem;
+  background-color: #213547;
+  color: #fff;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid #142330;
+  font-weight: 600;
 }
