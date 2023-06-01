@@ -4,17 +4,18 @@ import './style/Modal.css'
 
 function Modal({modalVisibility, setModalVisibility, modalContent} : IProps){
 
-    // const modalRef = useRef<HTMLDialogElement>(null)
+    const dialogRef = useRef<HTMLDialogElement>(null)
+    const modalVisibilityRef = useRef(modalVisibility)
     // const [modalOpen, setModalOpen] = useState<boolean>(visible)
 
-    /*useEffect(() => {
-        if(showmodal && !modalRef.current?.open) return openModal()
-        if(!showmodal && modalRef.current?.open) return closeModal()
-    })*/
+    useEffect(() => {
+        if(modalVisibilityRef && !dialogRef.current?.open) return dialogRef.current?.showModal()
+        if(!modalVisibilityRef && dialogRef.current?.open) return dialogRef.current?.close()
+    })
 
     return (
         modalVisibility ? 
-        <dialog>
+        <dialog ref={dialogRef}>
             <ModalHeader setModalVisibility={setModalVisibility}/>
             {modalContent()}
         </dialog> 

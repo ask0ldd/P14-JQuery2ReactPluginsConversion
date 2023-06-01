@@ -62,10 +62,10 @@ function App() {
 
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={ModalContent}></Modal>
       
-      <button onClick={() => {
+      <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
         setModalVisibility(true)
-      }}>showmod</button>
-      
+      }}>show modale</button>
+     
     </main>
   )
 }

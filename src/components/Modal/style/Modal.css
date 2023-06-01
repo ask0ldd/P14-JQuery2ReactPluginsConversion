@@ -1,8 +1,7 @@
 dialog {
   top: 50%;
   left: 0;
-  position: absolute;
-  margin: auto;
+  margin: 0 auto;
   width: 70%;
   max-height: 80%;
   display: flex;
