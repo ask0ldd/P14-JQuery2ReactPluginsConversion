@@ -9,7 +9,7 @@ export function useKeyboardHandler(
     setActiveOption : (option : IOption) => void,
     setListboxAsExpanded : (bool : boolean) => void
 ){
-    
+
     useEffect(() => {
   
         function keyboardListener(e : KeyboardEvent){
@@ -56,8 +56,8 @@ export function useKeyboardHandler(
                     if(optionsStartingWithPressedLetter?.length) {
                         // find the index of the activeOption within this subarray
                         const indexActiveOption = [...optionsStartingWithPressedLetter].reduce((accu, option, index) => option.value === activeOptionRef.current.value ? accu = index : accu, -1)
-                        // index = -1 => the activeOption isn't in this subarray => the first option of the subarray becomes the active option
-                        // index >= 0 => the activeOption is part of this subarray => the following option becomes the active option
+                        // index = -1 => the activeOption isn't part of this subarray => the first option of the subarray becomes the active option
+                        // index >= 0 < subarray.length-1 => the activeOption is part of this subarray => the next following option becomes the active option
                         // index = subarray.length-1 => rotate back at the start of the subarray => the first option of the subarray becomes the active option
                         if(indexActiveOption === -1 || indexActiveOption === optionsStartingWithPressedLetter.length-1) return setActiveOption(optionsStartingWithPressedLetter[0])
                         return setActiveOption(optionsStartingWithPressedLetter[indexActiveOption+1])
@@ -125,13 +125,11 @@ export function useKeyboardHandler(
     function closeSelectOptions(e : KeyboardEvent){
         e.preventDefault()
         if(isListboxExpandedRef.current === true ) setListboxAsExpanded(false)
-        // return console.log(isListboxExpandedRef.current)
     }
 
     function openSelectOptions(e : KeyboardEvent){
         e.preventDefault()
         setListboxAsExpanded(true)
-        // return console.log(isListboxExpandedRef.current)
     }
 
     function isListboxExpanded(){
@@ -139,4 +137,5 @@ export function useKeyboardHandler(
     }
 
     const numbersNLetters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+
 }

@@ -1,6 +1,7 @@
 import './App.css'
 import { Link } from 'react-router-dom'
 import CustomSelect from './components/CustomSelect/CustomSelect'
+import Modal from './components/Modal/Modal'
 
 function App() {
 
@@ -55,8 +56,18 @@ function App() {
         <input type="submit" value="Add this Employee"/>
 
       </form>
+      <Modal visible={true} modalContent={ModalContent}></Modal>
       
     </main>
+  )
+}
+
+// Component that will be injected into the modal
+function ModalContent(){
+  return(
+    <>
+      aaaaaahhhahhahahaha
+    </>
   )
 }
 
