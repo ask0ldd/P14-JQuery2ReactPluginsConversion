@@ -2,10 +2,10 @@ import ModalHeader from "./ModalHeader"
 import { useRef, useEffect, useState, MutableRefObject } from "react"
 import './style/Modal.css'
 
-function Modal({visible, modalContent} : IProps){
+function Modal({modalVisibility, setModalVisibility, modalContent} : IProps){
 
     // const modalRef = useRef<HTMLDialogElement>(null)
-    const [modalOpen, setModalOpen] = useState<boolean>(visible)
+    // const [modalOpen, setModalOpen] = useState<boolean>(visible)
 
     /*useEffect(() => {
         if(showmodal && !modalRef.current?.open) return openModal()
@@ -13,9 +13,9 @@ function Modal({visible, modalContent} : IProps){
     })*/
 
     return (
-        modalOpen ? 
+        modalVisibility ? 
         <dialog>
-            <ModalHeader setModalOpen={setModalOpen}/>
+            <ModalHeader setModalVisibility={setModalVisibility}/>
             {modalContent()}
         </dialog> 
         : <></>
@@ -25,6 +25,7 @@ function Modal({visible, modalContent} : IProps){
 export default Modal
 
 interface IProps{
-    visible : boolean
+    modalVisibility : boolean
     modalContent : () => JSX.Element
+    setModalVisibility : (bool : boolean) => void
 }

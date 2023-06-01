@@ -2,8 +2,11 @@ import './App.css'
 import { Link } from 'react-router-dom'
 import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
+import {useRef, useState} from 'react'
 
 function App() {
+
+  const [modalVisibility, setModalVisibility] = useState<boolean>(true)
 
   return (
     <main>
@@ -56,7 +59,10 @@ function App() {
         <input type="submit" value="Add this Employee"/>
 
       </form>
-      <Modal visible={true} modalContent={ModalContent}></Modal>
+      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={ModalContent}></Modal>
+      <button onClick={() => {
+        setModalVisibility(true)
+      }}>showmod</button>
       
     </main>
   )
@@ -65,9 +71,9 @@ function App() {
 // Component that will be injected into the modal
 function ModalContent(){
   return(
-    <>
-      aaaaaahhhahhahahaha
-    </>
+    <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
+      Employee Created!
+    </div>
   )
 }
 

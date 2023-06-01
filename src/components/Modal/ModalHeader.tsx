@@ -1,10 +1,10 @@
 import './style/ModalHeader.css'
 
-function ModalHeader({setModalOpen} : IProps){
+function ModalHeader({setModalVisibility} : IProps){
 
     return (
         <div className='header-container'>
-            <button onClick={() =>setModalOpen(false)} id="close" aria-label="close">X</button>        
+            <button className='close-btn' onClick={() => setModalVisibility(false)} id="close" aria-label="close">X</button>        
         </div>
     )
 }
@@ -12,5 +12,5 @@ function ModalHeader({setModalOpen} : IProps){
 export default ModalHeader
 
 interface IProps{
-    setModalOpen : (bool : boolean) => void
+    setModalVisibility : (bool : boolean) => void
 }
