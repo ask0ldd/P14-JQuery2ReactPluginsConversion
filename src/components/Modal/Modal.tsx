@@ -13,6 +13,9 @@ function Modal({modalVisibility, setModalVisibility, modalContent} : IProps){
         if(!modalVisibilityRef && dialogRef.current?.open) return dialogRef.current?.close()
     })
 
+    /*if(modalVisibilityRef && !dialogRef.current?.open) return dialogRef.current?.showModal()
+    if(!modalVisibilityRef && dialogRef.current?.open) return dialogRef.current?.close()*/
+
     return (
         modalVisibility ? 
         <dialog ref={dialogRef}>

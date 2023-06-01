@@ -2,11 +2,12 @@ import './App.css'
 import { Link } from 'react-router-dom'
 import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
-import {useRef, useState} from 'react'
+import useModalsVisibilityManager from './components/Modal/hooks/useSetModalVisibility'
 
 function App() {
 
-  const [modalVisibility, setModalVisibility] = useState<boolean>(true)
+  // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
+  const {modalVisibility, setModalVisibility} = useModalsVisibilityManager(true) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
 
   return (
     <main>
