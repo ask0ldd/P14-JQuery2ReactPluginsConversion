@@ -59,7 +59,9 @@ function App() {
         <input type="submit" value="Add this Employee"/>
 
       </form>
+
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={ModalContent}></Modal>
+      
       <button onClick={() => {
         setModalVisibility(true)
       }}>showmod</button>

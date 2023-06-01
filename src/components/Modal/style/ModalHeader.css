@@ -11,4 +11,6 @@
   position: absolute;
   right: 0rem;
   top: -2rem;
+  border-radius: 50%;
+  border: 1px solid black;
 }

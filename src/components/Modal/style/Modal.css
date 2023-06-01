@@ -10,6 +10,8 @@ dialog {
   padding: 1rem 1rem 1.5rem 1rem;
   border: 1px solid black;
   border-radius: 6px;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
 }
 
 dialog::backdrop {
