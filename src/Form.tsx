@@ -16,7 +16,7 @@ function App() {
   } 
     = useModalManager({initialVisibility : true, content : ModalContentSuccess}) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
   
-  const [formState, setFormState]= useState({
+  const [formState, setFormState]= useState<IForm>({
     firstname: '',
     lastname: '',
     birthdate: '',
@@ -36,13 +36,13 @@ function App() {
         <h2>1. Personnal</h2>
 
         <label htmlFor="firstname">First Name</label>
-        <input id="firstname" type="text" value={formState.firstname} onChange={(e) => setFormState({...formState, firstname : e.target.value.toLowerCase()})}/>
+        <input id="firstname" type="text" value={formState.firstname} onChange={(e) => setFormState({...formState, firstname : e.target.value.toLowerCase().trim()})}/>
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
-        <input id="lastname" type="text" value={formState.lastname} onChange={(e) => setFormState({...formState, lastname : e.target.value.toLowerCase()})}/>
+        <input id="lastname" type="text" value={formState.lastname} onChange={(e) => setFormState({...formState, lastname : e.target.value.toLowerCase().trim()})}/>
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
-        <input id="birthdate" type="text"/>
+        <input id="birthdate" type="text" value={formState.birthdate} onChange={(e) => setFormState({...formState, birthdate : e.target.value.toLowerCase().trim()})}/>
 
         <h2>2. Address</h2>
 
@@ -50,18 +50,18 @@ function App() {
         <input id="street" type="text"/>
 
         <label htmlFor="city" className='defaultSpacing'>City</label>
-        <input id="city" type="text"/>
+        <input id="city" type="text" value={formState.city} onChange={(e) => setFormState({...formState, city : e.target.value.toLowerCase().trim()})}/>
 
         <label htmlFor="state" className='defaultSpacing'>State</label>
-        <input id="state" type="text"/>
+        <input id="state" type="text" value={formState.state} onChange={(e) => setFormState({...formState, state : e.target.value.toLowerCase().trim()})}/>
 
-        <label htmlFor="zip-code" className='defaultSpacing'>ZIP Code</label>
-        <input id="zip-code" type="number"/>
+        <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
+        <input id="zipcode" type="number" value={formState.zipcode} onChange={(e) => setFormState({...formState, zipcode : e.target.value.toLowerCase().trim()})}/>
 
         <h2>3. Professional</h2>
 
         <label htmlFor="start-date">Integration Date</label>
-        <input id="start-date" type="text"/>
+        <input id="start-date" type="text" value={formState.startdate} onChange={(e) => setFormState({...formState, startdate : e.target.value.toLowerCase().trim()})}/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
         {/*<input name="department" id="department" type="text"/>*/}
@@ -121,3 +121,15 @@ function AlternateModalHeader({setModalVisibility} : IPropsModalHeader){
 }
 
 export default App
+
+interface IForm{
+  firstname: string
+  lastname: string
+  birthdate: string
+  street: string
+  city: string
+  state: string
+  zipcode: string
+  startdate: string
+  department: string
+}
