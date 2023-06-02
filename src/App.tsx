@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import './App.css'
 import { Link } from 'react-router-dom'
 import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
-import useModalsVisibilityManager from './components/Modal/hooks/useSetModalVisibility'
+import useModalManager from './components/Modal/hooks/useModalManager'
+import { useState } from 'react'
 
 function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
-  const {modalVisibility, setModalVisibility} = useModalsVisibilityManager(true) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
+  const {modalVisibility, modalContent, setModalVisibility, setModalContent} = useModalManager({initialVisibility : true, content : ModalContentSuccess}) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
 
   return (
     <main>
@@ -61,9 +63,10 @@ function App() {
 
       </form>
 
-      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={ModalContent}></Modal>
+      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent}></Modal>
       
       <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
+        setModalContent(ModalContentAlternate)
         setModalVisibility(true)
       }}>show modale</button>
      
@@ -72,10 +75,18 @@ function App() {
 }
 
 // Component that will be injected into the modal
-function ModalContent(){
+function ModalContentSuccess(){
   return(
     <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
       Employee Created!
+    </div>
+  )
+}
+
+function ModalContentAlternate(){
+  return(
+    <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
+      Alternate Content!
     </div>
   )
 }

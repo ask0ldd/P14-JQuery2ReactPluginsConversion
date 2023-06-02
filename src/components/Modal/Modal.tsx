@@ -1,5 +1,5 @@
 import ModalHeader from "./ModalHeader"
-import { useRef, useEffect, useState, MutableRefObject } from "react"
+import { useRef, useEffect, /*useState, MutableRefObject*/} from "react"
 import './style/Modal.css'
 
 function Modal({modalVisibility, setModalVisibility, modalContent} : IProps){
@@ -20,7 +20,7 @@ function Modal({modalVisibility, setModalVisibility, modalContent} : IProps){
         modalVisibility ? 
         <dialog ref={dialogRef}>
             <ModalHeader setModalVisibility={setModalVisibility}/>
-            {modalContent()}
+            {modalContent}
         </dialog> 
         : <></>
     )
@@ -30,6 +30,6 @@ export default Modal
 
 interface IProps{
     modalVisibility : boolean
-    modalContent : () => JSX.Element
+    modalContent : /*() => */JSX.Element
     setModalVisibility : (bool : boolean) => void
 }
