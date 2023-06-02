@@ -6,12 +6,15 @@ function Modal({modalVisibility, setModalVisibility, modalContent, headerCompone
 
     const dialogRef = useRef<HTMLDialogElement>(null)
     const modalVisibilityRef = useRef(modalVisibility)
-    // const [modalOpen, setModalOpen] = useState<boolean>(visible)
 
     useEffect(() => {
         if(modalVisibilityRef && !dialogRef.current?.open) return dialogRef.current?.showModal()
         if(!modalVisibilityRef && dialogRef.current?.open) return dialogRef.current?.close()
     })
+
+    /*const tomorrow = new Date()
+    tomorrow.setDate(new Date().getDate() + 1)
+    console.log(tomorrow)*/
 
     return (
         modalVisibility ? 
@@ -19,7 +22,6 @@ function Modal({modalVisibility, setModalVisibility, modalContent, headerCompone
             // closing the modal only if clicking on the backdrop / not on the content itself
             if (e.target === dialogRef.current) setModalVisibility(false)
             }}>
-            {/*<ModalHeader setModalVisibility={setModalVisibility}/>*/}
             {headerComponent}
             {modalContent}
         </dialog> 

@@ -5,6 +5,7 @@ import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
 import { IPropsModalHeader } from './components/Modal/ModalHeader'
+import { useState } from 'react'
 
 function App() {
 
@@ -12,8 +13,20 @@ function App() {
   const {
       modalVisibility, modalContent, headerComponent, 
       setModalVisibility, setModalContent, setHeaderComponent
-    } 
+  } 
     = useModalManager({initialVisibility : true, content : ModalContentSuccess}) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
+  
+  const [formState, setFormState]= useState({
+    firstname: '',
+    lastname: '',
+    birthdate: '',
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    startdate: '',
+    department: '',
+  })
 
   return (
     <main>
@@ -23,10 +36,10 @@ function App() {
         <h2>1. Personnal</h2>
 
         <label htmlFor="firstname">First Name</label>
-        <input id="firstname" type="text"/>
+        <input id="firstname" type="text" value={formState.firstname} onChange={(e) => setFormState({...formState, firstname : e.target.value.toLowerCase()})}/>
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
-        <input id="lastname" type="text"/>
+        <input id="lastname" type="text" value={formState.lastname} onChange={(e) => setFormState({...formState, lastname : e.target.value.toLowerCase()})}/>
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
         <input id="birthdate" type="text"/>
