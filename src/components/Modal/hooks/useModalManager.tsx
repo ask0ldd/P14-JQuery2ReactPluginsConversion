@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react"
+import ModalHeader from "../ModalHeader"
 
 function useModalManager({initialVisibility, content} : IModalObject){
     // initial visibility / initial content
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility)
     const [modalContent, setModalContent] = useState<JSX.Element>(content)
+    const [headerComponent, setHeaderComponent] = useState<JSX.Element>(ModalHeader({setModalVisibility})) /* set default modal header with props passed */
 
     useEffect(() => {
   
@@ -21,20 +24,10 @@ function useModalManager({initialVisibility, content} : IModalObject){
 
     }, [])
 
-    return {modalVisibility, modalContent, setModalVisibility, setModalContent}
+    return {modalVisibility, modalContent, headerComponent, setModalVisibility, setModalContent, setHeaderComponent}
 }
 
 export default useModalManager
-
-/*interface IModal{
-    id : string
-    visibilityManaging : IVisibilityManaging
-}
-
-interface IVisibilityManaging{
-    modalVisibility : boolean
-    setModalVisibility : (bool : boolean) => void
-}*/
 
 interface IModalObject{
     initialVisibility : boolean

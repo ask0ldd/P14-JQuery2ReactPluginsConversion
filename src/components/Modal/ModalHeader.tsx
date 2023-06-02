@@ -1,6 +1,6 @@
 import './style/ModalHeader.css'
 
-function ModalHeader({setModalVisibility} : IProps){
+function ModalHeader({setModalVisibility} : IPropsModalHeader){
 
     return (
         <div className='header-container'>
@@ -11,6 +11,6 @@ function ModalHeader({setModalVisibility} : IProps){
 
 export default ModalHeader
 
-interface IProps{
+export interface IPropsModalHeader{
     setModalVisibility : (bool : boolean) => void
 }

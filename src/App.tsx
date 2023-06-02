@@ -4,11 +4,16 @@ import { Link } from 'react-router-dom'
 import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
+import { IPropsModalHeader } from './components/Modal/ModalHeader'
 
 function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
-  const {modalVisibility, modalContent, setModalVisibility, setModalContent} = useModalManager({initialVisibility : true, content : ModalContentSuccess}) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
+  const {
+      modalVisibility, modalContent, headerComponent, 
+      setModalVisibility, setModalContent, setHeaderComponent
+    } 
+    = useModalManager({initialVisibility : true, content : ModalContentSuccess}) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
 
   return (
     <main>
@@ -62,9 +67,12 @@ function App() {
 
       </form>
 
-      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent}></Modal>
+      { /* should be able to pass a custom header, replacing the default one 
+      / absolute positioning should be an option so won't mess with the content layout, full modal access for the content */}
+      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}></Modal>
       
       <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
+        setHeaderComponent(AlternateModalHeader({setModalVisibility}))
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
       }}>Show alternate modale</button>
@@ -86,6 +94,14 @@ function ModalContentAlternate(){
   return(
     <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
       Alternate Content!
+    </div>
+  )
+}
+
+function AlternateModalHeader({setModalVisibility} : IPropsModalHeader){
+  return(
+    <div>
+      <span onClick={() => setModalVisibility(false)}>aaaaaa</span>
     </div>
   )
 }
