@@ -13,12 +13,12 @@ function Modal({modalVisibility, setModalVisibility, modalContent} : IProps){
         if(!modalVisibilityRef && dialogRef.current?.open) return dialogRef.current?.close()
     })
 
-    /*if(modalVisibilityRef && !dialogRef.current?.open) return dialogRef.current?.showModal()
-    if(!modalVisibilityRef && dialogRef.current?.open) return dialogRef.current?.close()*/
-
     return (
         modalVisibility ? 
-        <dialog ref={dialogRef}>
+        <dialog ref={dialogRef} onClick={(e) => {
+            // closing the modal only if clicking on the backdrop / not on the content itself
+            if (e.target === dialogRef.current) setModalVisibility(false)
+            }}>
             <ModalHeader setModalVisibility={setModalVisibility}/>
             {modalContent}
         </dialog> 

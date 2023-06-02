@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
-import { useState } from 'react'
 
 function App() {
 
@@ -68,7 +67,7 @@ function App() {
       <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
-      }}>show modale</button>
+      }}>Show alternate modale</button>
      
     </main>
   )
