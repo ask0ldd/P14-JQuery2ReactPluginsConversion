@@ -1,4 +1,4 @@
-import ModalHeader from "./ModalHeader"
+// import ModalHeader from "./ModalHeader"
 import { useRef, useEffect, /*useState, MutableRefObject*/} from "react"
 import './style/Modal.css'
 

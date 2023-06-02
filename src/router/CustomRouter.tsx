@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import App from '../App'
+import Form from '../Form'
 import CurrentEmployees from '../pages/CurrentEmployees'
 
 function CustomRouter() {
@@ -7,7 +7,7 @@ function CustomRouter() {
     return(
         <Router>
             <Routes>
-                <Route path="/" element={<App />} />
+                <Route path="/" element={<Form />} />
                 <Route path="/employee-list" element={<CurrentEmployees />} />
             </Routes>
         </Router>

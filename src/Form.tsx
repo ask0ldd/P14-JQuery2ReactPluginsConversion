@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import './App.css'
+import './Form.css'
 import { Link } from 'react-router-dom'
 import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
@@ -98,6 +98,7 @@ function ModalContentAlternate(){
   )
 }
 
+/* props needed to access the close modal fn into the header */
 function AlternateModalHeader({setModalVisibility} : IPropsModalHeader){
   return(
     <div>
