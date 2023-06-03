@@ -15,7 +15,7 @@ function Option({index, option} : IProps){
     return (
         <li role="option" id={option.value} data-value={option.value} aria-selected={isOptionActive(options[index])} 
         style={isOptionActive(options[index]) ? {background:'#dfdfdf'} : {}} 
-        onMouseDown={(e) => {e.preventDefault(); console.log('click'); setActiveOption(options[index]); setListboxAsExpanded(false);}} value={option.value}>{option.label}</li>
+        onMouseDown={() => {setActiveOption(options[index]); setListboxAsExpanded(false);}} value={option.value}>{option.label}</li>
     )
 }
 

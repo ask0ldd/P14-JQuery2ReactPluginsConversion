@@ -4,6 +4,7 @@ import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
 import {createContext, useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
+import { IForm } from '../../Form'
 
 /*
 add a way to define the default Option or a non option default value
@@ -16,16 +17,17 @@ si touche cliquee > option commencant par cette touche
 */
 
 /* selectId added at the head of each react key of the component / subcomponents to ensure their unicity */
-function CustomSelect({options, selectId, labelledBy, onValueChange /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({formState, options, selectId, labelledBy, onValueChange /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
 
     // updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
     const [activeOption, _setActiveOption] = useState<IOption>({...options[0]}) // deal with error if options missing
     const activeOptionRef = useRef<IOption>(activeOption)
     function setActiveOption(option : IOption){
+        console.log(formState.startdate)
         _setActiveOption({...option})
-        onValueChange('department', option.value)
         activeOptionRef.current = {...option}
+        onValueChange({...formState}, option.value)
     }
 
     const [isListboxExpanded, _setListboxAsExpanded] = useState<boolean>(false)
@@ -71,10 +73,11 @@ export interface IOption{
 }
 
 interface IProps{
+    formState : IForm
     options : Array<IOption>
     selectId : string
     labelledBy : string
-    onValueChange : (datakey : string, value : string) => void
+    onValueChange : (formState : IForm, value : string, datakey? : string) => void
     // styleOverride? : object
 }
 

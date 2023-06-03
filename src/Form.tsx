@@ -5,16 +5,16 @@ import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
 import { IPropsModalHeader } from './components/Modal/ModalHeader'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
-  /*const {
+  const {
       modalVisibility, modalContent, headerComponent, 
       setModalVisibility, setModalContent, setHeaderComponent
   } 
-    = useModalManager({initialVisibility : true, content : ModalContentSuccess})*/
+    = useModalManager({initialVisibility : true, content : ModalContentSuccess})
   
   const [formState, setFormState]= useState<IForm>({
     firstname: '',
@@ -27,6 +27,8 @@ function App() {
     startdate: '',
     department: '',
   })
+
+  useEffect(() => console.log(formState), [formState])
 
   return (
     <main>
@@ -71,8 +73,8 @@ function App() {
         onChange={(e) => setFormState({...formState, startdate : e.target.value.toLowerCase().trim()})}/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
-        {/*<input name="department" id="department" type="text"/> / onValueChange*/}
-        <CustomSelect onValueChange={(datakey : string, value : string) => setFormState({...formState, [datakey] : value.trim()})} 
+
+        <CustomSelect formState={formState} onValueChange={(formState : IForm, value : string, datakey = 'department') => setFormState({...formState, [datakey] : value})}
         labelledBy="department-label" options={[
           {label:'Engineering', value:'Engineering'}, 
           {label:'Human Ressources', value:'Human Ressources'}, 
@@ -89,14 +91,14 @@ function App() {
       </form>
 
       { /* should be able to pass a custom header, replacing the default one 
-      / absolute positioning should be an option so won't mess with the content layout, full modal access for the content
+      / absolute positioning should be an option so won't mess with the content layout, full modal access for the content */}
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}></Modal>
       
       <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
         setHeaderComponent(AlternateModalHeader({setModalVisibility}))
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
-      }}>Show alternate modale</button> */}
+      }}>Show alternate modale</button>
      
     </main>
   )
@@ -130,7 +132,7 @@ function AlternateModalHeader({setModalVisibility} : IPropsModalHeader){
 
 export default App
 
-interface IForm{
+export interface IForm{
   firstname: string
   lastname: string
   birthdate: string
