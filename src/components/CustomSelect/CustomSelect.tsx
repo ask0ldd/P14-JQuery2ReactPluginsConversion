@@ -24,6 +24,7 @@ function CustomSelect({options, selectId, labelledBy, onValueChange /*styleOverr
     const activeOptionRef = useRef<IOption>(activeOption)
     function setActiveOption(option : IOption){
         _setActiveOption({...option})
+        onValueChange('department', option.value)
         activeOptionRef.current = {...option}
     }
 

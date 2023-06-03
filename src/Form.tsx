@@ -10,11 +10,11 @@ import { useState } from 'react'
 function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
-  const {
+  /*const {
       modalVisibility, modalContent, headerComponent, 
       setModalVisibility, setModalContent, setHeaderComponent
   } 
-    = useModalManager({initialVisibility : true, content : ModalContentSuccess}) // find a way to deal with multiple modal, with ids? with possibility to had new modal at runtime
+    = useModalManager({initialVisibility : true, content : ModalContentSuccess})*/
   
   const [formState, setFormState]= useState<IForm>({
     firstname: '',
@@ -72,7 +72,7 @@ function App() {
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
         {/*<input name="department" id="department" type="text"/> / onValueChange*/}
-        <CustomSelect onValueChange={(datakey : string, value : string) => setFormState({...formState, [datakey] : value.toLowerCase().trim()})} 
+        <CustomSelect onValueChange={(datakey : string, value : string) => setFormState({...formState, [datakey] : value.trim()})} 
         labelledBy="department-label" options={[
           {label:'Engineering', value:'Engineering'}, 
           {label:'Human Ressources', value:'Human Ressources'}, 
@@ -89,14 +89,14 @@ function App() {
       </form>
 
       { /* should be able to pass a custom header, replacing the default one 
-      / absolute positioning should be an option so won't mess with the content layout, full modal access for the content */}
+      / absolute positioning should be an option so won't mess with the content layout, full modal access for the content
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}></Modal>
       
       <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
         setHeaderComponent(AlternateModalHeader({setModalVisibility}))
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
-      }}>Show alternate modale</button>
+      }}>Show alternate modale</button> */}
      
     </main>
   )

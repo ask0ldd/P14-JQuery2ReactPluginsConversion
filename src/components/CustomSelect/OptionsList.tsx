@@ -9,7 +9,7 @@ function OptionsList(){
 
     return(
         isListboxExpanded ? 
-        <ul tabIndex={-1} id="customListbox" aria-labelledby="customSelectLabel" className="customSelectOptionsContainer" role="listbox">
+        <ul onClick={(e) => {e.preventDefault(); console.log('listbox');}} tabIndex={-1} id="customListbox" aria-labelledby="customSelectLabel" className="customSelectOptionsContainer" role="listbox">
             {options.map((option, index) => <Option key={selectId+'-option-'+index} index={index} option={option}/>)}
         </ul> 
         : <></>
