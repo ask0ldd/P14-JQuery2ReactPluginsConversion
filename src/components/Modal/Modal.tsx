@@ -36,4 +36,5 @@ interface IProps{
     modalContent : /*() => */JSX.Element
     headerComponent : /*() => */JSX.Element
     setModalVisibility : (bool : boolean) => void
+    onValueChange : (datakey : string, value : string) => void
 }

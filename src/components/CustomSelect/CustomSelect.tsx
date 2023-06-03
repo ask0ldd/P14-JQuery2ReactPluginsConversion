@@ -16,7 +16,7 @@ si touche cliquee > option commencant par cette touche
 */
 
 /* selectId added at the head of each react key of the component / subcomponents to ensure their unicity */
-function CustomSelect({options, selectId, labelledBy, /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({options, selectId, labelledBy, onValueChange /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
 
     // updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
@@ -73,6 +73,7 @@ interface IProps{
     options : Array<IOption>
     selectId : string
     labelledBy : string
+    onValueChange : (datakey : string, value : string) => void
     // styleOverride? : object
 }
 
