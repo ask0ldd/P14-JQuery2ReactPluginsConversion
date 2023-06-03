@@ -24,10 +24,9 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange /
     const [activeOption, _setActiveOption] = useState<IOption>({...options[0]}) // deal with error if options missing
     const activeOptionRef = useRef<IOption>(activeOption)
     function setActiveOption(option : IOption){
-        console.log(formState.startdate)
         _setActiveOption({...option})
         activeOptionRef.current = {...option}
-        onValueChange({...formState}, option.value)
+        onValueChange(formState, option.value)
     }
 
     const [isListboxExpanded, _setListboxAsExpanded] = useState<boolean>(false)
@@ -38,6 +37,7 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange /
     }
 
     useKeyboardHandler(
+        formState,
         [...options], 
         activeOptionRef, 
         isListboxExpandedRef, 
@@ -78,6 +78,7 @@ interface IProps{
     selectId : string
     labelledBy : string
     onValueChange : (formState : IForm, value : string, datakey? : string) => void
+    // onValueChange : (formState : IForm) => void
     // styleOverride? : object
 }
 

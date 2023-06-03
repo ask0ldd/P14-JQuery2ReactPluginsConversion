@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, MutableRefObject } from 'react'
 import { IOption } from '../CustomSelect'
+import { IForm } from '../../../Form'
 
 export function useKeyboardHandler(
+    formState : IForm,
     options : Array<IOption>, 
     activeOptionRef : MutableRefObject<IOption>, 
     isListboxExpandedRef : MutableRefObject<boolean>, 
@@ -73,7 +75,7 @@ export function useKeyboardHandler(
             window.removeEventListener('keydown', keyboardListener)
         }
 
-    }, [])
+    }, [formState]) // sountenance :: each time formState is changing, the event listener is remounted with it's new value => without that always using the initial blank formState
 
     function setFirstOptionActive(e : KeyboardEvent){
         e.preventDefault()
