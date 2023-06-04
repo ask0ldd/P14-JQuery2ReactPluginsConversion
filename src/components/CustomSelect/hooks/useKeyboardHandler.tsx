@@ -75,7 +75,7 @@ export function useKeyboardHandler(
             window.removeEventListener('keydown', keyboardListener)
         }
 
-    }, [formState]) // sountenance :: each time formState is changing, the event listener is remounted with it's new value => without that always using the initial blank formState
+    }, [formState]) // sountenance :: each time formState is changing, the event listener is remounted with formstate new value => without that accessing formstate return a blank stale state
 
     function setFirstOptionActive(e : KeyboardEvent){
         e.preventDefault()
