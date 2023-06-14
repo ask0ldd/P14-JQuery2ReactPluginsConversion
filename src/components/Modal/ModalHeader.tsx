@@ -4,7 +4,7 @@ import './style/ModalHeader.css'
  * Component : Modals Header.
  * @Component
  * @param {Object[]} props - Props.
- * @param {bool} props.setModalVisibility - Function setting the display state of the modal.
+ * @param {bool} props.setModalVisibility - Function to set the display state of the modal.
  * @return ( <ModalHeader setModalVisibility={setModalVisibility}/> )
  */
 function ModalHeader({setModalVisibility} : IPropsModalHeader){

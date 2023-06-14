@@ -9,11 +9,11 @@ import ModalHeader from "../ModalHeader"
  * @param {boolean} PassedObject.initialVisibility - Should the modal be visible at creation ?
  * @param {JSX.element} PassedObject.content - React component to inject into the modal.
  * @return {Object.< modalVisibility: boolean, modalContent: JSX.element, headerComponent: JSX.element, setModalVisibility: function, setModalContent: function, setHeaderComponent: function >}
- * modalVisibility - Visibility of the modal.
+ * modalVisibility - Visibility state of the modal.
  * modalContent - Component used as the body of the modal.
  * headerComponent - Component used as a modals header.
- * setModalVisibility - Set the visibility of the modal.
- * setModalContent - Set a new react component as the body of the modal.
+ * setModalVisibility - Sets the visibility of the modal.
+ * setModalContent - Sets a new react component as the body of the modal.
  * setHeaderComponent - Set a new react component as the header of the modal.
  */
 function useModalManager({initialVisibility, content} : IModalObject){

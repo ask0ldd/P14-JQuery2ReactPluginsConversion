@@ -2,6 +2,15 @@
 import { useRef, useEffect, /*useState, MutableRefObject*/} from "react"
 import './style/Modal.css'
 
+/**
+ * Component : Grouping all the constitutive elements of a datatable.
+ * @Component
+ * @param {Object[]} props - Props.
+ * @param {boolean} props.modalVisibility - Visibility of the modal.
+ * @param {function} props.setModalVisibility - Sets the visibility of the modal.
+ * @param {JSX.element} props.headerComponent - Component used as a modals header.
+ * @return ( <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}/> )
+ */
 function Modal({modalVisibility, setModalVisibility, modalContent, headerComponent} : IProps){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
