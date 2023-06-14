@@ -4,6 +4,11 @@ import '../style/CurrentEmployees.css'
 import usersDatas from '../datas/usersDatas'
 import DatasTable from '../components/DatasTable/DatasTable'
 
+/**
+ * Component : Displaying the current employees datatable page.
+ * @Component
+ * @return ( <CurrentEmployees/> )
+ */
 function CurrentEmployees() {
 
   // check if usersDatas properties match columnsDefinition datakeys // should check for each object ?
