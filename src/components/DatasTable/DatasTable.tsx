@@ -21,10 +21,10 @@ datatype : string*/
  * @Component
  * @param {Object[]} props - Props.
  * @param {Object[]} props.columnsDefinition
- * @param {string} props.columnsDefinition[0].datakey - Column accessor.
- * @param {string} props.columnsDefinition[0].th - String to be inserted into the th tag of the column - Header.
- * @param {boolean} props.columnsDefinition[0].sortable - Sortability of the column.
- * @param {string} props.columnsDefinition[0].datatype - Type of the datas populating the column.
+ * @param {string} props.columnsDefinition[].datakey - Column accessor.
+ * @param {string} props.columnsDefinition[].th - String to be inserted into the th tag of the column - Header.
+ * @param {boolean} props.columnsDefinition[].sortable - Sortability of the column.
+ * @param {string} props.columnsDefinition[].datatype - Type of the datas populating the column.
  * @param {Object[]} props.tableDatas - Datas used to populate the table.
  * @return ( <DatasTable columnsDefinition={columnsDefinition} tableDatas={tableDatas}/> )
  */

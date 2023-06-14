@@ -22,11 +22,11 @@ si touche cliquee > option commencant par cette touche
  * Component : Option populating the option list of a custom select.
  * @Component
  * @param {Object} props - Props.
- * @param {number} props.formState - Index of the option.
+ * @param {number} props.formState - Current values of the form elements.
  * @param {Object} props.options
- * @param {string} props.options[].label - text displayed as an option.
- * @param {string} props.options[].value - value sent on form submit when this option is selected.
- * @param {string} props.selectId - id of the select, only used for options naming purposes.
+ * @param {string} props.options[].label - Text displayed as an option.
+ * @param {string} props.options[].value - Value sent on form submit when this option is selected.
+ * @param {string} props.selectId - Id of the select, only used for options naming purposes.
  * @param {string} props.labelledBy - Id of the label related to the input.
  * @param {function} props.onValueChange - Function triggered when selecting a new option.
  * @return ( <CustomSelect formState={formState} options={options} selectId={selectId} labelledBy={labelledBy} onValueChange={onValueChange}/> )
