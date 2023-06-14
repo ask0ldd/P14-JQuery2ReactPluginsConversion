@@ -4,7 +4,7 @@ import { DatasTableContext } from "./DatasTable"
 import { useContext } from "react"
 
 /**
- * Component : LineChart custom training session duration tooltip.
+ * Component : A container hosting a select.
  * @Component
  * @return ( <NDisplayedSelect/> )
  */

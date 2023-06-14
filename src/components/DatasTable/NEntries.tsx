@@ -1,6 +1,11 @@
 import { DatasTableContext } from "./DatasTable"
 import { useContext } from "react"
 
+/**
+ * Component : A container displaying the number of entries in the current table.
+ * @Component
+ * @return ( <NEntries/> )
+ */
 function NEntries(){
 
     const {tableDatasState, displayRules} = useContext(DatasTableContext)

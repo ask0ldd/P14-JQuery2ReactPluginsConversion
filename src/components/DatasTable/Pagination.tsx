@@ -8,6 +8,16 @@ interface IProps{
   totalEntries: number
 }
 
+/**
+ * Component : Datatable pagination.
+ * @Component
+ * @param {Object[]} props - Props.
+ * @param {number} props.currentPage - Current datatable page.
+ * @param {function} props.setDisplayRules - Used to navigate to the different datatable pages.
+ * @param {number} props.nEntriesPerPage - Entries / results per page.
+ * @param {number} props.totalEntries - Total number of entries.
+ * @return ( <Pagination currentPage={currentPage} setDisplayRules={setDisplayRules} nEntriesPerPage={nEntriesPerPage} totalEntries={totalEntries}/> )
+ */
 function Pagination({currentPage, setDisplayRules, nEntriesPerPage, totalEntries} : IProps) {
 
     function prevPage(){
