@@ -2,6 +2,11 @@ import {useContext} from 'react'
 import { SelectContext } from './CustomSelect'
 import './style/ComboBox.css'
 
+/**
+ * Component : The field containing the active option of the custom select.
+ * @Component
+ * @return ( <SelectComboBox/> )
+ */
 function SelectComboBox(){
 
     const { activeOption, isListboxExpanded, labelledBy, setListboxAsExpanded } = useContext(SelectContext)

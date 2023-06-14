@@ -3,6 +3,11 @@ import { useContext } from 'react'
 import { SelectContext } from './CustomSelect'
 import Option from './Option'
 
+/**
+ * Component : The list of options displayed into the custom select.
+ * @Component
+ * @return ( <OptionsList/> )
+ */
 function OptionsList(){
 
     const { selectId, options, isListboxExpanded } = useContext(SelectContext)
