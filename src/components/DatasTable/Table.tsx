@@ -4,6 +4,11 @@ import { DatasTableContext } from "./DatasTable"
 import './style/Table.css'
 import { IUsersDatas } from "../../datas/usersDatasTen"
 
+/**
+ * Component : A simple HTML Table displaying all the requested data.
+ * @Component
+ * @return ( <Table/> )
+ */
 function Table() {
 
     const {displayRules, tableDatasState, ordering, tableColumnsNames, tableDatasKeys, setOrdering} = useContext(DatasTableContext)

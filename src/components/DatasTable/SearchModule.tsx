@@ -7,6 +7,11 @@ import { useContext } from "react"
     setSearchString: any
 }*/
 
+/**
+ * Component : Module adding a search function to the datatable.
+ * @Component
+ * @return ( <SearchModule/> )
+ */
 function SearchModule() {
 
     const { setSearchString } = useContext(DatasTableContext)

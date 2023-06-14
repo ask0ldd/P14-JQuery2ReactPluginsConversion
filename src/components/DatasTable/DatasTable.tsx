@@ -17,7 +17,7 @@ sortable : boolean
 datatype : string*/
 
 /**
- * Component : Custom Table hosting datas.
+ * Component : Grouping all the constitutive elements of a datatable.
  * @Component
  * @param {Object[]} props - Props.
  * @param {Object[]} props.columnsDefinition
