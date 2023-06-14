@@ -8,6 +8,11 @@ import { IPropsModalHeader } from './components/Modal/ModalHeader'
 import { useEffect, useState } from 'react'
 import DatePicker from './components/DatePicker/DatePicker'
 
+/**
+ * Component : Displaying the form page.
+ * @Component
+ * @return ( <App/> )
+ */
 function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component

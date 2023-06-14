@@ -3,6 +3,16 @@ import { useContext } from 'react'
 import { SelectContext } from './CustomSelect'
 import { IOption } from './CustomSelect'
 
+/**
+ * Component : Option populating the option list of a custom select.
+ * @Component
+ * @param {Object} props - Props.
+ * @param {number} props.index - Index of the option.
+ * @param {Object} props.option
+ * @param {string} props.option.label - text displayed as an option.
+ * @param {string} props.option.value - value sent on form submit when this option is selected.
+ * @return ( <Option index={index} option={option}/> )
+ */
 function Option({index, option} : IProps){
 
     const { options, activeOption, setActiveOption, setListboxAsExpanded } = useContext(SelectContext)

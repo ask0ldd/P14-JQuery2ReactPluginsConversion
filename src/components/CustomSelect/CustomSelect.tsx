@@ -6,7 +6,7 @@ import {createContext, useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 import { IForm } from '../../Form'
 
-/*
+/* !!!
 add a way to define the default Option or a non option default value
 improve keyboard handler highlighted / selected
 deal with error if options values are not unique
@@ -17,6 +17,20 @@ si touche cliquee > option commencant par cette touche
 */
 
 /* selectId added at the head of each react key of the component / subcomponents to ensure their unicity */
+
+/**
+ * Component : Option populating the option list of a custom select.
+ * @Component
+ * @param {Object} props - Props.
+ * @param {number} props.formState - Index of the option.
+ * @param {Object} props.options
+ * @param {string} props.options[].label - text displayed as an option.
+ * @param {string} props.options[].value - value sent on form submit when this option is selected.
+ * @param {string} props.selectId - id of the select, only used for options naming purposes.
+ * @param {string} props.labelledBy - Id of the label related to the input.
+ * @param {function} props.onValueChange - Function triggered when selecting a new option.
+ * @return ( <CustomSelect formState={formState} options={options} selectId={selectId} labelledBy={labelledBy} onValueChange={onValueChange}/> )
+ */
 function CustomSelect({formState, options, selectId, labelledBy, onValueChange /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
 
     // updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
