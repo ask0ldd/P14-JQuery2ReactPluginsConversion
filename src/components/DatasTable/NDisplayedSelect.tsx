@@ -3,6 +3,11 @@ import './style/NDisplayedSelect.css'
 import { DatasTableContext } from "./DatasTable"
 import { useContext } from "react"
 
+/**
+ * Component : LineChart custom training session duration tooltip.
+ * @Component
+ * @return ( <NDisplayedSelect/> )
+ */
 function NDisplayedSelect() 
 {
     // const selectElement = useRef<HTMLSelectElement>(null)

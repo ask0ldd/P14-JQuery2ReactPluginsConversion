@@ -6,6 +6,7 @@ import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
 import { IPropsModalHeader } from './components/Modal/ModalHeader'
 import { useEffect, useState } from 'react'
+import DatePicker from './components/DatePicker/DatePicker'
 
 function App() {
 
@@ -99,6 +100,8 @@ function App() {
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
       }}>Show alternate modale</button>
+
+      <DatePicker/>
      
     </main>
   )
