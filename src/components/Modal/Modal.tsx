@@ -11,7 +11,7 @@ import './style/Modal.css'
  * @param {JSX.element} props.headerComponent - Component used as a modals header.
  * @return ( <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}/> )
  */
-function Modal({modalVisibility, setModalVisibility, modalContent, headerComponent} : IProps){
+function Modal({modalVisibility, setModalVisibility, modalContent, headerComponent, containerCSSClass} : IProps){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
     const modalVisibilityRef = useRef(modalVisibility)
@@ -26,9 +26,10 @@ function Modal({modalVisibility, setModalVisibility, modalContent, headerCompone
     console.log(tomorrow)*/
 
     // !! add customizable css
+    // padding, border, display, direction, align items, justify items, margins, background, backdrop
     return (
         modalVisibility ? 
-        <dialog ref={dialogRef} onClick={(e) => {
+        <dialog className={containerCSSClass ? containerCSSClass : 'defaultModalStyle'} ref={dialogRef} onClick={(e) => {
             // closing the modal only if clicking on the backdrop / not on the content itself
             if (e.target === dialogRef.current) setModalVisibility(false)
             }}>
@@ -45,5 +46,6 @@ interface IProps{
     modalVisibility : boolean
     modalContent : /*() => */JSX.Element
     headerComponent : /*() => */JSX.Element
+    containerCSSClass? : string
     setModalVisibility : (bool : boolean) => void
 }
