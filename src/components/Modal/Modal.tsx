@@ -25,6 +25,7 @@ function Modal({modalVisibility, setModalVisibility, modalContent, headerCompone
     tomorrow.setDate(new Date().getDate() + 1)
     console.log(tomorrow)*/
 
+    // !! add customizable css
     return (
         modalVisibility ? 
         <dialog ref={dialogRef} onClick={(e) => {
