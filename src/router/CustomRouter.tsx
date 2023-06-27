@@ -8,9 +8,8 @@ import CurrentEmployees from '../pages/CurrentEmployees'
  * @return ( <CustomRouter/> )
  */
 function CustomRouter() {
-    /*<Router basename="/P13-UserInterface-API/ABFront/"> needs to add basename into vite config*/
     return(
-        <Router>
+        <Router basename="/P14-JQuery2ReactPluginsConversion/">
             <Routes>
                 <Route path="/" element={<Form />} />
                 <Route path="/employee-list" element={<CurrentEmployees />} />

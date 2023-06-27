@@ -22,6 +22,7 @@ function useModalManager({initialVisibility, content} : IModalObject){
     const [modalContent, setModalContent] = useState<JSX.Element>(content)
     const [headerComponent, setHeaderComponent] = useState<JSX.Element>(ModalHeader({setModalVisibility})) /* set default modal header with props passed */
 
+    // !!!! ADD SCREENLOCK
     useEffect(() => {
   
         function keyboardListener(e : KeyboardEvent){
