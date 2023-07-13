@@ -56,10 +56,9 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
         if(ordering.column === '') return setTableDatas(filteredTable)
         const sortedColumnDef = [...columnsDefinition].filter(column => column.datakey === ordering.column)[0]
         if(ordering.direction === 'asc' && sortedColumnDef.datatype === 'date') 
-            return setTableDatas(filteredTable.sort((a,b) => {
-                return dateToTime(b) - dateToTime(a)
-                // return new Date(b[ordering.column].spl) - new Date(a[ordering.column as keyof IUsersDatas])
-            }))
+            return setTableDatas(filteredTable.sort((a,b) => dateToTime(b[ordering.column]) - dateToTime(a[ordering.column])))
+        if(ordering.direction === 'desc' && sortedColumnDef.datatype === 'date') 
+            return setTableDatas(filteredTable.sort((a,b) => dateToTime(a[ordering.column]) - dateToTime(b[ordering.column])))
         if(ordering.direction === 'asc') 
             return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUsersDatas], b[ordering.column as keyof IUsersDatas])))
         if(ordering.direction === 'desc') 
