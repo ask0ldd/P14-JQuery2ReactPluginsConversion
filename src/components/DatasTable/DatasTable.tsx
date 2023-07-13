@@ -55,9 +55,15 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
         }
         if(ordering.column === '') return setTableDatas(filteredTable)
         const sortedColumnDef = [...columnsDefinition].filter(column => column.datakey === ordering.column)[0]
-        // if(ordering.direction === 'asc' && sortedColumnDef.datatype === 'date')
-        if(ordering.direction === 'asc') return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUsersDatas], b[ordering.column as keyof IUsersDatas])))
-        if(ordering.direction === 'desc') return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUsersDatas], a[ordering.column as keyof IUsersDatas])))
+        if(ordering.direction === 'asc' && sortedColumnDef.datatype === 'date') 
+            return setTableDatas(filteredTable.sort((a,b) => {
+                return dateToTime(b) - dateToTime(a)
+                // return new Date(b[ordering.column].spl) - new Date(a[ordering.column as keyof IUsersDatas])
+            }))
+        if(ordering.direction === 'asc') 
+            return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUsersDatas], b[ordering.column as keyof IUsersDatas])))
+        if(ordering.direction === 'desc') 
+            return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUsersDatas], a[ordering.column as keyof IUsersDatas])))
     }, [ordering.column, ordering.direction, displayRules.currentPage, searchString])
 
     // when typing into the searchbar, the currentpage is set back to 1
@@ -83,6 +89,12 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 }
 
 export default DatasTable
+
+// !!! jsdoc
+function dateToTime(date : string){
+    const [day, month, year] = date.split('/')
+    return new Date(parseInt(year), parseInt(month), parseInt(day)).getTime()
+}
 
 interface IDatasTableContext{
     displayRules? : IDisplayRules
