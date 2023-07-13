@@ -37,7 +37,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
     const [tableDatasState, setTableDatas] = useState<Array<IUsersDatas>>([...tableDatas]);
     const [ordering, setOrdering] = useState<IOrdering>({column : '', direction : 'asc'})
-    const [displayRules, setDisplayRules] = useState<IDisplayRules>({currentPage : 1, nEntriesPerPage : 10})
+    const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
     const [searchString, setSearchString] = useState<string>('')
   
     // react to any ordering state update
@@ -63,16 +63,16 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
             return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUsersDatas], b[ordering.column as keyof IUsersDatas])))
         if(ordering.direction === 'desc') 
             return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUsersDatas], a[ordering.column as keyof IUsersDatas])))
-    }, [ordering.column, ordering.direction, displayRules.currentPage, searchString])
+    }, [ordering.column, ordering.direction, paginationRules.currentPage, searchString])
 
     // when typing into the searchbar, the currentpage is set back to 1
     useEffect(()=>{
-        setDisplayRules({...displayRules, currentPage : 1})
+        setPaginationRules({...paginationRules, currentPage : 1})
     }, [searchString])
 
     return(
         <>  
-            <DatasTableContext.Provider value={{displayRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setDisplayRules, setOrdering, setSearchString}}>
+            <DatasTableContext.Provider value={{paginationRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setPaginationRules, setOrdering, setSearchString}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>
                     <SearchModule/>
@@ -80,7 +80,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
                 <Table/>
                 <div id="infosNPaginationContainer">
                     <NEntries/>
-                    <Pagination totalEntries={tableDatasState.length} currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>
+                    <Pagination totalEntries={tableDatasState.length} currentPage={paginationRules.currentPage} nEntriesPerPage={paginationRules.nEntriesPerPage} setPaginationRules={setPaginationRules}/>
                 </div>
             </DatasTableContext.Provider>
         </>
@@ -96,13 +96,13 @@ function dateToTime(date : string){
 }
 
 interface IDatasTableContext{
-    displayRules? : IDisplayRules
+    paginationRules? : IPaginationRules
     tableDatasState : Array<IUsersDatas>
     ordering? : IOrdering
     searchString? : string
     tableColumnsNames : Array<string>
     tableDatasKeys : Array<string>
-    setDisplayRules?({currentPage, nEntriesPerPage} : IDisplayRules) : void
+    setPaginationRules?({currentPage, nEntriesPerPage} : IPaginationRules) : void
     setOrdering?({column, direction} : IOrdering) : void
     setSearchString?(string : string) : void
 }
@@ -114,7 +114,7 @@ interface IProps {
     tableDatas : Array<any>
 }
 
-interface IDisplayRules{
+interface IPaginationRules{
     currentPage : number
     nEntriesPerPage : number
 }

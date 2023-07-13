@@ -11,7 +11,7 @@ import { IUsersDatas } from "../../datas/usersDatasTen"
  */
 function Table() {
 
-    const {displayRules, tableDatasState, ordering, tableColumnsNames, tableDatasKeys, setOrdering} = useContext(DatasTableContext)
+    const {paginationRules, tableDatasState, ordering, tableColumnsNames, tableDatasKeys, setOrdering} = useContext(DatasTableContext)
 
     function handleOrderingClick(index : number){
       // if clicking on the already active column, invert sorting direction
@@ -21,8 +21,8 @@ function Table() {
       return setOrdering && setOrdering({column : tableDatasKeys[index], direction : 'asc'})
     }
 
-    const firstDisplayedEntry = displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage) : 0
-    const lastDisplayedEntry =  displayRules ? Math.abs((displayRules.currentPage-1)*displayRules.nEntriesPerPage + displayRules.nEntriesPerPage) : 10
+    const firstDisplayedEntry = paginationRules ? Math.abs((paginationRules.currentPage-1)*paginationRules.nEntriesPerPage) : 0
+    const lastDisplayedEntry =  paginationRules ? Math.abs((paginationRules.currentPage-1)*paginationRules.nEntriesPerPage + paginationRules.nEntriesPerPage) : 10
     const rowsToDisplay = [...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)
 
     return (

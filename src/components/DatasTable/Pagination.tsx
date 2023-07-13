@@ -3,7 +3,7 @@ import './style/Pagination.css'
 
 interface IProps{
   currentPage: number
-  setDisplayRules: any
+  setPaginationRules: any
   nEntriesPerPage: number
   totalEntries: number
 }
@@ -13,19 +13,19 @@ interface IProps{
  * @Component
  * @param {Object[]} props - Props.
  * @param {number} props.currentPage - Current datatable page.
- * @param {function} props.setDisplayRules - Used to navigate to the different datatable pages.
+ * @param {function} props.setPaginationRules - Used to navigate to the different datatable pages.
  * @param {number} props.nEntriesPerPage - Entries / results per page.
  * @param {number} props.totalEntries - Total number of entries.
  * @return ( <Pagination currentPage={currentPage} setDisplayRules={setDisplayRules} nEntriesPerPage={nEntriesPerPage} totalEntries={totalEntries}/> )
  */
-function Pagination({currentPage, setDisplayRules, nEntriesPerPage, totalEntries} : IProps) {
+function Pagination({currentPage, setPaginationRules, nEntriesPerPage, totalEntries} : IProps) {
 
     function prevPage(){
-      setDisplayRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+      setPaginationRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
     }
 
     function nextPage(){
-      setDisplayRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+      setPaginationRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
     }
 
     function enoughEntriesLeftForNextPage(){
