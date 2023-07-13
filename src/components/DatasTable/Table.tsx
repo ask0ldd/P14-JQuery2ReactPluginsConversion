@@ -48,17 +48,3 @@ function isRowOdd(index : number){
  function isLastRow(index : number, lastRowIndex : number){
    return index === lastRowIndex ? ' bottomblackborder' : ''
  }
-
-/*interface IOrdering{
-  column : string
-  direction : string
-}
-
-export interface IProps {
-  tableColumnsNames : Array<string>
-  tableDatasKeys : Array<string>
-  tableDatas : Array<any>
-  setOrdering({column, direction} : IOrdering) : void
-  ordering : IOrdering
-  setDisplayingRange : any
-}*/

@@ -8,7 +8,6 @@ import NEntries from './NEntries'
 import { useState, useEffect } from 'react'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IUsersDatas } from '../../datas/usersDatasTen'
-import { IColumnDefElement } from '../../pages/CurrentEmployees'
 import {createContext} from 'react'
 
 /*th : string
@@ -64,10 +63,6 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
         setDisplayRules({...displayRules, currentPage : 1})
     }, [searchString])
 
-    // console.log('first: ', firstDisplayedEntry)
-    // console.log('last: ', lastDisplayedEntry)
-    // console.log('search: ', searchString)
-
     return(
         <>  
             <DatasTableContext.Provider value={{displayRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setDisplayRules, setOrdering, setSearchString}}>
@@ -116,6 +111,10 @@ interface IOrdering{
     direction : 'asc' | 'desc'
 }
 
-/*
-<Pagination totalEntries={tableDatasState.length} currentPage={displayRules.currentPage} nEntriesPerPage={displayRules.nEntriesPerPage} setDisplayRules={setDisplayRules}/>
-*/
+export interface IColumnDefElement 
+{
+  th : string
+  datakey : string
+  sortable : boolean
+  datatype : string
+}

@@ -2,7 +2,7 @@
 import '../Form.css'
 import '../style/CurrentEmployees.css'
 import usersDatas from '../datas/usersDatas'
-import DatasTable from '../components/DatasTable/DatasTable'
+import DatasTable, { IColumnDefElement } from '../components/DatasTable/DatasTable'
 
 /**
  * Component : Displaying the current employees datatable page.
@@ -27,14 +27,6 @@ function CurrentEmployees() {
 export default CurrentEmployees
 
 // const tableColumnsNames : Array<string> = Object.getOwnPropertyNames(userDatas[0])
-
-export interface IColumnDefElement 
-{
-  th : string
-  datakey : string
-  sortable : boolean
-  datatype : string
-}
 
 const columnsDefinition : Array<IColumnDefElement> = [
   { th: 'First Name', datakey: 'firstName', sortable: true, datatype: 'string' },
