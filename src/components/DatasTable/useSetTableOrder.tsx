@@ -1,6 +1,9 @@
 import { useEffect } from "react"
 
-function useSetTableOrder(){
+function useSetTableOrder(tableDatas, setTableDatas, searchString, ordering, columnsDefinition){
+
+    const frCollator = new Intl.Collator('en')
+
     useEffect(() => {
         // [...usersDatas] to avoid any mutation
         let filteredTable
@@ -23,6 +26,11 @@ function useSetTableOrder(){
             return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUsersDatas], b[ordering.column as keyof IUsersDatas])))
         if(ordering.direction === 'desc') 
             return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUsersDatas], a[ordering.column as keyof IUsersDatas])))
+
+    function dateToTime(date : string){
+        const [day, month, year] = date.split('/')
+        return new Date(parseInt(year), parseInt(month), parseInt(day)).getTime()
+    }
 }
 
 export default useSetTableOrder
