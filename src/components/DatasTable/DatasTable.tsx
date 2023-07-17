@@ -119,7 +119,7 @@ interface IPaginationRules{
     nEntriesPerPage : number
 }
 
-interface IOrdering{
+export interface IOrdering{
     column : string
     direction : 'asc' | 'desc'
 }

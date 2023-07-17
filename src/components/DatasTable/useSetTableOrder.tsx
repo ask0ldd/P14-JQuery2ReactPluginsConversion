@@ -1,6 +1,7 @@
 import { useEffect } from "react"
+import { IColumnDefElement, IOrdering } from "./DatasTable"
 
-function useSetTableOrder(tableDatas, setTableDatas, searchString, ordering, columnsDefinition){
+function useSetTableOrder(tableDatas : any, setTableDatas : , searchString : string, ordering : IOrdering, columnsDefinition : IColumnDefElement[]){
 
     const frCollator = new Intl.Collator('en')
 
@@ -23,9 +24,9 @@ function useSetTableOrder(tableDatas, setTableDatas, searchString, ordering, col
         if(ordering.direction === 'desc' && sortedColumnDef.datatype === 'date') 
             return setTableDatas(filteredTable.sort((a,b) => dateToTime(a[ordering.column]) - dateToTime(b[ordering.column])))
         if(ordering.direction === 'asc') 
-            return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column as keyof IUsersDatas], b[ordering.column as keyof IUsersDatas])))
+            return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column], b[ordering.column])))
         if(ordering.direction === 'desc') 
-            return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column as keyof IUsersDatas], a[ordering.column as keyof IUsersDatas])))
+            return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column], a[ordering.column])))
 
     function dateToTime(date : string){
         const [day, month, year] = date.split('/')
