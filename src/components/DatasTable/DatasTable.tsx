@@ -35,6 +35,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     const tableDatasKeys : Array<string> = columnsDefinition.reduce((accu : Array<string>, column) => {accu.push(column.datakey); return accu}, [])
   
     // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
+    // get rid of IUsersDatas to let the passed datas define the type
     const [tableDatasState, setTableDatas] = useState<Array<IUsersDatas>>([...tableDatas]);
     const [ordering, setOrdering] = useState<IOrdering>({column : '', direction : 'asc'})
     const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
