@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { IColumnDefElement, IOrdering } from "./DatasTable"
+import { IColumnDefElement, IOrdering, IPaginationRules } from "./DatasTable"
+import { IUsersDatas } from "../../datas/usersDatasTen"
 
-function useSetTableOrder(tableDatas : any, setTableDatas : , searchString : string, ordering : IOrdering, columnsDefinition : IColumnDefElement[]){
+function useSetTableOrder(tableDatas : Array<IUsersDatas>, setTableDatas : (tableDatas : Array<IUsersDatas>) => void, searchString : string, ordering : IOrdering, columnsDefinition : IColumnDefElement[], paginationRules : IPaginationRules){
 
     const frCollator = new Intl.Collator('en')
 
@@ -27,6 +29,7 @@ function useSetTableOrder(tableDatas : any, setTableDatas : , searchString : str
             return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(a[ordering.column], b[ordering.column])))
         if(ordering.direction === 'desc') 
             return setTableDatas(filteredTable.sort((a,b) => frCollator.compare(b[ordering.column], a[ordering.column])))
+    }, [ordering.column, ordering.direction, paginationRules.currentPage, searchString])
 
     function dateToTime(date : string){
         const [day, month, year] = date.split('/')

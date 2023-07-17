@@ -114,7 +114,7 @@ interface IProps {
     tableDatas : Array<any>
 }
 
-interface IPaginationRules{
+export interface IPaginationRules{
     currentPage : number
     nEntriesPerPage : number
 }
