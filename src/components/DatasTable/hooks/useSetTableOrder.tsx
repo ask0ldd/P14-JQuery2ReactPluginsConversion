@@ -2,7 +2,8 @@
 import { useEffect } from "react"
 import { IColumnDefElement, IOrdering, IPaginationRules } from "../DatasTable"
 
-// !!! get rid of everything defining tableDatas type, or datatable won't adapt to other contexts
+// !!! jsdoc
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useSetTableOrder(tableDatas : Array<any>, setTableDatas : (tableDatas : Array<any>) => void, searchString : string, ordering : IOrdering, columnsDefinition : IColumnDefElement[], paginationRules : IPaginationRules){
 
     const frCollator = new Intl.Collator('en')
@@ -26,16 +27,19 @@ function useSetTableOrder(tableDatas : Array<any>, setTableDatas : (tableDatas :
 
     }, [ordering.column, ordering.direction, paginationRules.currentPage, searchString])
 
+    // !!! jsdoc
     function dateToTime(date : string){
         const [day, month, year] = date.split('/')
         return new Date(parseInt(year), parseInt(month), parseInt(day)).getTime()
     }
 
+    // !!! jsdoc
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function sortTable(dataType : string, direction : 'asc' | 'desc', datasTable : Array<any>){
         if(dataType === 'date'){
             switch(direction){
                case 'asc' : return setTableDatas(datasTable.sort((a,b) => dateToTime(b[ordering.column]) - dateToTime(a[ordering.column]))); break
-               case 'desc' : return setTableDatas(datasTable.sort((a,b) => dateToTime(b[ordering.column]) - dateToTime(a[ordering.column]))); break
+               case 'desc' : return setTableDatas(datasTable.sort((a,b) => dateToTime(a[ordering.column]) - dateToTime(b[ordering.column]))); break
             }
         }
         switch(direction){
