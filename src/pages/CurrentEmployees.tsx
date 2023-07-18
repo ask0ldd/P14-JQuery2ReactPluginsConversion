@@ -28,8 +28,7 @@ function CurrentEmployees() {
 
 export default CurrentEmployees
 
-// const tableColumnsNames : Array<string> = Object.getOwnPropertyNames(userDatas[0])
-
+// detect datatype by itself ?!!!
 const columnsDefinition : Array<IColumnDefElement> = [
   { th: 'First Name', datakey: 'firstName', sortable: true, datatype: 'string' },
   { th: 'Last Name', datakey: 'lastName', sortable: true, datatype: 'string' },

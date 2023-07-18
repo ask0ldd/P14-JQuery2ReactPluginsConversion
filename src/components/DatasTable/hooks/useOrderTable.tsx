@@ -4,7 +4,7 @@ import { IColumnDefElement, IOrdering, IPaginationRules } from "../DatasTable"
 
 // !!! jsdoc
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function useSetTableOrder(tableDatas : Array<any>, setTableDatas : (tableDatas : Array<any>) => void, searchString : string, ordering : IOrdering, columnsDefinition : IColumnDefElement[], paginationRules : IPaginationRules){
+function useOrderTable(tableDatas : Array<any>, setTableDatas : (tableDatas : Array<any>) => void, searchString : string, ordering : IOrdering, columnsDefinition : IColumnDefElement[], paginationRules : IPaginationRules){
 
     const frCollator = new Intl.Collator('en')
 
@@ -50,4 +50,4 @@ function useSetTableOrder(tableDatas : Array<any>, setTableDatas : (tableDatas :
     }
 }
 
-export default useSetTableOrder
+export default useOrderTable

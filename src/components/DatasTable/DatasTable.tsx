@@ -7,7 +7,7 @@ import Pagination from './Pagination'
 import NEntries from './NEntries'
 import { useState, useEffect } from 'react'
 import {createContext} from 'react'
-import useSetTableOrder from './hooks/useSetTableOrder'
+import useOrderTable from './hooks/useOrderTable'
 
 /**
  * Component : Grouping all the constitutive elements of a datatable.
@@ -32,9 +32,9 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
     const [searchString, setSearchString] = useState<string>('')
   
-    useSetTableOrder(tableDatas, setTableDatas, searchString, ordering, columnsDefinition, paginationRules)
+    useOrderTable(tableDatas, setTableDatas, searchString, ordering, columnsDefinition, paginationRules)
 
-    // when typing into the searchbar, the currentpage is set back to 1
+    // when typing into the searchbar => current page set back to 1
     useEffect(()=>{
         setPaginationRules({...paginationRules, currentPage : 1})
     }, [searchString])
@@ -58,7 +58,15 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 
 export default DatasTable
 
-export const DatasTableContext = createContext<IDatasTableContext>({tableDatasState : [],tableColumnsNames : [], tableDatasKeys: []})
+const initialContext = {
+    tableDatasState : [],
+    tableColumnsNames : [], 
+    tableDatasKeys: [], 
+    searchString: '', 
+    paginationRules : {currentPage: 1, nEntriesPerPage:10}
+}
+
+export const DatasTableContext = createContext<IDatasTableContext>(initialContext)
 
 interface IDatasTableContext{
     paginationRules? : IPaginationRules
