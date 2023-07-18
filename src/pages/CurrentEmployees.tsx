@@ -19,7 +19,9 @@ function CurrentEmployees() {
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      {isDefinitionMatchingDatas ? <DatasTable columnsDefinition={columnsDefinition} tableDatas={[...usersDatas]}/> : <div>Users datas are missing some mandatory dataKeys.</div>}
+      {isDefinitionMatchingDatas 
+      ? <DatasTable columnsDefinition={columnsDefinition} tableDatas={[...usersDatas]}/> 
+      : <div>Users datas are missing some mandatory dataKeys.</div>}
     </main>
   )
 }

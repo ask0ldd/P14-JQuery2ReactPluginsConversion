@@ -6,15 +6,8 @@ import SearchModule from './SearchModule'
 import Pagination from './Pagination'
 import NEntries from './NEntries'
 import { useState, useEffect } from 'react'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IUsersDatas } from '../../datas/usersDatasTen'
 import {createContext} from 'react'
 import useSetTableOrder from './hooks/useSetTableOrder'
-
-/*th : string
-datakey : string
-sortable : boolean
-datatype : string*/
 
 /**
  * Component : Grouping all the constitutive elements of a datatable.
@@ -34,7 +27,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     const tableDatasKeys : Array<string> = columnsDefinition.reduce((accu : Array<string>, column) => {accu.push(column.datakey); return accu}, [])
   
     // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
-    const [tableDatasState, setTableDatas] = useState<Array<IUsersDatas>>([...tableDatas]);
+    const [tableDatasState, setTableDatas] = useState<Array<any>>([...tableDatas]);
     const [ordering, setOrdering] = useState<IOrdering>({column : '', direction : 'asc'})
     const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
     const [searchString, setSearchString] = useState<string>('')
@@ -65,15 +58,11 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 
 export default DatasTable
 
-/*// !!! jsdoc
-function dateToTime(date : string){
-    const [day, month, year] = date.split('/')
-    return new Date(parseInt(year), parseInt(month), parseInt(day)).getTime()
-}*/
+export const DatasTableContext = createContext<IDatasTableContext>({tableDatasState : [],tableColumnsNames : [], tableDatasKeys: []})
 
 interface IDatasTableContext{
     paginationRules? : IPaginationRules
-    tableDatasState : Array<IUsersDatas>
+    tableDatasState : Array<any>
     ordering? : IOrdering
     searchString? : string
     tableColumnsNames : Array<string>
@@ -82,8 +71,6 @@ interface IDatasTableContext{
     setOrdering?({column, direction} : IOrdering) : void
     setSearchString?(string : string) : void
 }
-
-export const DatasTableContext = createContext<IDatasTableContext>({tableDatasState : [],tableColumnsNames : [], tableDatasKeys: []})
 
 interface IProps {
     columnsDefinition : Array<IColumnDefElement>
