@@ -43,6 +43,14 @@ a {
   border: 1px solid #979797;
 }
 
+.mainform input[type="submit"]:hover {
+  background: #0078d7;
+  border: 1px solid #0078d7;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 8px #72aedf;
+}
+
 label.defaultSpacing {
   margin-top: 1rem;
 }

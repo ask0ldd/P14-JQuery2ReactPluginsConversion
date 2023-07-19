@@ -107,8 +107,6 @@ function App() {
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
       }}>Show alternate modale</button>
-
-      <DatePicker/>
      
     </main>
   )

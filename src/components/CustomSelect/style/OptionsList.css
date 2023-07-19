@@ -17,5 +17,7 @@
 }
 
 .customSelectOptionsContainer li:hover {
-  background: #ececec;
+  /*background: #ececec;*/
+  background-color: #0078d7;
+  color: #fff;
 }
