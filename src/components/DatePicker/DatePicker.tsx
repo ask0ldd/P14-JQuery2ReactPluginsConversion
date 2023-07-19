@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef } from "react"
 import './style/DatePicker.css'
 
@@ -20,6 +21,6 @@ function DatePicker({useFormState, inputStateValue} : IProps){
 export default DatePicker
 
 interface IProps{
-useFormState:[any, () => void]
+useFormState:[any, React.Dispatch<React.SetStateAction<any>>]
 inputStateValue : string | boolean | number
 }

@@ -79,7 +79,7 @@ function App() {
         <label htmlFor="start-date">Integration Date</label>
         {/*<input id="start-date" type="text" value={formState.startdate} 
         onChange={(e) => setFormState({...formState, startdate : e.target.value.toLowerCase().trim()})}/>*/}
-        <DatePicker/>
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate}/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
 
