@@ -102,11 +102,11 @@ function App() {
       / absolute positioning should be an option so won't mess with the content layout, full modal access for the content */}
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}></Modal>
       
-      <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
+      {/*<button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
         setHeaderComponent(AlternateModalHeader({setModalVisibility}))
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
-      }}>Show alternate modale</button>
+      }}>Show alternate modale</button>*/}
      
     </main>
   )
