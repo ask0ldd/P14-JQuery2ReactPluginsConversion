@@ -1,4 +1,4 @@
-.datePickerContainer input {
+input[type="date"] {
   border: 1px solid #c5c5c5;
   background: #f6f6f6;
   padding: 0.5em 0.6em 0.45em 0.6em;
@@ -9,6 +9,6 @@
   margin-top: 0.325rem;
 }
 
-.datePickerContainer input:focus {
+input[type="date"]:focus {
   outline: 1px solid #213547;
 }

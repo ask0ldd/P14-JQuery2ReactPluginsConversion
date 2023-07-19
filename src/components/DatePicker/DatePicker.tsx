@@ -11,11 +11,7 @@ function DatePicker(){
     const dateInput = useRef(null)
 
     return(
-    <div className="datePickerContainer">
         <input type="date" ref={dateInput}/>
-
-
-    </div>
     )
 }
 

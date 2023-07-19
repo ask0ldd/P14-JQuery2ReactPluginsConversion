@@ -21,7 +21,8 @@ a {
 }
 
 .mainform input[type="text"],
-.mainform input[type="number"] {
+.mainform input[type="number"],
+.mainform input[type="date"] {
   border: 1px solid #c5c5c5;
   background: #f6f6f6;
   padding: 0.5em 0.6em 0.45em 0.6em;
