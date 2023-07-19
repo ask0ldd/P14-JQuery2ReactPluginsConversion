@@ -53,8 +53,9 @@ function App() {
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
         {/*<input id="birthdate" type="text" value={formState.birthdate} 
-        onChange={(e) => setFormState({...formState, birthdate : e.target.value.toLowerCase().trim()})}/>*/}
-        <DatePicker/>
+        onChange={(e) => setFormState({...formState, birthdate : e.target.value.toLowerCase().trim()})}/>
+        */}
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate}/>
 
         <h2>2. Address</h2>
 

@@ -6,7 +6,9 @@ import './style/DatePicker.css'
  * @Component
  * @return ( <DatePicker/> )
  */
-function DatePicker(){
+function DatePicker({useFormState, inputStateValue} : IProps){
+
+    const [formState, setFormState] = useFormState
 
     const dateInput = useRef(null)
 
@@ -16,3 +18,8 @@ function DatePicker(){
 }
 
 export default DatePicker
+
+interface IProps{
+useFormState:[any, () => void]
+inputStateValue : string | boolean | number
+}
