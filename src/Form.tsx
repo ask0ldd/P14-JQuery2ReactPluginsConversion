@@ -23,15 +23,15 @@ function App() {
     = useModalManager({initialVisibility : true, content : ModalContentSuccess})
   
   const [formState, setFormState]= useState<IForm>({
-    firstname: '',
-    lastname: '',
-    birthdate: '',
-    street: '',
-    city: '',
-    state: '',
-    zipcode: '',
-    startdate: '',
-    department: '',
+    firstname: "",
+    lastname: "",
+    birthdate: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    startdate: "",
+    department: "",
   })
 
   useEffect(() => console.log(formState), [formState])
@@ -52,9 +52,6 @@ function App() {
         onChange={(e) => setFormState({...formState, lastname : e.target.value.toLowerCase().trim()})}/>
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
-        {/*<input id="birthdate" type="text" value={formState.birthdate} 
-        onChange={(e) => setFormState({...formState, birthdate : e.target.value.toLowerCase().trim()})}/>
-        */}
         <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate} valueAccessor="birthdate"/>
 
         <h2>2. Address</h2>
@@ -77,8 +74,6 @@ function App() {
         <h2>3. Professional</h2>
 
         <label htmlFor="start-date">Integration Date</label>
-        {/*<input id="start-date" type="text" value={formState.startdate} 
-        onChange={(e) => setFormState({...formState, startdate : e.target.value.toLowerCase().trim()})}/>*/}
         <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate} valueAccessor="startdate"/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>

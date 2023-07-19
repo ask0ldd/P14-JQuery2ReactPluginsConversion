@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './style/DatePicker.css'
-import { /*useRef, */Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, ChangeEvent } from "react"
 
 /**
  * Component : A custom date picker.
@@ -11,10 +11,8 @@ function DatePicker({useFormState, inputStateValue, valueAccessor} : IProps){
 
     const [formState, setFormState] = useFormState
 
-    // const dateInput = useRef(null)
-
     return(
-        <input type="date" value={inputStateValue} onChange={(e) => {
+        <input type="date" value={inputStateValue} onChange={(e : ChangeEvent<HTMLInputElement>) => {
             const formStateCopy = {...formState}
             formStateCopy[valueAccessor] = e.target.value.toLowerCase().trim()
             setFormState(formStateCopy)
