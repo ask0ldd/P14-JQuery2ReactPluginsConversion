@@ -55,7 +55,7 @@ function App() {
         {/*<input id="birthdate" type="text" value={formState.birthdate} 
         onChange={(e) => setFormState({...formState, birthdate : e.target.value.toLowerCase().trim()})}/>
         */}
-        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate}/>
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate} valueAccessor="birthdate"/>
 
         <h2>2. Address</h2>
 
@@ -79,7 +79,7 @@ function App() {
         <label htmlFor="start-date">Integration Date</label>
         {/*<input id="start-date" type="text" value={formState.startdate} 
         onChange={(e) => setFormState({...formState, startdate : e.target.value.toLowerCase().trim()})}/>*/}
-        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate}/>
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate} valueAccessor="startdate"/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
 
@@ -103,11 +103,11 @@ function App() {
       / absolute positioning should be an option so won't mess with the content layout, full modal access for the content */}
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}></Modal>
       
-      {/*<button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
+      <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
         setHeaderComponent(AlternateModalHeader({setModalVisibility}))
         setModalContent(ModalContentAlternate)
         setModalVisibility(true)
-      }}>Show alternate modale</button>*/}
+      }}>Show alternate modale</button>
      
     </main>
   )

@@ -1,26 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRef } from "react"
 import './style/DatePicker.css'
+import { /*useRef, */Dispatch, SetStateAction } from "react"
 
 /**
  * Component : A custom date picker.
  * @Component
  * @return ( <DatePicker/> )
  */
-function DatePicker({useFormState, inputStateValue} : IProps){
+function DatePicker({useFormState, inputStateValue, valueAccessor} : IProps){
 
     const [formState, setFormState] = useFormState
 
-    const dateInput = useRef(null)
+    // const dateInput = useRef(null)
 
     return(
-        <input type="date" ref={dateInput}/>
+        <input type="date" value={inputStateValue} onChange={(e) => {
+            const formStateCopy = {...formState}
+            formStateCopy[valueAccessor] = e.target.value.toLowerCase().trim()
+            setFormState(formStateCopy)
+        }}/>
     )
 }
 
 export default DatePicker
 
 interface IProps{
-useFormState:[any, React.Dispatch<React.SetStateAction<any>>]
-inputStateValue : string | boolean | number
+useFormState : [ any, Dispatch<SetStateAction<any>> ]
+inputStateValue : string | number | readonly string[] | undefined
+valueAccessor : string
 }
