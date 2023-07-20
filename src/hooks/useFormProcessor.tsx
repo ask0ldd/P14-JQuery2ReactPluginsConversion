@@ -1,5 +1,5 @@
-function useFormProcessor(){
-    return
+function useFormProcessor(parameters : IUFPParameters){
+    return parameters
 }
 
 export default useFormProcessor

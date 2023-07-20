@@ -40,7 +40,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     }, [searchString])
 
     return(
-        <>  
+        <>  {}
             <DatasTableContext.Provider value={{paginationRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setPaginationRules, setOrdering, setSearchString}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>

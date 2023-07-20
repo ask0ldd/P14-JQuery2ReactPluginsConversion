@@ -34,6 +34,8 @@ function App() {
     department: "",
   })
 
+  // value, accessor, validator, errorElement, errorMessagesList
+
   useEffect(() => console.log(formState), [formState])
 
   return (
