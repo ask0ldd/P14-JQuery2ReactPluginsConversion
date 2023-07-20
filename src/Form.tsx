@@ -22,6 +22,9 @@ function App() {
   } 
     = useModalManager({initialVisibility : true, content : ModalContentSuccess})
   
+  /*const todaysDate = new Date()
+  const todaysDateISOFormat = todaysDate.toISOString().split('T')[0]*/
+
   const [formState, setFormState]= useState<IForm>({
     firstname: {value : "", error: false},
     lastname: {value : "", error: false},
@@ -33,8 +36,6 @@ function App() {
     startdate: {value : "", error: false},
     department: {value : "", error: false},
   })
-
-  // value, accessor, validator, errorElement, errorMessagesList
 
   useEffect(() => console.log(formState), [formState])
 

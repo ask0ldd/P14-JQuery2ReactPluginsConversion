@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { IForm } from '../../Form'
 import './style/DatePicker.css'
 import { Dispatch, SetStateAction, ChangeEvent } from "react"
 
@@ -13,9 +14,12 @@ function DatePicker({useFormState, inputStateValue, valueAccessor} : IProps){
 
     return(
         <input type="date" value={inputStateValue} onChange={(e : ChangeEvent<HTMLInputElement>) => {
-            const formStateCopy = {...formState}
-            formStateCopy[valueAccessor] = e.target.value.toLowerCase().trim()
-            setFormState(formStateCopy)
+            /*const formStateCopy = {...formState}
+            formStateCopy[valueAccessor].value = e.target.value.toLowerCase().trim()
+            setFormState(formStateCopy)*/
+            setFormState((prevState : IForm) => {
+                return {...prevState, [valueAccessor] : {...prevState[valueAccessor], value: e.target.value.toLowerCase().trim()}}
+            })
         }}/>
     )
 }
