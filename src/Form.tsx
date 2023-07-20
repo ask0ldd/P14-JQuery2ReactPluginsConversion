@@ -40,10 +40,6 @@ function App() {
 
   useEffect(() => console.log(formState), [formState])
 
-  function checkInputAndPushToState(e : ChangeEvent<HTMLInputElement>, state : typeof formState, targetKey : keyof typeof formState, validator : (value : string) => boolean){
-    return setFormState({...state, [targetKey] : {value : e.target.value.toLowerCase().trim(), error : !validator(state[targetKey].value)}})
-  }
-
   return (
     <main>
       <Link to={`/employee-list`}>View Current Employees</Link>
@@ -53,14 +49,17 @@ function App() {
 
         <label htmlFor="firstname">First Name</label>
         <input id="firstname" type="text" value={formState.firstname.value} 
-        onChange={ (e) => checkInputAndPushToState(e, formState, "firstname", Validator.testName) }/>
+        onChange={(e) => setFormState((prevState) => {
+          return {...prevState, firstname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
+        })}/>
         {formState.firstname.error && <p id="firstnameError">Error</p>}
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
         <input id="lastname" type="text" value={formState.lastname.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...formState, lastname : {value : formatInputValue(e.target.value), error : !Validator.testName(formState.lastname.value)}}
+          return {...prevState, lastname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
+        {formState.lastname.error && <p id="lastnameError">Error</p>}
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
         <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate.value} valueAccessor="birthdate"/>
