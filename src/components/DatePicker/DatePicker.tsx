@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IForm } from '../../Form'
 import './style/DatePicker.css'
 import { Dispatch, SetStateAction, ChangeEvent } from "react"
