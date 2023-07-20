@@ -5,7 +5,7 @@ import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
 import { IPropsModalHeader } from './components/Modal/ModalHeader'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, ChangeEvent } from 'react'
 import DatePicker from './components/DatePicker/DatePicker'
 
 /**
@@ -37,6 +37,14 @@ function App() {
   // value, accessor, validator, errorElement, errorMessagesList
 
   useEffect(() => console.log(formState), [formState])
+
+  function checknPush(e : ChangeEvent<HTMLInputElement>, state : any, targetKey : keyof typeof state, validator : () => boolean){
+    const stateCopy = {...state}
+    const inputValue = e.target.value.toLowerCase().trim()
+    stateCopy[targetKey] = inputValue
+    setFormState(stateCopy)
+    
+  }
 
   return (
     <main>

@@ -16,8 +16,8 @@ export default class Validator{
     }
 
     static testDate(value: string) : boolean {
-        const USFormatRegex = /^[0-9]{4}+-+[0-9]{2}+-+[0-9]{2}$/
-        const FRFormatRegex = /^[0-9]{2}+\/+[0-9]{2}+\/+[0-9]{4}$/
+        const USFormatRegex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/
+        const FRFormatRegex = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/
         return USFormatRegex.test(value.trim()) || FRFormatRegex.test(value.trim())
     }
 }
