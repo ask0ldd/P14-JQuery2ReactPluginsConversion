@@ -40,9 +40,9 @@ function App() {
 
   useEffect(() => console.log(formState), [formState])
 
-  function checkInputnPushToState(e : ChangeEvent<HTMLInputElement>, state : any, targetKey : keyof typeof state, validator : (value : string) => boolean){
+  function checkInputnPushToState(e : ChangeEvent<HTMLInputElement>, state : typeof formState, targetKey : keyof typeof formState, validator : (value : string) => boolean){
     setFormState({...state, [targetKey] : {...state[targetKey], value : e.target.value.toLowerCase().trim()}})
-    if(validator(state[targetKey].value) === false) return state[targetKey].error = false
+    return state[targetKey].error = !validator(state[targetKey].value)
   }
 
   return (
@@ -54,11 +54,7 @@ function App() {
 
         <label htmlFor="firstname">First Name</label>
         <input id="firstname" type="text" value={formState.firstname.value} 
-        onChange={/*(e) => setFormState((prevState) => {
-          return {...prevState, firstname : {...prevState.firstname, value : formatInputValue(e.target.value)}}
-        })*/
-        (e) => checkInputnPushToState(e, formState, "firstname", Validator.testName)
-        }/>
+        onChange={ (e) => checkInputnPushToState(e, formState, "firstname", Validator.testName) }/>
         {formState.firstname.error && <p id="firstnameError">Error</p>}
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
