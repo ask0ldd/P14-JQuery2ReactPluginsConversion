@@ -23,27 +23,26 @@ function App() {
     = useModalManager({initialVisibility : true, content : ModalContentSuccess})
   
   const [formState, setFormState]= useState<IForm>({
-    firstname: "",
-    lastname: "",
-    birthdate: "",
-    street: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    startdate: "",
-    department: "",
+    firstname: {value : "", error: false},
+    lastname: {value : "", error: false},
+    birthdate: {value : "", error: false},
+    street: {value : "", error: false},
+    city: {value : "", error: false},
+    state: {value : "", error: false},
+    zipcode: {value : "", error: false},
+    startdate: {value : "", error: false},
+    department: {value : "", error: false},
   })
 
   // value, accessor, validator, errorElement, errorMessagesList
 
   useEffect(() => console.log(formState), [formState])
 
-  function checknPush(e : ChangeEvent<HTMLInputElement>, state : any, targetKey : keyof typeof state, validator : () => boolean){
+  function checkInputnPushToState(e : ChangeEvent<HTMLInputElement>, state : any, targetKey : keyof typeof state, validator : () => boolean){
     const stateCopy = {...state}
     const inputValue = e.target.value.toLowerCase().trim()
     stateCopy[targetKey] = inputValue
     setFormState(stateCopy)
-    
   }
 
   return (
@@ -54,15 +53,20 @@ function App() {
         <h2>1. Personnal</h2>
 
         <label htmlFor="firstname">First Name</label>
-        <input id="firstname" type="text" value={formState.firstname} 
-        onChange={(e) => setFormState({...formState, firstname : e.target.value.toLowerCase().trim()})}/>
+        <input id="firstname" type="text" value={formState.firstname.value} 
+        onChange={(e) => setFormState((prevState) => {
+          return {...prevState, firstname : {...prevState.firstname, value : e.target.value.toLowerCase().trim()}}
+        })}/>
+        <p id="firstnameError">Error</p>
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
-        <input id="lastname" type="text" value={formState.lastname} 
-        onChange={(e) => setFormState({...formState, lastname : e.target.value.toLowerCase().trim()})}/>
+        <input id="lastname" type="text" value={formState.lastname.value} 
+        onChange={(e) => setFormState((prevState) => {
+          return {...prevState, lastname : {...prevState.lastname, value : e.target.value.toLowerCase().trim()}}
+        })}/>
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
-        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate} valueAccessor="birthdate"/>
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate.value} valueAccessor="birthdate"/>
 
         <h2>2. Address</h2>
 
@@ -70,25 +74,34 @@ function App() {
         <input id="street" type="text"/>
 
         <label htmlFor="city" className='defaultSpacing'>City</label>
-        <input id="city" type="text" value={formState.city} 
-        onChange={(e) => setFormState({...formState, city : e.target.value.toLowerCase().trim()})}/>
+        <input id="city" type="text" value={formState.city.value} 
+        onChange={(e) => setFormState((prevState) => {
+          return {...prevState, city : {...prevState.city, value : e.target.value.toLowerCase().trim()}}
+        })}/>
 
         <label htmlFor="state" className='defaultSpacing'>State</label>
-        <input id="state" type="text" value={formState.state} 
-        onChange={(e) => setFormState({...formState, state : e.target.value.toLowerCase().trim()})}/>
+        <input id="state" type="text" value={formState.state.value} 
+        onChange={(e) => setFormState((prevState) => {
+          return {...prevState, state : {...prevState.state, value : e.target.value.toLowerCase().trim()}}
+        })}/>
 
         <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
-        <input id="zipcode" type="number" value={formState.zipcode} 
-        onChange={(e) => setFormState({...formState, zipcode : e.target.value.toLowerCase().trim()})}/>
+        <input id="zipcode" type="number" value={formState.zipcode.value} 
+        onChange={(e) => setFormState((prevState) => {
+          return {...prevState, zipcode : {...prevState.zipcode, value : e.target.value.toLowerCase().trim()}}
+        })}/>
 
         <h2>3. Professional</h2>
 
         <label htmlFor="start-date">Integration Date</label>
-        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate} valueAccessor="startdate"/>
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate.value} valueAccessor="startdate"/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
 
-        <CustomSelect formState={formState} onValueChange={(formState : IForm, value : string, datakey = 'department') => setFormState({...formState, [datakey] : value})}
+        <CustomSelect formState={formState} 
+        onValueChange={(value : string, datakey = 'department') => setFormState((prevState) => {
+          return {...prevState, [datakey] : {...prevState[datakey], value : value}}
+        })}
         labelledBy="department-label" options={[
           {label:'Engineering', value:'Engineering'}, 
           {label:'Human Ressources', value:'Human Ressources'}, 
@@ -98,7 +111,8 @@ function App() {
           {label:'Sales1', value:'Sales1'},
           {label:'Sales2', value:'Sales2'},
           {label:'Sales3', value:'Sales3'},
-        ]} selectId='department'/>
+        ]} selectId='department'
+        />
 
         <input type="submit" value="Add this Employee"/>
 
@@ -146,7 +160,7 @@ function AlternateModalHeader({setModalVisibility} : IPropsModalHeader){
 
 export default App
 
-export interface IForm{
+/*export interface IForm{
   firstname: string
   lastname: string
   birthdate: string
@@ -156,4 +170,13 @@ export interface IForm{
   zipcode: string
   startdate: string
   department: string
+}*/
+
+interface IForm{
+  [key: string]: IFormInput
+}
+
+interface IFormInput{
+  value : string
+  error : boolean
 }
