@@ -99,8 +99,8 @@ function App() {
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
 
         <CustomSelect formState={formState} 
-        onValueChange={(value : string, datakey = 'department') => setFormState((prevState) => {
-          return {...prevState, [datakey] : {...prevState[datakey], value : value}}
+        onValueChange={(value : string) => setFormState((prevState) => {
+          return {...prevState, department : {...prevState.department, value : value}}
         })}
         labelledBy="department-label" options={[
           {label:'Engineering', value:'Engineering'}, 
@@ -172,7 +172,7 @@ export default App
   department: string
 }*/
 
-interface IForm{
+export interface IForm{
   [key: string]: IFormInput
 }
 

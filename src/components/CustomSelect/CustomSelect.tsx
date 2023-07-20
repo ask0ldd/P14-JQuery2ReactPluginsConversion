@@ -40,7 +40,7 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange /
     function setActiveOption(option : IOption){
         _setActiveOption({...option})
         activeOptionRef.current = {...option}
-        onValueChange(formState, option.value)
+        onValueChange(option.value)
     }
 
     const [isListboxExpanded, _setListboxAsExpanded] = useState<boolean>(false)
@@ -91,7 +91,8 @@ interface IProps{
     options : Array<IOption>
     selectId : string
     labelledBy : string
-    onValueChange : (formState : IForm, value : string, datakey? : string) => void
+    // onValueChange : (formState : IForm, value : string, datakey? : string) => void
+    onValueChange : (value : string, datakey? : string) => void
     // onValueChange : (formState : IForm) => void
     // styleOverride? : object
 }
