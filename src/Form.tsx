@@ -39,11 +39,9 @@ function App() {
 
   useEffect(() => console.log(formState), [formState])
 
-  function checkInputnPushToState(e : ChangeEvent<HTMLInputElement>, state : any, targetKey : keyof typeof state, validator : () => boolean){
-    const stateCopy = {...state}
-    const inputValue = e.target.value.toLowerCase().trim()
-    stateCopy[targetKey] = inputValue
-    setFormState(stateCopy)
+  function checkInputnPushToState(e : ChangeEvent<HTMLInputElement>, state : any, targetKey : keyof typeof state, validator : (value : string | number | readonly string[] | undefined) => boolean){
+    setFormState({...state, [targetKey] : {...state[targetKey], value : e.target.value.toLowerCase().trim()}})
+    if(validator(state[targetKey].value) === false) return state[targetKey].error = false
   }
 
   return (
@@ -56,14 +54,14 @@ function App() {
         <label htmlFor="firstname">First Name</label>
         <input id="firstname" type="text" value={formState.firstname.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...prevState, firstname : {...prevState.firstname, value : e.target.value.toLowerCase().trim()}}
+          return {...prevState, firstname : {...prevState.firstname, value : formatInputValue(e.target.value)}}
         })}/>
-        <p id="firstnameError">Error</p>
+        {formState.firstname.error && <p id="firstnameError">Error</p>}
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
         <input id="lastname" type="text" value={formState.lastname.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...prevState, lastname : {...prevState.lastname, value : e.target.value.toLowerCase().trim()}}
+          return {...prevState, lastname : {...prevState.lastname, value : formatInputValue(e.target.value)}}
         })}/>
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
@@ -77,19 +75,19 @@ function App() {
         <label htmlFor="city" className='defaultSpacing'>City</label>
         <input id="city" type="text" value={formState.city.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...prevState, city : {...prevState.city, value : e.target.value.toLowerCase().trim()}}
+          return {...prevState, city : {...prevState.city, value : formatInputValue(e.target.value)}}
         })}/>
 
         <label htmlFor="state" className='defaultSpacing'>State</label>
         <input id="state" type="text" value={formState.state.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...prevState, state : {...prevState.state, value : e.target.value.toLowerCase().trim()}}
+          return {...prevState, state : {...prevState.state, value : formatInputValue(e.target.value)}}
         })}/>
 
         <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
         <input id="zipcode" type="number" value={formState.zipcode.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...prevState, zipcode : {...prevState.zipcode, value : e.target.value.toLowerCase().trim()}}
+          return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
         })}/>
 
         <h2>3. Professional</h2>
@@ -180,4 +178,8 @@ export interface IForm{
 interface IFormInput{
   value : string
   error : boolean
+}
+
+function formatInputValue(value : string){
+  return value.trim().toLowerCase()
 }
