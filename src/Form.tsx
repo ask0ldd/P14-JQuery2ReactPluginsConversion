@@ -8,6 +8,7 @@ import { IPropsModalHeader } from './components/Modal/ModalHeader'
 import { useEffect, useState/*, ChangeEvent*/ } from 'react'
 import DatePicker from './components/DatePicker/DatePicker'
 import Validator from './services/validators'
+import FormInput from './components/FormInput/FormInput'
 
 /**
  * Component : Displaying the form page.
@@ -46,6 +47,8 @@ function App() {
       <form className='mainform'>
         
         <h2>1. Personnal</h2>
+
+        <FormInput id="title" type="text" labelValue='Title' setFormState={setFormState} onChangeValidator={Validator.testName}/>
 
         <label htmlFor="firstname">First Name</label>
         <input id="firstname" type="text" value={formState.firstname.value} 
