@@ -52,14 +52,14 @@ function App() {
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, firstname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
-        {formState.firstname.error && <p id="firstnameError">Error</p>}
+        {formState.firstname.error && <p className="errorMessage" id="firstnameError">Invalid Value.</p>}
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
         <input id="lastname" type="text" value={formState.lastname.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, lastname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
-        {formState.lastname.error && <p id="lastnameError">Error</p>}
+        {formState.lastname.error && <p className="errorMessage" id="lastnameError">Invalid Value.</p>}
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
         <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate.value} valueAccessor="birthdate"/>
