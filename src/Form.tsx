@@ -5,7 +5,7 @@ import CustomSelect from './components/CustomSelect/CustomSelect'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
 import { IPropsModalHeader } from './components/Modal/ModalHeader'
-import { useEffect, useState, ChangeEvent } from 'react'
+import { useEffect, useState/*, ChangeEvent*/ } from 'react'
 import DatePicker from './components/DatePicker/DatePicker'
 import Validator from './services/validators'
 
@@ -67,19 +67,25 @@ function App() {
         <h2>2. Address</h2>
 
         <label htmlFor="street">Street</label>
-        <input id="street" type="text"/>
+        <input id="street" type="text" value={formState.street.value} 
+        onChange={(e) => setFormState((prevState) => {
+          return {...prevState, street : {value : formatInputValue(e.target.value), error : !Validator.testAddress(e.target.value)}}
+        })}/>
+        {formState.street.error && <p className="errorMessage" id="streetError">Invalid Value.</p>}
 
         <label htmlFor="city" className='defaultSpacing'>City</label>
         <input id="city" type="text" value={formState.city.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...prevState, city : {...prevState.city, value : formatInputValue(e.target.value)}}
+          return {...prevState, city : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
+        {formState.city.error && <p className="errorMessage" id="cityError">Invalid Value.</p>}
 
         <label htmlFor="state" className='defaultSpacing'>State</label>
         <input id="state" type="text" value={formState.state.value} 
         onChange={(e) => setFormState((prevState) => {
-          return {...prevState, state : {...prevState.state, value : formatInputValue(e.target.value)}}
+          return {...prevState, state : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
+        {formState.state.error && <p className="errorMessage" id="stateError">Invalid Value.</p>}
 
         <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
         <input id="zipcode" type="number" value={formState.zipcode.value} 
