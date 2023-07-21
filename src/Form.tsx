@@ -48,50 +48,52 @@ function App() {
         
         <h2>1. Personnal</h2>
 
-        <FormInput id="title" type="text" labelValue='Title' setFormState={setFormState} onChangeValidator={Validator.testName}/>
+        <FormInput id="title" type="text" labelValue='Title' 
+        formState={formState} setFormState={setFormState} 
+        errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
         <label htmlFor="firstname">First Name</label>
-        <input id="firstname" type="text" value={formState.firstname.value} 
+        <input id="firstname" type="text" value={formState.firstname?.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, firstname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
-        {formState.firstname.error && <p className="errorMessage" id="firstnameError">Invalid Value.</p>}
+        {formState.firstname?.error && <p className="errorMessage" id="firstnameError">Invalid Value.</p>}
 
         <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
-        <input id="lastname" type="text" value={formState.lastname.value} 
+        <input id="lastname" type="text" value={formState.lastname?.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, lastname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
-        {formState.lastname.error && <p className="errorMessage" id="lastnameError">Invalid Value.</p>}
+        {formState.lastname?.error && <p className="errorMessage" id="lastnameError">Invalid Value.</p>}
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
-        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate.value} valueAccessor="birthdate"/>
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} valueAccessor="birthdate"/>
 
         <h2>2. Address</h2>
 
         <label htmlFor="street">Street</label>
-        <input id="street" type="text" value={formState.street.value} 
+        <input id="street" type="text" value={formState.street?.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, street : {value : formatInputValue(e.target.value), error : !Validator.testAddress(e.target.value)}}
         })}/>
-        {formState.street.error && <p className="errorMessage" id="streetError">Invalid Value.</p>}
+        {formState.street?.error && <p className="errorMessage" id="streetError">Invalid Value.</p>}
 
         <label htmlFor="city" className='defaultSpacing'>City</label>
-        <input id="city" type="text" value={formState.city.value} 
+        <input id="city" type="text" value={formState.city?.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, city : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
-        {formState.city.error && <p className="errorMessage" id="cityError">Invalid Value.</p>}
+        {formState.city?.error && <p className="errorMessage" id="cityError">Invalid Value.</p>}
 
         <label htmlFor="state" className='defaultSpacing'>State</label>
-        <input id="state" type="text" value={formState.state.value} 
+        <input id="state" type="text" value={formState.state?.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, state : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
         })}/>
-        {formState.state.error && <p className="errorMessage" id="stateError">Invalid Value.</p>}
+        {formState.state?.error && <p className="errorMessage" id="stateError">Invalid Value.</p>}
 
         <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
-        <input id="zipcode" type="number" value={formState.zipcode.value} 
+        <input id="zipcode" type="number" value={formState.zipcode?.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
         })}/>
@@ -99,13 +101,13 @@ function App() {
         <h2>3. Professional</h2>
 
         <label htmlFor="start-date">Integration Date</label>
-        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate.value} valueAccessor="startdate"/>
+        <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
 
         <CustomSelect formState={formState} 
         onValueChange={(value : string) => setFormState((prevState) => {
-          return {...prevState, department : {...prevState.department, value : value}}
+          return {...prevState, department : {...prevState?.department, value : value}}
         })}
         labelledBy="department-label" options={[
           {label:'Engineering', value:'Engineering'}, 
@@ -186,6 +188,6 @@ interface IFormInput{
   error : boolean
 }
 
-export function formatInputValue(value : string){
+function formatInputValue(value : string){
   return value.trim().toLowerCase()
 }

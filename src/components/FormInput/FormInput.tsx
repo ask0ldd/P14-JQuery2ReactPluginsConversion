@@ -1,6 +1,6 @@
-import { IForm, formatInputValue } from "../../Form"
+import { IForm as IFormState } from "../../Form"
 
-function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelValue, setFormState, onChangeValidator} : IProps){
+function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelValue, formState, setFormState, onChangeValidator, errorMessage} : IProps){
 // should pass state &
     return (
         <>
@@ -9,6 +9,7 @@ function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelVal
             onChange={(e) => setFormState((prevState) => {
                 return {...prevState, [id] : { value : formatInputValue(e.target.value), error : !onChangeValidator(e.target.value) }}
             })}/>
+            {(formState[id]?.error && errorMessage) && <p className="errorMessage" id={id+"Error"}>{errorMessage}</p>}
         </>
     )
 }
@@ -20,10 +21,14 @@ interface IProps{
     type : "text" | "email" | "password" | "number" | "search" | "tel" | "url"
     inputPlaceHolder? : string
     inputValue? : string
-    // inputCSSClasses? : string
     labelValue? : string
-    // labelCSSClasses? : string
     CSSClasses? : {input : string | undefined, label : string | undefined}
-    setFormState : React.Dispatch<React.SetStateAction<IForm>>
+    formState : IFormState
+    setFormState : React.Dispatch<React.SetStateAction<IFormState>>
     onChangeValidator : (inputvalue : string) => boolean
+    errorMessage : string
+}
+
+function formatInputValue(value : string){
+    return value.trim().toLowerCase()
 }
