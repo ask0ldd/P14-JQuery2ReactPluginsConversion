@@ -48,42 +48,26 @@ function App() {
         
         <h2>1. Personnal</h2>
 
-        <FormInput id="title" type="text" labelValue='Title' 
+        <FormInput id="firstname" type="text" labelValue='First Name'
         formState={formState} setFormState={setFormState} 
         errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-        <label htmlFor="firstname">First Name</label>
-        <input id="firstname" type="text" value={formState.firstname?.value} 
-        onChange={(e) => setFormState((prevState) => {
-          return {...prevState, firstname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
-        })}/>
-        {formState.firstname?.error && <p className="errorMessage" id="firstnameError">Invalid Value.</p>}
-
-        <label htmlFor="lastname" className='defaultSpacing'>Last Name</label>
-        <input id="lastname" type="text" value={formState.lastname?.value} 
-        onChange={(e) => setFormState((prevState) => {
-          return {...prevState, lastname : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
-        })}/>
-        {formState.lastname?.error && <p className="errorMessage" id="lastnameError">Invalid Value.</p>}
+        <FormInput id="lastname" type="text" labelValue='Last Name' CSSClasses={{ input: undefined, label: 'defaultSpacing' }}
+        formState={formState} setFormState={setFormState} 
+        errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
         <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
         <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} valueAccessor="birthdate"/>
 
         <h2>2. Address</h2>
 
-        <label htmlFor="street">Street</label>
-        <input id="street" type="text" value={formState.street?.value} 
-        onChange={(e) => setFormState((prevState) => {
-          return {...prevState, street : {value : formatInputValue(e.target.value), error : !Validator.testAddress(e.target.value)}}
-        })}/>
-        {formState.street?.error && <p className="errorMessage" id="streetError">Invalid Value.</p>}
+        <FormInput id="street" type="text" labelValue='Street'
+        formState={formState} setFormState={setFormState} 
+        errorMessage="Invalid Value." onChangeValidator={Validator.testAddress}/>
 
-        <label htmlFor="city" className='defaultSpacing'>City</label>
-        <input id="city" type="text" value={formState.city?.value} 
-        onChange={(e) => setFormState((prevState) => {
-          return {...prevState, city : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
-        })}/>
-        {formState.city?.error && <p className="errorMessage" id="cityError">Invalid Value.</p>}
+        <FormInput id="city" type="text" labelValue='City' CSSClasses={{ input: undefined, label: 'defaultSpacing' }}
+        formState={formState} setFormState={setFormState} 
+        errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
         <label htmlFor="state" className='defaultSpacing'>State</label>
         <input id="state" type="text" value={formState.state?.value} 

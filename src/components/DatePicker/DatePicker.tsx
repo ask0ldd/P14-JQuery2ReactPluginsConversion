@@ -10,13 +10,10 @@ import { Dispatch, SetStateAction, ChangeEvent } from "react"
  */
 function DatePicker({useFormState, inputStateValue, valueAccessor} : IProps){
 
-    const [formState, setFormState] = useFormState
+    const [, setFormState] = useFormState
 
     return(
         <input type="date" value={inputStateValue} onChange={(e : ChangeEvent<HTMLInputElement>) => {
-            /*const formStateCopy = {...formState}
-            formStateCopy[valueAccessor].value = e.target.value.toLowerCase().trim()
-            setFormState(formStateCopy)*/
             setFormState((prevState : IForm) => {
                 return {...prevState, [valueAccessor] : {...prevState[valueAccessor], value: e.target.value.toLowerCase().trim()}}
             })
@@ -27,7 +24,7 @@ function DatePicker({useFormState, inputStateValue, valueAccessor} : IProps){
 export default DatePicker
 
 interface IProps{
-useFormState : [ any, Dispatch<SetStateAction<any>> ]
+useFormState : [ IForm, Dispatch<SetStateAction<IForm>> ]
 inputStateValue : string | number | readonly string[] | undefined
 valueAccessor : string
 }
