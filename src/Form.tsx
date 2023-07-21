@@ -69,12 +69,17 @@ function App() {
         formState={formState} setFormState={setFormState} 
         errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-        <label htmlFor="state" className='defaultSpacing'>State</label>
-        <input id="state" type="text" value={formState.state?.value} 
+        <label id="state-label" htmlFor="state" className='defaultSpacing'>State</label>
+        {/*<input id="state" type="text" value={formState.state?.value} 
         onChange={(e) => setFormState((prevState) => {
           return {...prevState, state : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
-        })}/>
-        {formState.state?.error && <p className="errorMessage" id="stateError">Invalid Value.</p>}
+        })}/>*/}
+        <CustomSelect formState={formState} 
+        onValueChange={(value : string) => setFormState((prevState) => {
+          return {...prevState, state : {...prevState?.state, value : value}}
+        })}
+        labelledBy="state-label" options={statesList} selectId='state'
+        />
 
         <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
         <input id="zipcode" type="number" value={formState.zipcode?.value} 
@@ -88,7 +93,6 @@ function App() {
         <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
         <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
-
         <CustomSelect formState={formState} 
         onValueChange={(value : string) => setFormState((prevState) => {
           return {...prevState, department : {...prevState?.department, value : value}}
@@ -175,3 +179,56 @@ interface IFormInput{
 function formatInputValue(value : string){
   return value.trim().toLowerCase()
 }
+
+const statesList = [
+  {"label":"Alabama","value":"AL"},
+  {"label":"Alaska","value":"AK"},
+  {"label":"Arizona","value":"AZ"},
+  {"label":"Arkansas","value":"AR"},
+  {"label":"California","value":"CA"},
+  {"label":"Colorado","value":"CO"},
+  {"label":"Connecticut","value":"CT"},
+  {"label":"Delaware","value":"DE"},
+  {"label":"Florida","value":"FL"},
+  {"label":"Georgia","value":"GA"},
+  {"label":"Hawaii","value":"HI"},
+  {"label":"Idaho","value":"ID"},
+  {"label":"Illinois","value":"IL"},
+  {"label":"Indiana","value":"IN"},
+  {"label":"Iowa","value":"IA"},
+  {"label":"Kansas","value":"KS"},
+  {"label":"Kentucky","value":"KY"},
+  {"label":"Louisiana","value":"LA"},
+  {"label":"Maine","value":"ME"},
+  {"label":"Maryland","value":"MD"},
+  {"label":"Massachusetts","value":"MA"},
+  {"label":"Michigan","value":"MI"},
+  {"label":"Minnesota","value":"MN"},
+  {"label":"Mississippi","value":"MS"},
+  {"label":"Missouri","value":"MO"},
+  {"label":"Montana","value":"MT"},
+  {"label":"Nebraska","value":"NE"},
+  {"label":"Nevada","value":"NV"},
+  {"label":"New Hampshire","value":"NH"},
+  {"label":"New Jersey","value":"NJ"},
+  {"label":"New Mexico","value":"NM"},
+  {"label":"New York","value":"NY"},
+  {"label":"North Carolina","value":"NC"},
+  {"label":"North Dakota","value":"ND"},
+  {"label":"Ohio","value":"OH"},
+  {"label":"Oklahoma","value":"OK"},
+  {"label":"Oregon","value":"OR"},
+  {"label":"Pennsylvania","value":"PA"},
+  {"label":"Rhode Island","value":"RI"},
+  {"label":"South Carolina","value":"SC"},
+  {"label":"South Dakota","value":"SD"},
+  {"label":"Tennessee","value":"TN"},
+  {"label":"Texas","value":"TX"},
+  {"label":"Utah","value":"UT"},
+  {"label":"Vermont","value":"VT"},
+  {"label":"Virginia","value":"VA"},
+  {"label":"Washington","value":"WA"},
+  {"label":"West Virginia","value":"WV"},
+  {"label":"Wisconsin","value":"WI"},
+  {"label":"Wyoming","value":"WY"}
+]
