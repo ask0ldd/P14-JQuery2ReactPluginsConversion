@@ -183,6 +183,6 @@ interface IFormInput{
   error : boolean
 }
 
-function formatInputValue(value : string){
+export function formatInputValue(value : string){
   return value.trim().toLowerCase()
 }
