@@ -9,12 +9,12 @@ import './style/ComboBox.css'
  */
 function SelectComboBox(){
 
-    const { activeOption, isListboxExpanded, labelledBy, setListboxAsExpanded } = useContext(SelectContext)
+    const { selectId, activeOption, isListboxExpanded, labelledBy, setListboxAsExpanded } = useContext(SelectContext)
 
     return(
         <span onBlur={() => {if(setListboxAsExpanded) setListboxAsExpanded(false)}} 
         onMouseDown={() => {if(setListboxAsExpanded) setListboxAsExpanded(!isListboxExpanded)}} 
-        tabIndex={0} aria-controls="customListbox" id="customSelectLabel" role="combobox" 
+        tabIndex={0} aria-controls="customListbox" id={selectId + "SelectLabel"} role="combobox" 
         aria-haspopup="listbox" aria-activedescendant={activeOption.value} aria-labelledby={labelledBy}
         aria-expanded={isListboxExpanded} className={isListboxExpanded ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}
         >

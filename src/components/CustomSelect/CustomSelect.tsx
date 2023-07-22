@@ -51,6 +51,7 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange /
     }
 
     useKeyboardHandler(
+        selectId,
         formState,
         [...options], 
         activeOptionRef, 

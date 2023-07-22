@@ -4,6 +4,7 @@ import { IOption } from '../CustomSelect'
 import { IForm } from '../../../Form'
 
 export function useKeyboardHandler(
+    selectId : string,
     formState : IForm,
     options : Array<IOption>, 
     activeOptionRef : MutableRefObject<IOption>, 
@@ -11,20 +12,18 @@ export function useKeyboardHandler(
     setActiveOption : (option : IOption) => void,
     setListboxAsExpanded : (bool : boolean) => void
 ){
+    // console.log(selectId)
 
     useEffect(() => {
   
         function keyboardListener(e : KeyboardEvent){
-
+            
             // out of focus
             if(e.code == "Escape" && isListboxExpanded()) {closeSelectOptions(e)}
 
             // when in focus
-            if(document.activeElement?.id === 'customSelectLabel'){
-                if(e.code == "Enter" || e.code == "NumpadEnter") {
-                    !isListboxExpanded() ? openSelectOptions(e) : closeSelectOptions(e)
-                }
-                if(e.code == "Space") {
+            if(document.activeElement?.id == (selectId + "SelectLabel")){
+                if(e.code == "Enter" || e.code == "NumpadEnter" || e.code == "Space") {
                     !isListboxExpanded() ? openSelectOptions(e) : closeSelectOptions(e)
                 }
                 if(e.code == "ArrowUp") {

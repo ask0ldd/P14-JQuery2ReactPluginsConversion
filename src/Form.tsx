@@ -69,11 +69,10 @@ function App() {
         formState={formState} setFormState={setFormState} 
         errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
+        {/*
+          bug keyboard nav cs / keyboard handler is controlling both selects at the same time / customselectlabel shoudln't be static
+        */}
         <label id="state-label" htmlFor="state" className='defaultSpacing'>State</label>
-        {/*<input id="state" type="text" value={formState.state?.value} 
-        onChange={(e) => setFormState((prevState) => {
-          return {...prevState, state : {value : formatInputValue(e.target.value), error : !Validator.testName(e.target.value)}}
-        })}/>*/}
         <CustomSelect formState={formState} 
         onValueChange={(value : string) => setFormState((prevState) => {
           return {...prevState, state : {...prevState?.state, value : value}}
