@@ -4,7 +4,7 @@ import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
 import {createContext, useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
-import { IForm } from '../../Form'
+import { IForm } from '../CustomForm'
 
 /* !!!
 add a way to define the default Option or a non option default value

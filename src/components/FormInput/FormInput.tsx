@@ -1,4 +1,4 @@
-import { IForm as IFormState } from "../../Form"
+import { IForm as IFormState } from "../CustomForm"
 
 function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelText, formState, setFormState, onChangeValidator, errorMessage} : IProps){
 // should pass state &

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, MutableRefObject } from 'react'
 import { IOption } from '../CustomSelect'
-import { IForm } from '../../../Form'
+import { IForm } from '../../CustomForm'
 
 export function useKeyboardHandler(
     selectId : string,
