@@ -48,11 +48,11 @@ function App() {
         
         <h2>1. Personnal</h2>
 
-        <FormInput id="firstname" type="text" labelValue='First Name'
+        <FormInput id="firstname" type="text" labelText='First Name'
         formState={formState} setFormState={setFormState} 
         errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-        <FormInput id="lastname" type="text" labelValue='Last Name' CSSClasses={{ input: undefined, label: 'defaultSpacing' }}
+        <FormInput id="lastname" type="text" labelText='Last Name' CSSClasses={{ label: 'defaultSpacing' }}
         formState={formState} setFormState={setFormState} 
         errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
@@ -61,17 +61,14 @@ function App() {
 
         <h2>2. Address</h2>
 
-        <FormInput id="street" type="text" labelValue='Street'
+        <FormInput id="street" type="text" labelText='Street'
         formState={formState} setFormState={setFormState} 
         errorMessage="Invalid Value." onChangeValidator={Validator.testAddress}/>
 
-        <FormInput id="city" type="text" labelValue='City' CSSClasses={{ input: undefined, label: 'defaultSpacing' }}
+        <FormInput id="city" type="text" labelText='City' CSSClasses={{ label: 'defaultSpacing' }}
         formState={formState} setFormState={setFormState} 
         errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-        {/*
-          bug keyboard nav cs / keyboard handler is controlling both selects at the same time / customselectlabel shoudln't be static
-        */}
         <label id="state-label" htmlFor="state" className='defaultSpacing'>State</label>
         <CustomSelect formState={formState} 
         onValueChange={(value : string) => setFormState((prevState) => {
@@ -88,6 +85,9 @@ function App() {
 
         <h2>3. Professional</h2>
 
+        {/*
+          integrate label to datepicker & customselect
+        */}
         <label htmlFor="start-date">Integration Date</label>
         <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 

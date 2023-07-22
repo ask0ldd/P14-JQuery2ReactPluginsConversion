@@ -21,7 +21,7 @@ export function useKeyboardHandler(
             // out of focus
             if(e.code == "Escape" && isListboxExpanded()) {closeSelectOptions(e)}
 
-            // when in focus
+            // when the right custom select is in focus
             if(document.activeElement?.id == (selectId + "SelectLabel")){
                 if(e.code == "Enter" || e.code == "NumpadEnter" || e.code == "Space") {
                     !isListboxExpanded() ? openSelectOptions(e) : closeSelectOptions(e)

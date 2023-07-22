@@ -1,10 +1,10 @@
 import { IForm as IFormState } from "../../Form"
 
-function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelValue, formState, setFormState, onChangeValidator, errorMessage} : IProps){
+function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelText, formState, setFormState, onChangeValidator, errorMessage} : IProps){
 // should pass state &
     return (
         <>
-            {labelValue && <label htmlFor={id} className={CSSClasses?.label && CSSClasses.label}>{labelValue}</label>}
+            {labelText && <label htmlFor={id} className={CSSClasses?.label && CSSClasses.label}>{labelText}</label>}
             <input type={type} id={id} placeholder={inputPlaceHolder && inputPlaceHolder} className={CSSClasses?.input && CSSClasses.input} value={inputValue && inputValue}
             onChange={(e) => setFormState((prevState) => {
                 return {...prevState, [id] : { value : formatInputValue(e.target.value), error : !onChangeValidator(e.target.value) }}
@@ -21,8 +21,8 @@ interface IProps{
     type : "text" | "email" | "password" | "number" | "search" | "tel" | "url"
     inputPlaceHolder? : string
     inputValue? : string
-    labelValue? : string
-    CSSClasses? : {input : string | undefined, label : string | undefined}
+    labelText? : string
+    CSSClasses? : {input? : string | undefined, label? : string | undefined}
     formState : IFormState
     setFormState : React.Dispatch<React.SetStateAction<IFormState>>
     onChangeValidator : (inputvalue : string) => boolean
