@@ -1,6 +1,7 @@
 // import ModalHeader from "./ModalHeader"
-import { useRef, useEffect, /*useState, MutableRefObject*/} from "react"
+import { useRef, useEffect, ReactNode, /*useState, MutableRefObject*/} from "react"
 import './style/Modal.css'
+import { PropsWithChildren } from 'react'
 
 /**
  * Component : Grouping all the constitutive elements of a datatable.
@@ -11,7 +12,7 @@ import './style/Modal.css'
  * @param {JSX.element} props.headerComponent - Component used as a modals header.
  * @return ( <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}/> )
  */
-function Modal({modalVisibility, setModalVisibility, modalContent, headerComponent, containerCSSClass} : IProps){
+function Modal({modalVisibility, setModalVisibility, /*modalContent, headerComponent,*/ containerCSSClass, children} : PropsWithChildren<IProps>){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
     const modalVisibilityRef = useRef(modalVisibility)
@@ -33,8 +34,7 @@ function Modal({modalVisibility, setModalVisibility, modalContent, headerCompone
             // closing the modal only if clicking on the backdrop / not on the content itself
             if (e.target === dialogRef.current) setModalVisibility(false)
             }}>
-            {headerComponent}
-            {modalContent}
+            {children}
         </dialog> 
         : <></>
     )
@@ -44,8 +44,11 @@ export default Modal
 
 interface IProps{
     modalVisibility : boolean
-    modalContent : /*() => */JSX.Element
-    headerComponent : /*() => */JSX.Element
+    /*modalContent : ReactNode
+    headerComponent : ReactNode*/
     containerCSSClass? : string
     setModalVisibility : (bool : boolean) => void
 }
+
+/*{headerComponent}
+{modalContent}*/

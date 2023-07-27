@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react"
+import { useState, useEffect, ReactNode } from "react"
 import ModalHeader from "../ModalHeader"
 
 /**
@@ -19,8 +19,8 @@ function useModalManager({initialVisibility, content} : IModalObject){
     // initial visibility / initial content
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility)
-    const [modalContent, setModalContent] = useState<JSX.Element>(content)
-    const [headerComponent, setHeaderComponent] = useState<JSX.Element>(ModalHeader({setModalVisibility})) /* set default modal header with props passed */
+    const [modalContent, setModalContent] = useState<ReactNode>(content)
+    const [headerComponent, setHeaderComponent] = useState<ReactNode>(ModalHeader({setModalVisibility})) /* set default modal header with props passed */
 
     // !!!! ADD SCREENLOCK
     useEffect(() => {

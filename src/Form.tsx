@@ -3,7 +3,7 @@ import './Form.css'
 import { Link } from 'react-router-dom'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
-import { IPropsModalHeader } from './components/Modal/ModalHeader'
+import ModalHeader, { IPropsModalHeader } from './components/Modal/ModalHeader'
 import CustomForm from './components/CustomForm'
 
 /**
@@ -36,9 +36,15 @@ function App() {
         <ModalHeader/> 
         <ModalContent/>
       </Modal>
+      modalContent={modalContent} headerComponent={headerComponent}
+        <ModalHeader setModalVisibility={setModalVisibility}/>
+        <ModalContentSuccess/>
       */}
 
-      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}></Modal>
+      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} >
+        {headerComponent}
+        {modalContent}
+      </Modal>
 
 
       
