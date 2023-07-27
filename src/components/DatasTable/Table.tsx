@@ -4,6 +4,9 @@ import { DatasTableContext } from "./DatasTable"
 import './style/Table.css'
 import { IUsersDatas } from "../../datas/usersDatasTen"
 
+
+// !!! limit size of value in a cell & fix col sizes
+
 /**
  * Component : A simple HTML Table displaying all the requested data.
  * @Component
@@ -41,10 +44,12 @@ function Table() {
 
 export default Table
 
+// !!! jsdoc
 function isRowOdd(index : number){
   return index%2 === 1 ? 'odd' : ''
  }
  
+ // !!! jsdoc
  function isLastRow(index : number, lastRowIndex : number){
    return index === lastRowIndex ? ' bottomblackborder' : ''
  }

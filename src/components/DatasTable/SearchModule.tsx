@@ -3,10 +3,6 @@ import './style/SearchModule.css'
 import { DatasTableContext } from "./DatasTable"
 import { useContext } from "react"
 
-/*interface IProps{
-    setSearchString: any
-}*/
-
 /**
  * Component : Module adding a search function to the datatable.
  * @Component

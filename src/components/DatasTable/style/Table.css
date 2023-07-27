@@ -26,7 +26,7 @@ th {
   justify-content: center;
   align-items: center;
   font-size: 0.8em;
-  line-height: 1.15em;
+  line-height: 1.1em;
   color: #ddd;
 }
 
@@ -45,28 +45,6 @@ tbody tr:hover {
   background-color: #f9f9f9;
   /*background-color: #f5f9ff;*/
 }
-
-/*th::after {
-  content: "▲";
-  position: absolute;
-  display: block;
-  opacity: 0.125;
-  right: 8px;
-  line-height: 9px;
-  font-size: 0.8em;
-  bottom: 54%;
-}
-
-th::before {
-  content: "▼";
-  position: absolute;
-  display: block;
-  opacity: 0.125;
-  right: 8px;
-  line-height: 9px;
-  font-size: 0.8em;
-  top: 54%;
-}*/
 
 table tr.bottomblackborder {
   border-bottom: 1px solid #111;

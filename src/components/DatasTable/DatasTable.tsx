@@ -10,7 +10,7 @@ import {createContext} from 'react'
 import useOrderTable from './hooks/useOrderTable'
 
 /**
- * Component : Grouping all the constitutive elements of a datatable.
+ * Component : Grouping of all the constitutive elements of a datatable.
  * @Component
  * @param {Object[]} props - Props.
  * @param {Object[]} props.columnsDefinition
@@ -40,7 +40,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     }, [searchString])
 
     return(
-        <>  {}
+        <>
             <DatasTableContext.Provider value={{paginationRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setPaginationRules, setOrdering, setSearchString}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>

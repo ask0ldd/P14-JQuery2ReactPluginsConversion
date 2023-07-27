@@ -1,13 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './style/Pagination.css'
 
-interface IProps{
-  currentPage: number
-  setPaginationRules: any
-  nEntriesPerPage: number
-  totalEntries: number
-}
-
 /**
  * Component : Datatable pagination.
  * @Component
@@ -44,3 +37,10 @@ function Pagination({currentPage, setPaginationRules, nEntriesPerPage, totalEntr
 }
 
 export default Pagination
+
+interface IProps{
+  currentPage: number
+  setPaginationRules: any
+  nEntriesPerPage: number
+  totalEntries: number
+}
