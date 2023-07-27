@@ -1,5 +1,5 @@
 // import ModalHeader from "./ModalHeader"
-import { useRef, useEffect, ReactNode, /*useState, MutableRefObject*/} from "react"
+import { useRef, useEffect } from "react"
 import './style/Modal.css'
 import { PropsWithChildren } from 'react'
 

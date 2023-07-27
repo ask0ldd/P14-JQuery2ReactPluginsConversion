@@ -3,7 +3,7 @@ import './Form.css'
 import { Link } from 'react-router-dom'
 import Modal from './components/Modal/Modal'
 import useModalManager from './components/Modal/hooks/useModalManager'
-import ModalHeader, { IPropsModalHeader } from './components/Modal/ModalHeader'
+import /*ModalHeader, */{ IPropsModalHeader } from './components/Modal/ModalHeader'
 import CustomForm from './components/CustomForm'
 
 /**
@@ -29,24 +29,10 @@ function App() {
 
       <CustomForm/>
 
-      { /* should be able to pass a custom header, replacing the default one 
-      / absolute positioning should be an option so won't mess with the content layout, full modal access for the content 
-      use children props instead of passing modalcontent and headercomponent as props?
-      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility}> // user can put anything between the Modal Tags
-        <ModalHeader/> 
-        <ModalContent/>
-      </Modal>
-      modalContent={modalContent} headerComponent={headerComponent}
-        <ModalHeader setModalVisibility={setModalVisibility}/>
-        <ModalContentSuccess/>
-      */}
-
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} >
         {headerComponent}
         {modalContent}
       </Modal>
-
-
       
       <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
         setHeaderComponent(AlternateModalHeader({setModalVisibility}))
