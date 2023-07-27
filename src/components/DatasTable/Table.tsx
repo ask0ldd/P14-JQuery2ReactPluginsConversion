@@ -29,7 +29,7 @@ function Table() {
         <table aria-label="Current Employees">
         <thead>
           <tr className='bottomblackborder'>
-          {[...tableColumnsNames].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}</th>)) /* !!! clickable seulement si sortable */}
+          {[...tableColumnsNames].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}<div className="arrowsContainer"><span>▲</span><span>▼</span></div></th>)) /* !!! clickable seulement si sortable */}
           </tr>
         </thead>
         <tbody>
