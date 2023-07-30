@@ -3,6 +3,7 @@ import '../Form.css'
 import '../style/CurrentEmployees.css'
 import usersDatas from '../datas/usersDatas'
 import DatasTable, { IColumnDefElement } from '../components/DatasTable/DatasTable'
+import { Link } from 'react-router-dom'
 
 /**
  * Component : Displaying the current employees datatable page.
@@ -14,7 +15,9 @@ function CurrentEmployees() {
   // check if usersDatas properties match columnsDefinition datakeys // should check for each object ?
   let isDefinitionMatchingDatas = true
   const tableDatasPropertiesList = Object.getOwnPropertyNames(usersDatas[0])
-  columnsDefinition.forEach(definition => {if(tableDatasPropertiesList.includes(definition.datakey) === false) isDefinitionMatchingDatas = false })
+  columnsDefinition.forEach(definition => {
+    if(tableDatasPropertiesList.includes(definition.datakey) === false) isDefinitionMatchingDatas = false 
+  })
 
   return (
     <main className='mainCE'>
@@ -22,13 +25,13 @@ function CurrentEmployees() {
       {isDefinitionMatchingDatas 
       ? <DatasTable columnsDefinition={columnsDefinition} tableDatas={[...usersDatas]}/> 
       : <div>Users datas are missing some mandatory dataKeys.</div>}
+      <Link to={`/`}>Home</Link>
     </main>
   )
 }
 
 export default CurrentEmployees
 
-// detect datatype by itself ?!!!
 const columnsDefinition : Array<IColumnDefElement> = [
   { th: 'First Name', datakey: 'firstName', sortable: true, datatype: 'string' },
   { th: 'Last Name', datakey: 'lastName', sortable: true, datatype: 'string' },

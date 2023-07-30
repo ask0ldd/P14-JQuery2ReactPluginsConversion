@@ -19,7 +19,7 @@ function SelectComboBox(){
         aria-expanded={isListboxExpanded} className={isListboxExpanded ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}
         >
             {activeOption?.label}
-            <img className={isListboxExpanded ? "customSelectOpen" : "customSelectArrow"} src="./icons/select-arrow.svg"/>
+            <img alt="dropdown arrow" className={isListboxExpanded ? "customSelectOpen" : "customSelectArrow"} src="./icons/select-arrow.svg"/>
         </span>
     )
 }
