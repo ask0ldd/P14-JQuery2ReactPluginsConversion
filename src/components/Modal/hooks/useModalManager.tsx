@@ -22,13 +22,12 @@ function useModalManager({initialVisibility, content} : IModalObject){
     const [modalContent, setModalContent] = useState<ReactNode>(content)
     const [headerComponent, setHeaderComponent] = useState<ReactNode>(ModalHeader({openModal})) /* set default modal header with props passed */
 
-    // !!!! ADD SCREENLOCK
     useEffect(() => {
 
         scrollLock(true);
   
         function keyboardListener(e : KeyboardEvent){
-            if(e.code == "Escape" && modalVisibility) {e.preventDefault(); openModal(false);}
+            if(e.code == "Escape" && modalVisibility) {e.preventDefault(); modalManager.setVisibility(false);}
         }
 
         window.addEventListener('keydown', keyboardListener)
@@ -39,6 +38,30 @@ function useModalManager({initialVisibility, content} : IModalObject){
         }
 
     }, [])
+
+    const modalManager = {
+        setVisibility : (bool : boolean) => {
+            setModalVisibility(bool); 
+            scrollLock(bool);
+        },
+
+        getVisibility : () => modalVisibility,
+
+        setBodyComponent : (component : ReactNode) => 
+        {
+            setModalContent(component)
+        },
+
+        getBodyComponent : () => modalContent,
+
+        setHeaderComponent : (component : ReactNode) => {
+            setHeaderComponent(component)
+        },
+
+        getHeaderComponent : () => headerComponent,
+    }
+
+    return {modalVisibility, modalContent, headerComponent, setModalContent, setHeaderComponent, openModal}
 
     function openModal(bool : boolean){
         setModalVisibility(bool); 
@@ -56,9 +79,7 @@ function useModalManager({initialVisibility, content} : IModalObject){
         window.onscroll = () => {
             window.scrollTo(scrollLeft, scrollTop)
         }
-    }    
-
-    return {modalVisibility, modalContent, headerComponent, /*setModalVisibility, */ setModalContent, setHeaderComponent, openModal}
+    }   
 }
 
 export default useModalManager

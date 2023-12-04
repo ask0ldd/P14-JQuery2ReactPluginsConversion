@@ -12,7 +12,7 @@ import { PropsWithChildren } from 'react'
  * @param {JSX.element} props.headerComponent - Component used as a modals header.
  * @return ( <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}/> )
  */
-function Modal({modalVisibility, openModal, /*modalContent, headerComponent,*/ containerCSSClass, children} : PropsWithChildren<IProps>){
+function Modal({modalVisibility, openModal, containerCSSClass, children} : PropsWithChildren<IProps>){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
     const modalVisibilityRef = useRef(modalVisibility)
@@ -31,7 +31,7 @@ function Modal({modalVisibility, openModal, /*modalContent, headerComponent,*/ c
     return (
         modalVisibility ? 
         <dialog className={containerCSSClass ? containerCSSClass : 'defaultModalStyle'} ref={dialogRef} onClick={(e) => {
-            // closing the modal only if clicking on the backdrop / not on the content itself
+            // closing the modal only if clicking on the backdrop (dialogRef.current) / not on the content itself
             if (e.target === dialogRef.current) openModal(false)
             }}>
             {children}

@@ -36,7 +36,7 @@ function App() {
         {modalContent}
       </Modal>
       
-      <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
+      <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => {
         setHeaderComponent(AlternateModalHeader({openModal}))
         setModalContent(ModalContentAlternate)
         openModal(true)
