@@ -20,13 +20,15 @@ function useModalManager({initialVisibility, content} : IModalObject){
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility)
     const [modalContent, setModalContent] = useState<ReactNode>(content)
-    const [headerComponent, setHeaderComponent] = useState<ReactNode>(ModalHeader({setModalVisibility})) /* set default modal header with props passed */
+    const [headerComponent, setHeaderComponent] = useState<ReactNode>(ModalHeader({openModal})) /* set default modal header with props passed */
 
     // !!!! ADD SCREENLOCK
     useEffect(() => {
+
+        scrollLock(true);
   
         function keyboardListener(e : KeyboardEvent){
-            if(e.code == "Escape" && modalVisibility) {e.preventDefault(); setModalVisibility(false)}
+            if(e.code == "Escape" && modalVisibility) {e.preventDefault(); openModal(false);}
         }
 
         window.addEventListener('keydown', keyboardListener)
@@ -38,7 +40,25 @@ function useModalManager({initialVisibility, content} : IModalObject){
 
     }, [])
 
-    return {modalVisibility, modalContent, headerComponent, setModalVisibility, setModalContent, setHeaderComponent}
+    function openModal(bool : boolean){
+        setModalVisibility(bool); 
+        scrollLock(bool);
+    }
+
+    function scrollLock(state : boolean) : void {
+        if(!state){
+            window.onscroll = () => null
+            return
+        }
+    
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
+        window.onscroll = () => {
+            window.scrollTo(scrollLeft, scrollTop)
+        }
+    }    
+
+    return {modalVisibility, modalContent, headerComponent, /*setModalVisibility, */ setModalContent, setHeaderComponent, openModal}
 }
 
 export default useModalManager

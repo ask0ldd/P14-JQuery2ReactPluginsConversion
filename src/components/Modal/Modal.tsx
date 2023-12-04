@@ -4,7 +4,7 @@ import './style/Modal.css'
 import { PropsWithChildren } from 'react'
 
 /**
- * Component : Grouping all the constitutive elements of a datatable.
+ * Component : Customizable Modal.
  * @Component
  * @param {Object[]} props - Props.
  * @param {boolean} props.modalVisibility - Visibility of the modal.
@@ -12,7 +12,7 @@ import { PropsWithChildren } from 'react'
  * @param {JSX.element} props.headerComponent - Component used as a modals header.
  * @return ( <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}/> )
  */
-function Modal({modalVisibility, setModalVisibility, /*modalContent, headerComponent,*/ containerCSSClass, children} : PropsWithChildren<IProps>){
+function Modal({modalVisibility, openModal, /*modalContent, headerComponent,*/ containerCSSClass, children} : PropsWithChildren<IProps>){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
     const modalVisibilityRef = useRef(modalVisibility)
@@ -32,7 +32,7 @@ function Modal({modalVisibility, setModalVisibility, /*modalContent, headerCompo
         modalVisibility ? 
         <dialog className={containerCSSClass ? containerCSSClass : 'defaultModalStyle'} ref={dialogRef} onClick={(e) => {
             // closing the modal only if clicking on the backdrop / not on the content itself
-            if (e.target === dialogRef.current) setModalVisibility(false)
+            if (e.target === dialogRef.current) openModal(false)
             }}>
             {children}
         </dialog> 
@@ -47,7 +47,7 @@ interface IProps{
     /*modalContent : ReactNode
     headerComponent : ReactNode*/
     containerCSSClass? : string
-    setModalVisibility : (bool : boolean) => void
+    openModal : (bool : boolean) => void
 }
 
 /*{headerComponent}

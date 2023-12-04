@@ -18,7 +18,7 @@ function App() {
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
   const {
       modalVisibility, modalContent, headerComponent, 
-      setModalVisibility, setModalContent, setHeaderComponent
+      /*setModalVisibility,*/ setModalContent, setHeaderComponent, openModal
   } 
     = useModalManager({initialVisibility : true, content : ModalContentSuccess})
   
@@ -31,15 +31,15 @@ function App() {
 
       <CustomForm/>
 
-      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} >
+      <Modal modalVisibility={modalVisibility} openModal={openModal}>
         {headerComponent}
         {modalContent}
       </Modal>
       
       <button style={{padding:'1rem', margin:'1rem',}} onClick={() => {
-        setHeaderComponent(AlternateModalHeader({setModalVisibility}))
+        setHeaderComponent(AlternateModalHeader({openModal}))
         setModalContent(ModalContentAlternate)
-        setModalVisibility(true)
+        openModal(true)
       }}>Show alternate modale</button>
      
     </main>
@@ -64,10 +64,10 @@ function ModalContentAlternate(){
 }
 
 /* props needed to access the close modal fn into the header */
-function AlternateModalHeader({setModalVisibility} : IPropsModalHeader){
+function AlternateModalHeader({openModal} : IPropsModalHeader){
   return(
     <div>
-      <span onClick={() => setModalVisibility(false)}>aaaaaa</span>
+      <span onClick={() => openModal(false)}>aaaaaa</span>
     </div>
   )
 }
