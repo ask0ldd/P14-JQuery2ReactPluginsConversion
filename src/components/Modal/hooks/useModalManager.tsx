@@ -19,8 +19,8 @@ export function useModalManager({initialVisibility, content} : IModalObject){
     // initial visibility / initial content
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility)
-    const [modalContent, setModalContent] = useState<ReactNode>(content)
-    const [headerComponent, setHeaderComponent] = useState<ReactNode>(ModalHeader({openModal})) /* set default modal header with props passed */
+    const [modalBodyComponent, setModalBodyComponent] = useState<ReactNode>(content.body)
+    const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactNode | null>(content.header) /* set default modal header with props passed */
 
     useEffect(() => {
 
@@ -49,16 +49,16 @@ export function useModalManager({initialVisibility, content} : IModalObject){
 
         setBodyComponent : (component : ReactNode) => 
         {
-            setModalContent(component)
+            setModalBodyComponent(component)
         },
 
-        getBodyComponent : () : ReactNode => modalContent,
+        getBodyComponent : () => modalBodyComponent,
 
         setHeaderComponent : (component : ReactNode) => {
-            setHeaderComponent(component)
+            setModalHeaderComponent(component)
         },
 
-        getHeaderComponent : () : ReactNode => headerComponent,
+        getHeaderComponent : () => modalHeaderComponent,
     }
 
     return {modalManager}
@@ -86,7 +86,12 @@ export function useModalManager({initialVisibility, content} : IModalObject){
 
 interface IModalObject{
     initialVisibility : boolean
-    content : () => JSX.Element
+    content : IModalContent
+}
+
+interface IModalContent{
+    body : ReactNode
+    header : ReactNode | null
 }
 
 export interface IModalManager{
