@@ -15,7 +15,7 @@ import ModalHeader from "../ModalHeader"
  * setModalContent - Sets a new react component as the body of the modal.
  * setHeaderComponent - Set a new react component as the header of the modal.
  */
-function useModalManager({initialVisibility, content} : IModalObject){
+export function useModalManager({initialVisibility, content} : IModalObject){
     // initial visibility / initial content
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility)
@@ -52,16 +52,16 @@ function useModalManager({initialVisibility, content} : IModalObject){
             setModalContent(component)
         },
 
-        getBodyComponent : () => modalContent,
+        getBodyComponent : () : ReactNode => modalContent,
 
         setHeaderComponent : (component : ReactNode) => {
             setHeaderComponent(component)
         },
 
-        getHeaderComponent : () => headerComponent,
+        getHeaderComponent : () : ReactNode => headerComponent,
     }
 
-    return {modalVisibility, modalContent, headerComponent, setModalContent, setHeaderComponent, openModal}
+    return {modalManager}
 
     function openModal(bool : boolean){
         setModalVisibility(bool); 
@@ -82,9 +82,18 @@ function useModalManager({initialVisibility, content} : IModalObject){
     }   
 }
 
-export default useModalManager
+// export default useModalManager
 
 interface IModalObject{
     initialVisibility : boolean
     content : () => JSX.Element
+}
+
+export interface IModalManager{
+    setVisibility : (bool : boolean) => void
+    getVisibility : () => boolean
+    setBodyComponent : (component : ReactNode) => void
+    getBodyComponent : () => ReactNode
+    setHeaderComponent : (component : ReactNode) => void
+    getHeaderComponent : () => ReactNode
 }

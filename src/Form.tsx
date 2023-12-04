@@ -2,7 +2,7 @@
 import './Form.css'
 import { Link } from 'react-router-dom'
 import Modal from './components/Modal/Modal'
-import useModalManager from './components/Modal/hooks/useModalManager'
+import {useModalManager} from './components/Modal/hooks/useModalManager'
 import /*ModalHeader, */{ IPropsModalHeader } from './components/Modal/ModalHeader'
 import CustomForm from './components/CustomForm'
 
@@ -16,10 +16,7 @@ import CustomForm from './components/CustomForm'
 function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
-  const {
-      modalVisibility, modalContent, headerComponent, 
-      /*setModalVisibility,*/ setModalContent, setHeaderComponent, openModal
-  } 
+  const { modalManager } 
     = useModalManager({initialVisibility : true, content : ModalContentSuccess})
   
   /*const todaysDate = new Date()
@@ -31,15 +28,13 @@ function App() {
 
       <CustomForm/>
 
-      <Modal modalVisibility={modalVisibility} openModal={openModal}>
-        {headerComponent}
-        {modalContent}
+      <Modal modalManager={modalManager}>
       </Modal>
       
       <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => {
-        setHeaderComponent(AlternateModalHeader({openModal}))
-        setModalContent(ModalContentAlternate)
-        openModal(true)
+        modalManager.setHeaderComponent(AlternateModalHeader({openModal : modalManager.setVisibility}))
+        modalManager.setBodyComponent(ModalContentAlternate)
+        modalManager.setVisibility(true)
       }}>Show alternate modale</button>
      
     </main>

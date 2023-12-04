@@ -1,7 +1,8 @@
 // import ModalHeader from "./ModalHeader"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, ReactNode } from "react"
 import './style/Modal.css'
 import { PropsWithChildren } from 'react'
+import { IModalManager } from "./hooks/useModalManager"
 
 /**
  * Component : Customizable Modal.
@@ -12,10 +13,10 @@ import { PropsWithChildren } from 'react'
  * @param {JSX.element} props.headerComponent - Component used as a modals header.
  * @return ( <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}/> )
  */
-function Modal({modalVisibility, openModal, containerCSSClass, children} : PropsWithChildren<IProps>){
+function Modal({modalManager, containerCSSClass, children} : PropsWithChildren<IProps>){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
-    const modalVisibilityRef = useRef(modalVisibility)
+    const modalVisibilityRef = useRef(modalManager.getVisibility())
 
     useEffect(() => {
         if(modalVisibilityRef && !dialogRef.current?.open) return dialogRef.current?.showModal()
@@ -29,10 +30,10 @@ function Modal({modalVisibility, openModal, containerCSSClass, children} : Props
     // !! add customizable css
     // padding, border, display, direction, align items, justify items, margins, background, backdrop
     return (
-        modalVisibility ? 
+        modalManager.getVisibility() ? 
         <dialog className={containerCSSClass ? containerCSSClass : 'defaultModalStyle'} ref={dialogRef} onClick={(e) => {
             // closing the modal only if clicking on the backdrop (dialogRef.current) / not on the content itself
-            if (e.target === dialogRef.current) openModal(false)
+            if (e.target === dialogRef.current) modalManager.setVisibility(false)
             }}>
             {children}
         </dialog> 
@@ -42,13 +43,15 @@ function Modal({modalVisibility, openModal, containerCSSClass, children} : Props
 
 export default Modal
 
-interface IProps{
+/*interface IProps{
     modalVisibility : boolean
-    /*modalContent : ReactNode
-    headerComponent : ReactNode*/
+    // modalContent : ReactNode
+    // headerComponent : ReactNode
     containerCSSClass? : string
     openModal : (bool : boolean) => void
-}
+}*/
 
-/*{headerComponent}
-{modalContent}*/
+interface IProps{
+    modalManager : IModalManager
+    containerCSSClass? : string
+}
