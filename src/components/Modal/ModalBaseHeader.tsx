@@ -7,7 +7,7 @@ import './style/ModalHeader.css'
  * @param {bool} props.openModal - Function to set the display state of the modal.
  * @return ( <ModalHeader openModal={openModal}/> )
  */
-function ModalBaseHeader({setVisibility} : {setVisibility : (bool : boolean) => void}){
+function ModalBaseHeader({setVisibility} : IProps){
 
     // !!!! tabindex button
     return (
@@ -18,3 +18,7 @@ function ModalBaseHeader({setVisibility} : {setVisibility : (bool : boolean) => 
 }
 
 export default ModalBaseHeader
+
+interface IProps{
+    setVisibility : (bool : boolean) => void
+}

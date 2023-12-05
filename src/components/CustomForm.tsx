@@ -24,67 +24,65 @@ function CustomForm(){
         <form className="mainform">
             <h2>1. Personnal</h2>
 
-                <FormInput id="firstname" type="text" labelText='First Name'
-                formState={formState} setFormState={setFormState} 
-                errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
+            <FormInput id="firstname" type="text" labelText='First Name'
+            formState={formState} setFormState={setFormState} 
+            errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-                <FormInput id="lastname" type="text" labelText='Last Name' CSSClasses={{ label: 'defaultSpacing' }}
-                formState={formState} setFormState={setFormState} 
-                errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
+            <FormInput id="lastname" type="text" labelText='Last Name' CSSClasses={{ label: 'defaultSpacing' }}
+            formState={formState} setFormState={setFormState} 
+            errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-                <label htmlFor="birthdate" className='defaultSpacing'>Birthdate</label>
-                <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} valueAccessor="birthdate"/>
+            <DatePicker id={"birthdate"} label={{text :"Birthdate", class : "defaultSpacing"}} useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} valueAccessor="birthdate"/>
 
-                <h2>2. Address</h2>
+            <h2>2. Address</h2>
 
-                <FormInput id="street" type="text" labelText='Street'
-                formState={formState} setFormState={setFormState} 
-                errorMessage="Invalid Value." onChangeValidator={Validator.testAddress}/>
+            <FormInput id="street" type="text" labelText='Street'
+            formState={formState} setFormState={setFormState} 
+            errorMessage="Invalid Value." onChangeValidator={Validator.testAddress}/>
 
-                <FormInput id="city" type="text" labelText='City' CSSClasses={{ label: 'defaultSpacing' }}
-                formState={formState} setFormState={setFormState} 
-                errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
+            <FormInput id="city" type="text" labelText='City' CSSClasses={{ label: 'defaultSpacing' }}
+            formState={formState} setFormState={setFormState} 
+            errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-                <label id="state-label" htmlFor="state" className='defaultSpacing'>State</label>
-                <CustomSelect formState={formState} 
-                onValueChange={(value : string) => setFormState((prevState) => {
-                return {...prevState, state : {...prevState?.state, value : value}}
-                })}
-                labelledBy="state-label" options={statesList} selectId='state'
-                />
+            <label id="state-label" htmlFor="state" className='defaultSpacing'>State</label>
+            <CustomSelect formState={formState} 
+            onValueChange={(value : string) => setFormState((prevState) => {
+            return {...prevState, state : {...prevState?.state, value : value}}
+            })}
+            labelledBy="state-label" options={statesList} selectId='state'
+            />
 
-                <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
-                <input id="zipcode" type="number" value={formState.zipcode?.value} 
-                onChange={(e) => setFormState((prevState) => {
-                return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
-                })}/>
+            <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
+            <input id="zipcode" type="number" value={formState.zipcode?.value} 
+            onChange={(e) => setFormState((prevState) => {
+            return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
+            })}/>
 
-                <h2>3. Professional</h2>
+            <h2>3. Professional</h2>
 
-                {/*
-                integrate label to datepicker & customselect
-                */}
-                <label htmlFor="start-date">Integration Date</label>
-                <DatePicker useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
+            {/*
+            integrate label to datepicker & customselect
+            */}
+            <DatePicker id={"start-date"} label={{text :"Integration Date"}} useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
-                <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
-                <CustomSelect formState={formState} 
-                onValueChange={(value : string) => setFormState((prevState) => {
-                return {...prevState, department : {...prevState?.department, value : value}}
-                })}
-                labelledBy="department-label" options={[
-                {label:'Engineering', value:'Engineering'}, 
-                {label:'Human Ressources', value:'Human Ressources'}, 
-                {label:'Marketing', value:'Marketing'}, 
-                {label:'Legal', value:'Legal'}, 
-                {label:'Sales', value:'Sales'},
-                {label:'Sales1', value:'Sales1'},
-                {label:'Sales2', value:'Sales2'},
-                {label:'Sales3', value:'Sales3'},
-                ]} selectId='department'
-                />
+            <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
+            <CustomSelect formState={formState} 
+            onValueChange={(value : string) => setFormState((prevState) => {
+            return {...prevState, department : {...prevState?.department, value : value}}
+            })}
+            labelledBy="department-label" options={[
+            {label:'Engineering', value:'Engineering'}, 
+            {label:'Human Ressources', value:'Human Ressources'}, 
+            {label:'Marketing', value:'Marketing'}, 
+            {label:'Legal', value:'Legal'}, 
+            {label:'Sales', value:'Sales'},
+            {label:'Sales1', value:'Sales1'},
+            {label:'Sales2', value:'Sales2'},
+            {label:'Sales3', value:'Sales3'},
+            ]} selectId='department'
+            />
 
-                <input type="submit" value="Add this Employee"/>
+            <input type="submit" value="Add this Employee"/>
             
         </form>
     )

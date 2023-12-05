@@ -64,7 +64,7 @@ function App() {
   function ModalHeaderAlternate({setVisibility} : IPropsVisibility){
     return(
       <div>
-        <span onClick={() => setVisibility(false)}>aaaaaa</span>
+        {setVisibility && <span onClick={() => setVisibility(false)}>aaaaaa</span>}
       </div>
     )
   }

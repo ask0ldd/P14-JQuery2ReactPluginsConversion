@@ -8,23 +8,33 @@ import { Dispatch, SetStateAction, ChangeEvent } from "react"
  * @Component
  * @return ( <DatePicker/> )
  */
-function DatePicker({useFormState, inputStateValue, valueAccessor} : IProps){
+function DatePicker({useFormState, inputStateValue, valueAccessor, id, label} : IProps){
 
     const [, setFormState] = useFormState
 
     return(
-        <input type="date" value={inputStateValue} onChange={(e : ChangeEvent<HTMLInputElement>) => {
-            setFormState((prevState : IForm) => {
-                return {...prevState, [valueAccessor] : {...prevState[valueAccessor], value: e.target.value.toLowerCase().trim()}}
-            })
-        }}/>
+        <>
+            <label className={label?.class} htmlFor={id}>{label.text}</label>
+            <input type="date" id={id} value={inputStateValue} onChange={(e : ChangeEvent<HTMLInputElement>) => {
+                setFormState((prevState : IForm) => {
+                    return {...prevState, [valueAccessor] : {...prevState[valueAccessor], value: e.target.value.toLowerCase().trim()}}
+                })
+            }}/>
+        </>
     )
 }
 
 export default DatePicker
 
 interface IProps{
-useFormState : [ IForm, Dispatch<SetStateAction<IForm>> ]
-inputStateValue : string | number | readonly string[] | undefined
-valueAccessor : string
+    useFormState : [ IForm, Dispatch<SetStateAction<IForm>> ]
+    inputStateValue : string | number | readonly string[] | undefined
+    valueAccessor : string
+    id : string
+    label : ILabel
+}
+
+interface ILabel{
+    text : string
+    class? : string
 }
