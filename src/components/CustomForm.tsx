@@ -44,8 +44,7 @@ function CustomForm(){
             formState={formState} setFormState={setFormState} 
             errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-            <label id="state-label" htmlFor="state" className='defaultSpacing'>State</label>
-            <CustomSelect formState={formState} 
+            <CustomSelect id={"state"} label={{class:"defaultSpacing", text: "State"}} formState={formState} 
             onValueChange={(value : string) => setFormState((prevState) => {
             return {...prevState, state : {...prevState?.state, value : value}}
             })}
@@ -65,8 +64,7 @@ function CustomForm(){
             */}
             <DatePicker id={"start-date"} label={{text :"Integration Date"}} useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
-            <label id="department-label" htmlFor="department" className='defaultSpacing'>Departement</label>
-            <CustomSelect formState={formState} 
+            <CustomSelect id={"department"} label={{class:"defaultSpacing", text: "Departement"}} formState={formState} 
             onValueChange={(value : string) => setFormState((prevState) => {
             return {...prevState, department : {...prevState?.department, value : value}}
             })}

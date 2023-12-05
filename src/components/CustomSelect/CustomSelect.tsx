@@ -31,7 +31,7 @@ si touche cliquee > option commencant par cette touche
  * @param {function} props.onValueChange - Function triggered when selecting a new option.
  * @return ( <CustomSelect formState={formState} options={options} selectId={selectId} labelledBy={labelledBy} onValueChange={onValueChange}/> )
  */
-function CustomSelect({formState, options, selectId, labelledBy, onValueChange /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({formState, options, selectId, labelledBy, onValueChange, label, id /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
 
     // updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
@@ -62,6 +62,7 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange /
    
     return(
         <div className="selectContainer">
+            <label className={label?.class} htmlFor={id}>{label.text}</label>
             <SelectContext.Provider value={{selectId, options, activeOption, isListboxExpanded, labelledBy, setActiveOption, setListboxAsExpanded: setListboxAsExpanded}}>
                 <SelectComboBox/>
                 <OptionsList/>
@@ -96,6 +97,13 @@ interface IProps{
     onValueChange : (value : string, datakey? : string) => void
     // onValueChange : (formState : IForm) => void
     // styleOverride? : object
+    id : string
+    label : ILabel
+}
+
+interface ILabel{
+    text : string
+    class? : string
 }
 
 interface ISelectContext{
