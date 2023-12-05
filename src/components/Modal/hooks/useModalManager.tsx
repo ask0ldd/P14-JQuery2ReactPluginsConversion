@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, ReactNode } from "react"
-import ModalHeader from "../ModalHeader"
 
 /**
  * Function : Modal management tool.
@@ -16,11 +16,11 @@ import ModalHeader from "../ModalHeader"
  * setHeaderComponent - Set a new react component as the header of the modal.
  */
 export function useModalManager({initialVisibility, content} : IModalObject){
-    // initial visibility / initial content
+    
 
-    const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility)
-    const [modalBodyComponent, setModalBodyComponent] = useState<ReactNode>(content.body)
-    const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactNode | null>(content.header) /* set default modal header with props passed */
+    const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
+    const [modalBodyComponent, setModalBodyComponent] = useState<ReactNode | null>(content?.body || null)
+    const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactNode | null>(content?.header || null) /* set default modal header with props passed */
 
     useEffect(() => {
 
@@ -61,12 +61,12 @@ export function useModalManager({initialVisibility, content} : IModalObject){
         getHeaderComponent : () => modalHeaderComponent,
     }
 
-    return {modalManager}
+    return { modalManager }
 
-    function openModal(bool : boolean){
+    /*function openModal(bool : boolean){
         setModalVisibility(bool); 
         scrollLock(bool);
-    }
+    }*/
 
     function scrollLock(state : boolean) : void {
         if(!state){
@@ -85,13 +85,13 @@ export function useModalManager({initialVisibility, content} : IModalObject){
 // export default useModalManager
 
 interface IModalObject{
-    initialVisibility : boolean
-    content : IModalContent
+    initialVisibility? : boolean
+    content? : IModalContent
 }
 
 interface IModalContent{
-    body : ReactNode
-    header : ReactNode | null
+    body? : ReactNode
+    header? : ReactNode | null
 }
 
 export interface IModalManager{

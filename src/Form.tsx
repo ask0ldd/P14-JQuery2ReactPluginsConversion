@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import './Form.css'
 import { Link } from 'react-router-dom'
 import Modal from './components/Modal/Modal'
 import {useModalManager} from './components/Modal/hooks/useModalManager'
-import /*ModalHeader, */ModalHeader, { IPropsModalHeader } from './components/Modal/ModalHeader'
+import { IPropsModalHeader } from './components/Modal/ModalBaseHeader'
 import CustomForm from './components/CustomForm'
-import { ReactNode } from 'react'
+import ModalBaseHeader from './components/Modal/ModalBaseHeader'
+import { useEffect } from 'react'
 
 // !!!!!!! create a button to fill the forms with mockdatas
 
@@ -18,10 +20,13 @@ function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
   const { modalManager } 
-    = useModalManager({initialVisibility : true, content : {body : ModalBodySuccess(), header : ModalHeader({setVisibility : () => null })}})
+    = useModalManager({initialVisibility : false}/*{initialVisibility : true, content : {body : ModalBodySuccess(), header : ModalBaseHeader({setVisibility : () => null})}}*/)
   
-  /*const todaysDate = new Date()
-  const todaysDateISOFormat = todaysDate.toISOString().split('T')[0]*/
+    useEffect(() => {
+      modalManager.setBodyComponent(ModalBodySuccess())
+      modalManager.setHeaderComponent(ModalBaseHeader({setVisibility : modalManager.setVisibility}))
+      modalManager.setVisibility(true)
+    }, [])
 
   return (
     <main>
@@ -34,11 +39,7 @@ function App() {
         {modalManager.getBodyComponent()}
       </Modal>
       
-      <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => {
-        modalManager.setHeaderComponent(ModalHeaderAlternate({setVisibility : modalManager.setVisibility}))
-        modalManager.setBodyComponent(ModalBodyAlternate())
-        modalManager.setVisibility(true)
-      }}>Show alternate modale</button>
+      <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={showAlternateModal}>Show alternate modale</button>
      
     </main>
   )
@@ -64,9 +65,15 @@ function App() {
   function ModalHeaderAlternate({setVisibility} : IPropsModalHeader){
     return(
       <div>
-        <span onClick={() => modalManager.setVisibility(false)}>aaaaaa</span>
+        <span onClick={() => setVisibility(false)}>aaaaaa</span>
       </div>
     )
+  }
+
+  function showAlternateModal(){
+    modalManager.setHeaderComponent(ModalHeaderAlternate({setVisibility : modalManager.setVisibility}))
+    modalManager.setBodyComponent(ModalBodyAlternate())
+    modalManager.setVisibility(true)
   }
 
 }

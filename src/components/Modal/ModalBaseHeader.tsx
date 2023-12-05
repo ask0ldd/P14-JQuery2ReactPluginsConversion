@@ -7,7 +7,7 @@ import './style/ModalHeader.css'
  * @param {bool} props.openModal - Function to set the display state of the modal.
  * @return ( <ModalHeader openModal={openModal}/> )
  */
-function ModalHeader({setVisibility} : IPropsModalHeader){
+function ModalBaseHeader({setVisibility} : IPropsModalHeader){
 
     return (
         <div className='header-container'>
@@ -16,7 +16,7 @@ function ModalHeader({setVisibility} : IPropsModalHeader){
     )
 }
 
-export default ModalHeader
+export default ModalBaseHeader
 
 export interface IPropsModalHeader{
     setVisibility : (bool : boolean) => void
