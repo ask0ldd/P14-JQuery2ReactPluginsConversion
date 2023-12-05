@@ -18,16 +18,16 @@ import { useState, useEffect, ReactNode } from "react"
 export function useModalManager({initialVisibility, content} : IModalObject){
     
 
-    const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
+    const [modalVisibility, setModalVisibility] = useState<boolean>(false)
     const [modalBodyComponent, setModalBodyComponent] = useState<ReactNode | null>(content?.body || null)
     const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactNode | null>(content?.header || null) /* set default modal header with props passed */
 
     useEffect(() => {
 
-        scrollLock(true);
+        // if(modalVisibility) scrollLock(true);
   
         function keyboardListener(e : KeyboardEvent){
-            if(e.code == "Escape" && modalVisibility) {e.preventDefault(); modalManager.setVisibility(false);}
+            if(e.code == "Escape") {e.preventDefault(); modalManager.setVisibility(false);}
         }
 
         window.addEventListener('keydown', keyboardListener)
@@ -59,6 +59,8 @@ export function useModalManager({initialVisibility, content} : IModalObject){
         },
 
         getHeaderComponent : () => modalHeaderComponent,
+
+        // visibility : modalVisibility
     }
 
     return { modalManager }
@@ -101,4 +103,5 @@ export interface IModalManager{
     getBodyComponent : () => ReactNode
     setHeaderComponent : (component : ReactNode) => void
     getHeaderComponent : () => ReactNode
+    visibility? : boolean
 }

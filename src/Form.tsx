@@ -22,11 +22,11 @@ function App() {
   const { modalManager } 
     = useModalManager({initialVisibility : false}/*{initialVisibility : true, content : {body : ModalBodySuccess(), header : ModalBaseHeader({setVisibility : () => null})}}*/)
   
-    useEffect(() => {
-      modalManager.setBodyComponent(ModalBodySuccess())
-      modalManager.setHeaderComponent(ModalBaseHeader({setVisibility : modalManager.setVisibility}))
-      modalManager.setVisibility(true)
-    }, [])
+  useEffect(() => {
+    modalManager.setBodyComponent(ModalBodySuccess())
+    modalManager.setHeaderComponent(ModalBaseHeader({setVisibility : modalManager.setVisibility}))
+    modalManager.setVisibility(true)
+  }, [])
 
   return (
     <main>
@@ -34,7 +34,7 @@ function App() {
 
       <CustomForm/>
 
-      <Modal modalManager={modalManager}>
+      <Modal modalManager={modalManager} visibility={modalManager.visibility}>
         {modalManager.getHeaderComponent()}
         {modalManager.getBodyComponent()}
       </Modal>

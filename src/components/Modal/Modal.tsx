@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import ModalHeader from "./ModalHeader"
 import { useRef, useEffect, ReactNode } from "react"
 import './style/Modal.css'
@@ -11,27 +12,26 @@ import { IModalManager } from "./hooks/useModalManager"
  * @param {boolean} props.modalVisibility - Visibility of the modal.
  * @param {function} props.setModalVisibility - Sets the visibility of the modal.
  * @param {JSX.element} props.headerComponent - Component used as a modals header.
- * @return ( <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalContent={modalContent} headerComponent={headerComponent}/> )
+ * @return ( <Modal modalManager={modalManager}}/> )
  */
-function Modal({modalManager, containerCSSClass, children} : PropsWithChildren<IProps>){
+function Modal({modalManager, /*visibility, */containerCSSClass, children} : PropsWithChildren<IProps>){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
-    const modalVisibilityRef = useRef(modalManager.getVisibility())
+    // const modalVisibilityRef = useRef(modalManager.getVisibility)
 
     useEffect(() => {
-        if(modalVisibilityRef && !dialogRef.current?.open) return dialogRef.current?.showModal()
-        if(!modalVisibilityRef && dialogRef.current?.open) return dialogRef.current?.close()
-    })
-
-    /*const tomorrow = new Date()
-    tomorrow.setDate(new Date().getDate() + 1)
-    console.log(tomorrow)*/
+        console.log(modalManager.getVisibility())
+        if(modalManager.getVisibility() && !dialogRef.current?.open) return dialogRef.current?.showModal()
+        if(!modalManager.getVisibility() && dialogRef.current?.open) return dialogRef.current?.close()
+        // if(modalManager.getVisibility() && !dialogRef.current?.open) return dialogRef.current?.showModal()
+        // if(modalManager.getVisibility() && dialogRef.current?.open) return dialogRef.current?.close()
+    }/*,[modalManager.getVisibility()]*/)
 
     // !! add customizable css
     // padding, border, display, direction, align items, justify items, margins, background, backdrop
     return (
         modalManager.getVisibility() ? 
-        <dialog className={containerCSSClass ? containerCSSClass : 'defaultModalStyle'} ref={dialogRef} onClick={(e) => {
+        <dialog className={containerCSSClass ? containerCSSClass : 'defaultModalStyle'} ref={dialogRef} onKeyDown={(e) => e.preventDefault()} onClick={(e) => {
             // closing the modal only if clicking on the backdrop (dialogRef.current) / not on the content itself
             if (e.target === dialogRef.current) modalManager.setVisibility(false)
             }}>
@@ -53,5 +53,6 @@ export default Modal
 
 interface IProps{
     modalManager : IModalManager
+    visibility? : boolean
     containerCSSClass? : string
 }
