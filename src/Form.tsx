@@ -4,7 +4,6 @@ import './Form.css'
 import { Link } from 'react-router-dom'
 import Modal from './components/Modal/Modal'
 import {useModalManager} from './components/Modal/hooks/useModalManager'
-import { IPropsModalHeader } from './components/Modal/ModalBaseHeader'
 import CustomForm from './components/CustomForm'
 import ModalBaseHeader from './components/Modal/ModalBaseHeader'
 import { useEffect } from 'react'
@@ -20,11 +19,11 @@ function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
   const { modalManager } 
-    = useModalManager({initialVisibility : false}/*{initialVisibility : true, content : {body : ModalBodySuccess(), header : ModalBaseHeader({setVisibility : () => null})}}*/)
+    = useModalManager({initialVisibility : false/*, content :{body : ModalBodySuccess(), header : ModalBaseHeader({setVisibility : modalManager.setVisibility})}*/})
   
   useEffect(() => {
-    modalManager.setBodyComponent(ModalBodySuccess())
-    modalManager.setHeaderComponent(ModalBaseHeader({setVisibility : modalManager.setVisibility}))
+    modalManager.setBodyComponent(ModalBodySuccess)
+    modalManager.setHeaderComponent(ModalBaseHeader)
     modalManager.setVisibility(true)
   }, [])
 
@@ -34,7 +33,7 @@ function App() {
 
       <CustomForm/>
 
-      <Modal modalManager={modalManager} visibility={modalManager.visibility}>
+      <Modal modalManager={modalManager}>
         {modalManager.getHeaderComponent()}
         {modalManager.getBodyComponent()}
       </Modal>
@@ -45,7 +44,7 @@ function App() {
   )
 
   // Component that will be injected into the modal
-  function ModalBodySuccess() : JSX.Element {
+  function ModalBodySuccess({setVisibility} : IPropsVisibility) : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
         Employee Created!
@@ -53,7 +52,7 @@ function App() {
     )
   }
 
-  function ModalBodyAlternate() : JSX.Element {
+  function ModalBodyAlternate({setVisibility} : IPropsVisibility) : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
         Alternate Content!
@@ -62,7 +61,7 @@ function App() {
   }
 
   /* props needed to access the close modal fn into the header */
-  function ModalHeaderAlternate({setVisibility} : IPropsModalHeader){
+  function ModalHeaderAlternate({setVisibility} : IPropsVisibility){
     return(
       <div>
         <span onClick={() => setVisibility(false)}>aaaaaa</span>
@@ -71,11 +70,15 @@ function App() {
   }
 
   function showAlternateModal(){
-    modalManager.setHeaderComponent(ModalHeaderAlternate({setVisibility : modalManager.setVisibility}))
-    modalManager.setBodyComponent(ModalBodyAlternate())
+    modalManager.setHeaderComponent(ModalHeaderAlternate)
+    modalManager.setBodyComponent(ModalBodyAlternate)
     modalManager.setVisibility(true)
   }
 
 }
 
 export default App
+
+export interface IPropsVisibility {
+  setVisibility : (bool : boolean) => void
+}

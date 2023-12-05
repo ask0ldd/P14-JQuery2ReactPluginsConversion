@@ -23,9 +23,7 @@ function Modal({modalManager, /*visibility, */containerCSSClass, children} : Pro
         console.log(modalManager.getVisibility())
         if(modalManager.getVisibility() && !dialogRef.current?.open) return dialogRef.current?.showModal()
         if(!modalManager.getVisibility() && dialogRef.current?.open) return dialogRef.current?.close()
-        // if(modalManager.getVisibility() && !dialogRef.current?.open) return dialogRef.current?.showModal()
-        // if(modalManager.getVisibility() && dialogRef.current?.open) return dialogRef.current?.close()
-    }/*,[modalManager.getVisibility()]*/)
+    })
 
     // !! add customizable css
     // padding, border, display, direction, align items, justify items, margins, background, backdrop

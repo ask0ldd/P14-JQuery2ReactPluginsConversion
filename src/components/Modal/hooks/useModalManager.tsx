@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, ReactNode } from "react"
+import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment } from "react"
+import { IPropsVisibility } from "../../../Form"
 
 /**
  * Function : Modal management tool.
@@ -18,13 +20,11 @@ import { useState, useEffect, ReactNode } from "react"
 export function useModalManager({initialVisibility, content} : IModalObject){
     
 
-    const [modalVisibility, setModalVisibility] = useState<boolean>(false)
-    const [modalBodyComponent, setModalBodyComponent] = useState<ReactNode | null>(content?.body || null)
-    const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactNode | null>(content?.header || null) /* set default modal header with props passed */
+    const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
+    const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(content?.body || null)
+    const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactFunctionalComponent>(content?.header || null) /* set default modal header with props passed */
 
     useEffect(() => {
-
-        // if(modalVisibility) scrollLock(true);
   
         function keyboardListener(e : KeyboardEvent){
             if(e.code == "Escape") {e.preventDefault(); modalManager.setVisibility(false);}
@@ -39,7 +39,7 @@ export function useModalManager({initialVisibility, content} : IModalObject){
 
     }, [])
 
-    const modalManager = {
+    const modalManager : IModalManager = {
         setVisibility : (bool : boolean) => {
             setModalVisibility(bool); 
             scrollLock(bool);
@@ -47,15 +47,17 @@ export function useModalManager({initialVisibility, content} : IModalObject){
 
         getVisibility : () => modalVisibility,
 
-        setBodyComponent : (component : ReactNode) => 
+        setBodyComponent : (component) => 
         {
-            setModalBodyComponent(component)
+            setModalBodyComponent(component({setVisibility : modalManager.setVisibility}));
+            // return modalHeaderComponent;
         },
 
         getBodyComponent : () => modalBodyComponent,
 
-        setHeaderComponent : (component : ReactNode) => {
-            setModalHeaderComponent(component)
+        setHeaderComponent : (component) => {
+            setModalHeaderComponent(component({setVisibility : modalManager.setVisibility}));
+            // return modalBodyComponent;
         },
 
         getHeaderComponent : () => modalHeaderComponent,
@@ -99,9 +101,11 @@ interface IModalContent{
 export interface IModalManager{
     setVisibility : (bool : boolean) => void
     getVisibility : () => boolean
-    setBodyComponent : (component : ReactNode) => void
+    setBodyComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
     getBodyComponent : () => ReactNode
-    setHeaderComponent : (component : ReactNode) => void
+    setHeaderComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
     getHeaderComponent : () => ReactNode
     visibility? : boolean
 }
+
+type ReactFunctionalComponent = string | number | true | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | null
