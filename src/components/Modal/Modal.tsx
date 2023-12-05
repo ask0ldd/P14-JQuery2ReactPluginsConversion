@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import ModalHeader from "./ModalHeader"
-import { useRef, useEffect, ReactNode } from "react"
+import { useRef, useEffect } from "react"
 import './style/Modal.css'
 import { PropsWithChildren } from 'react'
 import { IModalManager } from "./hooks/useModalManager"
@@ -40,14 +40,6 @@ function Modal({modalManager, /*visibility, */containerCSSClass, children} : Pro
 }
 
 export default Modal
-
-/*interface IProps{
-    modalVisibility : boolean
-    // modalContent : ReactNode
-    // headerComponent : ReactNode
-    containerCSSClass? : string
-    openModal : (bool : boolean) => void
-}*/
 
 interface IProps{
     modalManager : IModalManager

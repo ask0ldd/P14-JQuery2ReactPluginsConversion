@@ -21,10 +21,13 @@ export function useModalManager({initialVisibility, content} : IModalObject){
     
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
-    const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(content?.body || null)
-    const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactFunctionalComponent>(content?.header || null) /* set default modal header with props passed */
+    const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(null)
+    const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactFunctionalComponent>(null) /* set default modal header with props passed */
 
     useEffect(() => {
+
+        if(content?.header) modalManager.setHeaderComponent(content.header)
+        if(content?.body) modalManager.setBodyComponent(content.body)
   
         function keyboardListener(e : KeyboardEvent){
             if(e.code == "Escape") {e.preventDefault(); modalManager.setVisibility(false);}
@@ -62,15 +65,9 @@ export function useModalManager({initialVisibility, content} : IModalObject){
 
         getHeaderComponent : () => modalHeaderComponent,
 
-        // visibility : modalVisibility
     }
 
     return { modalManager }
-
-    /*function openModal(bool : boolean){
-        setModalVisibility(bool); 
-        scrollLock(bool);
-    }*/
 
     function scrollLock(state : boolean) : void {
         if(!state){
@@ -86,16 +83,14 @@ export function useModalManager({initialVisibility, content} : IModalObject){
     }   
 }
 
-// export default useModalManager
-
 interface IModalObject{
     initialVisibility? : boolean
     content? : IModalContent
 }
 
 interface IModalContent{
-    body? : ReactNode
-    header? : ReactNode | null
+    body? : ({ setVisibility }: IPropsVisibility) => JSX.Element
+    header? : ({ setVisibility }: IPropsVisibility) => JSX.Element
 }
 
 export interface IModalManager{
@@ -105,7 +100,6 @@ export interface IModalManager{
     getBodyComponent : () => ReactNode
     setHeaderComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
     getHeaderComponent : () => ReactNode
-    visibility? : boolean
 }
 
 type ReactFunctionalComponent = string | number | true | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | null

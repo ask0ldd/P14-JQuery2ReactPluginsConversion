@@ -19,11 +19,11 @@ function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
   const { modalManager } 
-    = useModalManager({initialVisibility : false/*, content :{body : ModalBodySuccess(), header : ModalBaseHeader({setVisibility : modalManager.setVisibility})}*/})
+    = useModalManager({initialVisibility : false, content :{body : ModalBodySuccess, header : ModalBaseHeader}})
   
   useEffect(() => {
-    modalManager.setBodyComponent(ModalBodySuccess)
-    modalManager.setHeaderComponent(ModalBaseHeader)
+    // modalManager.setBodyComponent(ModalBodySuccess)
+    // modalManager.setHeaderComponent(ModalBaseHeader)
     modalManager.setVisibility(true)
   }, [])
 
@@ -44,7 +44,7 @@ function App() {
   )
 
   // Component that will be injected into the modal
-  function ModalBodySuccess({setVisibility} : IPropsVisibility) : JSX.Element {
+  function ModalBodySuccess() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
         Employee Created!
@@ -52,7 +52,7 @@ function App() {
     )
   }
 
-  function ModalBodyAlternate({setVisibility} : IPropsVisibility) : JSX.Element {
+  function ModalBodyAlternate() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
         Alternate Content!
