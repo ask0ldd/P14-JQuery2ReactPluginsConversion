@@ -48,73 +48,76 @@ const columnsDefinition : Array<IColumnDefElement> = [
 
 class ColumnBuilder {
 
-  private static th : string | null = null
-  private static datakey : string | null = null
-  private static sortable = false
-  private static datatype : string | null = null
+  static #th : string | null = null
+  static #datakey : string | null = null
+  static #sortable = false
+  static #datatype : string | null = null
 
   static startBuilder(){
     return this
   }
 
   static setTh(th : string){
-    this.th = th
+    this.#th = th
     return this
   }
 
   static setDatakey(datakey : string){
-    this.datakey = datakey
+    this.#datakey = datakey
     return this
   }
 
   static setSortability(sortable : boolean){
-    this.sortable = sortable
+    this.#sortable = sortable
     return this
   }
 
   static setDatatype(datatype : string){
-    this.datatype = datatype
+    this.#datatype = datatype
     return this
   }
 
   static build(){
     try{
-      if(this.th == null || this.datakey == null || this.datatype == null ) throw new Error("Can't be built : Column Definition incomplete.")
-      return new Column(this.th, this.datakey, this.sortable, this.datatype)
+      if(this.#th == null || this.#datakey == null || this.#datatype == null ) throw new Error("Can't be built : Column Definition incomplete.")
+      return new Column(this.#th, this.#datakey, this.#sortable, this.#datatype)
     }catch (e){
       console.error(e)
+      return undefined
     }
   }
 
 }
 
 class Column {
-  private th : string | null
-  private datakey : string | null
-  private sortable : boolean
-  private datatype : string | null
+  #th : string | null
+  #datakey : string | null
+  #sortable : boolean
+  #datatype : string | null
 
   constructor(th : string, datakey: string, sortable : boolean, datatype : string){
-    this.th = th
-    this.datakey = datakey
-    this.sortable = sortable
-    this.datatype = datatype
+    this.#th = th
+    this.#datakey = datakey
+    this.#sortable = sortable
+    this.#datatype = datatype
+  }
+  
+  toObject() : IColumnDefElement | undefined {
+    if(this.#th == null || this.#datakey == null || this.#datatype == null ) return undefined // { th: '', datakey: '', sortable: true, datatype: '' }
+    return({th : this.#th, datakey : this.#datakey, sortable : this.#sortable, datatype : this.#datatype})
+  }
+}
+
+class TableContainer{
+  #columns : Array<IColumnDefElement>
+
+  constructor(){
+    this.#columns = []
   }
 
-  setTh(th : string){
-    this.th = th
+  addColumn(column : Column | undefined){
+    if(column == null || column.toObject() == null) return
+    this.#columns.push(column.toObject() as IColumnDefElement)
+    return this
   }
-
-  setDatakey(datakey : string){
-    this.datakey = datakey
-  }
-
-  setSortability(sortable : boolean){
-    this.sortable = sortable
-  }
-
-  setDatatype(datatype : string){
-    this.datatype = datatype
-  }
-
 }
