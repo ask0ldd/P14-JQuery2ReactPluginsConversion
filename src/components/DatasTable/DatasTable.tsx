@@ -31,6 +31,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     const [ordering, setOrdering] = useState<IOrdering>({column : '', direction : 'asc'})
     const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
     const [searchString, setSearchString] = useState<string>('')
+    const [isColumnsDefinitionMatchingDatas, setUsColumnsDefinitionMatchingDatas] = useState(true)
   
     useOrderTable(tableDatas, setTableDatas, searchString, ordering, columnsDefinition, paginationRules)
 
@@ -39,9 +40,16 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
         setPaginationRules({...paginationRules, currentPage : 1})
     }, [searchString])
 
+    useEffect(() => {
+        const tableDatasPropertiesList = Object.getOwnPropertyNames(tableDatas[0])
+        columnsDefinition.forEach(definition => {
+            if(tableDatasPropertiesList.includes(definition.datakey) === false) setUsColumnsDefinitionMatchingDatas(false)
+        })
+    }, [tableDatas])
+
     return(
         <>
-            <DatasTableContext.Provider value={{paginationRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setPaginationRules, setOrdering, setSearchString}}>
+            {isColumnsDefinitionMatchingDatas ? <DatasTableContext.Provider value={{paginationRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setPaginationRules, setOrdering, setSearchString}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>
                     <SearchModule/>
@@ -51,7 +59,8 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
                     <NEntries/>
                     <Pagination totalEntries={tableDatasState.length} currentPage={paginationRules.currentPage} nEntriesPerPage={paginationRules.nEntriesPerPage} setPaginationRules={setPaginationRules}/>
                 </div>
-            </DatasTableContext.Provider>
+            </DatasTableContext.Provider> 
+            : <div>Users datas are missing some mandatory dataKeys.</div>}
         </>
     )
 }

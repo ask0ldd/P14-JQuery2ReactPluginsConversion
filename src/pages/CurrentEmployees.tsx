@@ -25,24 +25,6 @@ function CurrentEmployees() {
 
   tableContainer.setDatas([...usersDatas])
 
-  // CHECKING SHOULD BE MOVED INTO DATASTABLE COMPONENT
-  // !!!! check if usersDatas properties match columnsDefinition datakeys // should check for each object ?
-  /**let isDefinitionMatchingDatas = true
-  const tableDatasPropertiesList = Object.getOwnPropertyNames(usersDatas[0])
-  columnsDefinition.forEach(definition => {
-    if(tableDatasPropertiesList.includes(definition.datakey) === false) isDefinitionMatchingDatas = false 
-  })
-
-  return (
-    <main className='mainCE'>
-      <h1>Current Employees</h1>
-      {isDefinitionMatchingDatas 
-      ? <DatasTable columnsDefinition={columnsDefinition} tableDatas={[...usersDatas]}/> 
-      : <div>Users datas are missing some mandatory dataKeys.</div>}
-      <Link to={`/`}>Home</Link>
-    </main>
-  )*/
-
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
