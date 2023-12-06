@@ -14,10 +14,20 @@ function CurrentEmployees() {
 
   const tableContainer = new TableContainer()
   tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("First Name").setDatatypeAsString().setDatakey("firstName").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("Last Name").setDatatypeAsString().setDatakey("lastName").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("Start Date").setDatatypeAsDate().setDatakey("startingDate").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("Department").setDatatypeAsString().setDatakey("department").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("Birthdate").setDatatypeAsDate().setDatakey("birthDate").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("Street").setDatatypeAsString().setDatakey("street").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("City").setDatatypeAsString().setDatakey("city").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("State").setDatatypeAsDate().setDatakey("state").setSortability(true).build())
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("Zip Code").setDatatypeAsNumber().setDatakey("zipCode").setSortability(true).build())
 
+  tableContainer.setDatas([...usersDatas])
 
-  // check if usersDatas properties match columnsDefinition datakeys // should check for each object ?
-  let isDefinitionMatchingDatas = true
+  // CHECKING SHOULD BE MOVED INTO DATASTABLE COMPONENT
+  // !!!! check if usersDatas properties match columnsDefinition datakeys // should check for each object ?
+  /**let isDefinitionMatchingDatas = true
   const tableDatasPropertiesList = Object.getOwnPropertyNames(usersDatas[0])
   columnsDefinition.forEach(definition => {
     if(tableDatasPropertiesList.includes(definition.datakey) === false) isDefinitionMatchingDatas = false 
@@ -31,12 +41,19 @@ function CurrentEmployees() {
       : <div>Users datas are missing some mandatory dataKeys.</div>}
       <Link to={`/`}>Home</Link>
     </main>
-  )
+  )*/
+
+  return (
+    <main className='mainCE'>
+      <h1>Current Employees</h1>
+      <DatasTable columnsDefinition={tableContainer.getColumns()} tableDatas={tableContainer.getDatas()}/> 
+      <Link to={`/`}>Home</Link>
+    </main>)
 }
 
 export default CurrentEmployees
 
-const columnsDefinition : Array<IColumnDefElement> = [
+/*const columnsDefinition : Array<IColumnDefElement> = [
   { th: 'First Name', datakey: 'firstName', sortable: true, datatype: 'string' },
   { th: 'Last Name', datakey: 'lastName', sortable: true, datatype: 'string' },
   { th: 'Start Date', datakey: 'startingDate', sortable: true, datatype: 'date' },
@@ -46,7 +63,7 @@ const columnsDefinition : Array<IColumnDefElement> = [
   { th: 'City', datakey: 'city', sortable: true, datatype: 'string' },
   { th: 'State', datakey: 'state', sortable: true, datatype: 'string' },
   { th: 'Zip Code', datakey: 'zipCode', sortable: true, datatype: 'number' },
-]
+]*/
 
 class ColumnBuilder {
 
@@ -56,6 +73,10 @@ class ColumnBuilder {
   static #datatype : string | null = null
 
   static startBuilder(){
+    this.#th = null
+    this.#datakey = null
+    this.#sortable = false
+    this.#datatype = null
     return this
   }
 
@@ -144,5 +165,13 @@ class TableContainer{
 
   setDatas(datas : object[]){
     this.#datas = datas
+  }
+
+  getColumns() : Array<IColumnDefElement> {
+    return [...this.#columns]
+  }
+
+  getDatas() : object[] {
+    return [...this.#datas]
   }
 }
