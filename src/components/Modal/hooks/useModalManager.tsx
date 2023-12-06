@@ -47,27 +47,21 @@ export function useModalManager({initialVisibility, content} : IModalObject){
             setModalVisibility(bool); 
             scrollLock(bool);
         },
-
         getVisibility : () => modalVisibility,
-
         setBodyComponent : (component) => 
         {
             setModalBodyComponent(component({setVisibility : modalManager.setVisibility}));
             // return modalHeaderComponent;
         },
-
         getBodyComponent : () => modalBodyComponent,
-
         setHeaderComponent : (component) => {
             setModalHeaderComponent(component({setVisibility : modalManager.setVisibility}));
             // return modalBodyComponent;
         },
-
         getHeaderComponent : () => modalHeaderComponent,
-
     }
 
-    return { modalManager }
+    return modalManager
 
     function scrollLock(state : boolean) : void {
         if(!state){

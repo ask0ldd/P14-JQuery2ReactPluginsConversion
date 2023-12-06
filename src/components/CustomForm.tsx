@@ -59,9 +59,6 @@ function CustomForm(){
 
             <h2>3. Professional</h2>
 
-            {/*
-            integrate label to datepicker & customselect
-            */}
             <DatePicker id={"start-date"} label={{text :"Integration Date"}} useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
             <CustomSelect id={"department"} label={{class:"defaultSpacing", text: "Departement"}} formState={formState} 
