@@ -1,9 +1,10 @@
+import { IColumnDefElement } from "../interfaces/IColumnDefElement"
 import { Column } from "./ColumnModel"
 
 // !!!!!!!! should be able to define ordering functions
 export class TableModel{
     #columns : Array<IColumnDefElement>
-    #datas : object[]
+    #datas : Array<object>
   
     constructor(){
       this.#columns = []
@@ -16,7 +17,7 @@ export class TableModel{
       return this
     }
   
-    setDatas(datas : object[]){
+    setDatas(datas : Array<object>){
       this.#datas = datas
     }
   
@@ -24,7 +25,7 @@ export class TableModel{
       return [...this.#columns]
     }
   
-    getDatas() : object[] {
+    getDatas() : Array<object> {
       return [...this.#datas]
     }
   
@@ -32,7 +33,7 @@ export class TableModel{
         return [...this.#columns].reduce((accu : Array<string>, column) => {accu.push(column.th); return accu}, [])
     }
   
-    getDatakeysList() : Array<string>{
-      return [...this.#columns].reduce((accu : Array<string>, column) => {accu.push(column.datakey); return accu}, [])
+    getAccessorsList() : Array<string>{
+      return [...this.#columns].reduce((accu : Array<string>, column) => {accu.push(column.accessor); return accu}, [])
     }
   }

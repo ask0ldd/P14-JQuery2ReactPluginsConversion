@@ -31,7 +31,7 @@ function CurrentEmployees() {
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable columnsDefinition={tableModel.getColumns()} tableDatas={tableModel.getDatas()}/> {/* should pass tableModel and implements quoted methods */}
+      <DatasTable tableModel={tableModel} tableDatas={tableModel.getDatas()}/> {/* should pass tableModel and implements quoted methods */}
       <Link to={`/`}>Home</Link>
     </main>)
 }

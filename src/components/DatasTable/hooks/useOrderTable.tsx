@@ -1,11 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { IOrdering, IPaginationRules } from "../DatasTable"
 import { IColumnDefElement } from "../interfaces/IColumnDefElement"
+import { IOrdering, IPaginationRules } from "../interfaces/IDatasTableContext"
 
 // !!! jsdoc
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function useOrderTable(tableDatas : Array<any>, setTableDatas : (tableDatas : Array<any>) => void, searchString : string, ordering : IOrdering, columnsDefinition : IColumnDefElement[], paginationRules : IPaginationRules){
+function useOrderTable(
+    tableDatas : Array<any>, 
+    setTableDatas : (tableDatas : Array<any>) => void, 
+    searchString : string, 
+    ordering : IOrdering, 
+    columnsDefinition : IColumnDefElement[], 
+    paginationRules : IPaginationRules
+){
 
     const frCollator = new Intl.Collator('en')
 
@@ -23,7 +30,7 @@ function useOrderTable(tableDatas : Array<any>, setTableDatas : (tableDatas : Ar
         }
 
         if(ordering.column === '') return setTableDatas(filteredTable)
-        const sortedColumnDef = [...columnsDefinition].filter(column => column.datakey === ordering.column)[0]
+        const sortedColumnDef = [...columnsDefinition].filter(column => column.accessor === ordering.column)[0]
         sortTable(sortedColumnDef.datatype, ordering.direction, filteredTable)
 
     }, [ordering.column, ordering.direction, paginationRules.currentPage, searchString])

@@ -8,6 +8,9 @@ import NEntries from './NEntries'
 import { useState, useEffect } from 'react'
 import {createContext} from 'react'
 import useOrderTable from './hooks/useOrderTable'
+import { IColumnDefElement } from './interfaces/IColumnDefElement'
+import { IDatasTableContext, IOrdering, IPaginationRules } from './interfaces/IDatasTableContext'
+import { TableModel } from './models/TableModel'
 
 /**
  * Component : Grouping of all the constitutive elements of a datatable.
@@ -21,10 +24,10 @@ import useOrderTable from './hooks/useOrderTable'
  * @param {Object[]} props.tableDatas - Datas used to populate the table.
  * @return ( <DatasTable columnsDefinition={columnsDefinition} tableDatas={tableDatas}/> )
  */
-function DatasTable({columnsDefinition, tableDatas} : IProps){
+function DatasTable({tableModel, tableDatas} : IProps){
 
-    const tableColumnsNames : Array<string> = columnsDefinition.reduce((accu : Array<string>, column) => {accu.push(column.th); return accu}, [])
-    const tableDatasKeys : Array<string> = columnsDefinition.reduce((accu : Array<string>, column) => {accu.push(column.datakey); return accu}, [])
+    const tableColumnsNames : Array<string> = tableModel.getColumnsNamesList()
+    const tableDatasKeys : Array<string> = tableModel.getAccessorsList()
   
     // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
     const [tableDatasState, setTableDatas] = useState<Array<any>>([...tableDatas]);
@@ -33,7 +36,7 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
     const [searchString, setSearchString] = useState<string>('')
     const [isColumnsDefinitionMatchingDatas, setUsColumnsDefinitionMatchingDatas] = useState(true)
   
-    useOrderTable(tableDatas, setTableDatas, searchString, ordering, columnsDefinition, paginationRules)
+    useOrderTable(tableDatas, setTableDatas, searchString, ordering, tableModel.getColumns(), paginationRules)
 
     // when typing into the searchbar => current page set back to 1
     useEffect(()=>{
@@ -42,8 +45,8 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 
     useEffect(() => {
         const tableDatasPropertiesList = Object.getOwnPropertyNames(tableDatas[0])
-        columnsDefinition.forEach(definition => {
-            if(tableDatasPropertiesList.includes(definition.datakey) === false) setUsColumnsDefinitionMatchingDatas(false)
+        tableModel.getAccessorsList().forEach(accessor => {
+            if(tableDatasPropertiesList.includes(accessor) === false) setUsColumnsDefinitionMatchingDatas(false)
         })
     }, [tableDatas])
 
@@ -78,29 +81,7 @@ const initialContext = {
 
 export const DatasTableContext = createContext<IDatasTableContext>(initialContext)
 
-interface IDatasTableContext{
-    paginationRules? : IPaginationRules
-    tableDatasState : Array<any>
-    ordering? : IOrdering
-    searchString? : string
-    tableColumnsNames : Array<string>
-    tableDatasKeys : Array<string>
-    setPaginationRules?({currentPage, nEntriesPerPage} : IPaginationRules) : void
-    setOrdering?({column, direction} : IOrdering) : void
-    setSearchString?(string : string) : void
-}
-
 interface IProps {
-    columnsDefinition : Array<IColumnDefElement>
+    tableModel : TableModel
     tableDatas : Array<any>
-}
-
-export interface IPaginationRules{
-    currentPage : number
-    nEntriesPerPage : number
-}
-
-export interface IOrdering{
-    column : string
-    direction : 'asc' | 'desc'
 }
