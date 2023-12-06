@@ -49,7 +49,8 @@ function DatasTable({columnsDefinition, tableDatas} : IProps){
 
     return(
         <>
-            {isColumnsDefinitionMatchingDatas ? <DatasTableContext.Provider value={{paginationRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setPaginationRules, setOrdering, setSearchString}}>
+            {isColumnsDefinitionMatchingDatas ? 
+            <DatasTableContext.Provider value={{paginationRules, tableDatasState, ordering, searchString, tableColumnsNames, tableDatasKeys, setPaginationRules, setOrdering, setSearchString}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>
                     <SearchModule/>

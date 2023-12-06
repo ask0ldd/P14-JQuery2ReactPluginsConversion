@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
  */
 function CurrentEmployees() {
 
+  // tableContainer.columns => tableModel  & tableContainer.datas => tableDAO / tableDAO.dataSource
   const tableContainer = new TableContainer()
   tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("First Name").setDatatypeAsString().setDatakey("firstName").setSortability(true).build())
   tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("Last Name").setDatatypeAsString().setDatakey("lastName").setSortability(true).build())
@@ -28,7 +29,7 @@ function CurrentEmployees() {
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable columnsDefinition={tableContainer.getColumns()} tableDatas={tableContainer.getDatas()}/> 
+      <DatasTable columnsDefinition={tableContainer.getColumns()} tableDatas={tableContainer.getDatas()}/> {/* should pass tableContainer and implements quoted methods */}
       <Link to={`/`}>Home</Link>
     </main>)
 }
@@ -126,34 +127,5 @@ class Column {
   toObject() : IColumnDefElement | undefined {
     if(this.#th == null || this.#datakey == null || this.#datatype == null ) return undefined // { th: '', datakey: '', sortable: true, datatype: '' }
     return({th : this.#th, datakey : this.#datakey, sortable : this.#sortable, datatype : this.#datatype})
-  }
-}
-
-// !!!!!!!! should be able to define ordering functions
-class TableContainer{
-  #columns : Array<IColumnDefElement>
-  #datas : object[]
-
-  constructor(){
-    this.#columns = []
-    this.#datas = []
-  }
-
-  addColumn(column : Column | undefined){
-    if(column == null || column.toObject() == null) return
-    this.#columns.push(column.toObject() as IColumnDefElement)
-    return this
-  }
-
-  setDatas(datas : object[]){
-    this.#datas = datas
-  }
-
-  getColumns() : Array<IColumnDefElement> {
-    return [...this.#columns]
-  }
-
-  getDatas() : object[] {
-    return [...this.#datas]
   }
 }
