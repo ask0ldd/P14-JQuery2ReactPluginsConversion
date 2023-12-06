@@ -1,5 +1,8 @@
+import { IColumnDefElement } from "../DatasTable"
+import { Column } from "./ColumnModel"
+
 // !!!!!!!! should be able to define ordering functions
-class TableModel{
+export class TableModel{
     #columns : Array<IColumnDefElement>
     #datas : object[]
   
