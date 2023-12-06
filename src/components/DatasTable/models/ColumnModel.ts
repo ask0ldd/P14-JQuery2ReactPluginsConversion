@@ -1,4 +1,4 @@
-import { IColumnDefElement } from "../DatasTable"
+import { IColumnDefElement } from "../interfaces/IColumnDefElement"
 
 export class Column {
     #th : string | null

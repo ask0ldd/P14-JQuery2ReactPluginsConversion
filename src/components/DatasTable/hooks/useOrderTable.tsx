@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { IColumnDefElement, IOrdering, IPaginationRules } from "../DatasTable"
+import { IOrdering, IPaginationRules } from "../DatasTable"
+import { IColumnDefElement } from "../interfaces/IColumnDefElement"
 
 // !!! jsdoc
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

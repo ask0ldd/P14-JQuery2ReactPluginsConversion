@@ -1,4 +1,3 @@
-import { IColumnDefElement } from "../DatasTable"
 import { Column } from "./ColumnModel"
 
 // !!!!!!!! should be able to define ordering functions
@@ -31,8 +30,6 @@ export class TableModel{
   
     getColumnsNamesList() : Array<string>{
         return [...this.#columns].reduce((accu : Array<string>, column) => {accu.push(column.th); return accu}, [])
-      
-  
     }
   
     getDatakeysList() : Array<string>{
