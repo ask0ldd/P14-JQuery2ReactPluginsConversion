@@ -12,7 +12,9 @@ import { Link } from 'react-router-dom'
  */
 function CurrentEmployees() {
 
-  const column = ColumnBuilder.startBuilder().setTh("First Name").setDatatype("string").setDatakey("firstName").setSortability(true).build()
+  const tableContainer = new TableContainer()
+  tableContainer.addColumn(ColumnBuilder.startBuilder().setColumnName("First Name").setDatatypeAsString().setDatakey("firstName").setSortability(true).build())
+
 
   // check if usersDatas properties match columnsDefinition datakeys // should check for each object ?
   let isDefinitionMatchingDatas = true
@@ -57,7 +59,7 @@ class ColumnBuilder {
     return this
   }
 
-  static setTh(th : string){
+  static setColumnName(th : string){
     this.#th = th
     return this
   }
@@ -72,8 +74,24 @@ class ColumnBuilder {
     return this
   }
 
+  // order function instead
   static setDatatype(datatype : string){
     this.#datatype = datatype
+    return this
+  }
+
+  static setDatatypeAsString(){
+    this.#datatype = "string"
+    return this
+  }
+
+  static setDatatypeAsNumber(){
+    this.#datatype = "number"
+    return this
+  }
+
+  static setDatatypeAsDate(){
+    this.#datatype = "date"
     return this
   }
 
@@ -108,16 +126,23 @@ class Column {
   }
 }
 
+// !!!!!!!! should be able to define ordering functions
 class TableContainer{
   #columns : Array<IColumnDefElement>
+  #datas : object[]
 
   constructor(){
     this.#columns = []
+    this.#datas = []
   }
 
   addColumn(column : Column | undefined){
     if(column == null || column.toObject() == null) return
     this.#columns.push(column.toObject() as IColumnDefElement)
     return this
+  }
+
+  setDatas(datas : object[]){
+    this.#datas = datas
   }
 }
