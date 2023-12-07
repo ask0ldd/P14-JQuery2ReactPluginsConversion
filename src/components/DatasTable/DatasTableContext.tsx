@@ -18,7 +18,7 @@ export interface IPaginationRules{
     nEntriesPerPage : number
 }
 
-export interface IOrdering{
+export interface ISorting{
     column : string
     direction : 'asc' | 'desc'
 }

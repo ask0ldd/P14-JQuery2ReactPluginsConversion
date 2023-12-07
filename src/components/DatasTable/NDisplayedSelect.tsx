@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { DatasTableContext } from './DatasTableContext'
 import './style/NDisplayedSelect.css'
 import { useContext } from "react"
 
@@ -9,10 +10,7 @@ import { useContext } from "react"
  */
 function NDisplayedSelect() 
 {
-    // const selectElement = useRef<HTMLSelectElement>(null)
-
     const NDisplayedOptions = ['10', '25', '50', '100']
-    // const defaultOptionIndex = 0;
 
     const {dispatch} = useContext(DatasTableContext)
 

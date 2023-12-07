@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
 import { IColumnDefElement } from "../interfaces/IColumnDefElement"
-import { IOrdering, IPaginationRules } from "../DatasTableContext"
+import { ISorting, IPaginationRules } from "../DatasTableContext"
 
 // !!! jsdoc
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,7 +10,7 @@ function useOrderTable(
     tableDatas : Array<any>, 
     setTableDatas : (tableDatas : Array<any>) => void, 
     searchString : string, 
-    ordering : IOrdering, 
+    sorting : ISorting, 
     columnsDefinition : IColumnDefElement[], 
     paginationRules : IPaginationRules
 ){
@@ -31,11 +31,11 @@ function useOrderTable(
             filteredTable = [...tableDatas]
         }
 
-        if(ordering.column === '') return setTableDatas(filteredTable)
-        const sortedColumnDef = [...columnsDefinition].filter(column => column.accessor === ordering.column)[0]
-        sortTable(sortedColumnDef.datatype, ordering.direction, filteredTable)
+        if(sorting.column === '') return setTableDatas(filteredTable)
+        const sortedColumnDef = [...columnsDefinition].filter(column => column.accessor === sorting.column)[0]
+        sortTable(sortedColumnDef.datatype, sorting.direction, filteredTable)
 
-    }, [ordering.column, ordering.direction, paginationRules.currentPage, searchString])
+    }, [sorting.column, sorting.direction, paginationRules.currentPage, searchString])
 
     // !!! jsdoc
     function dateToTime(date : string){
@@ -48,13 +48,13 @@ function useOrderTable(
     function sortTable(dataType : string, direction : 'asc' | 'desc', datasTable : Array<any>){
         if(dataType === 'date'){
             switch(direction){
-               case 'asc' : return setTableDatas(datasTable.sort((a,b) => dateToTime(b[ordering.column]) - dateToTime(a[ordering.column]))); break
-               case 'desc' : return setTableDatas(datasTable.sort((a,b) => dateToTime(a[ordering.column]) - dateToTime(b[ordering.column]))); break
+               case 'asc' : return setTableDatas(datasTable.sort((a,b) => dateToTime(b[sorting.column]) - dateToTime(a[sorting.column]))); break
+               case 'desc' : return setTableDatas(datasTable.sort((a,b) => dateToTime(a[sorting.column]) - dateToTime(b[sorting.column]))); break
             }
         }
         switch(direction){
-            case 'asc' : return setTableDatas(datasTable.sort((a,b) => frCollator.compare(a[ordering.column], b[ordering.column]))); break
-            case 'desc' : return setTableDatas(datasTable.sort((a,b) => frCollator.compare(b[ordering.column], a[ordering.column]))); break
+            case 'asc' : return setTableDatas(datasTable.sort((a,b) => frCollator.compare(a[sorting.column], b[sorting.column]))); break
+            case 'desc' : return setTableDatas(datasTable.sort((a,b) => frCollator.compare(b[sorting.column], a[sorting.column]))); break
         }
 
     }

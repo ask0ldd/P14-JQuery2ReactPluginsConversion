@@ -21,20 +21,20 @@ function Pagination() {
 
     const currentPage = tableState.pagination.currentPage
     const nEntriesPerPage = tableState.pagination.nEntriesPerPage
-    const totalEntries = tableState.datas.length
+    const totalEntries = tableState.processedDatas.length
     // QM = question mark
     const enoughEntriesLeftForNextPageQM =  currentPage * nEntriesPerPage < totalEntries
 
     function prevPage(){
       // setPaginationRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
       if(dispatch == null || tableState == null) return
-      dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : currentPage > 1 ? currentPage-1 : currentPage}})
+      dispatch({type : "pagination", payload : {...tableState.pagination, currentPage : currentPage > 1 ? currentPage-1 : currentPage}})
     }
 
     function nextPage(){
       // setPaginationRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
       if(dispatch == null || tableState == null) return
-      dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : enoughEntriesLeftForNextPageQM ? currentPage+1 : currentPage}})
+      dispatch({type : "pagination", payload : {...tableState.pagination, currentPage : enoughEntriesLeftForNextPageQM ? currentPage+1 : currentPage}})
     }
 
     return (

@@ -1,50 +1,65 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 
 function useTableManager(tableDatas : Array<any>){
     
     function tableStateReducer(state : ITableState, action : { type : string, payload : any}){
-        if (action.type === 'ordering') {
-            return {...state, ordering : action.payload}
+        if (action.type === 'sorting') {
+            return {...state, sorting : action.payload}
         }
         if (action.type === 'pagination') {
             return {...state, pagination : action.payload}
         }
         if (action.type === 'search') {
-            return {...state, search : action.payload}
+            // pagination update : when typing into the searchbar => the current page is set back to 1
+            return {...state, search : action.payload, pagination : {...state.pagination , currentPage : 1}, processedDatas : filteringDatas(state.datas, action.payload)}
+        }
+        if (action.type === 'processedDatas') {
+            return {...state, processedDatas : action.payload}
         }
         return state
     }
 
+    function filteringDatas(datas : Array<any>, searchString : string){
+        if(searchString !== '') 
+        {
+            return [...datas].filter(row => {
+                // check if one of the properties of a row contain the searchString
+                for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
+                return false
+            })}else{
+            return [...datas]
+        }
+    }
+
     const initialState : ITableState = {
-        ordering : {column : '', direction : 'asc'}, 
+        sorting : {column : '', direction : 'asc'}, 
         pagination : {currentPage : 1, nEntriesPerPage : 10},
         search : "",
         datas : tableDatas,
+        processedDatas : tableDatas,
     }
 
     const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState, datas : tableDatas})
+
+        
+    // when typing into the searchbar => current page is set back to 1
+    /*useEffect(()=>{
+        dispatch({type : "pagination", payload : {...tableState.pagination, currentPage : 1}})
+    }, [tableState.search])*/
 
     return {tableState, dispatch}
 }
 
 export default useTableManager
 
-/*export const initialState : ITableState = {
-    ordering : {column : '', direction : 'asc'}, 
-    pagination : {currentPage : 1, nEntriesPerPage : 10},
-    search : "",
-    datas : [],
-}*/
-
 export interface ITableState {
-    ordering : {column : string, direction : string}
+    sorting : {column : string, direction : string}
     pagination : {currentPage : number, nEntriesPerPage : number}
     search : string
     datas : Array<any>
+    processedDatas : Array<any>
 }
 
-export type reducerDispatchType = React.Dispatch<{
-    type: string
-    payload: any
-}>
+export type reducerDispatchType = React.Dispatch<{type: string, payload: any}>

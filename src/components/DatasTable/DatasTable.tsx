@@ -37,11 +37,6 @@ function DatasTable({tableModel, tableDatas} : IProps){
 
     const {tableState, dispatch} = useTableManager(tableDatas)
 
-    // when typing into the searchbar => current page is set back to 1
-    useEffect(()=>{
-        dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : 1}})
-    }, [tableState.search])
-
     return(
         <>
             {isColumnsDefinitionMatchingDatas ? 

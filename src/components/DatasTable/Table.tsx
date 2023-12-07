@@ -20,24 +20,24 @@ function Table() {
 
     const tableAccessors = tableModel.getAccessorsList()
     
-    function handleOrderingClick(index : number){
+    function handleSortingClick(index : number){
       // if clicking on the already active column, invert sorting direction
       if(!dispatch || !tableState) return
-      if(tableState.ordering?.column === tableAccessors[index]) 
-        return tableState.ordering.direction === 'asc' ? dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'desc'}}) :  dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'asc'}})
+      if(tableState.sorting.column === tableAccessors[index]) 
+        return tableState.sorting.direction === 'asc' ? dispatch({type : 'sorting', payload : {column : tableAccessors[index], direction : 'desc'}}) :  dispatch({type : 'sorting', payload : {column : tableAccessors[index], direction : 'asc'}})
       // if clicking on a different column sorting asc this new column
-      return dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'asc'}})
+      return dispatch({type : 'sorting', payload : {column : tableAccessors[index], direction : 'asc'}})
     }
 
     const firstDisplayedEntry = tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage) : 0
     const lastDisplayedEntry =  tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage + tableState.pagination.nEntriesPerPage) : 10
-    const rowsToDisplay = [...tableState.datas].slice(firstDisplayedEntry, lastDisplayedEntry)
+    const rowsToDisplay = [...tableState.processedDatas].slice(firstDisplayedEntry, lastDisplayedEntry)
 
     return (
         <table aria-label="Current Employees">
         <thead>
           <tr className='bottomblackborder'>
-          {[...tableModel.getColumnsNamesList()].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}<div className="arrowsContainer"><span style={tableState.ordering?.direction === "asc" && tableState.ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span><span style={tableState.ordering?.direction === "desc" && tableState.ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span></div></th>)) /* !!! clickable seulement si sortable */}
+          {[...tableModel.getColumnsNamesList()].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleSortingClick(index)}}>{name}<div className="arrowsContainer"><span style={tableState.sorting?.direction === "asc" && tableState.sorting?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span><span style={tableState.sorting?.direction === "desc" && tableState.sorting?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span></div></th>)) /* !!! clickable seulement si sortable */}
           </tr>
         </thead>
         <tbody>
