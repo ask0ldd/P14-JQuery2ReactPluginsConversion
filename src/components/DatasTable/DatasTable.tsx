@@ -12,7 +12,7 @@ import useOrderTable from './hooks/useOrderTable'
 import { IDatasTableContext, IOrdering, IPaginationRules } from './interfaces/IDatasTableContext'
 import { TableModel } from './models/TableModel'
 import { TableDatasService } from './service/TableDatasService'
-import useTableManager from './hooks/useTableManager'
+import useTableManager, { initialState } from './hooks/useTableManager'
 
 /**
  * Component : Grouping of all the constitutive elements of a datatable.
@@ -77,10 +77,13 @@ function DatasTable({tableModel, tableDatas} : IProps){
 export default DatasTable
 
 const initialContext = {
-    tableDatasState : [],
+    /*tableDatasState : [],
     tableModel : new TableModel(),
     searchString: '', 
-    paginationRules : {currentPage: 1, nEntriesPerPage:10}
+    paginationRules : {currentPage: 1, nEntriesPerPage:10}*/
+    tableModel : new TableModel(),
+    dispatch : null,
+    tableState : initialState    
 }
 
 export const DatasTableContext = createContext<IDatasTableContext>(initialContext)

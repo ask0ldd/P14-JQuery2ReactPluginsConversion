@@ -13,17 +13,17 @@ import './style/Pagination.css'
  */
 function Pagination({tableState, dispatch/*currentPage, setPaginationRules, nEntriesPerPage, totalEntries*/} : IProps) {
 
+    const currentPage = tableState.pagination.currentPage
+    const nEntriesPerPage = tableState.pagination.nEntriesPerPage
+    const totalEntries = tableState.datas.length
+
     function prevPage(){
       // setPaginationRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
-      const currentPage = tableState.pagination.currentPage
       dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : currentPage > 1 ? currentPage-1 : currentPage}})
     }
 
     function nextPage(){
       // setPaginationRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
-      const currentPage = tableState.pagination.currentPage
-      const nEntriesPerPage = tableState.pagination.nEntriesPerPage
-      const totalEntries = tableState.datas.length
       dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage}})
     }
 
@@ -44,6 +44,7 @@ function Pagination({tableState, dispatch/*currentPage, setPaginationRules, nEnt
 
 export default Pagination
 
+// !!!!!!!!!!!!!!!! 
 interface IProps{
   tableState : any
   dispatch : any
