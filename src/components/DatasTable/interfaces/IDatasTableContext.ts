@@ -11,8 +11,8 @@ export interface IDatasTableContext{
     setPaginationRules?({currentPage, nEntriesPerPage} : IPaginationRules) : void
     setOrdering?({column, direction} : IOrdering) : void
     setSearchString?(string : string) : void*/
-    tableModel : TableModel,
-    dispatch : reducerDispatchType,
+    tableModel : TableModel
+    dispatch : reducerDispatchType
     tableState : ITableState 
 }
 

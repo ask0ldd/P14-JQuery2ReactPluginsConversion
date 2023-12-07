@@ -10,12 +10,12 @@ import { useContext } from "react"
  */
 function SearchModule() {
 
-    const { setSearchString } = useContext(DatasTableContext)
+    const { dispatch } = useContext(DatasTableContext)
 
     return (
         <div id="searchContainer">
         <label htmlFor='search'>Search:</label>
-        <input contentEditable id='search' type="text" onInput={(e)=> setSearchString && setSearchString(e.currentTarget.value)}/>
+        <input contentEditable id='search' type="text" onInput={(e)=> dispatch({type : "search", payload : e.currentTarget.value })}/>
         </div>
     )
     

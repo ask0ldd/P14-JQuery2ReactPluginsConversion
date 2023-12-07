@@ -14,27 +14,27 @@ import { IUsersDatas } from "../../datas/usersDatasTen"
  */
 function Table() {
 
-    const {paginationRules, tableDatasState, ordering, tableModel, setOrdering} = useContext(DatasTableContext)
+    const {tableState, dispatch, tableModel} = useContext(DatasTableContext)
 
     const tableAccessors = tableModel.getAccessorsList()
     
     function handleOrderingClick(index : number){
       // if clicking on the already active column, invert sorting direction
-      if(ordering?.column === tableAccessors[index]) 
-        return ordering.direction === 'asc' ? setOrdering && setOrdering({column : tableAccessors[index], direction : 'desc'}) :  setOrdering && setOrdering({column : tableAccessors[index], direction : 'asc'})
+      if(tableState.ordering?.column === tableAccessors[index]) 
+        return tableState.ordering.direction === 'asc' ? dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'desc'}}) :  dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'asc'}})
       // if clicking on a different column sorting asc this new column
-      return setOrdering && setOrdering({column : tableAccessors[index], direction : 'asc'})
+      return dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'asc'}})
     }
 
-    const firstDisplayedEntry = paginationRules ? Math.abs((paginationRules.currentPage-1)*paginationRules.nEntriesPerPage) : 0
-    const lastDisplayedEntry =  paginationRules ? Math.abs((paginationRules.currentPage-1)*paginationRules.nEntriesPerPage + paginationRules.nEntriesPerPage) : 10
-    const rowsToDisplay = [...tableDatasState].slice(firstDisplayedEntry, lastDisplayedEntry)
+    const firstDisplayedEntry = tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage) : 0
+    const lastDisplayedEntry =  tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage + tableState.pagination.nEntriesPerPage) : 10
+    const rowsToDisplay = [...tableState.datas].slice(firstDisplayedEntry, lastDisplayedEntry)
 
     return (
         <table aria-label="Current Employees">
         <thead>
           <tr className='bottomblackborder'>
-          {[...tableModel.getColumnsNamesList()].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}<div className="arrowsContainer"><span style={ordering?.direction === "asc" && ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span><span style={ordering?.direction === "desc" && ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span></div></th>)) /* !!! clickable seulement si sortable */}
+          {[...tableModel.getColumnsNamesList()].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}<div className="arrowsContainer"><span style={tableState.ordering?.direction === "asc" && tableState.ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span><span style={tableState.ordering?.direction === "desc" && tableState.ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span></div></th>)) /* !!! clickable seulement si sortable */}
           </tr>
         </thead>
         <tbody>
