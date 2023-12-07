@@ -12,25 +12,27 @@ function useTableManager(tableDatas : Array<any>){
             return {...state, pagination : action.payload}
         }
         if (action.type === 'search') {
-            // pagination update : when typing into the searchbar => the current page is set back to 1
-            return {...state, search : action.payload, pagination : {...state.pagination , currentPage : 1}, processedDatas : filteringDatas(state.datas, action.payload)}
+            return {...state, 
+                search : action.payload, 
+                // pagination update : when typing into the searchbar => the current page is set back to 1
+                pagination : {...state.pagination , currentPage : 1},
+                processedDatas : filteringDatas(state.datas, action.payload)
+            }
         }
-        if (action.type === 'processedDatas') {
+        /*if (action.type === 'processedDatas') {
             return {...state, processedDatas : action.payload}
-        }
+        }*/
         return state
     }
 
     function filteringDatas(datas : Array<any>, searchString : string){
-        if(searchString !== '') 
-        {
-            return [...datas].filter(row => {
-                // check if one of the properties of a row contain the searchString
-                for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
-                return false
-            })}else{
-            return [...datas]
-        }
+        if(searchString === "") return [...datas]
+
+        return [...datas].filter(row => {
+            // check if one of the properties of a row contain the searchString
+            for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
+            return false
+        })        
     }
 
     const initialState : ITableState = {

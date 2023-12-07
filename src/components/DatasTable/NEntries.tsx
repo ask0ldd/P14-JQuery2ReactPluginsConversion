@@ -12,6 +12,7 @@ function NEntries(){
 
     if(!tableState) return(<></>)
 
+    // !!!!! deal with Showing 1 to 0 of 0 entries
     const firstDisplayedEntry = tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage) + 1 : 1
     const lastDisplayedEntry =  tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage + tableState.pagination.nEntriesPerPage) : 10
     // const displayedRows = tableDatasState.slice(firstDisplayedEntry, lastDisplayedEntry).length
