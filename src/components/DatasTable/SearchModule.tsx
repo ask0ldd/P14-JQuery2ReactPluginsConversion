@@ -11,6 +11,7 @@ import { useContext } from "react"
 function SearchModule() {
 
     const { dispatch } = useContext(DatasTableContext)
+    if(!dispatch) return(<></>)
 
     return (
         <div id="searchContainer">

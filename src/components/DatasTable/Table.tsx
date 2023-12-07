@@ -16,10 +16,13 @@ function Table() {
 
     const {tableState, dispatch, tableModel} = useContext(DatasTableContext)
 
+    if(!dispatch || !tableState || !tableModel) return(<></>)
+
     const tableAccessors = tableModel.getAccessorsList()
     
     function handleOrderingClick(index : number){
       // if clicking on the already active column, invert sorting direction
+      if(!dispatch || !tableState) return
       if(tableState.ordering?.column === tableAccessors[index]) 
         return tableState.ordering.direction === 'asc' ? dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'desc'}}) :  dispatch({type : 'ordering', payload : {column : tableAccessors[index], direction : 'asc'}})
       // if clicking on a different column sorting asc this new column

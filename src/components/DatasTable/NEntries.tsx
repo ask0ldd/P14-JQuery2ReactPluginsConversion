@@ -10,6 +10,8 @@ function NEntries(){
 
     const {tableState} = useContext(DatasTableContext)
 
+    if(!tableState) return(<></>)
+
     const firstDisplayedEntry = tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage) + 1 : 1
     const lastDisplayedEntry =  tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage + tableState.pagination.nEntriesPerPage) : 10
     // const displayedRows = tableDatasState.slice(firstDisplayedEntry, lastDisplayedEntry).length

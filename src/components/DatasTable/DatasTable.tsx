@@ -12,7 +12,7 @@ import useOrderTable from './hooks/useOrderTable'
 import { IDatasTableContext, IOrdering, IPaginationRules } from './interfaces/IDatasTableContext'
 import { TableModel } from './models/TableModel'
 import { TableDatasService } from './service/TableDatasService'
-import useTableManager, { initialState } from './hooks/useTableManager'
+import useTableManager from './hooks/useTableManager'
 
 /**
  * Component : Grouping of all the constitutive elements of a datatable.
@@ -37,29 +37,18 @@ function DatasTable({tableModel, tableDatas} : IProps){
             if(tableDatasPropertiesList.includes(accessor) === false) setUsColumnsDefinitionMatchingDatas(false)
         })
     }, [tableDatas])
-  
-    // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
-    /*const [tableDatasState, setTableDatas] = useState<Array<any>>([...tableDatas]);
-    const [ordering, setOrdering] = useState<IOrdering>({column : '', direction : 'asc'})
-    const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
-    const [searchString, setSearchString] = useState<string>('')*/
 
     const {tableState, dispatch} = useTableManager(tableDatas)
- 
-    // useOrderTable(tableDatas, setTableDatas, searchString, ordering, tableModel.getColumns(), paginationRules)
 
     // when typing into the searchbar => current page is set back to 1
     useEffect(()=>{
-        // setPaginationRules({...paginationRules, currentPage : 1})
         dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : 1}})
     }, [tableState.search])
 
     return(
         <>
             {isColumnsDefinitionMatchingDatas ? 
-            <DatasTableContext.Provider value={{
-                tableModel, dispatch, tableState
-                /*paginationRules, tableDatasState, ordering, searchString, tableModel, setPaginationRules, setOrdering, setSearchString*/}}>
+            <DatasTableContext.Provider value={{tableModel, dispatch, tableState}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>
                     <SearchModule/>
@@ -67,7 +56,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
                 <Table/>
                 <div id="infosNPaginationContainer">
                     <NEntries/>
-                    <Pagination tableState={tableState} dispatch={dispatch}/>
+                    <Pagination/>
                 </div>
             </DatasTableContext.Provider> 
             : <div>Users datas are missing some mandatory dataKeys.</div>}
@@ -78,15 +67,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
 
 export default DatasTable
 
-const initialContext : IDatasTableContext = {
-    /*tableDatasState : [],
-    tableModel : new TableModel(),
-    searchString: '', 
-    paginationRules : {currentPage: 1, nEntriesPerPage:10}*/
-    tableModel : new TableModel(),
-    dispatch : null,
-    tableState : initialState    
-}
+const initialContext : IDatasTableContext = { }
 
 export const DatasTableContext = createContext<IDatasTableContext>(initialContext)
 
@@ -94,29 +75,3 @@ interface IProps {
     tableModel : TableModel
     tableDatas : Array<any>
 }
-
-/*
-
-interface State {
-  count: number;
-}
-
-// Define the type for your action
-type Action = { type: 'increment' } | { type: 'decrement' };
-
-// Define your reducer function
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    case 'decrement':
-      return { count: state.count - 1 };
-    default:
-      throw new Error();
-  }
-}
-
-// Use useReducer with your state and reducer
-const [state, dispatch] = useReducer(reducer, { count: 0 });
-
-*/

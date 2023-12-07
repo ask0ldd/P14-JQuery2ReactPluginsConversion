@@ -18,9 +18,10 @@ function NDisplayedSelect()
     const {dispatch} = useContext(DatasTableContext)
 
      /* should update select active option if 100 */
+    if(!dispatch) return(<></>)
 
     return (
-    <div id="entriesContainer">
+        <div id="entriesContainer">
         Show
         <select onChange={(e) => 
             {
