@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Table from './Table'
@@ -11,6 +12,7 @@ import useOrderTable from './hooks/useOrderTable'
 import { IDatasTableContext, IOrdering, IPaginationRules } from './interfaces/IDatasTableContext'
 import { TableModel } from './models/TableModel'
 import { TableDatasService } from './service/TableDatasService'
+import useTableManager from './hooks/useTableManager'
 
 /**
  * Component : Grouping of all the constitutive elements of a datatable.
@@ -42,38 +44,14 @@ function DatasTable({tableModel, tableDatas} : IProps){
     const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
     const [searchString, setSearchString] = useState<string>('')
 
-    /*function reducer(state : TableDatasService, action : {type : string, payload : string}) {
-    if (action.type === 'incremented_age') {
-        return null
-    }
-    throw Error('Unknown action.');
-    }*/
-
-    // const [tableDatasService, dispatch] = useReducer(reducer, tableDatasServ)
-
-    function processingTableReducer(state : any, action : { type : string, payload : any}){
-        if (action.type === 'ordering') {
-            return {...state, ordering : action.payload}
-        }
-        if (action.type === 'pagination') {
-            return {...state, pagination : action.payload}
-        }
-        if (action.type === 'search') {
-            return {...state, search : action.payload}
-        }
-    }
-
-    const [processingTableState, dispatch] = useReducer(processingTableReducer, 
-        {ordering : {column : '', direction : 'asc'}, 
-        pagination : {currentPage : 1, nEntriesPerPage : 10},
-        search : "",
-    })
-  
+    const {tableState, dispatch} = useTableManager(tableDatas)
+ 
     useOrderTable(tableDatas, setTableDatas, searchString, ordering, tableModel.getColumns(), paginationRules)
 
     // when typing into the searchbar => current page is set back to 1
     useEffect(()=>{
         setPaginationRules({...paginationRules, currentPage : 1})
+        dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : 1}})
     }, [searchString])
 
     return(
