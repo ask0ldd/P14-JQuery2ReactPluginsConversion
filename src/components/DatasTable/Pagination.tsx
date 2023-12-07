@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DatasTableContext } from './DatasTable'
+import { DatasTableContext } from './DatasTableContext'
 import './style/Pagination.css'
 import { useContext } from "react"
 
@@ -27,13 +27,13 @@ function Pagination() {
 
     function prevPage(){
       // setPaginationRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
-      if(!dispatch || !tableState) return
+      if(dispatch == null || tableState == null) return
       dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : currentPage > 1 ? currentPage-1 : currentPage}})
     }
 
     function nextPage(){
       // setPaginationRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
-      if(!dispatch || !tableState) return
+      if(dispatch == null || tableState == null) return
       dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : enoughEntriesLeftForNextPageQM ? currentPage+1 : currentPage}})
     }
 

@@ -1,4 +1,4 @@
-import { DatasTableContext } from "./DatasTable"
+import { DatasTableContext } from './DatasTableContext'
 import { useContext } from "react"
 
 /**

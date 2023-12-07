@@ -6,13 +6,10 @@ import NDisplayedSelect from './NDisplayedSelect'
 import SearchModule from './SearchModule'
 import Pagination from './Pagination'
 import NEntries from './NEntries'
-import { useState, useEffect, useReducer } from 'react'
-import {createContext} from 'react'
-import useOrderTable from './hooks/useOrderTable'
-import { IDatasTableContext, IOrdering, IPaginationRules } from './interfaces/IDatasTableContext'
+import { useState, useEffect } from 'react'
 import { TableModel } from './models/TableModel'
-import { TableDatasService } from './service/TableDatasService'
 import useTableManager from './hooks/useTableManager'
+import { DatasTableContext } from './DatasTableContext'
 
 /**
  * Component : Grouping of all the constitutive elements of a datatable.
@@ -66,10 +63,6 @@ function DatasTable({tableModel, tableDatas} : IProps){
 }
 
 export default DatasTable
-
-const initialContext : IDatasTableContext = { }
-
-export const DatasTableContext = createContext<IDatasTableContext>(initialContext)
 
 interface IProps {
     tableModel : TableModel

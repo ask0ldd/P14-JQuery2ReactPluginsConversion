@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './style/SearchModule.css'
-import { DatasTableContext } from "./DatasTable"
+import { DatasTableContext } from './DatasTableContext'
 import { useContext } from "react"
 
 /**

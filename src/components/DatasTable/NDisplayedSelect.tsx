@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './style/NDisplayedSelect.css'
-import { DatasTableContext } from "./DatasTable"
 import { useContext } from "react"
 
 /**
