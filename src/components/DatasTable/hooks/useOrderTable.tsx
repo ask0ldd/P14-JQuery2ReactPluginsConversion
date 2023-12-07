@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
 import { IColumnDefElement } from "../interfaces/IColumnDefElement"
@@ -16,6 +17,7 @@ function useOrderTable(
 
     const frCollator = new Intl.Collator('en')
 
+    // react to order change / search field typing / any pagination use
     useEffect(() => {
         // [...usersDatas] to avoid any mutation
         let filteredTable

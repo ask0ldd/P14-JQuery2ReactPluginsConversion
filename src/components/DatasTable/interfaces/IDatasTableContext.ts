@@ -1,10 +1,12 @@
+import { TableModel } from "../models/TableModel"
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IDatasTableContext{
     paginationRules? : IPaginationRules
     tableDatasState : Array<any>
     ordering? : IOrdering
     searchString? : string
-    tableColumnsNames : Array<string>
-    tableDatasKeys : Array<string>
+    tableModel : TableModel
     setPaginationRules?({currentPage, nEntriesPerPage} : IPaginationRules) : void
     setOrdering?({column, direction} : IOrdering) : void
     setSearchString?(string : string) : void

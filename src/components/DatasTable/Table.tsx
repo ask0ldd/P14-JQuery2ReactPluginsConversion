@@ -14,14 +14,16 @@ import { IUsersDatas } from "../../datas/usersDatasTen"
  */
 function Table() {
 
-    const {paginationRules, tableDatasState, ordering, tableColumnsNames, tableDatasKeys, setOrdering} = useContext(DatasTableContext)
+    const {paginationRules, tableDatasState, ordering, tableModel, setOrdering} = useContext(DatasTableContext)
 
+    const tableAccessors = tableModel.getAccessorsList()
+    
     function handleOrderingClick(index : number){
       // if clicking on the already active column, invert sorting direction
-      if(ordering?.column === tableDatasKeys[index]) 
-        return ordering.direction === 'asc' ? setOrdering && setOrdering({column : tableDatasKeys[index], direction : 'desc'}) :  setOrdering && setOrdering({column : tableDatasKeys[index], direction : 'asc'})
+      if(ordering?.column === tableAccessors[index]) 
+        return ordering.direction === 'asc' ? setOrdering && setOrdering({column : tableAccessors[index], direction : 'desc'}) :  setOrdering && setOrdering({column : tableAccessors[index], direction : 'asc'})
       // if clicking on a different column sorting asc this new column
-      return setOrdering && setOrdering({column : tableDatasKeys[index], direction : 'asc'})
+      return setOrdering && setOrdering({column : tableAccessors[index], direction : 'asc'})
     }
 
     const firstDisplayedEntry = paginationRules ? Math.abs((paginationRules.currentPage-1)*paginationRules.nEntriesPerPage) : 0
@@ -32,11 +34,11 @@ function Table() {
         <table aria-label="Current Employees">
         <thead>
           <tr className='bottomblackborder'>
-          {[...tableColumnsNames].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}<div className="arrowsContainer"><span style={ordering?.direction === "asc" && ordering?.column == tableDatasKeys[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span><span style={ordering?.direction === "desc" && ordering?.column == tableDatasKeys[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span></div></th>)) /* !!! clickable seulement si sortable */}
+          {[...tableModel.getColumnsNamesList()].map((name, index) => (<th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleOrderingClick(index)}}>{name}<div className="arrowsContainer"><span style={ordering?.direction === "asc" && ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span><span style={ordering?.direction === "desc" && ordering?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span></div></th>)) /* !!! clickable seulement si sortable */}
           </tr>
         </thead>
         <tbody>
-          {[...rowsToDisplay].map((datarow, index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, rowsToDisplay.length-1) /* use css 2*n+1 */}>{[...tableDatasKeys].map((key : string) => (<td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>))}</tr>))}
+          {[...rowsToDisplay].map((datarow, index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, rowsToDisplay.length-1) /* use css 2*n+1 */}>{[...tableAccessors].map((key : string) => (<td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>))}</tr>))}
         </tbody>
       </table>        
     )
