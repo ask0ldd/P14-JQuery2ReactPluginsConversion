@@ -39,20 +39,20 @@ function DatasTable({tableModel, tableDatas} : IProps){
     }, [tableDatas])
   
     // currentPage / nEntriesPerPage / searchString / sortingDirection / sortingTargetColumn
-    const [tableDatasState, setTableDatas] = useState<Array<any>>([...tableDatas]);
+    /*const [tableDatasState, setTableDatas] = useState<Array<any>>([...tableDatas]);
     const [ordering, setOrdering] = useState<IOrdering>({column : '', direction : 'asc'})
     const [paginationRules, setPaginationRules] = useState<IPaginationRules>({currentPage : 1, nEntriesPerPage : 10})
-    const [searchString, setSearchString] = useState<string>('')
+    const [searchString, setSearchString] = useState<string>('')*/
 
     const {tableState, dispatch} = useTableManager(tableDatas)
  
-    useOrderTable(tableDatas, setTableDatas, searchString, ordering, tableModel.getColumns(), paginationRules)
+    // useOrderTable(tableDatas, setTableDatas, searchString, ordering, tableModel.getColumns(), paginationRules)
 
     // when typing into the searchbar => current page is set back to 1
     useEffect(()=>{
-        setPaginationRules({...paginationRules, currentPage : 1})
+        // setPaginationRules({...paginationRules, currentPage : 1})
         dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : 1}})
-    }, [searchString])
+    }, [tableState.search])
 
     return(
         <>
@@ -65,7 +65,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
                 <Table/>
                 <div id="infosNPaginationContainer">
                     <NEntries/>
-                    <Pagination totalEntries={tableDatasState.length} currentPage={paginationRules.currentPage} nEntriesPerPage={paginationRules.nEntriesPerPage} setPaginationRules={setPaginationRules}/>
+                    <Pagination tableState={tableState} dispatch={dispatch}/>
                 </div>
             </DatasTableContext.Provider> 
             : <div>Users datas are missing some mandatory dataKeys.</div>}

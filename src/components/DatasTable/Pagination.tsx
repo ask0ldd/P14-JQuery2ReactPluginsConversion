@@ -11,14 +11,20 @@ import './style/Pagination.css'
  * @param {number} props.totalEntries - Total number of entries.
  * @return ( <Pagination currentPage={currentPage} setDisplayRules={setDisplayRules} nEntriesPerPage={nEntriesPerPage} totalEntries={totalEntries}/> )
  */
-function Pagination({currentPage, setPaginationRules, nEntriesPerPage, totalEntries} : IProps) {
+function Pagination({tableState, dispatch/*currentPage, setPaginationRules, nEntriesPerPage, totalEntries*/} : IProps) {
 
     function prevPage(){
-      setPaginationRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+      // setPaginationRules({currentPage: currentPage > 1 ? currentPage-1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+      const currentPage = tableState.pagination.currentPage
+      dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : currentPage > 1 ? currentPage-1 : currentPage}})
     }
 
     function nextPage(){
-      setPaginationRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+      // setPaginationRules({currentPage: currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage, nEntriesPerPage: nEntriesPerPage})
+      const currentPage = tableState.pagination.currentPage
+      const nEntriesPerPage = tableState.pagination.nEntriesPerPage
+      const totalEntries = tableState.datas.length
+      dispatch({type : "pagination", payload : {...tableState.pagination, currentpage : currentPage * nEntriesPerPage < totalEntries ? currentPage+1 : currentPage}})
     }
 
     function enoughEntriesLeftForNextPage(){
@@ -39,8 +45,6 @@ function Pagination({currentPage, setPaginationRules, nEntriesPerPage, totalEntr
 export default Pagination
 
 interface IProps{
-  currentPage: number
-  setPaginationRules: any
-  nEntriesPerPage: number
-  totalEntries: number
+  tableState : any
+  dispatch : any
 }
