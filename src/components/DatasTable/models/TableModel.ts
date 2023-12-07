@@ -6,11 +6,11 @@ export class TableModel{
     #columns : Array<IColumnDefElement>
     #datas : Array<object>
   
-    constructor(){
+    constructor(datas? : Array<object>){
       this.#columns = []
-      this.#datas = []
+      this.#datas = datas || []
     }
-  
+
     addColumn(column : Column | undefined){
       if(column == null || column.toObject() == null) return
       this.#columns.push(column.toObject() as IColumnDefElement)

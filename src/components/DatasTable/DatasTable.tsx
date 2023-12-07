@@ -27,9 +27,6 @@ import { TableDatasService } from './service/TableDatasService'
  */
 function DatasTable({tableModel, tableDatas} : IProps){
 
-    /*const tableColumnsNames : Array<string> = tableModel.getColumnsNamesList()
-    const tableAccessors : Array<string> = tableModel.getAccessorsList()*/
-
     // check if accessors & table datas properties are matching / if not : no table displayed
     const [isColumnsDefinitionMatchingDatas, setUsColumnsDefinitionMatchingDatas] = useState(true)
     useEffect(() => {
@@ -52,9 +49,25 @@ function DatasTable({tableModel, tableDatas} : IProps){
     throw Error('Unknown action.');
     }*/
 
-    const tableDatasServ = new TableDatasService(tableDatas)
-
     // const [tableDatasService, dispatch] = useReducer(reducer, tableDatasServ)
+
+    function processingTableReducer(state : any, action : { type : string, payload : any}){
+        if (action.type === 'ordering') {
+            return {...state, ordering : action.payload}
+        }
+        if (action.type === 'pagination') {
+            return {...state, pagination : action.payload}
+        }
+        if (action.type === 'search') {
+            return {...state, search : action.payload}
+        }
+    }
+
+    const [processingTableState, dispatch] = useReducer(processingTableReducer, 
+        {ordering : {column : '', direction : 'asc'}, 
+        pagination : {currentPage : 1, nEntriesPerPage : 10},
+        search : "",
+    })
   
     useOrderTable(tableDatas, setTableDatas, searchString, ordering, tableModel.getColumns(), paginationRules)
 
@@ -98,3 +111,29 @@ interface IProps {
     tableModel : TableModel
     tableDatas : Array<any>
 }
+
+/*
+
+interface State {
+  count: number;
+}
+
+// Define the type for your action
+type Action = { type: 'increment' } | { type: 'decrement' };
+
+// Define your reducer function
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
+
+// Use useReducer with your state and reducer
+const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+*/
