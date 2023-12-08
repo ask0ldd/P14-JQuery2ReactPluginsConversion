@@ -35,7 +35,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
         })
     }, [tableDatas])
 
-    const {tableState, dispatch} = useTableManager(tableDatas)
+    const {tableState, dispatch} = useTableManager(tableModel, tableDatas)
 
     return(
         <>

@@ -36,4 +36,8 @@ export class TableModel{
     getAccessorsList() : Array<string>{
       return [...this.#columns].reduce((accu : Array<string>, column) => {accu.push(column.accessor); return accu}, [])
     }
+
+    getDatatypeForAccessor(accessor : string) : string{
+      return ([...this.#columns].find(column => column.accessor === accessor))?.datatype || 'string'
+    }
   }

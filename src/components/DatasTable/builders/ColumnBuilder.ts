@@ -30,7 +30,6 @@ export class ColumnBuilder {
       return this
     }
   
-    // order function instead
     static setDatatype(datatype : string){
       this.#datatype = datatype
       return this

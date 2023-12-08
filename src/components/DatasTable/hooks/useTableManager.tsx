@@ -1,38 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useReducer } from "react"
+import { useReducer } from "react"
+import { TableModel } from "../models/TableModel"
 
-function useTableManager(tableDatas : Array<any>){
+function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
     
     function tableStateReducer(state : ITableState, action : { type : string, payload : any}){
-        if (action.type === 'sorting') {
-            return {...state, sorting : action.payload}
-        }
-        if (action.type === 'pagination') {
-            return {...state, pagination : action.payload}
-        }
-        if (action.type === 'search') {
+
+        // table sorting
+        if (action.type === 'sorting' && action.payload.column && action.payload.direction) {
             return {...state, 
-                search : action.payload, 
-                // pagination update : when typing into the searchbar => the current page is set back to 1
-                pagination : {...state.pagination , currentPage : 1},
-                processedDatas : filteringDatas(state.datas, action.payload)
+                sorting : action.payload, 
+                processedDatas : toSortedDatas(toFilteredDatas(state.datas, state.search), action.payload, tableModel.getDatatypeForAccessor(action.payload.column))
             }
         }
-        /*if (action.type === 'processedDatas') {
-            return {...state, processedDatas : action.payload}
-        }*/
+
+        // table pagination
+        if (action.type === 'pagination' && action.payload.currentPage && action.payload.nEntriesPerPage) {
+            return {...state, pagination : action.payload}
+        }
+
+        // table filtering
+        if (action.type === 'search' && action.payload) {
+            return {...state, 
+                search : action.payload, 
+                // when typing into the searchbar => the current page is set back to 1
+                pagination : {...state.pagination , currentPage : 1},
+                processedDatas : toSortedDatas(toFilteredDatas(state.datas, action.payload), {column : state.sorting.column, direction : state.sorting.direction}, tableModel.getDatatypeForAccessor(action.payload.column))
+            }
+        }
+
+        // !!! implements add a row using the dedicated form
+
         return state
-    }
-
-    function filteringDatas(datas : Array<any>, searchString : string){
-        if(searchString === "") return [...datas]
-
-        return [...datas].filter(row => {
-            // check if one of the properties of a row contain the searchString
-            for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
-            return false
-        })        
     }
 
     const initialState : ITableState = {
@@ -41,15 +41,10 @@ function useTableManager(tableDatas : Array<any>){
         search : "",
         datas : tableDatas,
         processedDatas : tableDatas,
+        tableModel : tableModel
     }
 
     const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState, datas : tableDatas})
-
-        
-    // when typing into the searchbar => current page is set back to 1
-    /*useEffect(()=>{
-        dispatch({type : "pagination", payload : {...tableState.pagination, currentPage : 1}})
-    }, [tableState.search])*/
 
     return {tableState, dispatch}
 }
@@ -57,11 +52,43 @@ function useTableManager(tableDatas : Array<any>){
 export default useTableManager
 
 export interface ITableState {
-    sorting : {column : string, direction : string}
+    sorting : {column : string, direction : "asc" | "desc"}
     pagination : {currentPage : number, nEntriesPerPage : number}
     search : string
     datas : Array<any>
     processedDatas : Array<any>
+    tableModel : TableModel
 }
 
 export type reducerDispatchType = React.Dispatch<{type: string, payload: any}>
+
+function dateToTime(date : string){
+    const [day, month, year] = date.split('/')
+    return new Date(parseInt(year), parseInt(month), parseInt(day)).getTime()
+}
+
+// move to a DAO
+function toFilteredDatas(datas : Array<any>, searchString : string){
+    if(searchString === "") return [...datas]
+
+    return [...datas].filter(row => {
+        // check if one of the properties of a row contain the searchString
+        for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
+        return false
+    })        
+}
+
+// move to a DAO
+function toSortedDatas(datas : Array<any>, sortingRules : {column : string, direction : 'asc' | 'desc'}, dataType : string){
+    const frCollator = new Intl.Collator('en')
+    if(dataType === 'date'){
+        switch(sortingRules.direction){
+           case 'asc' : return datas.sort((a,b) => dateToTime(b[sortingRules.column]) - dateToTime(a[sortingRules.column]))
+           case 'desc' : return datas.sort((a,b) => dateToTime(a[sortingRules.column]) - dateToTime(b[sortingRules.column]))
+        }
+    }
+    switch(sortingRules.direction){
+        case 'asc' : return datas.sort((a,b) => frCollator.compare(a[sortingRules.column], b[sortingRules.column]))
+        case 'desc' : return datas.sort((a,b) => frCollator.compare(b[sortingRules.column], a[sortingRules.column]))
+    }
+}

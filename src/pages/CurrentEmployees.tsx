@@ -23,7 +23,7 @@ function CurrentEmployees() {
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Birthdate").setDatatypeAsDate().setDatakey("birthDate").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Street").setDatatypeAsString().setDatakey("street").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("City").setDatatypeAsString().setDatakey("city").setSortability(true).build())
-  tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("State").setDatatypeAsDate().setDatakey("state").setSortability(true).build())
+  tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("State").setDatatypeAsString().setDatakey("state").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Zip Code").setDatatypeAsNumber().setDatakey("zipCode").setSortability(true).build())
 
   tableModel.setDatas([...usersDatas])
@@ -37,15 +37,3 @@ function CurrentEmployees() {
 }
 
 export default CurrentEmployees
-
-/*const columnsDefinition : Array<IColumnDefElement> = [
-  { th: 'First Name', datakey: 'firstName', sortable: true, datatype: 'string' },
-  { th: 'Last Name', datakey: 'lastName', sortable: true, datatype: 'string' },
-  { th: 'Start Date', datakey: 'startingDate', sortable: true, datatype: 'date' },
-  { th: 'Department', datakey: 'department', sortable: true, datatype: 'string' },
-  { th: 'Birthdate', datakey: 'birthDate', sortable: true, datatype: 'date' },
-  { th: 'Street', datakey: 'street', sortable: true, datatype: 'string' },
-  { th: 'City', datakey: 'city', sortable: true, datatype: 'string' },
-  { th: 'State', datakey: 'state', sortable: true, datatype: 'string' },
-  { th: 'Zip Code', datakey: 'zipCode', sortable: true, datatype: 'number' },
-]*/
