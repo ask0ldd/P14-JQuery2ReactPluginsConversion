@@ -12,8 +12,11 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         if (action.type === 'sorting' && action.payload.column && action.payload.direction) {
             return {...state, 
                 sorting : action.payload, 
-                // processedDatas : toSortedDatas(toFilteredDatas(state.datas, state.search), action.payload, tableModel.getDatatypeForAccessor(action.payload.column))
-                processedDatas : state.tableDatasDao.getProcessedDatas({...state.getProcessingArgs(), sorting : action.payload, datatype : state.tableModel.getDatatypeForAccessor(action.payload.column)})
+                // 1- gets the processing arguments from the state
+                // 2- updates those with the payload
+                // 3- process the datas through the dao
+                processedDatas : state.tableDatasDao.getProcessedDatas(
+                    {...state.getProcessingArgs(), sorting : action.payload, datatype : state.tableModel.getDatatypeForAccessor(action.payload.column)})
             }
         }
 
@@ -28,8 +31,11 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
                 search : action.payload, 
                 // when typing into the searchbar => the current page is set back to 1
                 pagination : {...state.pagination , currentPage : 1},
-                // processedDatas : toSortedDatas(toFilteredDatas(state.datas, action.payload), {column : state.sorting.column, direction : state.sorting.direction}, tableModel.getDatatypeForAccessor(state.sorting.column))
-                processedDatas : state.tableDatasDao.getProcessedDatas({...state.getProcessingArgs(), search : action.payload})
+                // gets the processing arguments from the state
+                // updates those with the payload
+                // process the datas through the dao
+                processedDatas : state.tableDatasDao.getProcessedDatas(
+                    {...state.getProcessingArgs(), search : action.payload})
             }
         }
 
@@ -77,35 +83,3 @@ export interface ITableState {
 }
 
 export type reducerDispatchType = React.Dispatch<{type: string, payload: any}>
-
-/*
-function dateToTime(date : string){
-    const [day, month, year] = date.split('/')
-    return new Date(parseInt(year), parseInt(month), parseInt(day)).getTime()
-}
-
-// move to a DAO
-function toFilteredDatas(datas : Array<any>, searchString : string){
-    if(searchString === "") return [...datas]
-
-    return [...datas].filter(row => {
-        // check if one of the properties of a row contain the searchString
-        for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
-        return false
-    })        
-}
-
-// move to a DAO
-function toSortedDatas(datas : Array<any>, sortingRules : {column : string, direction : 'asc' | 'desc'}, dataType : string){
-    const frCollator = new Intl.Collator('en')
-    if(dataType === 'date'){
-        switch(sortingRules.direction){
-           case 'asc' : return datas.sort((a,b) => dateToTime(b[sortingRules.column]) - dateToTime(a[sortingRules.column]))
-           case 'desc' : return datas.sort((a,b) => dateToTime(a[sortingRules.column]) - dateToTime(b[sortingRules.column]))
-        }
-    }
-    switch(sortingRules.direction){
-        case 'asc' : return datas.sort((a,b) => frCollator.compare(a[sortingRules.column], b[sortingRules.column]))
-        case 'desc' : return datas.sort((a,b) => frCollator.compare(b[sortingRules.column], a[sortingRules.column]))
-    }
-}*/
