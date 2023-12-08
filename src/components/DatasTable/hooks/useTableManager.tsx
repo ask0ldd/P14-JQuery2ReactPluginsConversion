@@ -26,11 +26,18 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
                 search : action.payload, 
                 // when typing into the searchbar => the current page is set back to 1
                 pagination : {...state.pagination , currentPage : 1},
-                processedDatas : toSortedDatas(toFilteredDatas(state.datas, action.payload), {column : state.sorting.column, direction : state.sorting.direction}, tableModel.getDatatypeForAccessor(action.payload.column))
+                processedDatas : toSortedDatas(toFilteredDatas(state.datas, action.payload), {column : state.sorting.column, direction : state.sorting.direction}, tableModel.getDatatypeForAccessor(state.sorting.column))
             }
         }
 
-        // !!! implements add a row using the dedicated form
+        /*if(action.type === 'addrow' && action.payload){
+            const newRow = action.payload
+            return {
+                ...state,
+                datas : [...state.datas, newRow],
+                processedDatas : toSortedDatas(toFilteredDatas([...state.datas, newRow], state.search), {column : state.sorting.column, direction : state.sorting.direction}, tableModel.getDatatypeForAccessor(state.sorting.column))
+            }
+        }*/
 
         return state
     }
