@@ -13,7 +13,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
             return {...state, 
                 sorting : action.payload, 
                 // processedDatas : toSortedDatas(toFilteredDatas(state.datas, state.search), action.payload, tableModel.getDatatypeForAccessor(action.payload.column))
-                processedDatas : state.tableDatasDao.getProcessedDatas({...state.getProcessingArgs(), sorting : action.payload})
+                processedDatas : state.tableDatasDao.getProcessedDatas({...state.getProcessingArgs(), sorting : action.payload, datatype : state.tableModel.getDatatypeForAccessor(action.payload.column)})
             }
         }
 
