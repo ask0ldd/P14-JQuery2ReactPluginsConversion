@@ -22,11 +22,11 @@ function Table() {
     
     function handleSortingClick(index : number){
       // if not column marked as not sortable
-      if(!dispatch || !tableState || !tableModel?.getColumns()[index].sortable) return
-      // if clicking on the already active column, invert sorting direction
+      if(!tableModel?.getColumns()[index].sortable || !dispatch || !tableState) return
+      // if clicking on an already active column, invert sorting direction
       if(tableState.sorting.column === tableAccessors[index]) 
         return tableState.sorting.direction === 'asc' ? dispatch({type : 'sorting', payload : {column : tableAccessors[index], direction : 'desc'}}) :  dispatch({type : 'sorting', payload : {column : tableAccessors[index], direction : 'asc'}})
-      // if clicking on a different column sorting asc this new column
+      // if clicking on a different column sorting asc by default
       return dispatch({type : 'sorting', payload : {column : tableAccessors[index], direction : 'asc'}})
     }
 
@@ -34,7 +34,6 @@ function Table() {
     const lastDisplayedEntry =  tableState.pagination ? Math.abs((tableState.pagination.currentPage-1)*tableState.pagination.nEntriesPerPage + tableState.pagination.nEntriesPerPage) : 10
     const rowsToDisplay = [...tableState.processedDatas].slice(firstDisplayedEntry, lastDisplayedEntry)
 
-    // !!! span with arrow should have conditional display to deal with non sortable columns
     return (
         <table aria-label="Current Employees">
         <thead>
@@ -42,14 +41,22 @@ function Table() {
           {[...tableModel.getColumnsNamesList()].map((name, index) => (
             <th key={'thtable-'+index} style={{cursor:'pointer'}} onClick={() => {handleSortingClick(index)}}>{name}
               <div className="arrowsContainer">
-                {tableModel.getColumns()[index].sortable && <span style={tableState.sorting?.direction === "asc" && tableState.sorting?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span>}
-                {tableModel.getColumns()[index].sortable && <span style={tableState.sorting?.direction === "desc" && tableState.sorting?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span>}
+                {tableModel.getColumns()[index].sortable && 
+                  <span style={tableState.sorting?.direction === "asc" && tableState.sorting?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▲</span>}
+                {tableModel.getColumns()[index].sortable && 
+                  <span style={tableState.sorting?.direction === "desc" && tableState.sorting?.column == tableAccessors[index] ? {color:'rgb(0, 120, 215)'} : {}}>▼</span>}
               </div>
             </th>))}
           </tr>
         </thead>
         <tbody>
-          {[...rowsToDisplay].map((datarow, index) => (<tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, rowsToDisplay.length-1) /* use css 2*n+1 */}>{[...tableAccessors].map((key : string) => (<td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>))}</tr>))}
+          {[...rowsToDisplay].map((datarow, index) => (
+            <tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, rowsToDisplay.length-1) /* use css 2*n+1 */}>
+              {[...tableAccessors].map((key : string) => (
+                <td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>        
     )

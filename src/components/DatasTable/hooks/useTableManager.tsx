@@ -48,8 +48,13 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         search : "",
         datas : tableDatas,
         processedDatas : tableDatas,
-        tableModel : tableModel
+        tableModel : tableModel,
+        getProcessingArgs() {
+            return {search : this.search, datatype : this.tableModel.getDatatypeForAccessor(this.sorting.column), sorting : this.sorting}
+        }
     }
+
+    // !!! should deal with a table having no search module, give the option passing a prop to datastable
 
     const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState, datas : tableDatas})
 
@@ -65,6 +70,7 @@ export interface ITableState {
     datas : Array<any>
     processedDatas : Array<any>
     tableModel : TableModel
+    getProcessingArgs : () => { search : string, datatype : string, sorting : {column : string, direction : "asc" | "desc"} }
 }
 
 export type reducerDispatchType = React.Dispatch<{type: string, payload: any}>

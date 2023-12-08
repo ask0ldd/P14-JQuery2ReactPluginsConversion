@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-class TableDatasDao{
+export class TableDatasDao{
     #datas : Array<any>
     constructor(datas : Array<any>){
         this.#datas = datas
@@ -20,13 +20,11 @@ class TableDatasDao{
     getFilteredDatas(searchString : string){
         if(searchString === "") return this.#datas
 
-        this.#datas = [...this.#datas].filter(row => {
+        return [...this.#datas].filter(row => {
             // check if one of the properties of a row contain the searchString
             for (const property in row) if(row[property].toString().toLowerCase().includes(searchString.toLowerCase())) return true
             return false
         })
-        
-        return this.#datas
     }
 
     getSortedDatas(searchString : string, sortingRules : {column : string, direction : "asc" | "desc"}, dataType : string){
@@ -42,6 +40,10 @@ class TableDatasDao{
             case 'asc' : return datas.sort((a,b) => frCollator.compare(a[sortingRules.column], b[sortingRules.column]))
             case 'desc' : return datas.sort((a,b) => frCollator.compare(b[sortingRules.column], a[sortingRules.column]))
         }
+    }
+
+    getProcessedDatas(processingArgs : { search : string, sorting : {column : string, direction : "asc" | "desc"}, datatype : string }){
+        return this.getSortedDatas(processingArgs.search, processingArgs.sorting, processingArgs.datatype)
     }
 }
 
