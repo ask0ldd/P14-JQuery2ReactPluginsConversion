@@ -31,7 +31,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
     useEffect(() => {
         const tableDatasPropertiesList = Object.getOwnPropertyNames(tableDatas[0])
         tableModel.getAccessorsList().forEach(accessor => {
-            if(tableDatasPropertiesList.includes(accessor) === false) setUsColumnsDefinitionMatchingDatas(false)
+            if(tableDatasPropertiesList.includes(accessor) === false) setUsColumnsDefinitionMatchingDatas(false) // !!!!! should throw
         })
     }, [tableDatas])
 
