@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useReducer } from "react"
 import { TableModel } from "../models/TableModel"
+import { TableDatasDao } from "../dao/TableDatasDao"
 
 function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
     
@@ -11,7 +12,8 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         if (action.type === 'sorting' && action.payload.column && action.payload.direction) {
             return {...state, 
                 sorting : action.payload, 
-                processedDatas : toSortedDatas(toFilteredDatas(state.datas, state.search), action.payload, tableModel.getDatatypeForAccessor(action.payload.column))
+                // processedDatas : toSortedDatas(toFilteredDatas(state.datas, state.search), action.payload, tableModel.getDatatypeForAccessor(action.payload.column))
+                processedDatas : state.tableDatasDao.getProcessedDatas({...state.getProcessingArgs(), sorting : action.payload})
             }
         }
 
@@ -26,7 +28,8 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
                 search : action.payload, 
                 // when typing into the searchbar => the current page is set back to 1
                 pagination : {...state.pagination , currentPage : 1},
-                processedDatas : toSortedDatas(toFilteredDatas(state.datas, action.payload), {column : state.sorting.column, direction : state.sorting.direction}, tableModel.getDatatypeForAccessor(state.sorting.column))
+                // processedDatas : toSortedDatas(toFilteredDatas(state.datas, action.payload), {column : state.sorting.column, direction : state.sorting.direction}, tableModel.getDatatypeForAccessor(state.sorting.column))
+                processedDatas : state.tableDatasDao.getProcessedDatas({...state.getProcessingArgs(), search : action.payload})
             }
         }
 
@@ -46,7 +49,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         sorting : {column : '', direction : 'asc'}, 
         pagination : {currentPage : 1, nEntriesPerPage : 10},
         search : "",
-        datas : tableDatas,
+        tableDatasDao : new TableDatasDao(tableDatas),
         processedDatas : tableDatas,
         tableModel : tableModel,
         getProcessingArgs() {
@@ -56,7 +59,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
 
     // !!! should deal with a table having no search module, give the option passing a prop to datastable
 
-    const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState, datas : tableDatas})
+    const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState/*, datas : tableDatas*/})
 
     return {tableState, dispatch}
 }
@@ -67,7 +70,7 @@ export interface ITableState {
     sorting : {column : string, direction : "asc" | "desc"}
     pagination : {currentPage : number, nEntriesPerPage : number}
     search : string
-    datas : Array<any>
+    tableDatasDao : TableDatasDao
     processedDatas : Array<any>
     tableModel : TableModel
     getProcessingArgs : () => { search : string, datatype : string, sorting : {column : string, direction : "asc" | "desc"} }
@@ -75,6 +78,7 @@ export interface ITableState {
 
 export type reducerDispatchType = React.Dispatch<{type: string, payload: any}>
 
+/*
 function dateToTime(date : string){
     const [day, month, year] = date.split('/')
     return new Date(parseInt(year), parseInt(month), parseInt(day)).getTime()
@@ -104,4 +108,4 @@ function toSortedDatas(datas : Array<any>, sortingRules : {column : string, dire
         case 'asc' : return datas.sort((a,b) => frCollator.compare(a[sortingRules.column], b[sortingRules.column]))
         case 'desc' : return datas.sort((a,b) => frCollator.compare(b[sortingRules.column], a[sortingRules.column]))
     }
-}
+}*/
