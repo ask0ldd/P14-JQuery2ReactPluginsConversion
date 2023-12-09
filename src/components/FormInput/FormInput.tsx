@@ -1,15 +1,16 @@
 import { IForm as IFormState } from "../CustomForm"
 
-function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelText, formState, setFormState, onChangeValidator, errorMessage} : IProps){
+function FormInput({input, label, formState, onChangeValidator, errorMessage} : IProps){
 // should pass state &
+    const labelId = label?.id ? label.id : input.id + '-label'
     return (
         <>
-            {labelText && <label htmlFor={id} className={CSSClasses?.label && CSSClasses.label}>{labelText}</label>}
-            <input type={type} id={id} placeholder={inputPlaceHolder && inputPlaceHolder} className={CSSClasses?.input && CSSClasses.input} value={inputValue && inputValue}
-            onChange={(e) => setFormState((prevState) => {
-                return {...prevState, [id] : { value : formatInputValue(e.target.value), error : !onChangeValidator(e.target.value) }}
+            {label.text && <label htmlFor={input.id} className={label?.CSSClass && label?.CSSClass}>{label.text}</label>}
+            <input type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClass} value={input?.value}
+            onChange={(e) => formState.set((prevState) => {
+                return {...prevState, [input.id] : { value : formatInputValue(e.target.value), error : !onChangeValidator(e.target.value) }}
             })}/>
-            {(formState[id]?.error && errorMessage) && <p className="errorMessage" id={id+"Error"}>{errorMessage}</p>}
+            {(formState.get()[input.id]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
         </>
     )
 }
@@ -17,16 +18,35 @@ function FormInput({id, type, inputPlaceHolder, inputValue, CSSClasses, labelTex
 export default FormInput
 
 interface IProps{
-    id : string
+    input : IInput
+    /*id : string
     type : "text" | "email" | "password" | "number" | "search" | "tel" | "url"
     inputPlaceHolder? : string
-    inputValue? : string
-    labelText? : string
-    CSSClasses? : {input? : string | undefined, label? : string | undefined}
-    formState : IFormState
-    setFormState : React.Dispatch<React.SetStateAction<IFormState>>
+    inputValue? : string*/
+    /*labelText? : string
+    CSSClasses? : {input? : string | undefined, label? : string | undefined}*/
+    label : ILabel
+    // formState : IFormState
+    // setFormState : React.Dispatch<React.SetStateAction<IFormState>>
+    formState : { get() : IFormState, set : React.Dispatch<React.SetStateAction<IFormState>>}
     onChangeValidator : (inputvalue : string) => boolean
     errorMessage : string
+}
+
+// !!!!!!!!!!! add error message styling possibilities : cssClass
+
+interface ILabel{
+    id? : string
+    text : string
+    CSSClass? : string // !!!!!!!! should be an array
+}
+
+interface IInput{
+    id : string
+    type : "text" | "email" | "password" | "number" | "search" | "tel" | "url"
+    placeholder? : string
+    value? : string
+    CSSClass? : string // !!!!!!!! should be an array
 }
 
 function formatInputValue(value : string){

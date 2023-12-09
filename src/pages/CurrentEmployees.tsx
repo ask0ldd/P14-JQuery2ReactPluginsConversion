@@ -14,8 +14,7 @@ import { TableModel } from '../components/DatasTable/models/TableModel'
  */
 function CurrentEmployees() {
 
-  // tableModel.columns => tableModel  & tableModel.datas => tableDAO / tableDAO.dataSource
-  const tableModel = new TableModel()
+  const tableModel = new TableModel({id : "current_employees"})
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("First Name").setDatatypeAsString().setAccessor("firstName").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Last Name").setDatatypeAsString().setAccessor("lastName").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Start Date").setDatatypeAsDate().setAccessor("startingDate").setSortability(true).build())
@@ -26,12 +25,10 @@ function CurrentEmployees() {
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("State").setDatatypeAsString().setAccessor("state").setSortability(false).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Zip Code").setDatatypeAsNumber().setAccessor("zipCode").setSortability(true).build())
 
-  // tableModel.setDatas([...usersDatas])
-
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableModel={tableModel} tableDatas={/*tableModel.getDatas()*/ [...usersDatas]}/> {/* should pass tableModel and implements quoted methods */}
+      <DatasTable tableModel={tableModel} tableDatas={[...usersDatas]}/>
       <Link to={`/`}>Home</Link>
     </main>)
 }

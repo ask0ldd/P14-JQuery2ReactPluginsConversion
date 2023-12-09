@@ -6,7 +6,7 @@ import Validator from "../services/validators"
 import '../Form.css'
 
 function CustomForm(){
-    const [formState, setFormState]= useState<IForm>({
+    const [formState, setFormState]= useState<IForm>({ // convert to array
         firstname: {value : "", error: false},
         lastname: {value : "", error: false},
         birthdate: {value : "", error: false},
@@ -24,24 +24,30 @@ function CustomForm(){
         <form className="mainform">
             <h2>1. Personnal</h2>
 
-            <FormInput id="firstname" type="text" labelText='First Name'
-            formState={formState} setFormState={setFormState} 
+            <FormInput input={{id : 'firstname', type : "text"}}
+            label={{text : 'First Name'}}
+            formState={{get : () => formState, set : setFormState}} 
             errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-            <FormInput id="lastname" type="text" labelText='Last Name' CSSClasses={{ label: 'defaultSpacing' }}
-            formState={formState} setFormState={setFormState} 
+            <FormInput input={{id : "lastname", type : "text"}}
+            label={{text : 'Last Name', CSSClass : 'defaultSpacing'}}
+            formState={{get : () => formState, set : setFormState}} 
             errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
-            <DatePicker id={"birthdate"} label={{text :"Birthdate", class : "defaultSpacing"}} useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} valueAccessor="birthdate"/>
+            <DatePicker id={"birthdate"} label={{text :"Birthdate", class : "defaultSpacing"}} 
+            useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} 
+            valueAccessor="birthdate"/>
 
             <h2>2. Address</h2>
 
-            <FormInput id="street" type="text" labelText='Street'
-            formState={formState} setFormState={setFormState} 
+            <FormInput input={{id : "street", type : "text"}} 
+            label={{text : 'Street'}}
+            formState={{get : () => formState, set : setFormState}} 
             errorMessage="Invalid Value." onChangeValidator={Validator.testAddress}/>
 
-            <FormInput id="city" type="text" labelText='City' CSSClasses={{ label: 'defaultSpacing' }}
-            formState={formState} setFormState={setFormState} 
+            <FormInput input={{id : "city", type : "text"}} 
+            label={{text : 'City', CSSClass : 'defaultSpacing' }}
+            formState={{get : () => formState, set : setFormState}} 
             errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
 
             <CustomSelect id={"state"} label={{class:"defaultSpacing", text: "State"}} formState={formState} 

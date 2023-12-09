@@ -2,7 +2,7 @@
 import { useContext } from "react"
 import { DatasTableContext } from './DatasTableContext'
 import './style/Table.css'
-import { IUsersDatas } from "../../datas/usersDatasTen"
+// import { IUsersDatas } from "../../datas/usersDatasTen"
 
 
 // !!! limit size of value in a cell & fix col sizes
@@ -35,7 +35,7 @@ function Table() {
     const rowsToDisplay = [...tableState.processedDatas].slice(firstDisplayedEntry, lastDisplayedEntry)
 
     return (
-        <table aria-label="Current Employees">
+        <table id={tableModel.getTableId()} aria-label="Current Employees">
         <thead>
           <tr className='bottomblackborder'>
           {[...tableModel.getColumnsNamesList()].map((name, index) => (
@@ -53,7 +53,7 @@ function Table() {
           {[...rowsToDisplay].map((datarow, index) => (
             <tr key={'trtable-'+index} className={isRowOdd(index) + isLastRow(index, rowsToDisplay.length-1) /* use css 2*n+1 */}>
               {[...tableAccessors].map((key : string) => (
-                <td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof IUsersDatas]}</td>
+                <td key={'tdtable-'+key+'-'+index}>{datarow[key as keyof typeof datarow]}</td>
               ))}
             </tr>
           ))}
