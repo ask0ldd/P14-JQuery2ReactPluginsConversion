@@ -5,8 +5,8 @@ function FormInput({input, label, formState, onChangeValidator, errorMessage} : 
     const labelId = label?.id ? label.id : input.id + '-label'
     return (
         <>
-            {label.text && <label htmlFor={input.id} className={label?.CSSClass && label?.CSSClass}>{label.text}</label>}
-            <input type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClass} value={input?.value}
+            {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClass && label?.CSSClass}>{label.text}</label>}
+            <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClass} value={input?.value}
             onChange={(e) => formState.set((prevState) => {
                 return {...prevState, [input.id] : { value : formatInputValue(e.target.value), error : !onChangeValidator(e.target.value) }}
             })}/>
@@ -19,15 +19,7 @@ export default FormInput
 
 interface IProps{
     input : IInput
-    /*id : string
-    type : "text" | "email" | "password" | "number" | "search" | "tel" | "url"
-    inputPlaceHolder? : string
-    inputValue? : string*/
-    /*labelText? : string
-    CSSClasses? : {input? : string | undefined, label? : string | undefined}*/
     label : ILabel
-    // formState : IFormState
-    // setFormState : React.Dispatch<React.SetStateAction<IFormState>>
     formState : { get() : IFormState, set : React.Dispatch<React.SetStateAction<IFormState>>}
     onChangeValidator : (inputvalue : string) => boolean
     errorMessage : string

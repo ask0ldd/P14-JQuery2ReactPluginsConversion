@@ -18,7 +18,7 @@ function CustomForm(){
         department: {value : "", error: false},
       })
     
-    useEffect(() => console.log(formState), [formState])
+    // useEffect(() => console.log(formState), [formState])
     
     return(
         <form className="mainform">
@@ -27,12 +27,12 @@ function CustomForm(){
             <FormInput input={{id : 'firstname', type : "text"}}
             label={{text : 'First Name'}}
             formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
+            errorMessage="Invalid Value." onChangeValidator={Validator.isName}/>
 
             <FormInput input={{id : "lastname", type : "text"}}
             label={{text : 'Last Name', CSSClass : 'defaultSpacing'}}
             formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
+            errorMessage="Invalid Value." onChangeValidator={Validator.isName}/>
 
             <DatePicker id={"birthdate"} label={{text :"Birthdate", class : "defaultSpacing"}} 
             useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} 
@@ -43,12 +43,12 @@ function CustomForm(){
             <FormInput input={{id : "street", type : "text"}} 
             label={{text : 'Street'}}
             formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.testAddress}/>
+            errorMessage="Invalid Value." onChangeValidator={Validator.isAddress}/>
 
             <FormInput input={{id : "city", type : "text"}} 
             label={{text : 'City', CSSClass : 'defaultSpacing' }}
             formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.testName}/>
+            errorMessage="Invalid Value." onChangeValidator={Validator.isName}/>
 
             <CustomSelect id={"state"} label={{class:"defaultSpacing", text: "State"}} formState={formState} 
             onValueChange={(value : string) => setFormState((prevState) => {
@@ -57,11 +57,10 @@ function CustomForm(){
             labelledBy="state-label" options={statesList} selectId='state'
             />
 
-            <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
-            <input id="zipcode" type="number" value={formState.zipcode?.value} 
-            onChange={(e) => setFormState((prevState) => {
-            return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
-            })}/>
+            <FormInput input={{id : "zipcode", type : "number"}} 
+            label={{text : 'ZIP Code', CSSClass : 'defaultSpacing' }}
+            formState={{get : () => formState, set : setFormState}} 
+            errorMessage="Invalid Value." onChangeValidator={Validator.isNumber}/>
 
             <h2>3. Professional</h2>
 
@@ -156,3 +155,11 @@ export interface IForm{
     {"label":"Wisconsin","value":"WI"},
     {"label":"Wyoming","value":"WY"}
   ]
+
+  /*
+    <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
+    <input id="zipcode" type="number" value={formState.zipcode?.value} 
+    onChange={(e) => setFormState((prevState) => {
+    return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
+    })}/>
+  */
