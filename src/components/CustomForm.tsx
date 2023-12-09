@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { /*useEffect,*/ useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
 import FormInput from "./FormInput/FormInput"
@@ -26,16 +26,18 @@ function CustomForm(){
 
             <FormInput input={{id : 'firstname', type : "text"}}
             label={{text : 'First Name'}}
-            formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.isName}/>
+            formState={{get : () => formState, set : setFormState}} // input id used as accessor if fieldValueAccessor not defined.
+            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <FormInput input={{id : "lastname", type : "text"}}
             label={{text : 'Last Name', CSSClass : 'defaultSpacing'}}
             formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.isName}/>
+            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
-            <DatePicker id={"birthdate"} label={{text :"Birthdate", class : "defaultSpacing"}} 
-            useFormState={[formState, setFormState]} inputStateValue={formState.birthdate?.value} 
+            <DatePicker id={"birthdate"} 
+            label={{text :"Birthdate", class : "defaultSpacing"}} 
+            useFormState={[formState, setFormState]} 
+            inputStateValue={formState.birthdate?.value} 
             valueAccessor="birthdate"/>
 
             <h2>2. Address</h2>
@@ -43,12 +45,12 @@ function CustomForm(){
             <FormInput input={{id : "street", type : "text"}} 
             label={{text : 'Street'}}
             formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.isAddress}/>
+            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <FormInput input={{id : "city", type : "text"}} 
             label={{text : 'City', CSSClass : 'defaultSpacing' }}
-            formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.isName}/>
+            formState={{get : () => formState, set : setFormState}}
+            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <CustomSelect id={"state"} label={{class:"defaultSpacing", text: "State"}} formState={formState} 
             onValueChange={(value : string) => setFormState((prevState) => {
@@ -60,11 +62,14 @@ function CustomForm(){
             <FormInput input={{id : "zipcode", type : "number"}} 
             label={{text : 'ZIP Code', CSSClass : 'defaultSpacing' }}
             formState={{get : () => formState, set : setFormState}} 
-            errorMessage="Invalid Value." onChangeValidator={Validator.isNumber}/>
+            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isNumber}}/>
 
             <h2>3. Professional</h2>
 
-            <DatePicker id={"start-date"} label={{text :"Integration Date"}} useFormState={[formState, setFormState]} inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
+            <DatePicker id={"start-date"} 
+            label={{text :"Integration Date"}} 
+            useFormState={[formState, setFormState]} 
+            inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
             <CustomSelect id={"department"} label={{class:"defaultSpacing", text: "Departement"}} formState={formState} 
             onValueChange={(value : string) => setFormState((prevState) => {
@@ -99,9 +104,9 @@ export interface IForm{
     error : boolean
   }
   
-  function formatInputValue(value : string){
+  /*function formatInputValue(value : string){
     return value.trim().toLowerCase()
-  }
+  }*/
   
   const statesList = [
     {"label":"Alabama","value":"AL"},
