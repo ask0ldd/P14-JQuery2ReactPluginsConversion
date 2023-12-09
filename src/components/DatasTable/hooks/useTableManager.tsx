@@ -37,7 +37,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         }
 
         // table datas filtering
-        if (action.type === 'search' && action.payload) {
+        if (action.type === 'search') {
             // 1- gets the processing arguments from the state
             // 2- updates those with the payload
             const processingDirectives = {...state.getProcessingArgs(), search : action.payload}
