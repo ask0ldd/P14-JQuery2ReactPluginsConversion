@@ -62,8 +62,8 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange, 
    
     return(
         <div className="selectContainer">
-            <label className={label?.class} htmlFor={id}>{label.text}</label>
-            <SelectContext.Provider value={{selectId, options, activeOption, isListboxExpanded, labelledBy, setActiveOption, setListboxAsExpanded: setListboxAsExpanded}}>
+            <label id={labelledBy} className={label?.class} htmlFor={id}>{label.text}</label>
+            <SelectContext.Provider value={{selectId, options, activeOption, isListboxExpanded, labelledBy, setActiveOption, setListboxAsExpanded}}>
                 <SelectComboBox/>
                 <OptionsList/>
             </SelectContext.Provider>

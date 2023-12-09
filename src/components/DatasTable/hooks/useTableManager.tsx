@@ -3,6 +3,7 @@
 import { useReducer } from "react"
 import { TableModel } from "../models/TableModel"
 import { TableDatasDao } from "../dao/TableDatasDao"
+import { ITableState } from "../interfaces/ITableState"
 // ****************************************
 //
 // Holds :
@@ -52,7 +53,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         // add a row
         if(action.type === 'addrow' && action.payload){
             const newRow = action.payload
-            
+
             // check if newrow keys and table accessors are matching
             const accessors = state.tableModel.getAccessorsList()
             const newRowPropertiesList = Object.getOwnPropertyNames(newRow)
@@ -92,15 +93,5 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
 }
 
 export default useTableManager
-
-export interface ITableState {
-    sorting : {column : string, direction : "asc" | "desc"}
-    pagination : {currentPage : number, nEntriesPerPage : number}
-    search : string
-    tableDatasDao : TableDatasDao
-    processedDatas : Array<any>
-    tableModel : TableModel
-    getProcessingArgs : () => { search : string, datatype : string, sorting : {column : string, direction : "asc" | "desc"} }
-}
 
 export type reducerDispatchType = React.Dispatch<{type: string, payload: any}>

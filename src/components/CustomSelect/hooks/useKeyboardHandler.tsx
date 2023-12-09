@@ -12,8 +12,6 @@ export function useKeyboardHandler(
     setActiveOption : (option : IOption) => void,
     setListboxAsExpanded : (bool : boolean) => void
 ){
-    // console.log(selectId)
-
     useEffect(() => {
   
         function keyboardListener(e : KeyboardEvent){
@@ -49,8 +47,8 @@ export function useKeyboardHandler(
                     setPlusTenOptionActive(e)
                 }
 
-                // typing a-z/0-9 => go to the first option starting with the type letter / TODO : implement cycling through the valid options
-                if(numbersNLetters.includes(e.key.toLowerCase())) {
+                // Pression a-z | 0-9 => valid options rotation
+                if(isCharacterFastSelectable(e.key)) {
                     if(!isListboxExpanded()) setListboxAsExpanded(true)
                     // extracts the options starting with the pressed letter
                     const optionsStartingWithPressedLetter = [...options].filter(option => option.value[0].toLowerCase() === e.key.toLowerCase() )
@@ -137,6 +135,8 @@ export function useKeyboardHandler(
         return isListboxExpandedRef.current === true
     }
 
-    const numbersNLetters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-
+    function isCharacterFastSelectable(key : string) : boolean{
+        const numbersNLettersList = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        return numbersNLettersList.includes(key.toLowerCase())
+    }
 }

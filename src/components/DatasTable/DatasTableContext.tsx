@@ -1,6 +1,7 @@
 import { createContext } from "react"
-import { ITableState, reducerDispatchType } from "./hooks/useTableManager"
+import { reducerDispatchType } from "./hooks/useTableManager"
 import { TableModel } from "./models/TableModel"
+import { ITableState } from "./interfaces/ITableState"
 
 const initialContext : IDatasTableContext = {}
 
@@ -11,14 +12,4 @@ export interface IDatasTableContext{
     tableModel? : TableModel
     dispatch? : reducerDispatchType
     tableState? : ITableState 
-}
-
-export interface IPaginationRules{
-    currentPage : number
-    nEntriesPerPage : number
-}
-
-export interface ISorting{
-    column : string
-    direction : 'asc' | 'desc'
 }

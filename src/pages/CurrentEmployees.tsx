@@ -26,12 +26,12 @@ function CurrentEmployees() {
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("State").setDatatypeAsString().setAccessor("state").setSortability(false).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Zip Code").setDatatypeAsNumber().setAccessor("zipCode").setSortability(true).build())
 
-  tableModel.setDatas([...usersDatas])
+  // tableModel.setDatas([...usersDatas])
 
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableModel={tableModel} tableDatas={tableModel.getDatas()}/> {/* should pass tableModel and implements quoted methods */}
+      <DatasTable tableModel={tableModel} tableDatas={/*tableModel.getDatas()*/ [...usersDatas]}/> {/* should pass tableModel and implements quoted methods */}
       <Link to={`/`}>Home</Link>
     </main>)
 }

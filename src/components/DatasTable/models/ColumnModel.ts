@@ -4,9 +4,9 @@ export class Column {
     #th : string | null
     #accessor : string | null
     #sortable : boolean
-    #datatype : string | null
+    #datatype : 'string' | 'number' | 'date' | null
   
-    constructor(th : string, accessor: string, sortable : boolean, datatype : string){
+    constructor(th : string, accessor: string, sortable : boolean, datatype : 'string' | 'number' | 'date'){
       this.#th = th
       this.#accessor = accessor
       this.#sortable = sortable

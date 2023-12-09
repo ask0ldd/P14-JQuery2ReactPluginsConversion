@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export class TableDatasDao{
+
     #datas : Array<any>
+    
     constructor(datas : Array<any>){
         this.#datas = datas
     }
