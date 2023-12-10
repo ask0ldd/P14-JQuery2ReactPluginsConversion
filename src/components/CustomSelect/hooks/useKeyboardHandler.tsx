@@ -5,7 +5,7 @@ import { IForm } from '../../CustomForm'
 
 export function useKeyboardHandler(
     selectId : string,
-    formState : IForm,
+    formState : {get : () => IForm},
     options : Array<IOption>, 
     activeOptionRef : MutableRefObject<IOption>, 
     isListboxExpandedRef : MutableRefObject<boolean>, 

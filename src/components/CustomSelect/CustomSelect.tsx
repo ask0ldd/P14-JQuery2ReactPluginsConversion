@@ -82,10 +82,9 @@ export default CustomSelect
 export const SelectContext = createContext<ISelectContext>({
     selectId : '',
     activeOption : {label:'', value:''},
-    options : [], 
-    // isListboxExpanded : false, 
+    options : [],  
     setActiveOption : () => false, 
-    // setListboxAsExpanded : () => false,
+    // activeOption : {get : () => ({label:'', value:''}), set : () => false},
     listbox : {isExpanded : false, setAsExpanded : () => false}
 })
 
@@ -95,10 +94,10 @@ export interface IOption{
 }
 
 interface IProps{
-    formState : IForm
+    formState : {get : () => IForm}
     options : Array<IOption>
     // onValueChange : (formState : IForm, value : string, datakey? : string) => void
-    onValueChange : (value : string, datakey? : string) => void
+    onValueChange : (value : string, accessor? : string) => void
     select : {id : string}
     label : ILabel
 }
@@ -112,11 +111,15 @@ interface ILabel{
 interface ISelectContext{
     selectId : string
     options : Array<IOption>
-    labelledBy? : string
+    // labelledBy? : string
     activeOption : IOption
-    // isListboxExpanded : boolean
     setActiveOption : (option : IOption) => void
-    // setListboxAsExpanded : (bool : boolean) => void
-    listbox : {isExpanded : boolean, setAsExpanded : (bool : boolean) => void}
-    // styleOverride? : object
+    /*activeOption : {
+        get : () => IOption
+        set : (option : IOption) => void
+    }*/
+    listbox : {
+        isExpanded : boolean, 
+        setAsExpanded : (bool : boolean) => void
+    }
 }

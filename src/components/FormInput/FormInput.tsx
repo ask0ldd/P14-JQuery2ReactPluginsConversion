@@ -3,6 +3,7 @@ import { IForm as IFormState } from "../CustomForm"
 function FormInput({input, label, formState, validation} : IProps){
 // should pass state &
     const labelId = label?.id ? label.id : input.id + '-label'
+    // const defaultValue = input.value != null ? input.value : formState[formState.fieldAccessor as keyof typeof formState || input.id as keyof typeof formState] as string
     return (
         <>
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClass && label?.CSSClass}>{label.text}</label>}
