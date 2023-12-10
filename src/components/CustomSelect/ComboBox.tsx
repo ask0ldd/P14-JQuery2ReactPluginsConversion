@@ -9,17 +9,17 @@ import './style/ComboBox.css'
  */
 function SelectComboBox(){
 
-    const { selectId, activeOption, isListboxExpanded, labelledBy, setListboxAsExpanded } = useContext(SelectContext)
+    const { selectId, activeOption, labelledBy, listbox/*isListboxExpanded, setListboxAsExpanded*/ } = useContext(SelectContext)
 
     return(
-        <span onBlur={() => {if(setListboxAsExpanded) setListboxAsExpanded(false)}} 
-        onMouseDown={() => {if(setListboxAsExpanded) setListboxAsExpanded(!isListboxExpanded)}} 
+        <span onBlur={() => {listbox.setAsExpanded(false)}} 
+        onMouseDown={() => {listbox.setAsExpanded(!listbox.isExpanded)}} 
         tabIndex={0} aria-controls="customListbox" id={selectId + "SelectLabel"} role="combobox" 
         aria-haspopup="listbox" aria-activedescendant={activeOption.value} aria-labelledby={labelledBy}
-        aria-expanded={isListboxExpanded} className={isListboxExpanded ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}
+        aria-expanded={listbox.isExpanded} className={listbox.isExpanded ? "customSelectLabel customSelectLabel-active" : "customSelectLabel"}
         >
             {activeOption?.label}
-            <img alt="dropdown arrow" className={isListboxExpanded ? "customSelectOpen" : "customSelectArrow"} src="./icons/select-arrow.svg"/>
+            <img alt="dropdown arrow" className={listbox.isExpanded ? "customSelectOpen" : "customSelectArrow"} src="./icons/select-arrow.svg"/>
         </span>
     )
 }

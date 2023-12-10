@@ -12,7 +12,7 @@ function ModalBaseHeader({setVisibility} : IProps){
     // !!!! tabindex button
     return (
         <div className='header-container'>
-            <button className='close-btn' onClick={() => setVisibility(false)} id="close" aria-label="close" tabIndex={1}>X</button>        
+            <button tabIndex={0} role="button" className='close-btn' onClick={() => setVisibility(false)} id="close" aria-label="close">X</button>        
         </div>
     )
 }

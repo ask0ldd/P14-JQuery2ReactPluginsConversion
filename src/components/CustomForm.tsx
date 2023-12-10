@@ -1,4 +1,4 @@
-import { /*useEffect,*/ useState } from "react"
+import { useEffect, useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
 import FormInput from "./FormInput/FormInput"
@@ -18,7 +18,7 @@ function CustomForm(){
         department: {value : "", error: false},
       })
     
-    // useEffect(() => console.log(formState), [formState])
+    useEffect(() => console.log(formState), [formState])
     
     return(
         <form className="mainform">
@@ -48,14 +48,15 @@ function CustomForm(){
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <FormInput input={{id : "city", type : "text"}} 
-            label={{text : 'City', CSSClass : 'defaultSpacing' }}
+            label={{text : 'City', CSSClass : 'defaultSpacing'}}
             formState={{get : () => formState, set : setFormState}}
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <CustomSelect select={{id:"state"}}
-            label={{text: "State", CSSClass:"defaultSpacing",}} 
-            formState={formState} onValueChange={(value : string) => setFormState((prevState) => {
-            return {...prevState, state : {...prevState?.state, value : value}}
+            label={{text : "State", CSSClass : "defaultSpacing"}} 
+            formState={formState} 
+            onValueChange={(value : string) => setFormState((prevState) => {
+              return {...prevState, state : {...prevState?.state, value : value}}
             })}
             options={statesList}
             />
@@ -68,14 +69,15 @@ function CustomForm(){
             <h2>3. Professional</h2>
 
             <DatePicker id={"start-date"} 
-            label={{text :"Integration Date"}} 
+            label={{text : "Integration Date"}} 
             useFormState={[formState, setFormState]} 
             inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
             <CustomSelect select={{id:"department"}} 
-            label={{text: "Departement", CSSClass:"defaultSpacing"}} formState={formState} 
+            label={{text: "Departement", CSSClass : "defaultSpacing"}} 
+            formState={formState} 
             onValueChange={(value : string) => setFormState((prevState) => {
-            return {...prevState, department : {...prevState?.department, value : value}}
+              return {...prevState, department : {...prevState?.department, value : value}}
             })}
             options={[
             {label:'Engineering', value:'Engineering'}, 

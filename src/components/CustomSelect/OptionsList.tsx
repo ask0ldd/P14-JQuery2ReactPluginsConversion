@@ -10,10 +10,10 @@ import Option from './Option'
  */
 function OptionsList(){
 
-    const { selectId, options, isListboxExpanded } = useContext(SelectContext)
+    const { selectId, options, listbox } = useContext(SelectContext)
 
     return(
-        isListboxExpanded ? 
+        listbox.isExpanded ? 
         <ul onClick={(e) => {e.preventDefault(); console.log('listbox');}} tabIndex={-1} id="customListbox" aria-labelledby="customSelectLabel" className="customSelectOptionsContainer" role="listbox">
             {options.map((option, index) => <Option key={selectId+'-option-'+index} index={index} option={option}/>)}
         </ul> 

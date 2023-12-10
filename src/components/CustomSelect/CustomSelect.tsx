@@ -65,7 +65,10 @@ function CustomSelect({formState, options, select, onValueChange, label, } : IPr
     return(
         <div className="selectContainer">
             <label id={labelId} className={label?.CSSClass} htmlFor={select.id}>{label.text}</label>
-            <SelectContext.Provider value={{selectId : select.id, options, activeOption, isListboxExpanded, setActiveOption, setListboxAsExpanded}}>
+            <SelectContext.Provider value={{
+                selectId : select.id, options, activeOption, setActiveOption, 
+                listbox : { isExpanded : isListboxExpanded, setAsExpanded : setListboxAsExpanded}
+            }}>
                 <SelectComboBox/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -80,9 +83,10 @@ export const SelectContext = createContext<ISelectContext>({
     selectId : '',
     activeOption : {label:'', value:''},
     options : [], 
-    isListboxExpanded : false, 
+    // isListboxExpanded : false, 
     setActiveOption : () => false, 
-    setListboxAsExpanded : () => false
+    // setListboxAsExpanded : () => false,
+    listbox : {isExpanded : false, setAsExpanded : () => false}
 })
 
 export interface IOption{
@@ -110,8 +114,9 @@ interface ISelectContext{
     options : Array<IOption>
     labelledBy? : string
     activeOption : IOption
-    isListboxExpanded : boolean
+    // isListboxExpanded : boolean
     setActiveOption : (option : IOption) => void
-    setListboxAsExpanded : (bool : boolean) => void
+    // setListboxAsExpanded : (bool : boolean) => void
+    listbox : {isExpanded : boolean, setAsExpanded : (bool : boolean) => void}
     // styleOverride? : object
 }
