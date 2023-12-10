@@ -67,7 +67,8 @@ function CustomSelect({formState, options, select, onValueChange, label, } : IPr
             <label id={labelId} className={label?.CSSClass} htmlFor={select.id}>{label.text}</label>
             <SelectContext.Provider value={{
                 selectId : select.id, options, activeOption, setActiveOption, 
-                listbox : { isExpanded : isListboxExpanded, setAsExpanded : setListboxAsExpanded}
+                listbox : { isExpanded : isListboxExpanded, setAsExpanded : setListboxAsExpanded},
+                label : label
             }}>
                 <SelectComboBox/>
                 <OptionsList/>
@@ -85,7 +86,8 @@ export const SelectContext = createContext<ISelectContext>({
     options : [],  
     setActiveOption : () => false, 
     // activeOption : {get : () => ({label:'', value:''}), set : () => false},
-    listbox : {isExpanded : false, setAsExpanded : () => false}
+    listbox : {isExpanded : false, setAsExpanded : () => false},
+    label : {text : ''}
 })
 
 export interface IOption{
@@ -122,4 +124,5 @@ interface ISelectContext{
         isExpanded : boolean, 
         setAsExpanded : (bool : boolean) => void
     }
+    label : ILabel
 }
