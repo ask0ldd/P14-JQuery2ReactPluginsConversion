@@ -31,7 +31,9 @@ si touche cliquee > option commencant par cette touche
  * @param {function} props.onValueChange - Function triggered when selecting a new option.
  * @return ( <CustomSelect formState={formState} options={options} selectId={selectId} labelledBy={labelledBy} onValueChange={onValueChange}/> )
  */
-function CustomSelect({formState, options, selectId, labelledBy, onValueChange, label, id /*styleOverride*/} : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({formState, options, select, onValueChange, label, } : IProps){ // should be able to pass the id of the element labelling the select
+    
+    const labelId = label?.id ? label.id : select.id + '-label'
 
     // updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
@@ -51,7 +53,7 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange, 
     }
 
     useKeyboardHandler(
-        selectId,
+        select.id,
         formState,
         [...options], 
         activeOptionRef, 
@@ -62,8 +64,8 @@ function CustomSelect({formState, options, selectId, labelledBy, onValueChange, 
    
     return(
         <div className="selectContainer">
-            <label id={labelledBy} className={label?.class} htmlFor={id}>{label.text}</label>
-            <SelectContext.Provider value={{selectId, options, activeOption, isListboxExpanded, labelledBy, setActiveOption, setListboxAsExpanded}}>
+            <label id={labelId} className={label?.CSSClass} htmlFor={select.id}>{label.text}</label>
+            <SelectContext.Provider value={{selectId : select.id, options, activeOption, isListboxExpanded, setActiveOption, setListboxAsExpanded}}>
                 <SelectComboBox/>
                 <OptionsList/>
             </SelectContext.Provider>
@@ -91,19 +93,16 @@ export interface IOption{
 interface IProps{
     formState : IForm
     options : Array<IOption>
-    selectId : string
-    labelledBy : string
     // onValueChange : (formState : IForm, value : string, datakey? : string) => void
     onValueChange : (value : string, datakey? : string) => void
-    // onValueChange : (formState : IForm) => void
-    // styleOverride? : object
-    id : string
+    select : {id : string}
     label : ILabel
 }
 
 interface ILabel{
+    id? : string
     text : string
-    class? : string
+    CSSClass? : string // !!!!!!!! should be an array
 }
 
 interface ISelectContext{

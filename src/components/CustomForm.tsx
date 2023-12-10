@@ -52,11 +52,12 @@ function CustomForm(){
             formState={{get : () => formState, set : setFormState}}
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
-            <CustomSelect id={"state"} label={{class:"defaultSpacing", text: "State"}} formState={formState} 
-            onValueChange={(value : string) => setFormState((prevState) => {
+            <CustomSelect select={{id:"state"}}
+            label={{text: "State", CSSClass:"defaultSpacing",}} 
+            formState={formState} onValueChange={(value : string) => setFormState((prevState) => {
             return {...prevState, state : {...prevState?.state, value : value}}
             })}
-            labelledBy="state-label" options={statesList} selectId='state'
+            options={statesList}
             />
 
             <FormInput input={{id : "zipcode", type : "number"}} 
@@ -71,11 +72,12 @@ function CustomForm(){
             useFormState={[formState, setFormState]} 
             inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
-            <CustomSelect id={"department"} label={{class:"defaultSpacing", text: "Departement"}} formState={formState} 
+            <CustomSelect select={{id:"department"}} 
+            label={{text: "Departement", CSSClass:"defaultSpacing"}} formState={formState} 
             onValueChange={(value : string) => setFormState((prevState) => {
             return {...prevState, department : {...prevState?.department, value : value}}
             })}
-            labelledBy="department-label" options={[
+            options={[
             {label:'Engineering', value:'Engineering'}, 
             {label:'Human Ressources', value:'Human Ressources'}, 
             {label:'Marketing', value:'Marketing'}, 
@@ -84,7 +86,7 @@ function CustomForm(){
             {label:'Sales1', value:'Sales1'},
             {label:'Sales2', value:'Sales2'},
             {label:'Sales3', value:'Sales3'},
-            ]} selectId='department'
+            ]}
             />
 
             <input type="submit" value="Add this Employee"/>
