@@ -15,17 +15,17 @@ import { IOption } from './CustomSelect'
  */
 function Option({index, option} : IProps){
 
-    const { options, activeOption, setActiveOption, listbox } = useContext(SelectContext)
+    const { options, activeOption, listbox } = useContext(SelectContext)
 
     function isOptionActive(option : IOption)
     {
-        return activeOption?.value === option?.value
+        return activeOption.get().value === option?.value
     }
 
     return (
         <li role="option" id={option.value} data-value={option.value} aria-selected={isOptionActive(options[index])} 
         style={isOptionActive(options[index]) ? {background:'#dfdfdf'} : {}} 
-        onMouseDown={() => {setActiveOption(options[index]); listbox.setAsExpanded(false);}} value={option.value}>{option.label}</li>
+        onMouseDown={() => {activeOption.set(options[index]); listbox.setAsExpanded(false);}} value={option.value}>{option.label}</li>
     )
 }
 

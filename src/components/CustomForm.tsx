@@ -12,10 +12,10 @@ function CustomForm(){
         birthdate: {value : "", error: false},
         street: {value : "", error: false},
         city: {value : "", error: false},
-        state: {value : "", error: false},
+        state: {value : statesList[0].value, error: false},
         zipcode: {value : "", error: false},
         startdate: {value : "", error: false},
-        department: {value : "", error: false},
+        department: {value : departmentsList[0].value, error: false},
       })
     
     useEffect(() => console.log(formState), [formState])
@@ -58,7 +58,7 @@ function CustomForm(){
             onValueChange={(value : string) => setFormState((prevState) => {
               return {...prevState, state : {...prevState?.state, value : value}}
             })}
-            options={statesList}
+            options={statesList} // !!! add default : options={list : statesList, default : {label : 'defaultlabel' , value : 'defautvalue' }
             />
 
             <FormInput input={{id : "zipcode", type : "number"}} 
@@ -79,16 +79,7 @@ function CustomForm(){
             onValueChange={(value : string) => setFormState((prevState) => {
               return {...prevState, department : {...prevState?.department, value : value}}
             })}
-            options={[
-            {label:'Engineering', value:'Engineering'}, 
-            {label:'Human Ressources', value:'Human Ressources'}, 
-            {label:'Marketing', value:'Marketing'}, 
-            {label:'Legal', value:'Legal'}, 
-            {label:'Sales', value:'Sales'},
-            {label:'Sales1', value:'Sales1'},
-            {label:'Sales2', value:'Sales2'},
-            {label:'Sales3', value:'Sales3'},
-            ]}
+            options={departmentsList}
             />
 
             <input type="submit" value="Add this Employee"/>
@@ -107,10 +98,17 @@ export interface IForm{
     value : string
     error : boolean
   }
-  
-  /*function formatInputValue(value : string){
-    return value.trim().toLowerCase()
-  }*/
+
+  const departmentsList = [
+    {label:'Engineering', value:'Engineering'}, 
+    {label:'Human Ressources', value:'Human Ressources'}, 
+    {label:'Marketing', value:'Marketing'}, 
+    {label:'Legal', value:'Legal'}, 
+    {label:'Sales', value:'Sales'},
+    {label:'Sales1', value:'Sales1'},
+    {label:'Sales2', value:'Sales2'},
+    {label:'Sales3', value:'Sales3'},
+    ]
   
   const statesList = [
     {"label":"Alabama","value":"AL"},

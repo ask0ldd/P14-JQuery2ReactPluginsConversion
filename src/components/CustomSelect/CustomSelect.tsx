@@ -13,12 +13,13 @@ deal with error if options values are not unique
 style override
 override arrow color
 scrollbar if too many options / max height listbox
+styling option list
 */
 
 /* selectId added at the head of each react key of the component / subcomponents to ensure their unicity */
 
 /**
- * Component : Option populating the option list of a custom select.
+ * Component : A dropdown menu mimicking the HTML select component, with visual customization options.
  * @Component
  * @param {Object} props - Props.
  * @param {number} props.formState - Current values of the form elements.
@@ -65,7 +66,7 @@ function CustomSelect({formState, options, select, onValueChange, label, } : IPr
         <div className="selectContainer">
             <label id={labelId} className={label?.CSSClasses?.join(' ')} htmlFor={select.id}>{label.text}</label>
             <SelectContext.Provider value={{
-                selectId : select.id, options, activeOption, setActiveOption, 
+                selectId : select.id, options, activeOption : {get :  () => activeOption, set : setActiveOption}, 
                 listbox : { isExpanded : isListboxExpanded, setAsExpanded : setListboxAsExpanded},
                 label : label
             }}>
@@ -81,10 +82,10 @@ export default CustomSelect
 
 export const SelectContext = createContext<ISelectContext>({
     selectId : '',
-    activeOption : {label:'', value:''},
+    // activeOption : {label:'', value:''},
     options : [],  
-    setActiveOption : () => false, 
-    // activeOption : {get : () => ({label:'', value:''}), set : () => false},
+    // setActiveOption : () => false, 
+    activeOption : {get : () => ({label:'', value:''}), set : () => false},
     listbox : {isExpanded : false, setAsExpanded : () => false},
     label : {text : ''}
 })
@@ -106,19 +107,18 @@ interface IProps{
 interface ILabel{
     id? : string
     text : string
-    CSSClasses? : string[] // !!!!!!!! should be an array
+    CSSClasses? : string[]
 }
 
 interface ISelectContext{
     selectId : string
     options : Array<IOption>
-    // labelledBy? : string
-    activeOption : IOption
-    setActiveOption : (option : IOption) => void
-    /*activeOption : {
+    // activeOption : IOption
+    // setActiveOption : (option : IOption) => void
+    activeOption : {
         get : () => IOption
         set : (option : IOption) => void
-    }*/
+    }
     listbox : {
         isExpanded : boolean, 
         setAsExpanded : (bool : boolean) => void
