@@ -30,7 +30,7 @@ function CustomForm(){
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <FormInput input={{id : "lastname", type : "text"}}
-            label={{text : 'Last Name', CSSClass : 'defaultSpacing'}}
+            label={{text : 'Last Name', CSSClasses : ['defaultSpacing']}}
             formState={{get : () => formState, set : setFormState}} 
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
@@ -48,12 +48,12 @@ function CustomForm(){
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <FormInput input={{id : "city", type : "text"}} 
-            label={{text : 'City', CSSClass : 'defaultSpacing'}}
+            label={{text : 'City', CSSClasses : ['defaultSpacing']}}
             formState={{get : () => formState, set : setFormState}}
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <CustomSelect select={{id:"state"}}
-            label={{text : "State", CSSClass : "defaultSpacing"}} 
+            label={{text : "State", CSSClasses : ["defaultSpacing"]}} 
             formState={{get : () => formState}} 
             onValueChange={(value : string) => setFormState((prevState) => {
               return {...prevState, state : {...prevState?.state, value : value}}
@@ -62,7 +62,7 @@ function CustomForm(){
             />
 
             <FormInput input={{id : "zipcode", type : "number"}} 
-            label={{text : 'ZIP Code', CSSClass : 'defaultSpacing' }}
+            label={{text : 'ZIP Code', CSSClasses : ['defaultSpacing']}}
             formState={{get : () => formState, set : setFormState}} 
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isNumber}}/>
 
@@ -74,7 +74,7 @@ function CustomForm(){
             inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
 
             <CustomSelect select={{id:"department"}} 
-            label={{text: "Departement", CSSClass : "defaultSpacing"}} 
+            label={{text: "Departement", CSSClasses : ["defaultSpacing"]}} 
             formState={{get : () => formState}} 
             onValueChange={(value : string) => setFormState((prevState) => {
               return {...prevState, department : {...prevState?.department, value : value}}

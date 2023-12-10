@@ -13,7 +13,6 @@ deal with error if options values are not unique
 style override
 override arrow color
 scrollbar if too many options / max height listbox
-si touche cliquee > option commencant par cette touche
 */
 
 /* selectId added at the head of each react key of the component / subcomponents to ensure their unicity */
@@ -64,7 +63,7 @@ function CustomSelect({formState, options, select, onValueChange, label, } : IPr
    
     return(
         <div className="selectContainer">
-            <label id={labelId} className={label?.CSSClass} htmlFor={select.id}>{label.text}</label>
+            <label id={labelId} className={label?.CSSClasses?.join(' ')} htmlFor={select.id}>{label.text}</label>
             <SelectContext.Provider value={{
                 selectId : select.id, options, activeOption, setActiveOption, 
                 listbox : { isExpanded : isListboxExpanded, setAsExpanded : setListboxAsExpanded},
@@ -107,7 +106,7 @@ interface IProps{
 interface ILabel{
     id? : string
     text : string
-    CSSClass? : string // !!!!!!!! should be an array
+    CSSClasses? : string[] // !!!!!!!! should be an array
 }
 
 interface ISelectContext{

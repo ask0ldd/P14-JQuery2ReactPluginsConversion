@@ -6,8 +6,8 @@ function FormInput({input, label, formState, validation} : IProps){
     // const defaultValue = input.value != null ? input.value : formState[formState.fieldAccessor as keyof typeof formState || input.id as keyof typeof formState] as string
     return (
         <>
-            {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClass && label?.CSSClass}>{label.text}</label>}
-            <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClass} value={input?.value}
+            {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
+            <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={input?.value}
             onChange={(e) => formState.set((prevState) => {
                 return {...prevState, 
                     [formState.fieldAccessor || input.id] : { value : formatInputValue(e.target.value), error : !validation.validationFn(e.target.value) }}
@@ -38,7 +38,7 @@ interface IProps{
 interface ILabel{
     id? : string
     text : string
-    CSSClass? : string // !!!!!!!! should be an array
+    CSSClasses? : string[] // !!!!!!!! should be an array
 }
 
 interface IInput{
@@ -46,7 +46,7 @@ interface IInput{
     type : "text" | "email" | "password" | "number" | "search" | "tel" | "url"
     placeholder? : string
     value? : string
-    CSSClass? : string // !!!!!!!! should be an array
+    CSSClasses? : string[] // !!!!!!!! should be an array
 }
 
 function formatInputValue(value : string){
