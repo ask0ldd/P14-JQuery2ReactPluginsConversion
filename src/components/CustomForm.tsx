@@ -4,19 +4,23 @@ import DatePicker from "./DatePicker/DatePicker"
 import FormInput from "./FormInput/FormInput"
 import Validator from "../services/validators"
 import '../Form.css'
+import { FormStateBuilder } from "./FormStateBuilder"
 
 function CustomForm(){
-    const [formState, setFormState]= useState<IForm>({ // convert to array
-        firstname: {value : "", error: false},
-        lastname: {value : "", error: false},
-        birthdate: {value : "", error: false},
-        street: {value : "", error: false},
-        city: {value : "", error: false},
-        state: {value : statesList[0].value, error: false},
-        zipcode: {value : "", error: false},
-        startdate: {value : "", error: false},
-        department: {value : departmentsList[0].value, error: false},
-      })
+
+    const initialFormState = new FormStateBuilder()
+    .addFormFieldBlock({accessor : "firstname", defaultValue : ''})
+    .addFormFieldBlock({accessor : "lastname", defaultValue : ''})
+    .addFormFieldBlock({accessor : "birthdate", defaultValue : ''})
+    .addFormFieldBlock({accessor : "street", defaultValue : ''})
+    .addFormFieldBlock({accessor : "city", defaultValue : ''})
+    .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value})
+    .addFormFieldBlock({accessor : "zipcode", defaultValue : ''})
+    .addFormFieldBlock({accessor : "startdate", defaultValue : ''})
+    .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value})
+    .buildState()
+
+    const [formState, setFormState]= useState<IForm>(initialFormState)
     
     useEffect(() => console.log(formState), [formState])
     
@@ -167,3 +171,15 @@ export interface IForm{
     return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
     })}/>
   */
+
+    /*{
+        firstname: {value : "", error: false},
+        lastname: {value : "", error: false},
+        birthdate: {value : "", error: false},
+        street: {value : "", error: false},
+        city: {value : "", error: false},
+        state: {value : statesList[0].value, error: false},
+        zipcode: {value : "", error: false},
+        startdate: {value : "", error: false},
+        department: {value : departmentsList[0].value, error: false},
+      }*/

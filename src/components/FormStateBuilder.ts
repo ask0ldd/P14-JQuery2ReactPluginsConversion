@@ -7,8 +7,8 @@ export class FormStateBuilder {
         return this
     }
 
-    addFormFieldBlock(accessor : string, defaultValue? : string){
-        this.#state = {...this.#state, [accessor] : {value : defaultValue || '', error : false}}
+    addFormFieldBlock(blockArgs : {accessor : string, defaultValue? : string}){
+        this.#state = {...this.#state, [blockArgs.accessor] : {value : blockArgs.defaultValue || '', error : false}}
         return this
     }
 
