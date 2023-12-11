@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react"
 import { IForm as IFormState } from "../CustomForm"
 
 function FormInput({input, label, formState, validation} : IProps){
@@ -27,7 +28,7 @@ interface IProps{
     label : ILabel
     formState : { 
         get() : IFormState, 
-        set : React.Dispatch<React.SetStateAction<IFormState>>, 
+        set : Dispatch<SetStateAction<IFormState>>, 
         fieldAccessor? : string
     }
     validation : {

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IForm } from '../CustomForm'
 import './style/DatePicker.css'
 import { Dispatch, SetStateAction, ChangeEvent } from "react"
 
@@ -8,16 +7,17 @@ import { Dispatch, SetStateAction, ChangeEvent } from "react"
  * @Component
  * @return ( <DatePicker/> )
  */
-function DatePicker({useFormState, inputStateValue, valueAccessor, id, label} : IProps){
+function DatePicker({formState, id, label} : IProps){
 
-    const [, setFormState] = useFormState
+    // const [, setFormState] = useFormState
+    const stateAccessor = formState.fieldAccessor || id
 
     return(
         <>
-            <label className={label?.class} htmlFor={id}>{label.text}</label>
-            <input type="date" id={id} value={inputStateValue} onChange={(e : ChangeEvent<HTMLInputElement>) => {
-                setFormState((prevState : IForm) => {
-                    return {...prevState, [valueAccessor] : {...prevState[valueAccessor], value: e.target.value.toLowerCase().trim()}}
+            <label className={label?.CSSClasses?.join(' ')} htmlFor={id}>{label.text}</label>
+            <input type="date" id={id} value={formState.get()[stateAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
+                formState.set((prevState : IForm) => {
+                    return {...prevState, [stateAccessor] : {value: e.target.value.toLowerCase().trim(), error : prevState[stateAccessor].error}}
                 })
             }}/>
         </>
@@ -27,14 +27,27 @@ function DatePicker({useFormState, inputStateValue, valueAccessor, id, label} : 
 export default DatePicker
 
 interface IProps{
-    useFormState : [ IForm, Dispatch<SetStateAction<IForm>> ]
-    inputStateValue : string | number | readonly string[] | undefined
-    valueAccessor : string
+    formState : { 
+        get : () => IForm, 
+        set : Dispatch<SetStateAction<IForm>>, 
+        fieldAccessor? : string
+    }
+    // inputStateValue : string | number | readonly string[] | undefined
     id : string
     label : ILabel
 }
 
 interface ILabel{
+    id? : string
     text : string
-    class? : string
+    CSSClasses? : string[]
+}
+
+export interface IForm{
+    [key: string]: IFormInput
+  }
+  
+interface IFormInput{
+    value : string
+    error : boolean
 }

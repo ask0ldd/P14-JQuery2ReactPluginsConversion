@@ -35,10 +35,8 @@ function CustomForm(){
             validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
 
             <DatePicker id={"birthdate"} 
-            label={{text :"Birthdate", class : "defaultSpacing"}} 
-            useFormState={[formState, setFormState]} 
-            inputStateValue={formState.birthdate?.value} 
-            valueAccessor="birthdate"/>
+            label={{text :"Birthdate", CSSClasses : ["defaultSpacing"]}} 
+            formState={{get : () => formState, set : setFormState, fieldAccessor : "birthdate"}}/>
 
             <h2>2. Address</h2>
 
@@ -70,8 +68,7 @@ function CustomForm(){
 
             <DatePicker id={"start-date"} 
             label={{text : "Integration Date"}} 
-            useFormState={[formState, setFormState]} 
-            inputStateValue={formState.startdate?.value} valueAccessor="startdate"/>
+            formState={{get : () => formState, set : setFormState, fieldAccessor : "startdate"}}/>
 
             <CustomSelect select={{id:"department"}} 
             label={{text: "Departement", CSSClasses : ["defaultSpacing"]}} 
