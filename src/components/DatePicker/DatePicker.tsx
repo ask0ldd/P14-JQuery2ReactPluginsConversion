@@ -32,7 +32,6 @@ interface IProps{
         set : Dispatch<SetStateAction<IForm>>, 
         fieldAccessor? : string
     }
-    // inputStateValue : string | number | readonly string[] | undefined
     id : string
     label : ILabel
 }
