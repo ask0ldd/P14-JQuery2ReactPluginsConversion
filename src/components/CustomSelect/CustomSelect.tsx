@@ -98,7 +98,7 @@ export interface IOption{
 interface IProps{
     formState : {
         get : () => IForm
-        set? : Dispatch<SetStateAction<IFormState>>, 
+        set : Dispatch<SetStateAction<IFormState>>, 
         fieldAccessor? : string
     }
     options : Array<IOption>

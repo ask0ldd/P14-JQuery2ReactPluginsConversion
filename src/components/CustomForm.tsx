@@ -56,7 +56,7 @@ function CustomForm(){
 
             <CustomSelect select={{id:"state"}}
             label={{text : "State", CSSClasses : ["defaultSpacing"]}} 
-            formState={{get : () => formState}} 
+            formState={{get : () => formState, set : setFormState, fieldAccessor : 'state'}} 
             onValueChange={(value : string) => setFormState((prevState) => {
               return {...prevState, state : {...prevState?.state, value : value}}
             })}
@@ -76,7 +76,7 @@ function CustomForm(){
 
             <CustomSelect select={{id:"department"}} 
             label={{text: "Departement", CSSClasses : ["defaultSpacing"]}} 
-            formState={{get : () => formState}} 
+            formState={{get : () => formState, set : setFormState, fieldAccessor : 'department'}} 
             onValueChange={(value : string) => setFormState((prevState) => {
               return {...prevState, department : {...prevState?.department, value : value}}
             })}
