@@ -26,12 +26,12 @@ interface IProps{
     input : IInput
     label : ILabel
     formState : { 
-        get() : IFormState, 
-        set : Dispatch<SetStateAction<IFormState>>, 
+        get() : IFormState
+        set : Dispatch<SetStateAction<IFormState>>
         fieldAccessor? : string
     }
     validation : {
-        validationFn : (inputvalue : string) => boolean, 
+        validationFn : (inputvalue : string) => boolean
         errorMessage : string // !!!! errorMessage : {message : string, CSSClasses : string[]}
     }
 }

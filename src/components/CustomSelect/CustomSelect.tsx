@@ -4,7 +4,6 @@ import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
 import {createContext, useState, useRef, Dispatch, SetStateAction} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
-import { IForm } from '../CustomForm'
 
 /* !!!
 add a way to define the default Option or a non option default value
@@ -31,7 +30,7 @@ styling option list
  * @param {function} props.onValueChange - Function triggered when selecting a new option.
  * @return ( <CustomSelect formState={formState} options={options} selectId={selectId} labelledBy={labelledBy} onValueChange={onValueChange}/> )
  */
-function CustomSelect({formState, options, select, onValueChange, label, } : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({formState, options, select, label } : IProps){ // should be able to pass the id of the element labelling the select
     
     const labelId = label?.id ? label.id : select.id + '-label'
 
@@ -42,7 +41,7 @@ function CustomSelect({formState, options, select, onValueChange, label, } : IPr
     function setActiveOption(option : IOption){
         _setActiveOption({...option})
         activeOptionRef.current = {...option}
-        onValueChange(option.value)
+        formState.set((prevState) => ({...prevState, [formState.fieldAccessor] : { value : option.value, error : false }}))
     }
 
     const [isListboxExpanded, _setListboxAsExpanded] = useState<boolean>(false)
@@ -97,13 +96,12 @@ export interface IOption{
 
 interface IProps{
     formState : {
-        get : () => IForm
-        set : Dispatch<SetStateAction<IFormState>>, 
-        fieldAccessor? : string
+        get : () => IFormState
+        set : Dispatch<SetStateAction<IFormState>>
+        fieldAccessor : string
     }
     options : Array<IOption>
-    // onValueChange : (formState : IForm, value : string, datakey? : string) => void
-    onValueChange : (value : string, accessor? : string) => void
+    // onValueChange : (value : string, accessor? : string) => void
     select : {id : string}
     label : ILabel
 }
