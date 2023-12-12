@@ -87,7 +87,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
 
     // !!! should deal with a table having no search module, give the option passing a prop to datastable
 
-    const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState/*, datas : tableDatas*/})
+    const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState})
 
     return {tableState, dispatch}
 }

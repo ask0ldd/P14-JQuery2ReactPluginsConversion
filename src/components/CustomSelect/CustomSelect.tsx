@@ -2,7 +2,7 @@
 import './style/CustomSelect.css'
 import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
-import {createContext, useState, useRef} from 'react'
+import {createContext, useState, useRef, Dispatch, SetStateAction} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 import { IForm } from '../CustomForm'
 
@@ -96,7 +96,11 @@ export interface IOption{
 }
 
 interface IProps{
-    formState : {get : () => IForm}
+    formState : {
+        get : () => IForm
+        set? : Dispatch<SetStateAction<IFormState>>, 
+        fieldAccessor? : string
+    }
     options : Array<IOption>
     // onValueChange : (formState : IForm, value : string, datakey? : string) => void
     onValueChange : (value : string, accessor? : string) => void

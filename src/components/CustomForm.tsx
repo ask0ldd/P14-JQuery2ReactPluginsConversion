@@ -164,14 +164,6 @@ export interface IForm{
     {"label":"Wyoming","value":"WY"}
   ]
 
-  /*
-    <label htmlFor="zipcode" className='defaultSpacing'>ZIP Code</label>
-    <input id="zipcode" type="number" value={formState.zipcode?.value} 
-    onChange={(e) => setFormState((prevState) => {
-    return {...prevState, zipcode : {...prevState.zipcode, value : formatInputValue(e.target.value)}}
-    })}/>
-  */
-
     /*{
         firstname: {value : "", error: false},
         lastname: {value : "", error: false},

@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from "react"
-import { IForm as IFormState } from "../CustomForm"
 
 function FormInput({input, label, formState, validation} : IProps){
 // should pass state &
@@ -49,6 +48,15 @@ interface IInput{
     placeholder? : string
     value? : string
     CSSClasses? : string[]
+}
+
+export interface IFormState{
+    [key: string]: IFormInput
+  }
+  
+interface IFormInput{
+    value : string
+    error : boolean
 }
 
 function formatInputValue(value : string){
