@@ -129,3 +129,12 @@ interface ISelectContext{
     }
     label : ILabel
 }
+
+export interface IFormState{
+    [key: string]: IFormInput
+  }
+  
+interface IFormInput{
+    value : string
+    error : boolean
+}
