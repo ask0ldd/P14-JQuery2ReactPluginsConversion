@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
-import FormInput from "./FormInput/FormInput"
+import FormInput, { IFormState } from "./FormInput/FormInput"
 import Validator from "../services/validators"
 import '../Form.css'
 import { FormStateBuilder } from "./FormStateBuilder"
@@ -10,18 +10,18 @@ import { FormStateBuilder } from "./FormStateBuilder"
 function CustomForm(){
 
     const initialFormState = new FormStateBuilder()
-    .addFormFieldBlock({accessor : "firstname", defaultValue : ''})
-    .addFormFieldBlock({accessor : "lastname", defaultValue : ''})
-    .addFormFieldBlock({accessor : "birthdate", defaultValue : ''})
-    .addFormFieldBlock({accessor : "street", defaultValue : ''})
-    .addFormFieldBlock({accessor : "city", defaultValue : ''})
+    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName})
+    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName})
+    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDate})
+    .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName})
+    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName})
     .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value})
-    .addFormFieldBlock({accessor : "zipcode", defaultValue : ''})
-    .addFormFieldBlock({accessor : "startdate", defaultValue : ''})
+    .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber})
+    .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate})
     .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value})
     .buildState()
 
-    const [formState, setFormState]= useState<IForm>(initialFormState)
+    const [formState, setFormState]= useState<IFormState>(initialFormState)
     
     useEffect(() => console.log(formState), [formState])
 
@@ -31,6 +31,7 @@ function CustomForm(){
       for (const [_, value] of Object.entries(formState)) {
         isError += +value.error
       }
+      console.log(Boolean(isError))
       return Boolean(isError);
     }
     
@@ -41,12 +42,12 @@ function CustomForm(){
             <FormInput input={{id : 'firstname', type : "text"}}
             label={{text : 'First Name'}}
             formState={{get : () => formState, set : setFormState}} // input id used as accessor if fieldValueAccessor not defined.
-            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
+            errorMessage = "Invalid Value."/>
 
             <FormInput input={{id : "lastname", type : "text"}}
             label={{text : 'Last Name', CSSClasses : ['defaultSpacing']}}
             formState={{get : () => formState, set : setFormState}} 
-            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
+            errorMessage = "Invalid Value."/>
 
             <DatePicker id={"birthdate"} 
             label={{text :"Birthdate", CSSClasses : ["defaultSpacing"]}} 
@@ -57,12 +58,12 @@ function CustomForm(){
             <FormInput input={{id : "street", type : "text"}} 
             label={{text : 'Street'}}
             formState={{get : () => formState, set : setFormState}} 
-            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
+            errorMessage = "Invalid Value."/>
 
             <FormInput input={{id : "city", type : "text"}} 
             label={{text : 'City', CSSClasses : ['defaultSpacing']}}
             formState={{get : () => formState, set : setFormState}}
-            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isName}}/>
+            errorMessage = "Invalid Value."/>
 
             <CustomSelect select={{id:"state"}}
             label={{text : "State", CSSClasses : ["defaultSpacing"]}} 
@@ -73,7 +74,7 @@ function CustomForm(){
             <FormInput input={{id : "zipcode", type : "number"}} 
             label={{text : 'ZIP Code', CSSClasses : ['defaultSpacing']}}
             formState={{get : () => formState, set : setFormState}} 
-            validation={{errorMessage : "Invalid Value.", validationFn : Validator.isNumber}}/>
+            errorMessage = "Invalid Value."/>
 
             <h2>3. Professional</h2>
 
@@ -94,15 +95,6 @@ function CustomForm(){
 }
 
 export default CustomForm
-
-export interface IForm{
-    [key: string]: IFormInput
-  }
-  
-  interface IFormInput{
-    value : string
-    error : boolean
-  }
 
   const departmentsList = [
     {label:'Engineering', value:'Engineering'}, 

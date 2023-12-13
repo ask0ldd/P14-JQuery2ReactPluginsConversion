@@ -41,7 +41,11 @@ function CustomSelect({formState, options, select, label } : IProps){ // should 
     function setActiveOption(option : IOption){
         _setActiveOption({...option})
         activeOptionRef.current = {...option}
-        formState.set((prevState) => ({...prevState, [formState.fieldAccessor] : { value : option.value, error : false }}))
+        formState.set((prevState) => ({...prevState, [formState.fieldAccessor] : { 
+            value : option.value, 
+            error : false,
+            validationFn : prevState[formState.fieldAccessor].validationFn
+        }}))
     }
 
     const [isListboxExpanded, _setListboxAsExpanded] = useState<boolean>(false)
@@ -135,4 +139,5 @@ export interface IFormState{
 interface IFormInput{
     value : string
     error : boolean
+    validationFn : (value: string) => boolean
 }

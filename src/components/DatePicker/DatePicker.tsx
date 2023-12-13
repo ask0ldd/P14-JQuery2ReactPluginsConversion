@@ -17,7 +17,11 @@ function DatePicker({formState, id, label} : IProps){
             <label className={label?.CSSClasses?.join(' ')} htmlFor={id}>{label.text}</label>
             <input type="date" id={id} value={formState.get()[stateAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
                 formState.set((prevState : IForm) => {
-                    return {...prevState, [stateAccessor] : {value: e.target.value.toLowerCase().trim(), error : prevState[stateAccessor].error}}
+                    return {...prevState, [stateAccessor] : {
+                        value: e.target.value.toLowerCase().trim(), 
+                        error : prevState[stateAccessor].error,
+                        validationFn : prevState[stateAccessor].validationFn
+                    }}
                 })
             }}/>
         </>
@@ -49,4 +53,5 @@ export interface IForm{
 interface IFormInput{
     value : string
     error : boolean
+    validationFn : (value: string) => boolean
 }

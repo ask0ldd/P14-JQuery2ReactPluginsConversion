@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 
-function FormInput({input, label, formState, validation} : IProps){
+function FormInput({input, label, formState, errorMessage} : IProps){
 // should pass state &
     const labelId = label?.id ? label.id : input.id + '-label'
     // const defaultValue = input.value != null ? input.value : formState[formState.fieldAccessor as keyof typeof formState || input.id as keyof typeof formState] as string
@@ -11,12 +11,16 @@ function FormInput({input, label, formState, validation} : IProps){
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
             <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={input?.value}
             onChange={(e) => formState.set((prevState) => updateTargetFieldState(formState.fieldAccessor || input.id, prevState, e.target.value))}/>
-            {(formState.get()[input.id]?.error && validation.errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{validation.errorMessage}</p>}
+            {(formState.get()[input.id]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
         </>
     )
 
     function updateTargetFieldState(fieldAccessor : string, formState : IFormState, value : string){
-        return {...formState, [fieldAccessor] : { value : formatInputValue(value), error : !validation.validationFn(value) }}
+        return {...formState, [fieldAccessor] : {
+            value : formatInputValue(value), 
+            error : !formState[fieldAccessor].validationFn(value),
+            validationFn : formState[fieldAccessor].validationFn
+        }}
     }
 }
 
@@ -30,10 +34,11 @@ interface IProps{
         set : Dispatch<SetStateAction<IFormState>>
         fieldAccessor? : string
     }
-    validation : {
+    /*validation : {
         validationFn : (inputvalue : string) => boolean
         errorMessage : string // !!!! errorMessage : {message : string, CSSClasses : string[]}
-    }
+    }*/
+    errorMessage : string
 }
 
 interface ILabel{
@@ -54,9 +59,10 @@ export interface IFormState{
     [key: string]: IFormInput
   }
   
-interface IFormInput{
+export interface IFormInput{
     value : string
     error : boolean
+    validationFn : (value: string) => boolean
 }
 
 function formatInputValue(value : string){
