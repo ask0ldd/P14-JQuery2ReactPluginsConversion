@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
@@ -23,6 +24,15 @@ function CustomForm(){
     const [formState, setFormState]= useState<IForm>(initialFormState)
     
     useEffect(() => console.log(formState), [formState])
+
+    function formValidation (e : React.MouseEvent<HTMLInputElement>){
+      e.preventDefault()
+      let isError = 0
+      for (const [_, value] of Object.entries(formState)) {
+        isError += +value.error
+      }
+      return Boolean(isError);
+    }
     
     return(
         <form className="mainform">
@@ -77,7 +87,7 @@ function CustomForm(){
             options={departmentsList}
             />
 
-            <input type="submit" value="Add this Employee"/>
+            <input type="submit" value="Add this Employee" onClick={formValidation}/>
             
         </form>
     )
@@ -157,15 +167,3 @@ export interface IForm{
     {"label":"Wisconsin","value":"WI"},
     {"label":"Wyoming","value":"WY"}
   ]
-
-    /*{
-        firstname: {value : "", error: false},
-        lastname: {value : "", error: false},
-        birthdate: {value : "", error: false},
-        street: {value : "", error: false},
-        city: {value : "", error: false},
-        state: {value : statesList[0].value, error: false},
-        zipcode: {value : "", error: false},
-        startdate: {value : "", error: false},
-        department: {value : departmentsList[0].value, error: false},
-      }*/
