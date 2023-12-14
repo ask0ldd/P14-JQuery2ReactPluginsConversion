@@ -19,7 +19,7 @@ function DatePicker({formState, id, label} : IProps){
                 formState.set((prevState : IForm) => {
                     return {...prevState, [stateAccessor] : {
                         value: e.target.value.toLowerCase().trim(), 
-                        error : prevState[stateAccessor].error,
+                        error : !prevState[stateAccessor].validationFn(e.target.value),
                         validationFn : prevState[stateAccessor].validationFn
                     }}
                 })

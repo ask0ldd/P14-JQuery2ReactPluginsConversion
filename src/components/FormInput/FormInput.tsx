@@ -34,10 +34,6 @@ interface IProps{
         set : Dispatch<SetStateAction<IFormState>>
         fieldAccessor? : string
     }
-    /*validation : {
-        validationFn : (inputvalue : string) => boolean
-        errorMessage : string // !!!! errorMessage : {message : string, CSSClasses : string[]}
-    }*/
     errorMessage : string
 }
 

@@ -35,4 +35,10 @@ export default class Validator{
         const numberRegex = /^[0-9]+$/
         return numberRegex.test(value.trim())
     }
+
+    static isDatePast(date: string) : boolean{
+        if(!Validator.isDate(date)) return false
+        console.log(new Date(date) < new Date())
+        return new Date(date) < new Date()
+    }
 }

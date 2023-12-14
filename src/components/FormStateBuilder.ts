@@ -22,6 +22,6 @@ export class FormStateBuilder {
     }
 }
 
-function trueFn(value : string){
+function trueFn() : boolean{
     return true
 }

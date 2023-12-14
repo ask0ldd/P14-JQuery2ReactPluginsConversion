@@ -12,7 +12,7 @@ function CustomForm(){
     const initialFormState = new FormStateBuilder()
     .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName})
     .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName})
-    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDate})
+    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast})
     .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName})
     .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName})
     .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value})
