@@ -15,6 +15,21 @@ import { ITableState } from "../interfaces/ITableState"
 // the search string typed by the user
 //
 // ****************************************
+
+
+/**
+ * Hook handling all the datatable interactions
+ * @Hook
+ * @param {Object[]} props - Props.
+ * @param {Object} props.tableModel
+ * @param {Object[]} props.tableModel.getColumnsNamesList - Return an array defining the columns of the table.
+ * @param {string} props.tableModel.getColumnsNamesList[].accessor - Data accessor.
+ * @param {string} props.tableModel.getColumnsNamesList[].th - Table column header.
+ * @param {boolean} props.tableModel.getColumnsNamesList[].sortable - Sortability of the column.
+ * @param {string} props.tableModel.getColumnsNamesList[].datatype - Type of the datas populating the column.
+ * @param {Object[]} props.tableDatas - Datas used to populate the table.
+ * @return (tableState, dispatch)
+ */
 function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
     
     function tableStateReducer(state : ITableState, action : { type : string, payload : any}){

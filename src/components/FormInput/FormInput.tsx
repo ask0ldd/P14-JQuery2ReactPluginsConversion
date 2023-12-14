@@ -53,7 +53,7 @@ interface IInput{
 
 export interface IFormState{
     [key: string]: IFormInput
-  }
+}
   
 export interface IFormInput{
     value : string
