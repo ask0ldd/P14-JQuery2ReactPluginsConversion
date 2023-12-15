@@ -1,6 +1,6 @@
 import {useContext} from 'react'
-import { SelectContext } from './CustomSelect'
 import './style/ComboBox.css'
+import { SelectContext } from './contexts/SelectContext'
 
 /**
  * Component : The field containing the active option of the custom select.

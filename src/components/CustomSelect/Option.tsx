@@ -1,7 +1,7 @@
 import './style/OptionsList.css'
 import { useContext } from 'react'
-import { SelectContext } from './CustomSelect'
 import { IOption } from './CustomSelect'
+import { SelectContext } from './contexts/SelectContext'
 
 /**
  * Component : Option populating the option list of a custom select.

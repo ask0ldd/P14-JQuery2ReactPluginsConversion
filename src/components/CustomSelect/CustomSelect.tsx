@@ -2,8 +2,9 @@
 import './style/CustomSelect.css'
 import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
-import {createContext, useState, useRef, Dispatch, SetStateAction} from 'react'
+import {useState, useRef, Dispatch, SetStateAction} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
+import { SelectContext } from './contexts/SelectContext'
 
 /* !!!
 add a way to define the default Option or a non option default value
@@ -83,13 +84,13 @@ function CustomSelect({formState, options, select, label } : IProps){ // should 
 
 export default CustomSelect
 
-export const SelectContext = createContext<ISelectContext>({
+/*export const SelectContext = createContext<ISelectContext>({
     selectId : '',
     options : [],  
     activeOption : {get : () => ({label:'', value:''}), set : () => false},
     listbox : {isExpanded : false, setAsExpanded : () => false},
     label : {text : ''}
-})
+})*/
 
 export interface IOption{
     label : string
@@ -108,26 +109,10 @@ interface IProps{
     label : ILabel
 }
 
-interface ILabel{
+export interface ILabel{
     id? : string
     text : string
     CSSClasses? : string[]
-}
-
-interface ISelectContext{
-    selectId : string
-    options : Array<IOption>
-    // activeOption : IOption
-    // setActiveOption : (option : IOption) => void
-    activeOption : {
-        get : () => IOption
-        set : (option : IOption) => void
-    }
-    listbox : {
-        isExpanded : boolean, 
-        setAsExpanded : (bool : boolean) => void
-    }
-    label : ILabel
 }
 
 export interface IFormState{
