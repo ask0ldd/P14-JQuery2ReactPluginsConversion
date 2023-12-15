@@ -32,7 +32,9 @@ function CustomForm(){
         isError += +value.error
       }
       console.log(Boolean(isError))
-      return Boolean(isError);
+      return Boolean(isError)
+
+      // before add to employees, verify not existing
     }
     
     return(

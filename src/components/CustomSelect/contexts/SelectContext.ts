@@ -12,8 +12,6 @@ export const SelectContext = createContext<ISelectContext>({
 interface ISelectContext{
     selectId : string
     options : Array<IOption>
-    // activeOption : IOption
-    // setActiveOption : (option : IOption) => void
     activeOption : {
         get : () => IOption
         set : (option : IOption) => void

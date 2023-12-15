@@ -6,7 +6,8 @@ import Modal from './components/Modal/Modal'
 import {useModalManager} from './components/Modal/hooks/useModalManager'
 import CustomForm from './components/CustomForm'
 import ModalBaseHeader from './components/Modal/ModalBaseHeader'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { MainContext } from './contexts/MainContext'
 
 // !!!!!!! create a button to fill the forms with mockdatas
 
@@ -16,6 +17,16 @@ import { useEffect } from 'react'
  * @return ( <App/> )
  */
 function App() {
+
+  // temp : testing usecontact
+  const {employees} = useContext(MainContext)
+  useEffect(() => {
+    const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
+    if(employees.find(employee => (employee.firstName === jenna.firstName && employee.lastName === jenna.lastName))) return
+    employees.push(jenna)
+    console.log(employees)
+  },[])
+
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
   const modalManager = useModalManager({initialVisibility : false, content :{body : ModalBodySuccess, header : ModalBaseHeader}})
