@@ -20,7 +20,8 @@ function DatePicker({formState, id, label} : IProps){
                     return {...prevState, [stateAccessor] : {
                         value: e.target.value.toLowerCase().trim(), 
                         error : !prevState[stateAccessor].validationFn(e.target.value),
-                        validationFn : prevState[stateAccessor].validationFn
+                        validationFn : prevState[stateAccessor].validationFn,
+                        mandatory : prevState[stateAccessor].mandatory
                     }}
                 })
             }}/>
@@ -54,4 +55,5 @@ interface IFormInput{
     value : string
     error : boolean
     validationFn : (value: string) => boolean
+    mandatory : boolean
 }

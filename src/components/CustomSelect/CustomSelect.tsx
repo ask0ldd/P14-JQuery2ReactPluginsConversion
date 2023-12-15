@@ -45,7 +45,8 @@ function CustomSelect({formState, options, select, label } : IProps){ // should 
         formState.set((prevState) => ({...prevState, [formState.fieldAccessor] : { 
             value : option.value, 
             error : false,
-            validationFn : prevState[formState.fieldAccessor].validationFn
+            validationFn : prevState[formState.fieldAccessor].validationFn,
+            mandatory : prevState[formState.fieldAccessor].mandatory
         }}))
     }
 
@@ -123,4 +124,5 @@ interface IFormInput{
     value : string
     error : boolean
     validationFn : (value: string) => boolean
+    mandatory : boolean
 }

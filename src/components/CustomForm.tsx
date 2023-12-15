@@ -10,15 +10,15 @@ import { FormStateBuilder } from "./FormStateBuilder"
 function CustomForm(){
 
     const initialFormState = new FormStateBuilder()
-    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName})
-    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName})
-    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast})
-    .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName})
-    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName})
-    .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value})
-    .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber})
-    .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate})
-    .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value})
+    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, mandatory : false}) // !!!!! mandatory : true / false
+    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, mandatory : false})
+    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, mandatory : false})
+    .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, mandatory : false})
+    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, mandatory : false})
+    .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value, mandatory : false})
+    .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, mandatory : false})
+    .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, mandatory : false})
+    .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value, mandatory : false})
     .buildState()
 
     const [formState, setFormState]= useState<IFormState>(initialFormState)
@@ -31,6 +31,9 @@ function CustomForm(){
       for (const [_, value] of Object.entries(formState)) {
         isError += +value.error
       }
+      // verify with validationFn mandatory fields cause error:true can't exist if blank but untouched
+      // deal with mandatory fields
+      // if validationFn false, then force error
       console.log(Boolean(isError))
       return Boolean(isError)
 
