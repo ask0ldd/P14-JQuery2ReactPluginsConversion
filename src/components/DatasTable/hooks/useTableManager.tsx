@@ -13,7 +13,7 @@ import { ITableState } from "../interfaces/ITableState"
 // The sorting rules
 // The pagination rules
 // the search string typed by the user
-//
+// !!!!!!!! should be able to define ordering functions
 // ****************************************
 
 

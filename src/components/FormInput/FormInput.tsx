@@ -15,6 +15,10 @@ function FormInput({input, label, formState, errorMessage} : IProps){
         </>
     )
 
+    function formatInputValue(value : string){
+        return value.trim().toLowerCase()
+    }
+
     function updateTargetFieldState(fieldAccessor : string, formState : IFormState, value : string){
         return {...formState, [fieldAccessor] : {
             value : formatInputValue(value), 
@@ -59,10 +63,6 @@ export interface IFormInput{
     value : string
     error : boolean
     validationFn : (value: string) => boolean
-}
-
-function formatInputValue(value : string){
-    return value.trim().toLowerCase()
 }
 
 /*

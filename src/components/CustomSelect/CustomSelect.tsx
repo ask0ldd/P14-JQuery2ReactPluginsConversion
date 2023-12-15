@@ -85,9 +85,7 @@ export default CustomSelect
 
 export const SelectContext = createContext<ISelectContext>({
     selectId : '',
-    // activeOption : {label:'', value:''},
     options : [],  
-    // setActiveOption : () => false, 
     activeOption : {get : () => ({label:'', value:''}), set : () => false},
     listbox : {isExpanded : false, setAsExpanded : () => false},
     label : {text : ''}
