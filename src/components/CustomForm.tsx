@@ -36,10 +36,8 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
         if(formInput.mandatory === true && formInput.value == ""){
             isError++
             const formInputState = {...formState[key]}
-            console.log("forminputstate : ", formInputState)
             formInputState.error = true
             setFormState({...formState, [key] : formInputState})
-            console.log("missing mandatoryfield : ", formState)
         }
       }
       return Boolean(!isError)
@@ -53,10 +51,21 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       e.preventDefault()
       if(formValidation()){
         // before add to employees, verify not existing
-        const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
-        if(isEmployeeAlreadyInContext(jenna)) return
+        console.log(formState)
+        const newEmployee = {
+          "firstName":formState.firstname.value || '',
+          "lastName":formState.lastname.value || '',
+          "street":formState.street.value || '',
+          "city":formState.city.value || '',
+          "zipCode":formState.zipcode.value || '',
+          "state":formState.state.value || '',
+          "birthDate":formState.birthdate.value || '',
+          "startingDate":formState.startdate.value || '',
+          "department":formState.department.value || ''
+        }
+        if(isEmployeeAlreadyInContext(newEmployee)) return
         modalManager.setVisibility(true)
-        return employees.push(jenna)
+        return employees.push(newEmployee)
       }
     }
     
