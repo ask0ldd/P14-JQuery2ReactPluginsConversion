@@ -29,7 +29,7 @@ function App() {
     <main>
       <Link to={`/employee-list`}>View Current Employees</Link>
 
-      <CustomForm/>
+      <CustomForm modalManager={modalManager}/>
 
       <Modal modalManager={modalManager}>
         {modalManager.getHeaderComponent()}

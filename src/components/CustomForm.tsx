@@ -7,8 +7,9 @@ import Validator from "../services/validators"
 import '../Form.css'
 import { FormStateBuilder } from "./FormStateBuilder"
 import { EmployeesContext } from "../contexts/EmployeesContext"
+import { IModalManager } from "./Modal/hooks/useModalManager"
 
-function CustomForm(){
+function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormState = new FormStateBuilder()
     .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, mandatory : false}) // !!!!! mandatory : true / false
@@ -37,15 +38,16 @@ function CustomForm(){
       // deal with mandatory fields
       // if validationFn false, then force error
       return Boolean(isError)
-
-      // before add to employees, verify not existing
     }
 
     function formSubmit (e : React.MouseEvent<HTMLInputElement, MouseEvent>){
       e.preventDefault()
       if(!formValidation()){
+        // before add to employees, verify not existing
         const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
-        employees.push(jenna)
+        modalManager.setVisibility(true)
+        return employees.push(jenna)
+        
       }
       const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
       employees.push(jenna)
