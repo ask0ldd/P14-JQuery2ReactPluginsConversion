@@ -30,17 +30,18 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     function formValidation (){
       let isError = 0
-      for (const [_, formInput] of Object.entries(formState)) {
+      for (const [key, formInput] of Object.entries(formState)) {
         isError += +formInput.error
+        // mandatory & not blank ?
         if(formInput.mandatory === true && formInput.value == ""){
             isError++
-            formInput.error = true
-            console.log("missing mandatoryfield")
+            const formInputState = {...formState[key]}
+            console.log("forminputstate : ", formInputState)
+            formInputState.error = true
+            setFormState({...formState, [key] : formInputState})
+            console.log("missing mandatoryfield : ", formState)
         }
       }
-      // verify with validationFn mandatory fields cause error:true can't exist if blank but untouched
-      // deal with mandatory fields
-      // if validationFn false, then force error
       return Boolean(!isError)
     }
 
