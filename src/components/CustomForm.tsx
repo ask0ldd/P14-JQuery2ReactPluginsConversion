@@ -37,20 +37,23 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       // verify with validationFn mandatory fields cause error:true can't exist if blank but untouched
       // deal with mandatory fields
       // if validationFn false, then force error
-      return Boolean(isError)
+      return Boolean(!isError)
+    }
+
+    function isEmployeeInContext(newEmployee : object){
+      return employees.find(employee => JSON.stringify(employee) === JSON.stringify(newEmployee)) != null
     }
 
     function formSubmit (e : React.MouseEvent<HTMLInputElement, MouseEvent>){
       e.preventDefault()
-      if(!formValidation()){
+      if(formValidation()){
         // before add to employees, verify not existing
         const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
+        if(isEmployeeInContext(jenna)) return
         modalManager.setVisibility(true)
         return employees.push(jenna)
         
       }
-      const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
-      employees.push(jenna)
     }
     
     return(
