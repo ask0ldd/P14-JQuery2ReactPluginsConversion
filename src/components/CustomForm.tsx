@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
 import FormInput, { IFormState } from "./FormInput/FormInput"
 import Validator from "../services/validators"
 import '../Form.css'
 import { FormStateBuilder } from "./FormStateBuilder"
+import { EmployeesContext } from "../contexts/EmployeesContext"
 
 function CustomForm(){
 
@@ -22,11 +23,12 @@ function CustomForm(){
     .buildState()
 
     const [formState, setFormState]= useState<IFormState>(initialFormState)
+    const {employees} = useContext(EmployeesContext)
     
-    useEffect(() => console.log(formState), [formState])
+    // useEffect(() => console.log(formState), [formState])
 
-    function formValidation (e : React.MouseEvent<HTMLInputElement>){
-      e.preventDefault()
+    function formValidation (/*e : React.MouseEvent<HTMLInputElement>*/){
+      // e.preventDefault()
       let isError = 0
       for (const [_, value] of Object.entries(formState)) {
         isError += +value.error
@@ -34,10 +36,19 @@ function CustomForm(){
       // verify with validationFn mandatory fields cause error:true can't exist if blank but untouched
       // deal with mandatory fields
       // if validationFn false, then force error
-      console.log(Boolean(isError))
       return Boolean(isError)
 
       // before add to employees, verify not existing
+    }
+
+    function formSubmit (e : React.MouseEvent<HTMLInputElement, MouseEvent>){
+      e.preventDefault()
+      if(!formValidation()){
+        const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
+        employees.push(jenna)
+      }
+      const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
+      employees.push(jenna)
     }
     
     return(
@@ -93,7 +104,7 @@ function CustomForm(){
             options={departmentsList}
             />
 
-            <input type="submit" value="Add this Employee" onClick={formValidation}/>
+            <input type="submit" value="Add this Employee" onClick={formSubmit}/>
             
         </form>
     )

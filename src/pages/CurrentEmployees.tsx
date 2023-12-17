@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import '../Form.css'
 import '../style/CurrentEmployees.css'
-import usersDatas from '../datas/usersDatas'
+// import usersDatas from '../datas/usersDatas'
 import DatasTable from '../components/DatasTable/DatasTable'
 import { Link } from 'react-router-dom'
 import { ColumnBuilder } from '../components/DatasTable/builders/ColumnBuilder'
 import { TableModel } from '../components/DatasTable/models/TableModel'
+import { useContext } from 'react'
+import { EmployeesContext } from '../contexts/EmployeesContext'
 
 /**
  * Component : Displaying the current employees datatable page.
@@ -13,6 +15,7 @@ import { TableModel } from '../components/DatasTable/models/TableModel'
  * @return ( <CurrentEmployees/> )
  */
 function CurrentEmployees() {
+  const {employees} = useContext(EmployeesContext);
 
   const tableModel = new TableModel({id : "current_employees"})
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("First Name").setDatatypeAsString().setAccessor("firstName").setSortability(true).build())
@@ -28,7 +31,7 @@ function CurrentEmployees() {
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableModel={tableModel} tableDatas={[...usersDatas]}/>
+      <DatasTable tableModel={tableModel} tableDatas={/*[...usersDatas]*/ employees}/>
       <Link to={`/`}>Home</Link>
     </main>)
 }

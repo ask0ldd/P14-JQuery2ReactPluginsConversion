@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext } from "react"
 
-export const MainContext = createContext<IMainContext>({employees : []})
+export const EmployeesContext = createContext<IEmployeesContext>({employees : []})
 
-interface IMainContext{
+interface IEmployeesContext{
     employees : Array<any>
 }
