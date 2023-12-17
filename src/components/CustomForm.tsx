@@ -12,7 +12,7 @@ import { IModalManager } from "./Modal/hooks/useModalManager"
 function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormState = new FormStateBuilder()
-    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, mandatory : false}) // !!!!! mandatory : true / false
+    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, mandatory : true}) // !!!!! mandatory : true / false
     .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, mandatory : false})
     .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, mandatory : false})
     .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, mandatory : false})
@@ -28,11 +28,15 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     
     // useEffect(() => console.log(formState), [formState])
 
-    function formValidation (/*e : React.MouseEvent<HTMLInputElement>*/){
-      // e.preventDefault()
+    function formValidation (){
       let isError = 0
-      for (const [_, value] of Object.entries(formState)) {
-        isError += +value.error
+      for (const [_, formInput] of Object.entries(formState)) {
+        isError += +formInput.error
+        if(formInput.mandatory === true && formInput.value == ""){
+            isError++
+            formInput.error = true
+            console.log("missing mandatoryfield")
+        }
       }
       // verify with validationFn mandatory fields cause error:true can't exist if blank but untouched
       // deal with mandatory fields
@@ -40,7 +44,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       return Boolean(!isError)
     }
 
-    function isEmployeeInContext(newEmployee : object){
+    function isEmployeeAlreadyInContext(newEmployee : object){
       return employees.find(employee => JSON.stringify(employee) === JSON.stringify(newEmployee)) != null
     }
 
@@ -49,10 +53,9 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       if(formValidation()){
         // before add to employees, verify not existing
         const jenna = {"firstName":"Jenna","lastName":"Batcock","street":"00 Bartillon Parkway","city":"Saint Paul","zipCode":"55103","state":"MN","birthDate":"21/03/2023","startingDate":"28/12/2022","department":"Human Ressources"}
-        if(isEmployeeInContext(jenna)) return
+        if(isEmployeeAlreadyInContext(jenna)) return
         modalManager.setVisibility(true)
         return employees.push(jenna)
-        
       }
     }
     
