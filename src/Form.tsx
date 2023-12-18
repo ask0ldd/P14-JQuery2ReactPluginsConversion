@@ -21,10 +21,11 @@ function App() {
   const modalManager = useModalManager({initialVisibility : false, content :{body : ModalBodySuccess, header : ModalBaseHeader}})
 
   useEffect(() => {
+    if(!modalManager.initialized) return
     modalManager.saveModalPreset("default", ModalBaseHeader, ModalBodySuccess)
     modalManager.saveModalPreset("formError", ModalBaseHeader, ModalBodyInvalidForm)
     // modalManager.loadModalPreset("formError")
-  }, [])
+  }, [modalManager.initialized])
 
   return (
     <main>

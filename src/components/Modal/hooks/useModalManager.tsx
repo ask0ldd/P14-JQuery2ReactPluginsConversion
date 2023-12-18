@@ -42,38 +42,42 @@ export function useModalManager({initialVisibility, content} : IModalObject){
     }, [])
 
     const modalManager : IModalManager = {
+        presets : [],
+        initialized : true,
         setVisibility : (bool : boolean) => {
             setModalVisibility(bool); 
             scrollLock(bool);
         },
         getVisibility : () => modalVisibility,
-        setBodyComponent : (component) => 
+        setBodyComponent : function (component)
         {
-            setModalBodyComponent(component({setVisibility : modalManager.setVisibility}));
-            // return modalHeaderComponent;
+            setModalBodyComponent(component({setVisibility : modalManager.setVisibility}))
         },
         getBodyComponent : () => modalBodyComponent,
-        setHeaderComponent : (component) => {
-            setModalHeaderComponent(component({setVisibility : modalManager.setVisibility}));
-            // return modalBodyComponent;
+        setHeaderComponent : function (component) {
+            setModalHeaderComponent(component({setVisibility : modalManager.setVisibility}))
         },
         getHeaderComponent : () => modalHeaderComponent,
-        saveModalPreset : (presetName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) => {
-            modalManager.presets.push({presetName : presetName, header, body})
+        saveModalPreset : function (presetName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) {
+            const preset = this.presets.find(preset => preset.presetName === presetName)
+            if(preset) return
+            this.presets.push({presetName : presetName, header, body})
+            console.log(this.presets)
         },
-        presets : [],
-        displayModalPreset : (presetName : string) => {
-            const preset = modalManager.presets.find(preset => preset.presetName === presetName)
+        displayModalPreset : function (presetName : string) {
+            console.log(this)
+            const preset = this.presets.find(preset => preset.presetName === presetName)
+            console.log(preset)
             if(!preset) return
-            modalManager.setHeaderComponent(preset.header)
-            modalManager.setBodyComponent(preset.body)
-            modalManager.setVisibility(true)
+            this.setHeaderComponent(preset.header)
+            this.setBodyComponent(preset.body)
+            this.setVisibility(true)
         },
-        loadModalPreset : (presetName : string) => {
-            const preset = modalManager.presets.find(preset => preset.presetName === presetName)
+        loadModalPreset : function (presetName : string) {
+            const preset = this.presets.find(preset => preset.presetName === presetName)
             if(!preset) return
-            modalManager.setHeaderComponent(preset.header)
-            modalManager.setBodyComponent(preset.body)
+            this.setHeaderComponent(preset.header)
+            this.setBodyComponent(preset.body)
         },
     }
 
@@ -104,6 +108,8 @@ interface IModalContent{
 }
 
 export interface IModalManager{
+    presets : IModalPreset[]
+    initialized : boolean
     setVisibility : (bool : boolean) => void
     getVisibility : () => boolean
     setBodyComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
@@ -111,7 +117,6 @@ export interface IModalManager{
     setHeaderComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
     getHeaderComponent : () => ReactNode
     saveModalPreset : (modalName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) => void
-    presets : IModalPreset[]
     displayModalPreset : (presetName : string) => void
     loadModalPreset : (presetName : string) => void
 }

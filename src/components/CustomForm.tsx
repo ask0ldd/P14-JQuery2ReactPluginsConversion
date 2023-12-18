@@ -76,12 +76,10 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
           if(Validator.isDate(value)) newEmployee[key as keyof typeof newEmployee] = convertIntDatetoFr(newEmployee[key as keyof typeof newEmployee])
         }
         if(isEmployeeAlreadyInContext(newEmployee)) return
-        modalManager.loadModalPreset("default")
-        modalManager.setVisibility(true)
+        modalManager.displayModalPreset("default")
         return employees.push(newEmployee)
       }
-      modalManager.loadModalPreset("formError")
-      modalManager.setVisibility(true)
+      modalManager.displayModalPreset("formError")
     }
     
     return(
