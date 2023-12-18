@@ -58,10 +58,17 @@ export function useModalManager({initialVisibility, content} : IModalObject){
             // return modalBodyComponent;
         },
         getHeaderComponent : () => modalHeaderComponent,
-        saveModalPreset : (modalName : string, header : JSX.Element, body : JSX.Element) => {
+        saveModalPreset : (modalName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) => {
             modalManager.presets.push({name : modalName, header, body})
         },
-        presets : []
+        presets : [],
+        displayModalPreset : (presetName : string) => {
+            const preset = modalManager.presets.find(preset => preset.name === presetName)
+            if(!preset) return
+            modalManager.setHeaderComponent(preset.header)
+            modalManager.setBodyComponent(preset.body)
+            modalManager.setVisibility(true)
+        },
     }
 
     return modalManager
@@ -97,14 +104,15 @@ export interface IModalManager{
     getBodyComponent : () => ReactNode
     setHeaderComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
     getHeaderComponent : () => ReactNode
-    saveModalPreset : (modalName : string, header : JSX.Element, body : JSX.Element) => void
+    saveModalPreset : (modalName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) => void
     presets : IModalPreset[]
+    displayModalPreset : (presetName : string) => void
 }
 
 type ReactFunctionalComponent = string | number | true | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | null
 
 interface IModalPreset{
     name : string
-    header : JSX.Element
-    body : JSX.Element
+    header : ({ setVisibility }: IPropsVisibility) => JSX.Element
+    body : ({ setVisibility }: IPropsVisibility) => JSX.Element
 }
