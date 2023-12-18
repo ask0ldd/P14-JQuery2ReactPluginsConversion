@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useContext, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
 import FormInput, { IFormState } from "./FormInput/FormInput"
@@ -13,10 +13,10 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormState = new FormStateBuilder()
     .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, mandatory : true}) // !!!!! mandatory : true / false
-    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, mandatory : false})
-    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, mandatory : false})
+    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, mandatory : true})
+    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, mandatory : true})
     .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, mandatory : false})
-    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, mandatory : false})
+    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, mandatory : true})
     .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value, mandatory : false})
     .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, mandatory : false})
     .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, mandatory : false})
@@ -24,22 +24,25 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     .buildState()
 
     const [formState, setFormState]= useState<IFormState>(initialFormState)
+    // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
+    const formStateRef = useRef<IFormState>(initialFormState)
     const {employees} = useContext(EmployeesContext)
-    
-    // useEffect(() => console.log(formState), [formState])
 
     function formValidation (){
       let isError = 0
-      for (const [key, formInput] of Object.entries(formState)) {
+      formStateRef.current = formState
+      console.log(formStateRef.current)
+      for (const [key, formInput] of Object.entries(formStateRef.current)) {
         isError += +formInput.error
         // mandatory & not blank ?
-        if(formInput.mandatory === true && formInput.value == ""){
+        if(formInput.mandatory === true && formInput.value.trim() == ""){
             isError++
-            const formInputState = {...formState[key]}
+            const formInputState = {...formStateRef.current[key]}
             formInputState.error = true
-            setFormState({...formState, [key] : formInputState})
+            formStateRef.current = {...formStateRef.current, [key] : formInputState}
         }
       }
+      setFormState({...formStateRef.current})
       return Boolean(!isError)
     }
 
