@@ -58,16 +58,22 @@ export function useModalManager({initialVisibility, content} : IModalObject){
             // return modalBodyComponent;
         },
         getHeaderComponent : () => modalHeaderComponent,
-        saveModalPreset : (modalName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) => {
-            modalManager.presets.push({name : modalName, header, body})
+        saveModalPreset : (presetName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) => {
+            modalManager.presets.push({presetName : presetName, header, body})
         },
         presets : [],
         displayModalPreset : (presetName : string) => {
-            const preset = modalManager.presets.find(preset => preset.name === presetName)
+            const preset = modalManager.presets.find(preset => preset.presetName === presetName)
             if(!preset) return
             modalManager.setHeaderComponent(preset.header)
             modalManager.setBodyComponent(preset.body)
             modalManager.setVisibility(true)
+        },
+        loadModalPreset : (presetName : string) => {
+            const preset = modalManager.presets.find(preset => preset.presetName === presetName)
+            if(!preset) return
+            modalManager.setHeaderComponent(preset.header)
+            modalManager.setBodyComponent(preset.body)
         },
     }
 
@@ -107,12 +113,13 @@ export interface IModalManager{
     saveModalPreset : (modalName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) => void
     presets : IModalPreset[]
     displayModalPreset : (presetName : string) => void
+    loadModalPreset : (presetName : string) => void
 }
 
 type ReactFunctionalComponent = string | number | true | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | null
 
 interface IModalPreset{
-    name : string
+    presetName : string
     header : ({ setVisibility }: IPropsVisibility) => JSX.Element
     body : ({ setVisibility }: IPropsVisibility) => JSX.Element
 }

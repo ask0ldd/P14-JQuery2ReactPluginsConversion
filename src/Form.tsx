@@ -6,6 +6,7 @@ import Modal from './components/Modal/Modal'
 import {useModalManager} from './components/Modal/hooks/useModalManager'
 import CustomForm from './components/CustomForm'
 import ModalBaseHeader from './components/Modal/ModalBaseHeader'
+import { useEffect } from 'react'
 
 // !!!!!!! create a button to fill the forms with mockdatas
 
@@ -18,12 +19,12 @@ function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
   const modalManager = useModalManager({initialVisibility : false, content :{body : ModalBodySuccess, header : ModalBaseHeader}})
-  
-  /*useEffect(() => {
-    // modalManager.setBodyComponent(ModalBodySuccess)
-    // modalManager.setHeaderComponent(ModalBaseHeader)
-    modalManager.setVisibility(true)
-  }, [])*/
+
+  useEffect(() => {
+    modalManager.saveModalPreset("default", ModalBaseHeader, ModalBodySuccess)
+    modalManager.saveModalPreset("formError", ModalBaseHeader, ModalBodyInvalidForm)
+    // modalManager.loadModalPreset("formError")
+  }, [])
 
   return (
     <main>
@@ -53,25 +54,9 @@ function App() {
   function ModalBodyInvalidForm() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
-        Alternate Content!
+        Form Error!
       </div>
     )
-  }
-
-  // props needed to access the close modal fn into the header
-  /*function ModalHeaderAlternate({setVisibility} : IPropsVisibility){
-    return(
-      <div>
-        {setVisibility && <span onClick={() => setVisibility(false)}>Invalid Form.</span>}
-      </div>
-    )
-  }*/
-
-  function showInvalidFormModal() {
-    // modalManager.setHeaderComponent(ModalHeaderAlternate)
-    modalManager.setHeaderComponent(ModalBaseHeader)
-    modalManager.setBodyComponent(ModalBodyInvalidForm)
-    modalManager.setVisibility(true)
   }
 
 }
