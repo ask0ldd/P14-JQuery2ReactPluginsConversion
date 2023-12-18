@@ -36,7 +36,7 @@ function App() {
         {modalManager.getBodyComponent()}
       </Modal>
       
-      <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={showAlternateModal}>Show alternate modale</button>
+      {/*<button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={showAlternateModal}>Show alternate modale</button>*/}
      
     </main>
   )
@@ -62,13 +62,14 @@ function App() {
   function ModalHeaderAlternate({setVisibility} : IPropsVisibility){
     return(
       <div>
-        {setVisibility && <span onClick={() => setVisibility(false)}>aaaaaa</span>}
+        {setVisibility && <span onClick={() => setVisibility(false)}>Invalid Form.</span>}
       </div>
     )
   }
 
   function showAlternateModal(){
-    modalManager.setHeaderComponent(ModalHeaderAlternate)
+    // modalManager.setHeaderComponent(ModalHeaderAlternate)
+    modalManager.setHeaderComponent(ModalBaseHeader)
     modalManager.setBodyComponent(ModalBodyAlternate)
     modalManager.setVisibility(true)
   }
