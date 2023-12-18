@@ -36,14 +36,20 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
         isError += +formInput.error
         // mandatory & not blank ?
         if(formInput.mandatory === true && formInput.value.trim() == ""){
-            isError++
             const formInputState = {...formStateRef.current[key]}
+            isError++
             formInputState.error = true
             formStateRef.current = {...formStateRef.current, [key] : formInputState}
         }
       }
       setFormState({...formStateRef.current})
       return Boolean(!isError)
+    }
+
+    function convertIntDatetoFr(date : string){
+      console.log("trig")
+      const splitDate = date.split('-')
+      return splitDate.reverse().join('/')
     }
 
     function isEmployeeAlreadyInContext(newEmployee : object){
@@ -65,6 +71,9 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
           "birthDate":formState.birthdate.value || '',
           "startingDate":formState.startdate.value || '',
           "department":formState.department.value || ''
+        }
+        for (const [key, value] of Object.entries(newEmployee)) {
+          if(Validator.isDate(value)) newEmployee[key as keyof typeof newEmployee] = convertIntDatetoFr(newEmployee[key as keyof typeof newEmployee])
         }
         if(isEmployeeAlreadyInContext(newEmployee)) return
         modalManager.setVisibility(true)
