@@ -31,8 +31,8 @@ function CurrentEmployees() {
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableModel={tableModel} tableDatas={/*[...usersDatas]*/ employees}/>
-      <Link to={`/`}>Home</Link>
+      <DatasTable tableModel={tableModel} tableDatas={employees}/>
+      <Link to={`/`} style={{width:'fit-content', justifySelf:'center', alignSelf:'center', display:'flex'}}>Home</Link>
     </main>)
 }
 

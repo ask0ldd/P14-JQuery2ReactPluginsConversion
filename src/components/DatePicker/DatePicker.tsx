@@ -13,12 +13,18 @@ function DatePicker({formState, id, label} : IProps){
     const stateAccessor = formState.fieldAccessor || id
     const errorMessage = "You need to select a Date."
 
+    /*function convertIntDatetoFr(date : string){
+        const splitDate = date.split('-')
+        return splitDate.reverse().join('/')
+    }*/
+
     return(
         <>
             <label className={label?.CSSClasses?.join(' ')} htmlFor={id}>{label.text}</label>
             <input type="date" id={id} value={formState.get()[stateAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
                 formState.set((prevState : IForm) => {
                     return {...prevState, [stateAccessor] : {
+                        // value: convertIntDatetoFr(e.target.value.toLowerCase().trim()), 
                         value: e.target.value.toLowerCase().trim(), 
                         error : !prevState[stateAccessor].validationFn(e.target.value),
                         validationFn : prevState[stateAccessor].validationFn,
