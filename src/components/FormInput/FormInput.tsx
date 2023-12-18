@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react"
 function FormInput({input, label, formState, errorMessage} : IProps){
 // should pass state &
     const labelId = label?.id ? label.id : input.id + '-label'
+    const stateAccessor = formState.fieldAccessor || input.id
     // const defaultValue = input.value != null ? input.value : formState[formState.fieldAccessor as keyof typeof formState || input.id as keyof typeof formState] as string
       
     // !!!!! when datatype number input should accept letter but e is working
@@ -10,8 +11,8 @@ function FormInput({input, label, formState, errorMessage} : IProps){
         <>
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
             <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={input?.value}
-            onChange={(e) => formState.set((prevState) => updateTargetFieldState(formState.fieldAccessor || input.id, prevState, e.target.value))}/>
-            {(formState.get()[input.id]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
+            onChange={(e) => formState.set((prevState) => updateTargetFieldState(stateAccessor, prevState, e.target.value))}/>
+            {(formState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
         </>
     )
 

@@ -11,6 +11,7 @@ function DatePicker({formState, id, label} : IProps){
 
     // const [, setFormState] = useFormState
     const stateAccessor = formState.fieldAccessor || id
+    const errorMessage = "You need to select a Date."
 
     return(
         <>
@@ -25,6 +26,7 @@ function DatePicker({formState, id, label} : IProps){
                     }}
                 })
             }}/>
+            {(formState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={id+"-error"}>{errorMessage}</p>}
         </>
     )
 }
