@@ -17,8 +17,7 @@ import { IPropsVisibility } from "../../../Form"
  * setModalContent - Sets a new react component as the body of the modal.
  * setHeaderComponent - Set a new react component as the header of the modal.
  */
-export function useModalManager({initialVisibility, content} : IModalObject){
-    
+export function useModalManager({initialVisibility, content} : IModalObject){ 
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
     const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(null)
@@ -59,6 +58,10 @@ export function useModalManager({initialVisibility, content} : IModalObject){
             // return modalBodyComponent;
         },
         getHeaderComponent : () => modalHeaderComponent,
+        saveModalPreset : (modalName : string, header : JSX.Element, body : JSX.Element) => {
+            modalManager.presets.push({name : modalName, header, body})
+        },
+        presets : []
     }
 
     return modalManager
@@ -94,6 +97,14 @@ export interface IModalManager{
     getBodyComponent : () => ReactNode
     setHeaderComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
     getHeaderComponent : () => ReactNode
+    saveModalPreset : (modalName : string, header : JSX.Element, body : JSX.Element) => void
+    presets : IModalPreset[]
 }
 
 type ReactFunctionalComponent = string | number | true | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | null
+
+interface IModalPreset{
+    name : string
+    header : JSX.Element
+    body : JSX.Element
+}

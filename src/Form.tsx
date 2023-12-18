@@ -50,7 +50,7 @@ function App() {
     )
   }
 
-  function ModalBodyAlternate() : JSX.Element {
+  function ModalBodyInvalidForm() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
         Alternate Content!
@@ -59,18 +59,18 @@ function App() {
   }
 
   // props needed to access the close modal fn into the header
-  function ModalHeaderAlternate({setVisibility} : IPropsVisibility){
+  /*function ModalHeaderAlternate({setVisibility} : IPropsVisibility){
     return(
       <div>
         {setVisibility && <span onClick={() => setVisibility(false)}>Invalid Form.</span>}
       </div>
     )
-  }
+  }*/
 
-  function showAlternateModal(){
+  function showInvalidFormModal() {
     // modalManager.setHeaderComponent(ModalHeaderAlternate)
     modalManager.setHeaderComponent(ModalBaseHeader)
-    modalManager.setBodyComponent(ModalBodyAlternate)
+    modalManager.setBodyComponent(ModalBodyInvalidForm)
     modalManager.setVisibility(true)
   }
 
