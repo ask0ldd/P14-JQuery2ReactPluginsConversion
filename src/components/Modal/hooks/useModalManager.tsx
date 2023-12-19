@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment, useReducer, useRef } from "react"
+import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment, useRef } from "react"
 import { IPropsVisibility } from "../../../Form"
 
 /**
@@ -22,36 +22,13 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
     const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(null)
     const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactFunctionalComponent>(null) /* set default modal header with props passed */
-    const [modalPresets, _setModalPresets] = useState<IModalPreset[]>([])
+    const [_, _setModalPresets] = useState<IModalPreset[]>([])
     const modalPresetsRef = useRef<IModalPreset[]>([])
 
     function setModalPresets(presets: IModalPreset[]){
         _setModalPresets(presets)
         modalPresetsRef.current = presets
     }
-    
-    /*function modalManagerReducer(state : IModalManager, action : { type : string, payload : any}) {
-        if (action.type === 'savePreset') {
-            const preset = state.presets.find(preset => preset.presetName === action.payload?.preset.name)
-            return {...state, 
-              presets : preset ? [...state.presets] : [...state.presets].push(action.payload?.preset)
-            }
-        }
-        if (action.type === 'setHeaderComponent') {
-            setModalHeaderComponent(action.payload?.component({setVisibility : state.setVisibility}))
-            return {...state}
-        }
-        if (action.type === 'setBodyComponent') {
-            setModalBodyComponent(action.payload?.component({setVisibility : state.setVisibility}))
-            return {...state}
-        }
-        if (action.type === 'setVisibility') {
-            state.setVisibility(action.payload)
-            scrollLock(action.payload)
-            return {...state}
-        }
-        throw Error('Unknown action.');
-    }*/
 
     const modalManager : IModalManager = {
         getPresets : () => modalPresetsRef.current,
@@ -73,7 +50,6 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
         saveModalPreset : function (presetName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) {
             const preset = this.getPresets().find(preset => preset.presetName === presetName)
             if(preset) return
-            // [...this.getPresets()].push({presetName : presetName, header, body})
             setModalPresets([...this.getPresets(), {presetName : presetName, header, body}])
             console.log(this.getPresets())
         },
@@ -93,8 +69,6 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
             this.setBodyComponent(preset.body)
         },
     }
-    
-    /*const [modalManager, modalManagerDispatch] = useReducer<React.ReducerWithoutAction<any>, IModalManager>(modalManagerReducer, {...modalManagerInit})*/
 
     useEffect(() => {
 
