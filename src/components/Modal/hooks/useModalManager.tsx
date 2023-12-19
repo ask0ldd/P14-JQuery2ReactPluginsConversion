@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment, useReducer } from "react"
+import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment, useReducer, useRef } from "react"
 import { IPropsVisibility } from "../../../Form"
 
 /**
@@ -22,7 +22,13 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
     const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(null)
     const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactFunctionalComponent>(null) /* set default modal header with props passed */
-    const [modalPresets, setModalPresets] = useState<IModalPreset[]>([])
+    const [modalPresets, _setModalPresets] = useState<IModalPreset[]>([])
+    const modalPresetsRef = useRef<IModalPreset[]>([])
+
+    function setModalPresets(presets: IModalPreset[]){
+        _setModalPresets(presets)
+        modalPresetsRef.current = presets
+    }
     
     /*function modalManagerReducer(state : IModalManager, action : { type : string, payload : any}) {
         if (action.type === 'savePreset') {
@@ -48,7 +54,7 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
     }*/
 
     const modalManager : IModalManager = {
-        getPresets : () => modalPresets,
+        getPresets : () => modalPresetsRef.current,
         // initialized : true,
         setVisibility : (bool : boolean) => {
             setModalVisibility(bool); 

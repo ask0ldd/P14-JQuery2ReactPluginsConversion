@@ -36,8 +36,9 @@ function App() {
         {modalManager.getHeaderComponent()}
         {modalManager.getBodyComponent()}
       </Modal>
-      
-      {/*<button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={showAlternateModal}>Show alternate modale</button>*/}
+
+      {/*<button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => modalManager.displayModalPreset("default")}>Show alternate modale</button>
+      <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => modalManager.displayModalPreset("formError")}>Show alternate modale</button>*/}
      
     </main>
   )

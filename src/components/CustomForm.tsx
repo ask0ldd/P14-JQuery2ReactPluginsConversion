@@ -46,8 +46,8 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       return Boolean(!isError)
     }
 
-    function convertIntDatetoFr(date : string){
-      console.log("trig")
+    function convertUSDatetoFr(date : string){
+      // console.log("trig")
       const splitDate = date.split('-')
       return splitDate.reverse().join('/')
     }
@@ -60,7 +60,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       e.preventDefault()
       if(formValidation()){
         // before add to employees, verify not existing
-        console.log(formState)
+        // console.log(formState)
         const newEmployee = {
           "firstName":formState.firstname.value || '',
           "lastName":formState.lastname.value || '',
@@ -73,11 +73,12 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
           "department":formState.department.value || ''
         }
         for (const [key, value] of Object.entries(newEmployee)) {
-          if(Validator.isDate(value)) newEmployee[key as keyof typeof newEmployee] = convertIntDatetoFr(newEmployee[key as keyof typeof newEmployee])
+          if(Validator.isDate(value)) newEmployee[key as keyof typeof newEmployee] = convertUSDatetoFr(newEmployee[key as keyof typeof newEmployee])
         }
         if(isEmployeeAlreadyInContext(newEmployee)) return
+        employees.push(newEmployee)
         modalManager.displayModalPreset("default")
-        return employees.push(newEmployee)
+        return 
       }
       modalManager.displayModalPreset("formError")
     }
