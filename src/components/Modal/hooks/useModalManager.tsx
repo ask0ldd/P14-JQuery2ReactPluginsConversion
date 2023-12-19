@@ -22,8 +22,9 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
     const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(null)
     const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactFunctionalComponent>(null) /* set default modal header with props passed */
+    const [modalPresets, setModalPresets] = useState<IModalPreset[]>([])
     
-    function modalManagerReducer(state : IModalManager, action : { type : string, payload : any}) {
+    /*function modalManagerReducer(state : IModalManager, action : { type : string, payload : any}) {
         if (action.type === 'savePreset') {
             const preset = state.presets.find(preset => preset.presetName === action.payload?.preset.name)
             return {...state, 
@@ -44,11 +45,11 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
             return {...state}
         }
         throw Error('Unknown action.');
-    }
+    }*/
 
-    const modalManagerInit : IModalManager = {
-        presets : [],
-        initialized : true,
+    const modalManager : IModalManager = {
+        getPresets : () => modalPresets,
+        // initialized : true,
         setVisibility : (bool : boolean) => {
             setModalVisibility(bool); 
             scrollLock(bool);
@@ -64,14 +65,15 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
         },
         getHeaderComponent : () => modalHeaderComponent,
         saveModalPreset : function (presetName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) {
-            const preset = this.presets.find(preset => preset.presetName === presetName)
+            const preset = this.getPresets().find(preset => preset.presetName === presetName)
             if(preset) return
-            this.presets.push({presetName : presetName, header, body})
-            console.log(this.presets)
+            // [...this.getPresets()].push({presetName : presetName, header, body})
+            setModalPresets([...this.getPresets(), {presetName : presetName, header, body}])
+            console.log(this.getPresets())
         },
         displayModalPreset : function (presetName : string) {
             console.log(this)
-            const preset = this.presets.find(preset => preset.presetName === presetName)
+            const preset = this.getPresets().find(preset => preset.presetName === presetName)
             console.log(preset)
             if(!preset) return
             this.setHeaderComponent(preset.header)
@@ -79,14 +81,14 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
             this.setVisibility(true)
         },
         loadModalPreset : function (presetName : string) {
-            const preset = this.presets.find(preset => preset.presetName === presetName)
+            const preset = this.getPresets().find(preset => preset.presetName === presetName)
             if(!preset) return
             this.setHeaderComponent(preset.header)
             this.setBodyComponent(preset.body)
         },
     }
     
-    const [modalManager, modalManagerDispatch] = useReducer(modalManagerReducer, {...modalManagerInit})
+    /*const [modalManager, modalManagerDispatch] = useReducer<React.ReducerWithoutAction<any>, IModalManager>(modalManagerReducer, {...modalManagerInit})*/
 
     useEffect(() => {
 
@@ -135,8 +137,8 @@ interface IModalComponents{
 }
 
 export interface IModalManager{
-    presets : IModalPreset[]
-    initialized : boolean
+    getPresets : () => IModalPreset[]
+    // initialized : boolean
     setVisibility : (bool : boolean) => void
     getVisibility : () => boolean
     setBodyComponent : (component : ({setVisibility} : IPropsVisibility) => JSX.Element) => void
