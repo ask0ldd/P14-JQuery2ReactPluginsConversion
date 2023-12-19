@@ -18,7 +18,7 @@ import { useEffect } from 'react'
 function App() {
 
   // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
-  const modalManager = useModalManager({initialVisibility : false, content :{body : ModalBodySuccess, header : ModalBaseHeader}})
+  const modalManager = useModalManager({initialVisibility : false, activeComponents :{body : ModalBodySuccess, header : ModalBaseHeader}})
 
   useEffect(() => {
     if(!modalManager.initialized) return

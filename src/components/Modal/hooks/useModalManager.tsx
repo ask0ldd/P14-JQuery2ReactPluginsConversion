@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment } from "react"
+import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment, useReducer } from "react"
 import { IPropsVisibility } from "../../../Form"
 
 /**
@@ -17,31 +17,36 @@ import { IPropsVisibility } from "../../../Form"
  * setModalContent - Sets a new react component as the body of the modal.
  * setHeaderComponent - Set a new react component as the header of the modal.
  */
-export function useModalManager({initialVisibility, content} : IModalObject){ 
+export function useModalManager({initialVisibility, activeComponents} : IModalObject){ 
 
     const [modalVisibility, setModalVisibility] = useState<boolean>(initialVisibility || false)
     const [modalBodyComponent, setModalBodyComponent] = useState<ReactFunctionalComponent>(null)
     const [modalHeaderComponent, setModalHeaderComponent] = useState<ReactFunctionalComponent>(null) /* set default modal header with props passed */
-
-    useEffect(() => {
-
-        if(content?.header) modalManager.setHeaderComponent(content.header)
-        if(content?.body) modalManager.setBodyComponent(content.body)
-  
-        function keyboardListener(e : KeyboardEvent){
-            if(e.code == "Escape") {e.preventDefault(); modalManager.setVisibility(false);}
+    
+    function modalManagerReducer(state : IModalManager, action : { type : string, payload : any}) {
+        if (action.type === 'savePreset') {
+            const preset = state.presets.find(preset => preset.presetName === action.payload?.preset.name)
+            return {...state, 
+              presets : preset ? [...state.presets] : [...state.presets].push(action.payload?.preset)
+            }
         }
-
-        window.addEventListener('keydown', keyboardListener)
-
-        // soutenance : clean up to avoid having two listeners active => since useEffect is triggered twice in strict mode
-        return () => {
-            window.removeEventListener('keydown', keyboardListener)
+        if (action.type === 'setHeaderComponent') {
+            setModalHeaderComponent(action.payload?.component({setVisibility : state.setVisibility}))
+            return {...state}
         }
+        if (action.type === 'setBodyComponent') {
+            setModalBodyComponent(action.payload?.component({setVisibility : state.setVisibility}))
+            return {...state}
+        }
+        if (action.type === 'setVisibility') {
+            state.setVisibility(action.payload)
+            scrollLock(action.payload)
+            return {...state}
+        }
+        throw Error('Unknown action.');
+    }
 
-    }, [])
-
-    const modalManager : IModalManager = {
+    const modalManagerInit : IModalManager = {
         presets : [],
         initialized : true,
         setVisibility : (bool : boolean) => {
@@ -51,11 +56,11 @@ export function useModalManager({initialVisibility, content} : IModalObject){
         getVisibility : () => modalVisibility,
         setBodyComponent : function (component)
         {
-            setModalBodyComponent(component({setVisibility : modalManager.setVisibility}))
+            setModalBodyComponent(component({setVisibility : this.setVisibility}))
         },
         getBodyComponent : () => modalBodyComponent,
         setHeaderComponent : function (component) {
-            setModalHeaderComponent(component({setVisibility : modalManager.setVisibility}))
+            setModalHeaderComponent(component({setVisibility : this.setVisibility}))
         },
         getHeaderComponent : () => modalHeaderComponent,
         saveModalPreset : function (presetName : string, header : ({ setVisibility }: IPropsVisibility) => JSX.Element, body : ({ setVisibility }: IPropsVisibility) => JSX.Element) {
@@ -80,6 +85,28 @@ export function useModalManager({initialVisibility, content} : IModalObject){
             this.setBodyComponent(preset.body)
         },
     }
+    
+    const [modalManager, modalManagerDispatch] = useReducer(modalManagerReducer, {...modalManagerInit})
+
+    useEffect(() => {
+
+        if(activeComponents?.header) modalManager.setHeaderComponent(activeComponents.header)
+        if(activeComponents?.body) modalManager.setBodyComponent(activeComponents.body)
+  
+        function keyboardListener(e : KeyboardEvent){
+            if(e.code == "Escape") {e.preventDefault(); modalManager.setVisibility(false);}
+        }
+
+        window.addEventListener('keydown', keyboardListener)
+
+        
+
+        // soutenance : clean up to avoid having two listeners active => since useEffect is triggered twice in strict mode
+        return () => {
+            window.removeEventListener('keydown', keyboardListener)
+        }
+
+    }, [])
 
     return modalManager
 
@@ -99,10 +126,10 @@ export function useModalManager({initialVisibility, content} : IModalObject){
 
 interface IModalObject{
     initialVisibility? : boolean
-    content? : IModalContent
+    activeComponents? : IModalComponents
 }
 
-interface IModalContent{
+interface IModalComponents{
     body? : ({ setVisibility }: IPropsVisibility) => JSX.Element
     header? : ({ setVisibility }: IPropsVisibility) => JSX.Element
 }
