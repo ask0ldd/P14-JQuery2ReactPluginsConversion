@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Form from '../Form'
 import CurrentEmployees from '../pages/CurrentEmployees'
 // import usersDatasTen from '../datas/usersDatasTen'
 import usersDatas from '../datas/usersDatas'
 import { EmployeesContext } from '../contexts/EmployeesContext'
+import { useState } from 'react'
 
 /**
  * Component : Handling the routing logic of the app.
@@ -11,8 +13,9 @@ import { EmployeesContext } from '../contexts/EmployeesContext'
  * @return ( <CustomRouter/> )
  */
 function CustomRouter() {
+    const [employeesList, setEmployeesList] = useState<Array<any>>(usersDatas)
     return(
-        <EmployeesContext.Provider value={{employees : usersDatas}}>
+        <EmployeesContext.Provider value={{employeesList, setEmployeesList}}>
             <Router basename="/P14-JQuery2ReactPluginsConversion/">
                 <Routes>
                     <Route path="/" element={<Form />} />

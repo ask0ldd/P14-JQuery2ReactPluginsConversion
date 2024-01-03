@@ -15,7 +15,7 @@ import { EmployeesContext } from '../contexts/EmployeesContext'
  * @return ( <CurrentEmployees/> )
  */
 function CurrentEmployees() {
-  const {employees} = useContext(EmployeesContext);
+  const {employeesList, setEmployeesList} = useContext(EmployeesContext);
 
   const tableModel = new TableModel({id : "current_employees"})
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("First Name").setDatatypeAsString().setAccessor("firstName").setSortability(true).build())
@@ -31,7 +31,7 @@ function CurrentEmployees() {
   return (
     <main className='mainCE'>
       <h1>Current Employees</h1>
-      <DatasTable tableModel={tableModel} tableDatas={employees}/>
+      <DatasTable tableModel={tableModel} tableDatas={employeesList}/>
       <Link to={`/`} style={{width:'fit-content', justifySelf:'center', alignSelf:'center', display:'flex'}}>Home</Link>
     </main>)
 }

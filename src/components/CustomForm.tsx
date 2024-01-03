@@ -26,7 +26,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     const [formState, setFormState]= useState<IFormState>(initialFormState)
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
     const formStateRef = useRef<IFormState>(initialFormState)
-    const {employees} = useContext(EmployeesContext)
+    const {employeesList, setEmployeesList} = useContext(EmployeesContext)
 
     function formValidation (){
       let isError = 0
@@ -53,7 +53,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     }
 
     function isEmployeeAlreadyInContext(newEmployee : object){
-      return employees.find(employee => JSON.stringify(employee) === JSON.stringify(newEmployee)) != null
+      return employeesList.find(employee => JSON.stringify(employee) === JSON.stringify(newEmployee)) != null
     }
 
     function formSubmit (e : React.MouseEvent<HTMLInputElement, MouseEvent>){
@@ -76,7 +76,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
           if(Validator.isDate(value)) newEmployee[key as keyof typeof newEmployee] = convertUSDatetoFr(newEmployee[key as keyof typeof newEmployee])
         }
         if(isEmployeeAlreadyInContext(newEmployee)) return
-        employees.push(newEmployee)
+        setEmployeesList([...employeesList, newEmployee])
         modalManager.displayModalPreset("default")
         return 
       }

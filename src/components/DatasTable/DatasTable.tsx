@@ -26,7 +26,7 @@ import { DatasTableContext } from './DatasTableContext'
  */
 function DatasTable({tableModel, tableDatas} : IProps){
 
-    // tableModel & tableDatas as props so already triggering a re-render, no need of useState to do it
+    // tableModel & tableDatas already triggering a re-render (being props), so no need of useState
     // check if accessors & table datas properties are matching / if not : no table displayed
     const isColumnsDefinitionMatchingDatas = useMemo(() => {
         let areAllMatching = true
