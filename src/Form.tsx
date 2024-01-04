@@ -17,7 +17,7 @@ import { useEffect } from 'react'
  */
 function App() {
 
-  // has to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
+  // had to be outside the modal component so we can modify the modalVisibility prop passed to the modal component
   const modalManager = useModalManager({initialVisibility : false, activeComponents :{body : ModalBodySuccess, header : ModalBaseHeader}})
 
   useEffect(() => {
@@ -43,19 +43,28 @@ function App() {
     </main>
   )
 
-  // Component that will be injected into the modal
+  /**
+  * Component : The body of a modale.
+  * @Component
+  * @return ( <ModalBodySuccess/> )
+  **/
   function ModalBodySuccess() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
-        Employee Created!
+        Employee Created !
       </div>
     )
   }
 
+  /**
+  * Component : The body of a modale.
+  * @Component
+  * @return ( <ModalBodyInvalidForm/> )
+  **/
   function ModalBodyInvalidForm() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
-        Form Error!
+        Some fields hold invalid values !
       </div>
     )
   }

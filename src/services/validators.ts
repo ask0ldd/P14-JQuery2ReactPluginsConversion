@@ -1,3 +1,7 @@
+/**
+ * Helper used to validate some form fields.
+ * @class
+ */
 export default class Validator{
 
     /**

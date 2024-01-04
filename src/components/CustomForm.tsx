@@ -9,6 +9,13 @@ import { FormStateBuilder } from "./FormStateBuilder"
 import { EmployeesContext } from "../contexts/EmployeesContext"
 import { IModalManager } from "./Modal/hooks/useModalManager"
 
+/**
+ * Component : Form.
+ * @Component
+ * @param {Object[]} props - Props.
+ * @param {IModalManager} props.modalManager - object giving access to all the tools needed to manipulate the modal.
+ * @return ( <CustomForm modalManager={modalManager}/> )
+ */
 function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormState = new FormStateBuilder()
@@ -47,7 +54,6 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     }
 
     function convertUSDatetoFr(date : string){
-      // console.log("trig")
       const splitDate = date.split('-')
       return splitDate.reverse().join('/')
     }
@@ -59,8 +65,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     function formSubmit (e : React.MouseEvent<HTMLInputElement, MouseEvent>){
       e.preventDefault()
       if(formValidation()){
-        // before add to employees, verify not existing
-        // console.log(formState)
+        // !!! before add to employees, verify not existing
         const newEmployee = {
           "firstName":formState.firstname.value || '',
           "lastName":formState.lastname.value || '',
