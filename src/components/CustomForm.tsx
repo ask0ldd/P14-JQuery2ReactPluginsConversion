@@ -18,8 +18,9 @@ import { IModalManager } from "./Modal/hooks/useModalManager"
  */
 function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
+    // !!! should replace with builder pattern / useMemo?
     const initialFormState = new FormStateBuilder()
-    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true}) // !!!!! mandatory : true / false
+    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
     .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
     .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
     .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
