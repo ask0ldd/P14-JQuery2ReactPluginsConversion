@@ -15,7 +15,7 @@ import { EmployeesContext } from '../contexts/EmployeesContext'
  * @return ( <CurrentEmployees/> )
  */
 function CurrentEmployees() {
-  const {employeesList, setEmployeesList} = useContext(EmployeesContext);
+  const {employeesList} = useContext(EmployeesContext);
 
   const tableModel = new TableModel({id : "current_employees"})
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("First Name").setDatatypeAsString().setAccessor("firstName").setSortability(true).build())

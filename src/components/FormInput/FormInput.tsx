@@ -1,5 +1,15 @@
 import { Dispatch, SetStateAction } from "react"
 
+/**
+ * Component : Grouping of all the constitutive elements of a datatable.
+ * @Component
+ * @param {Object[]} props - Props.
+ * @param {IInput} props.input - grouping some input properties values : {id, type, placeholder, CSSClasses, value}.
+ * @param {ILabel} props.label - grouping some label properties values : {id, text, CSSClasses}.
+ * @param {IFormState} props.formState - grouping : value, error, validationFn & isMandatory for each form field.
+ * @param {string} props.errorMessage - Table column header.
+ * @return ( <FormInput input={input} label={label} formState={formState} errorMessage={errorMessage}/> )
+ */
 function FormInput({input, label, formState, errorMessage} : IProps){
 // should pass state &
     const labelId = label?.id ? label.id : input.id + '-label'
@@ -7,6 +17,7 @@ function FormInput({input, label, formState, errorMessage} : IProps){
     // const defaultValue = input.value != null ? input.value : formState[formState.fieldAccessor as keyof typeof formState || input.id as keyof typeof formState] as string
       
     // !!!!! when datatype number input should accept letter but e is working
+
     return (
         <>
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
@@ -16,16 +27,27 @@ function FormInput({input, label, formState, errorMessage} : IProps){
         </>
     )
 
+    /**
+     * Format the value of an Input
+     * @param {string} value - The input value.
+     * @return {string} - The formatted input.
+     */
     function formatInputValue(value : string){
         return value.trim().toLowerCase()
     }
 
+    /**
+     * Update the requested field part of formState.
+     * @param {string} fieldAccessor - the key giving access one specific formState field.
+     * @param {IFormState} formState - grouping : value, error, validationFn & isMandatory for each form field.
+     * @param {string} value - The update value.
+     */
     function updateTargetFieldState(fieldAccessor : string, formState : IFormState, value : string){
         return {...formState, [fieldAccessor] : {
             value : formatInputValue(value), 
             error : !formState[fieldAccessor].validationFn(value),
             validationFn : formState[fieldAccessor].validationFn,
-            mandatory : formState[fieldAccessor].mandatory
+            mandatory : formState[fieldAccessor].mandatory // !!! switch to ismandatory
         }}
     }
 }

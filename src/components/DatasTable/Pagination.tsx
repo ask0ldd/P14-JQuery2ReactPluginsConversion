@@ -19,6 +19,10 @@ function Pagination() {
     // QM = question mark
     const enoughEntriesLeftForNextPageQM =  currentPage * nEntriesPerPage < totalEntries
 
+    /*
+     * Previous Table Page.
+     * dispatch > context > useTableManager > useReducer
+     */
     function prevPage(){
       if(dispatch == null || tableState == null) return
       dispatch({
@@ -29,6 +33,10 @@ function Pagination() {
         }})
     }
 
+    /*
+     * Next Table Page.
+     * dispatch > context > useTableManager > useReducer
+     */
     function nextPage(){
       if(dispatch == null || tableState == null) return
       dispatch({
