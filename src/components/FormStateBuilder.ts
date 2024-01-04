@@ -7,13 +7,13 @@ export class FormStateBuilder {
         return this
     }
 
-    addFormFieldBlock(blockArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, mandatory : boolean}){
+    addFormFieldBlock(blockArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean}){
         this.#state = {...this.#state, 
             [blockArgs.accessor] : {
                 value : blockArgs.defaultValue || '', 
                 error : false, 
                 validationFn : blockArgs.validationFn || trueFn,
-                mandatory : blockArgs.mandatory
+                isMandatory : blockArgs.isMandatory
             }}
         return this
     }

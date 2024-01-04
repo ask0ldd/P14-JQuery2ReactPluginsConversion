@@ -47,7 +47,7 @@ function FormInput({input, label, formState, errorMessage} : IProps){
             value : formatInputValue(value), 
             error : !formState[fieldAccessor].validationFn(value),
             validationFn : formState[fieldAccessor].validationFn,
-            mandatory : formState[fieldAccessor].mandatory // !!! switch to ismandatory
+            isMandatory : formState[fieldAccessor].isMandatory // !!! switch to ismandatory
         }}
     }
 }
@@ -87,7 +87,7 @@ export interface IFormInput{
     value : string
     error : boolean
     validationFn : (value: string) => boolean
-    mandatory : boolean
+    isMandatory : boolean
 }
 
 /*

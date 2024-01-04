@@ -12,15 +12,15 @@ import { IModalManager } from "./Modal/hooks/useModalManager"
 function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormState = new FormStateBuilder()
-    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, mandatory : true}) // !!!!! mandatory : true / false
-    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, mandatory : true})
-    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, mandatory : true})
-    .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, mandatory : true})
-    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, mandatory : true})
-    .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value, mandatory : true})
-    .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, mandatory : true})
-    .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, mandatory : true})
-    .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value, mandatory : true})
+    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true}) // !!!!! mandatory : true / false
+    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
+    .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+    .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value, isMandatory : true})
+    .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, isMandatory : true})
+    .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, isMandatory : true})
+    .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value, isMandatory : true})
     .buildState()
 
     const [formState, setFormState]= useState<IFormState>(initialFormState)
@@ -35,7 +35,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       for (const [key, formInput] of Object.entries(formStateRef.current)) {
         isError += +formInput.error
         // mandatory & not blank ?
-        if(formInput.mandatory === true && formInput.value.trim() == ""){
+        if(formInput.isMandatory === true && formInput.value.trim() == ""){
             const formInputState = {...formStateRef.current[key]}
             isError++
             formInputState.error = true
