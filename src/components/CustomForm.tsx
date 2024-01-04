@@ -35,6 +35,11 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     const formStateRef = useRef<IFormState>(initialFormState)
     const {employeesList, setEmployeesList} = useContext(EmployeesContext)
 
+    /**
+     * Perform validation on the form state.
+     * @function formValidation
+     * @returns {boolean} - Returns true if the form is valid, otherwise false.
+     */
     function formValidation (){
       let isError = 0
       formStateRef.current = formState
@@ -53,15 +58,30 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       return Boolean(!isError)
     }
 
+    /**
+     * Convert a date from USD format to FR format.
+     * @param {string} date - The date in USD format (YYYY-MM-DD).
+     * @returns {string} The date in FR format (DD/MM/YYYY).
+     */
     function convertUSDatetoFr(date : string){
       const splitDate = date.split('-')
       return splitDate.reverse().join('/')
     }
 
+    /**
+     * Check if the new employee is already in the context.
+     * @param {object} newEmployee - The new employee object to be checked.
+     * @returns {boolean} - True if the employee is already in the context, false otherwise.
+     */
     function isEmployeeAlreadyInContext(newEmployee : object){
       return employeesList.find(employee => JSON.stringify(employee) === JSON.stringify(newEmployee)) != null
     }
 
+    /**
+     * Handle form submission
+     * @param {React.MouseEvent<HTMLInputElement, MouseEvent>} e - The event object
+     * @returns {void}
+     */
     function formSubmit (e : React.MouseEvent<HTMLInputElement, MouseEvent>){
       e.preventDefault()
       if(formValidation()){

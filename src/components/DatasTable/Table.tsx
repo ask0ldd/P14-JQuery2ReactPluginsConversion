@@ -67,7 +67,7 @@ function Table() {
     }
 
     /**
-     * Determine which style should be applied to the current row.
+     * Determine which style should be applied to the target row.
      * @param {number} index - index of a table row.
      * @return {string} - the styles class to associate to this row.
      */
@@ -76,7 +76,7 @@ function Table() {
     }
 
     /**
-     * Determine which style should be applied to the current row.
+     * Return a specific style if the target row is the last one.
      * @param {number} index - index of a table row.
      * @return {string} - the style to associate to this row if it is the last one.
      */

@@ -37,10 +37,11 @@ function FormInput({input, label, formState, errorMessage} : IProps){
     }
 
     /**
-     * Update the requested field part of formState.
-     * @param {string} fieldAccessor - the key giving access one specific formState field.
-     * @param {IFormState} formState - grouping : value, error, validationFn & isMandatory for each form field.
-     * @param {string} value - The update value.
+     * Update the target formState field.
+     * @param {string} fieldAccessor - The key giving access to one specific formState field.
+     * @param {IFormState} formState - The current state of the form. Grouping : value, error, validationFn & isMandatory for each form field.
+     * @param {string} value - The new value for the field.
+     * @returns {IFormState} - The updated form state.
      */
     function updateTargetFieldState(fieldAccessor : string, formState : IFormState, value : string){
         return {...formState, [fieldAccessor] : {
