@@ -25,7 +25,7 @@ function CurrentEmployees() {
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Birthdate").setDatatypeAsDate().setAccessor("birthDate").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Street").setDatatypeAsString().setAccessor("street").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("City").setDatatypeAsString().setAccessor("city").setSortability(true).build())
-  tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("State").setDatatypeAsString().setAccessor("state").setSortability(false).build())
+  tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("State").setDatatypeAsString().setAccessor("state").setSortability(true).build())
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Zip Code").setDatatypeAsNumber().setAccessor("zipCode").setSortability(true).build())
 
   return (
