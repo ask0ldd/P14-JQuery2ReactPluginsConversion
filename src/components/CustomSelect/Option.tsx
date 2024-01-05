@@ -17,6 +17,11 @@ function Option({index, option} : IProps){
 
     const { options, activeOption, listbox } = useContext(SelectContext)
 
+    /**
+     * Check if the given option is active.
+     * @param {IOption} option - The option to be checked.
+     * @returns {boolean} - True if the option is active, false otherwise.
+     */
     function isOptionActive(option : IOption)
     {
         return activeOption.get().value === option?.value

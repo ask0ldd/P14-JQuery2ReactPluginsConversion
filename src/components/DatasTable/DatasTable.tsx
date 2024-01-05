@@ -33,6 +33,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
         const tableDatasPropertiesList = Object.getOwnPropertyNames(tableDatas[0])
         tableModel.getAccessorsList().forEach(accessor => {
             if(tableDatasPropertiesList.includes(accessor) === false) areAllMatching = false // !!!!! should throw
+            if(!areAllMatching === false) throw new Error("Some Accessors don't exist into the provided Dataset.")
         })
         return areAllMatching
     }, [tableDatas, tableModel])

@@ -1,4 +1,4 @@
-export class FormStateBuilder {
+export class FormStateBuilder { // !!! transform to builder
     
     #state = {}
 
@@ -29,9 +29,9 @@ export class FormStateBuilder {
 
     /**
      * Build the state.
-     * @returns {*} The state.
+     * @returns {object} The state.
      */
-    buildState(){
+    buildState() {
         return this.#state
     }
 }

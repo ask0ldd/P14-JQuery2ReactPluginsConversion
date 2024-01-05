@@ -9,14 +9,8 @@ import { Dispatch, SetStateAction, ChangeEvent } from "react"
  */
 function DatePicker({formState, id, label} : IProps){
 
-    // const [, setFormState] = useFormState
     const stateAccessor = formState.fieldAccessor || id
     const errorMessage = "You need to select a Date."
-
-    /*function convertIntDatetoFr(date : string){
-        const splitDate = date.split('-')
-        return splitDate.reverse().join('/')
-    }*/
 
     return(
         <>
@@ -24,7 +18,6 @@ function DatePicker({formState, id, label} : IProps){
             <input type="date" id={id} value={formState.get()[stateAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
                 formState.set((prevState : IForm) => {
                     return {...prevState, [stateAccessor] : {
-                        // value: convertIntDatetoFr(e.target.value.toLowerCase().trim()), 
                         value: e.target.value.toLowerCase().trim(), 
                         error : !prevState[stateAccessor].validationFn(e.target.value),
                         validationFn : prevState[stateAccessor].validationFn,
@@ -65,3 +58,8 @@ interface IFormInput{
     validationFn : (value: string) => boolean
     isMandatory : boolean
 }
+
+/*function convertIntDatetoFr(date : string){
+    const splitDate = date.split('-')
+    return splitDate.reverse().join('/')
+}*/

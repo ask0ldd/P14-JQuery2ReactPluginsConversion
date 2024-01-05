@@ -49,7 +49,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       console.log(formStateRef.current)
       for (const [key, formInput] of Object.entries(formStateRef.current)) {
         isError += +formInput.error
-        // mandatory & not blank ?
+        // mandatory & blank ? => error
         if(formInput.isMandatory === true && formInput.value.trim() == ""){
             const formInputState = {...formStateRef.current[key]}
             isError++
@@ -88,7 +88,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     function formSubmit (e : React.MouseEvent<HTMLInputElement, MouseEvent>){
       e.preventDefault()
       if(formValidation()){
-        // !!! before add to employees, verify not existing
+        // !!! before adding to employees, verify employee is not already existing
         const newEmployee = {
           "firstName":formState.firstname.value || '',
           "lastName":formState.lastname.value || '',
@@ -117,7 +117,8 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
             <FormInput input={{id : 'firstname', type : "text"}}
             label={{text : 'First Name'}}
-            formState={{get : () => formState, set : setFormState}} // input id used as accessor if fieldValueAccessor not defined.
+            // !!! input id used as accessor if fieldValueAccessor not defined.
+            formState={{get : () => formState, set : setFormState}} 
             errorMessage = "Invalid Value."/>
 
             <FormInput input={{id : "lastname", type : "text"}}
@@ -144,7 +145,8 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
             <CustomSelect select={{id:"state"}}
             label={{text : "State", CSSClasses : ["defaultSpacing"]}} 
             formState={{get : () => formState, set : setFormState, fieldAccessor : 'state'}} 
-            options={statesList} // !!! add default : options={list : statesList, default : {label : 'defaultlabel' , value : 'defautvalue' }
+            // !!! add default : options={list : statesList, default : {label : 'defaultlabel' , value : 'defautvalue' }
+            options={statesList} 
             />
 
             <FormInput input={{id : "zipcode", type : "number"}} 

@@ -32,6 +32,11 @@ import { ITableState } from "../interfaces/ITableState"
  */
 function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
     
+    /**
+     * Reduces the table state based on the action performed.
+     * @param {ITableState} state - The current state of the table.
+     * @param {{ type: string, payload: any}} action - The action performed on the table.
+     */
     function tableStateReducer(state : ITableState, action : { type : string, payload : any}){
 
         // table datas sorting
@@ -101,8 +106,6 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         }
     }
 
-    // !!! should deal with a table having no search module, give the option passing a prop to datastable
-
     const [tableState, dispatch] = useReducer(tableStateReducer, {...initialState})
 
     return {tableState, dispatch}
@@ -111,3 +114,5 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
 export default useTableManager
 
 export type reducerDispatchType = React.Dispatch<{type: string, payload: any}>
+
+// !!! should deal with a table having no search module, give the option passing a prop to datastable

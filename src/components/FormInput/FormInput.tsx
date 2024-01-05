@@ -32,7 +32,7 @@ function FormInput({input, label, formState, errorMessage} : IProps){
      * @param {string} value - The input value.
      * @return {string} - The formatted input.
      */
-    function formatInputValue(value : string){
+    function formatInputValue(value : string): string{
         return value.trim().toLowerCase()
     }
 
@@ -48,7 +48,7 @@ function FormInput({input, label, formState, errorMessage} : IProps){
             value : formatInputValue(value), 
             error : !formState[fieldAccessor].validationFn(value),
             validationFn : formState[fieldAccessor].validationFn,
-            isMandatory : formState[fieldAccessor].isMandatory // !!! switch to ismandatory
+            isMandatory : formState[fieldAccessor].isMandatory
         }}
     }
 }
@@ -92,7 +92,7 @@ export interface IFormInput{
 }
 
 /*
-            onChange={(e) => formState.set((prevState) => ({...prevState, 
-                    [formState.fieldAccessor || input.id] : { value : formatInputValue(e.target.value), error : !validation.validationFn(e.target.value) }})
-            )}/>
+    onChange={(e) => formState.set((prevState) => ({...prevState, 
+            [formState.fieldAccessor || input.id] : { value : formatInputValue(e.target.value), error : !validation.validationFn(e.target.value) }})
+    )}/>
 */
