@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import App from '../NewEmployeeForm'
+import App from '../pages/NewEmployeeForm'
 import CurrentEmployees from '../pages/CurrentEmployees'
 // import usersDatasTen from '../datas/usersDatasTen'
 import usersDatas from '../datas/usersDatas'

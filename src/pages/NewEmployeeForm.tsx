@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import './NewEmployeeForm.css'
+import '../style/NewEmployeeForm.css'
 import { Link } from 'react-router-dom'
-import Modal from './components/Modal/Modal'
-import {useModalManager} from './components/Modal/hooks/useModalManager'
-import CustomForm from './components/CustomForm'
-import ModalBaseHeader from './components/Modal/ModalBaseHeader'
+import Modal from '../components/Modal/Modal'
+import {useModalManager} from '../components/Modal/hooks/useModalManager'
+import CustomForm from '../components/CustomForm'
+import ModalBaseHeader from '../components/Modal/ModalBaseHeader'
 import { useEffect } from 'react'
 
 // !!!!!!! create a button to fill the forms with mockdatas

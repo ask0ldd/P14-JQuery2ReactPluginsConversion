@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, ReactNode, ReactElement, JSXElementConstructor, ReactFragment, useRef } from "react"
-import { IPropsVisibility } from "../../../NewEmployeeForm"
+import { IPropsVisibility } from "../../../pages/NewEmployeeForm"
 
 /**
  * Function : Modal management tool.

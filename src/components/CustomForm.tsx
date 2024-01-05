@@ -7,6 +7,8 @@ import Validator from "../services/validators"
 import { FormStateBuilder } from "./FormStateBuilder"
 import { EmployeesContext } from "../contexts/EmployeesContext"
 import { IModalManager } from "./Modal/hooks/useModalManager"
+import '../style/CustomForm.css'
+// import '../style/NewEmployeeForm.css'
 
 /**
  * Component : Form.

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import '../NewEmployeeForm.css'
+import '../style/NewEmployeeForm.css'
 import '../style/CurrentEmployees.css'
 // import usersDatas from '../datas/usersDatas'
 import DatasTable from '../components/DatasTable/DatasTable'

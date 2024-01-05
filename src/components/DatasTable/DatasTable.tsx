@@ -26,7 +26,7 @@ import { DatasTableContext } from './DatasTableContext'
  */
 function DatasTable({tableModel, tableDatas} : IProps){
 
-    // tableModel & tableDatas already triggering a re-render (being props), so no need of useState
+    // [perfs] tableModel & tableDatas already triggering a re-render (being props), so no need of useState
     // check if accessors & table datas properties are matching / if not : no table displayed
     const isColumnsDefinitionMatchingDatas = useMemo(() => {
         let areAllMatching = true
@@ -42,6 +42,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
     return(
         <>
             {isColumnsDefinitionMatchingDatas ? 
+            // distributing model, datas & dispatch fn to the children components
             <DatasTableContext.Provider value={{tableModel, dispatch, tableState}}>
                 <div id="entriesNSearchContainer">
                     <NDisplayedSelect/>
