@@ -37,14 +37,6 @@ function DatasTable({tableModel, tableDatas} : IProps){
         return areAllMatching
     }, [tableDatas, tableModel])
 
-    /*const [isColumnsDefinitionMatchingDatas, setUsColumnsDefinitionMatchingDatas] = useState(true)
-    useEffect(() => {
-        const tableDatasPropertiesList = Object.getOwnPropertyNames(tableDatas[0])
-        tableModel.getAccessorsList().forEach(accessor => {
-            if(tableDatasPropertiesList.includes(accessor) === false) setUsColumnsDefinitionMatchingDatas(false) // !!!!! should throw
-        })
-    }, [tableDatas])*/
-
     const {tableState, dispatch} = useTableManager(tableModel, tableDatas)
 
     return(

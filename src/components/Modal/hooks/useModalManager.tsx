@@ -32,7 +32,6 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
 
     const modalManager : IModalManager = {
         getPresets : () => modalPresetsRef.current,
-        // initialized : true,
         setVisibility : (bool : boolean) => {
             setModalVisibility(bool); 
             scrollLock(bool);
@@ -81,8 +80,6 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
 
         window.addEventListener('keydown', keyboardListener)
 
-        
-
         // soutenance : clean up to avoid having two listeners active => since useEffect is triggered twice in strict mode
         return () => {
             window.removeEventListener('keydown', keyboardListener)
@@ -92,6 +89,11 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
 
     return modalManager
 
+    /**
+     * Locks or unlocks the scroll of the window.
+     * @param {boolean} state - The state to set for the scroll. True to lock, false to unlock.
+     * @returns {void}
+     */
     function scrollLock(state : boolean) : void {
         if(!state){
             window.onscroll = () => null
@@ -103,7 +105,7 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
         window.onscroll = () => {
             window.scrollTo(scrollLeft, scrollTop)
         }
-    }   
+    }
 }
 
 interface IModalObject{

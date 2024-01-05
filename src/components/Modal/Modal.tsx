@@ -14,10 +14,9 @@ import { IModalManager } from "./hooks/useModalManager"
  * @param {JSX.element} props.headerComponent - Component used as a modals header.
  * @return ( <Modal modalManager={modalManager}}/> )
  */
-function Modal({modalManager, /*visibility, */containerCSSClass, children} : PropsWithChildren<IProps>){
+function Modal({modalManager, containerCSSClass, children} : PropsWithChildren<IProps>){
 
     const dialogRef = useRef<HTMLDialogElement>(null)
-    // const modalVisibilityRef = useRef(modalManager.getVisibility)
 
     useEffect(() => {
         console.log(modalManager.getVisibility())

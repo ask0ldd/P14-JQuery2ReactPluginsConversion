@@ -64,7 +64,7 @@ function App() {
   function ModalBodyInvalidForm() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
-        Some fields hold invalid values !
+        The form can't be validated !
       </div>
     )
   }

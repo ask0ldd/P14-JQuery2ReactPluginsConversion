@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useContext, useRef, useState } from "react"
+import { useContext, useMemo, useRef, useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
 import FormInput, { IFormState } from "./FormInput/FormInput"
@@ -18,18 +18,19 @@ import { IModalManager } from "./Modal/hooks/useModalManager"
  */
 function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
-    // !!! should replace with builder pattern / useMemo?
-    const initialFormState = new FormStateBuilder()
-    .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-    .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-    .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
-    .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-    .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-    .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value, isMandatory : true})
-    .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, isMandatory : true})
-    .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, isMandatory : true})
-    .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value, isMandatory : true})
-    .buildState()
+    const initialFormState = useMemo(() => 
+      new FormStateBuilder()
+      .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
+      .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value, isMandatory : true})
+      .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, isMandatory : true})
+      .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, isMandatory : true})
+      .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value, isMandatory : true})
+      .buildState(), []
+    )
 
     const [formState, setFormState]= useState<IFormState>(initialFormState)
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
