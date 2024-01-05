@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import './Form.css'
+import './NewEmployeeForm.css'
 import { Link } from 'react-router-dom'
 import Modal from './components/Modal/Modal'
 import {useModalManager} from './components/Modal/hooks/useModalManager'

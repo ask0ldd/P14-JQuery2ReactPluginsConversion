@@ -9,10 +9,9 @@ import './style/ModalHeader.css'
  */
 function ModalBaseHeader({setVisibility} : IProps){
 
-    // !!!! tabindex button
     return (
         <div className='header-container'>
-            <button tabIndex={1} role="button" className='close-btn' onClick={() => setVisibility(false)} id="close" aria-label="close">X</button>        
+            <button tabIndex={0} role="button" className='close-btn' onClick={() => setVisibility(false)} id="close" aria-label="close">X</button>        
         </div>
     )
 }

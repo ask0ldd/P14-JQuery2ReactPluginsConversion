@@ -4,7 +4,6 @@ import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
 import FormInput, { IFormState } from "./FormInput/FormInput"
 import Validator from "../services/validators"
-import '../Form.css'
 import { FormStateBuilder } from "./FormStateBuilder"
 import { EmployeesContext } from "../contexts/EmployeesContext"
 import { IModalManager } from "./Modal/hooks/useModalManager"
