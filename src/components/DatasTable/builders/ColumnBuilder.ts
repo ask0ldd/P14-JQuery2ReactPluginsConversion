@@ -7,6 +7,10 @@ export class ColumnBuilder {
     static #sortable = false
     static #datatype : "string" | "number" | "date" | null = null
   
+    /**
+     * Start building a new column.
+     * @returns {ColumnBuilder} - The column builder instance.
+     */
     static startBuilder(){
       this.#th = null
       this.#accessor = null
@@ -55,16 +59,28 @@ export class ColumnBuilder {
       return this
     }
   
+    /**
+     * Set the data type of the column as a string.
+     * @returns {ColumnBuilder}
+     */
     static setDatatypeAsString(){
       this.#datatype = "string"
       return this
     }
   
+    /**
+     * Set the data type of the column as a number.
+     * @returns {ColumnBuilder}
+     */
     static setDatatypeAsNumber(){
       this.#datatype = "number"
       return this
     }
   
+    /**
+     * Set the data type of the column as a date.
+     * @returns {ColumnBuilder}
+     */
     static setDatatypeAsDate(){
       this.#datatype = "date"
       return this
