@@ -20,14 +20,12 @@ import { ITableState } from "../interfaces/ITableState"
 /**
  * Hook handling all the datatable interactions
  * @Hook
- * @param {Object[]} props - Props.
- * @param {Object} props.tableModel
- * @param {Object[]} props.tableModel.getColumnsNamesList - Return an array defining the columns of the table.
- * @param {string} props.tableModel.getColumnsNamesList[].accessor - Data accessor.
- * @param {string} props.tableModel.getColumnsNamesList[].th - Table column header.
- * @param {boolean} props.tableModel.getColumnsNamesList[].sortable - Sortability of the column.
- * @param {string} props.tableModel.getColumnsNamesList[].datatype - Type of the datas populating the column.
- * @param {Object[]} props.tableDatas - Datas used to populate the table.
+ * @param {Object} tableModel - Object defining the structure of the Table.
+ * @param {Object[]} tableModel.getColumnsNamesList - Return an array of all column names (<th> inner text).
+ * @param {Object[]} tableModel.getAccessorsList - Return an array of all the accessors.
+ * @param {Object[]} tableModel.getColumns - Return an array of all columns (w/ accessor, column names, sortable, datatype).
+ * @param {string} tableModel.getDatatypeForAccessor - Type of the datas populating the column.
+ * @param {Object[]} tableDatas - Datas used to populate the table.
  * @return (tableState, dispatch)
  */
 function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
@@ -59,7 +57,8 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
 
         // table datas filtering
         if (action.type === 'search') {
-            // 1- gets the processing arguments from the state
+            // 1- gets the processing arguments from the state 
+            // getProcessingArgs : () => { search : string, datatype : string, sorting : ISorting }
             // 2- updates those with the payload
             const processingDirectives = {...state.getProcessingArgs(), search : action.payload}
             return {...state, 

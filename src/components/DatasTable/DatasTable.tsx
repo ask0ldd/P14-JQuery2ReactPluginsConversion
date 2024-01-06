@@ -16,11 +16,11 @@ import { DatasTableContext } from './DatasTableContext'
  * @Component
  * @param {Object[]} props - Props.
  * @param {Object} props.tableModel
- * @param {Object[]} props.tableModel.getColumnsNamesList - Return an array defining the columns of the table.
- * @param {string} props.tableModel.getColumnsNamesList[].accessor - Data accessor.
- * @param {string} props.tableModel.getColumnsNamesList[].th - Table column header.
- * @param {boolean} props.tableModel.getColumnsNamesList[].sortable - Sortability of the column.
- * @param {string} props.tableModel.getColumnsNamesList[].datatype - Type of the datas populating the column.
+ * @param {Object[]} props.tableModel.getColumns - Return an array defining the columns of the table.
+ * @param {string} props.tableModel.getColumns[].accessor - Data accessor.
+ * @param {string} props.tableModel.getColumns[].th - Table column header.
+ * @param {boolean} props.tableModel.getColumns[].sortable - Sortability of the column.
+ * @param {string} props.tableModel.getColumns[].datatype - Type of the datas populating the column.
  * @param {Object[]} props.tableDatas - Datas used to populate the table.
  * @return ( <DatasTable tableModel={tableModel} tableDatas={tableDatas}/> )
  */
@@ -32,8 +32,8 @@ function DatasTable({tableModel, tableDatas} : IProps){
         let areAllMatching = true
         const tableDatasPropertiesList = Object.getOwnPropertyNames(tableDatas[0])
         tableModel.getAccessorsList().forEach(accessor => {
-            if(tableDatasPropertiesList.includes(accessor) === false) areAllMatching = false // !!!!! should throw
-            if(!areAllMatching === false) throw new Error("Some Accessors don't exist into the provided Dataset.")
+            if(tableDatasPropertiesList.includes(accessor) === false) areAllMatching = false
+            if(!areAllMatching) throw new Error("Some Accessors don't exist into the provided Dataset.")
         })
         return areAllMatching
     }, [tableDatas, tableModel])
