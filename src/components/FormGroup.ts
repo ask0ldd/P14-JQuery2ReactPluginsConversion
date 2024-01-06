@@ -18,15 +18,16 @@ export class FormGroup {
     }
 
     /**
-     * Add a form field block to the state.
-     * @param {Object} blockArgs - The arguments for the form field block.
-     * @param {string} blockArgs.accessor - The accessor for the form field.
-     * @param {string} [blockArgs.defaultValue] - The default value for the form field (optional).
-     * @param {(value: string) => boolean} [blockArgs.validationFn] - The validation function for the form field (optional).
-     * @param {boolean} blockArgs.isMandatory - Indicates if the form field is mandatory.
-     * @returns {Object} - The updated state.
+     * Add a new field to the FormGroup.
+     * @param {Object} blockArgs - The arguments to create a new field.
+     * @param {string} blockArgs.accessor - The id to access the field in the FormGroup.
+     * @param {string} [blockArgs.defaultValue] - The default value for the field (optional).
+     * @param {(value: string) => boolean} [blockArgs.validationFn] - The validation function for the new field (optional).
+     * @param {boolean} blockArgs.isMandatory - Indicates if the field is mandatory.
+     * @returns {Object} - The updated FormGroup.
      */
-    addField(blockArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean}){
+    addField(blockArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean} | undefined){
+        if (blockArgs == null) return this
         this.#state = {...this.#state, 
             [blockArgs.accessor] : {
                 value : blockArgs.defaultValue || '', 
@@ -38,8 +39,8 @@ export class FormGroup {
     }
 
     /**
-     * Build the state.
-     * @returns {object} The state.
+     * Build the FormGroup.
+     * @returns {object} FormGroup.
      */
     build() {
         return this.#state

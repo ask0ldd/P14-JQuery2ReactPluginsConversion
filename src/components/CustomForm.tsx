@@ -21,7 +21,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormGroup = useMemo(() => 
       new FormGroup()
-      .addField({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addField(new FieldBuilder()/*{accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true}*/)
       .addField({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
       .addField({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
       .addField({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})

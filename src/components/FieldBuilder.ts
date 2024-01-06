@@ -1,41 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-class FieldBuilder{
+export class FieldBuilder{
 
-    static #accessor : string | null = null
-    static #validationFn : undefined | (() => any) = undefined
-    static #defaultValue = ""
-    static #isMandatory = false
+    #accessor : string | null = null
+    #validationFn : ((value: string) => boolean) = () => true
+    #defaultValue = ""
+    #isMandatory = false
 
-    static startBuilder(){
+    constructor(){
         this.#accessor = null
-        this.#validationFn = undefined
+        this.#validationFn = () => true
         this.#defaultValue = ""
         this.#isMandatory = false
         return this
     }
 
-    static setAccessor(accessor : string){
+    /*startBuilder(){
+        this.#accessor = null
+        this.#validationFn = undefined
+        this.#defaultValue = ""
+        this.#isMandatory = false
+        return this
+    }*/
+
+    setAccessor(accessor : string){
         this.#accessor = accessor
         return this
     }
 
     
-    static setValidationFn(fn : () => any){
+    setValidationFn(fn : (value: string) => boolean){
         this.#validationFn = fn
         return this
     }
 
-    static setIsMandatory(bool : boolean){
+    setIsMandatory(bool : boolean){
         this.#isMandatory = bool
         return this
     }
 
-    static setDefaultValue(value : string){
+    setDefaultValue(value : string){
         this.#defaultValue = value
         return this
     }
 
-    static build(){
+    build(){
         try{
           if(this.#accessor == null) throw new Error("Invalid Accessor")
           return {accessor : this.#accessor, defaultValue : this.#defaultValue, validationFn : this.#validationFn, isMandatory : this.#isMandatory}
@@ -44,9 +52,4 @@ class FieldBuilder{
           return undefined
         }
       }
-
-
-
 }
-
-//{accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true}
