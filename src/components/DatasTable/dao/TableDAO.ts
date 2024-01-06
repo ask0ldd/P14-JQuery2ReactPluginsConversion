@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export class TableDatasDao{
+export class TableDAO{
 
     #datas : Array<any>
     

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useReducer } from "react"
 import { TableModel } from "../models/TableModel"
-import { TableDatasDao } from "../dao/TableDatasDao"
+import { TableDAO } from "../dao/TableDAO"
 import { ITableState } from "../interfaces/ITableState"
 
 /**
@@ -24,11 +24,11 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         sorting : {column : '', direction : 'asc'}, 
         pagination : {currentPage : 1, nEntriesPerPage : 10},
         search : "",
-        tableDatasDao : new TableDatasDao(tableDatas),
+        tableDAO : new TableDAO(tableDatas),
         // sorted and filtered datas
         processedDatas : tableDatas,
         tableModel : tableModel,
-        // get all the right arguments to pass the TableDatasDao so the filtered/sorted datas can be sent back
+        // get all the right arguments to pass the TableDAO so the filtered/sorted datas can be sent back
         getProcessingArgs() {
             return {search : this.search, datatype : this.tableModel.getDatatypeForAccessor(this.sorting.column), sorting : this.sorting}
         }
@@ -50,7 +50,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
             return {...state, 
                 sorting : action.payload, 
                 // 3- process the datas through the dao
-                processedDatas : state.tableDatasDao.getProcessedDatas(processingDirectives)
+                processedDatas : state.tableDAO.getProcessedDatas(processingDirectives)
             }
         }
 
@@ -70,7 +70,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
                 // when typing into the searchbar => the current page is set back to 1
                 pagination : {...state.pagination , currentPage : 1},
                 // 3- process the datas through the dao
-                processedDatas : state.tableDatasDao.getProcessedDatas(processingDirectives)
+                processedDatas : state.tableDAO.getProcessedDatas(processingDirectives)
             }
         }
 
@@ -86,10 +86,10 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
                 if(newRowPropertiesList.includes(accessor) === false) return state // !!!!! should throw
             })
 
-            state.tableDatasDao.addRow(newRow)
+            state.tableDAO.addRow(newRow)
             return {
                 ...state,
-                processedDatas : state.tableDatasDao.getProcessedDatas(state.getProcessingArgs())
+                processedDatas : state.tableDAO.getProcessedDatas(state.getProcessingArgs())
             }
         }
 
