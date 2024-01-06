@@ -19,21 +19,21 @@ export class FormGroup {
 
     /**
      * Add a new field to the FormGroup.
-     * @param {Object} blockArgs - The arguments to create a new field.
-     * @param {string} blockArgs.accessor - The id to access the field in the FormGroup.
-     * @param {string} [blockArgs.defaultValue] - The default value for the field (optional).
-     * @param {(value: string) => boolean} [blockArgs.validationFn] - The validation function for the new field (optional).
-     * @param {boolean} blockArgs.isMandatory - Indicates if the field is mandatory.
+     * @param {Object} fieldArgs - The arguments to create a new field.
+     * @param {string} fieldArgs.accessor - The id to access the field in the FormGroup.
+     * @param {string} [fieldArgs.defaultValue] - The default value for the field (optional).
+     * @param {(value: string) => boolean} [fieldArgs.validationFn] - The validation function for the new field (optional).
+     * @param {boolean} fieldArgs.isMandatory - Indicates if the field is mandatory.
      * @returns {Object} - The updated FormGroup.
      */
-    addField(blockArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean} | undefined){
-        if (blockArgs == null) return this
+    addField(fieldArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean} | undefined){
+        if (fieldArgs == null) return this
         this.#state = {...this.#state, 
-            [blockArgs.accessor] : {
-                value : blockArgs.defaultValue || '', 
+            [fieldArgs.accessor] : {
+                value : fieldArgs.defaultValue || '', 
                 error : false, 
-                validationFn : blockArgs.validationFn || trueFn,
-                isMandatory : blockArgs.isMandatory
+                validationFn : fieldArgs.validationFn || trueFn,
+                isMandatory : fieldArgs.isMandatory
             }}
         return this
     }

@@ -8,6 +8,7 @@ import { FormGroup } from "./FormGroup"
 import { EmployeesContext } from "../contexts/EmployeesContext"
 import { IModalManager } from "./Modal/hooks/useModalManager"
 import '../style/CustomForm.css'
+import { FieldBuilder } from "./FieldBuilder"
 // import '../style/NewEmployeeForm.css'
 
 /**
@@ -21,8 +22,9 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormGroup = useMemo(() => 
       new FormGroup()
-      .addField(new FieldBuilder()/*{accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true}*/)
-      .addField({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addField(new FieldBuilder().setAccessor("firstname").setDefaultValue("aaa").setValidationFn(Validator.isName).setIsMandatory(true).build()
+      /*{accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true}*/)
+      .addField({accessor : "lastname", defaultValue : 'aaa', validationFn : Validator.isName, isMandatory : true})
       .addField({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
       .addField({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
       .addField({accessor : "city", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
