@@ -1,13 +1,19 @@
-export class FormGroup { // !!! transform to builder
-    
+/**
+ * Represents a form group.
+ */
+export class FormGroup {
+
     #state = {}
 
+    /**
+     * Constructs a new FormGroup.
+     */
     constructor(){
         this.#state = {}
         return this
     }
 
-    getState(){
+    get(){
         return {...this.#state}
     }
 
@@ -20,7 +26,7 @@ export class FormGroup { // !!! transform to builder
      * @param {boolean} blockArgs.isMandatory - Indicates if the form field is mandatory.
      * @returns {Object} - The updated state.
      */
-    addFormFieldBlock(blockArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean}){
+    addField(blockArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean}){
         this.#state = {...this.#state, 
             [blockArgs.accessor] : {
                 value : blockArgs.defaultValue || '', 
@@ -35,7 +41,7 @@ export class FormGroup { // !!! transform to builder
      * Build the state.
      * @returns {object} The state.
      */
-    buildState() {
+    build() {
         return this.#state
     }
 }

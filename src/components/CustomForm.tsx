@@ -21,16 +21,16 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormGroup = useMemo(() => 
       new FormGroup()
-      .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-      .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-      .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
-      .addFormFieldBlock({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-      .addFormFieldBlock({accessor : "city", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
-      .addFormFieldBlock({accessor : "state", defaultValue : statesList[0].value, isMandatory : true})
-      .addFormFieldBlock({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, isMandatory : true})
-      .addFormFieldBlock({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, isMandatory : true})
-      .addFormFieldBlock({accessor : "department", defaultValue : departmentsList[0].value, isMandatory : true})
-      .buildState(), []
+      .addField({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addField({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addField({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
+      .addField({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addField({accessor : "city", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
+      .addField({accessor : "state", defaultValue : statesList[0].value, isMandatory : true})
+      .addField({accessor : "zipcode", defaultValue : '', validationFn : Validator.isNumber, isMandatory : true})
+      .addField({accessor : "startdate", defaultValue : '', validationFn : Validator.isDate, isMandatory : true})
+      .addField({accessor : "department", defaultValue : departmentsList[0].value, isMandatory : true})
+      .build(), []
     )
 
     const [formState, setFormState]= useState<IFormGroup>(initialFormGroup)
