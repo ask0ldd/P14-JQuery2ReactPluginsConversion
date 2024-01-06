@@ -100,8 +100,8 @@ export interface IOption{
 
 interface IProps{
     formState : {
-        get : () => IFormState
-        set : Dispatch<SetStateAction<IFormState>>
+        get : () => IFormGroup
+        set : Dispatch<SetStateAction<IFormGroup>>
         fieldAccessor : string
     }
     options : Array<IOption>
@@ -116,7 +116,7 @@ export interface ILabel{
     CSSClasses? : string[]
 }
 
-export interface IFormState{
+export interface IFormGroup{
     [key: string]: IFormInput
   }
   

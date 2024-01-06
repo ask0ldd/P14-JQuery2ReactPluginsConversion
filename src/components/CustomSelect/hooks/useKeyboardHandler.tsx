@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, MutableRefObject, Dispatch, SetStateAction } from 'react'
-import { IFormState, IOption } from '../CustomSelect'
+import { IFormGroup, IOption } from '../CustomSelect'
 
 export function useKeyboardHandler(
     selectId : string,
     formState : {
-        get : () => IFormState
-        set : Dispatch<SetStateAction<IFormState>>, 
+        get : () => IFormGroup
+        set : Dispatch<SetStateAction<IFormGroup>>, 
         fieldAccessor? : string
     },
     options : Array<IOption>, 

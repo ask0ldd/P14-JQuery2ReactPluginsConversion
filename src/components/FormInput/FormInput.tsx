@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction } from "react"
  * @param {Object[]} props - Props.
  * @param {IInput} props.input - grouping some input properties values : {id, type, placeholder, CSSClasses, value}.
  * @param {ILabel} props.label - grouping some label properties values : {id, text, CSSClasses}.
- * @param {IFormState} props.formState - grouping : value, error, validationFn & isMandatory for each form field.
+ * @param {IFormGroup} props.formState - grouping : value, error, validationFn & isMandatory for each form field.
  * @param {string} props.errorMessage - Table column header.
  * @return ( <FormInput input={input} label={label} formState={formState} errorMessage={errorMessage}/> )
  */
@@ -39,11 +39,11 @@ function FormInput({input, label, formState, errorMessage} : IProps){
     /**
      * Update the target formState field.
      * @param {string} fieldAccessor - The key giving access to one specific formState field.
-     * @param {IFormState} formState - The current state of the form. Grouping : value, error, validationFn & isMandatory for each form field.
+     * @param {IFormGroup} formState - The current state of the form. Grouping : value, error, validationFn & isMandatory for each form field.
      * @param {string} value - The new value for the field.
-     * @returns {IFormState} - The updated form state.
+     * @returns {IFormGroup} - The updated form state.
      */
-    function updateTargetFieldState(fieldAccessor : string, formState : IFormState, value : string){
+    function updateTargetFieldState(fieldAccessor : string, formState : IFormGroup, value : string){
         return {...formState, [fieldAccessor] : {
             value : formatInputValue(value), 
             error : !formState[fieldAccessor].validationFn(value),
@@ -59,8 +59,8 @@ interface IProps{
     input : IInput
     label : ILabel
     formState : { 
-        get() : IFormState
-        set : Dispatch<SetStateAction<IFormState>>
+        get() : IFormGroup
+        set : Dispatch<SetStateAction<IFormGroup>>
         fieldAccessor? : string
     }
     errorMessage : string
@@ -80,7 +80,7 @@ interface IInput{
     CSSClasses? : string[]
 }
 
-export interface IFormState{
+export interface IFormGroup{
     [key: string]: IFormInput
 }
   

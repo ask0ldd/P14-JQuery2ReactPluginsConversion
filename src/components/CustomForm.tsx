@@ -2,9 +2,9 @@
 import { useContext, useMemo, useRef, useState } from "react"
 import CustomSelect from "./CustomSelect/CustomSelect"
 import DatePicker from "./DatePicker/DatePicker"
-import FormInput, { IFormState } from "./FormInput/FormInput"
+import FormInput, { IFormGroup } from "./FormInput/FormInput"
 import Validator from "../services/validators"
-import { FormStateBuilder } from "./FormStateBuilder"
+import { FormGroup } from "./FormGroup"
 import { EmployeesContext } from "../contexts/EmployeesContext"
 import { IModalManager } from "./Modal/hooks/useModalManager"
 import '../style/CustomForm.css'
@@ -19,8 +19,8 @@ import '../style/CustomForm.css'
  */
 function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
-    const initialFormState = useMemo(() => 
-      new FormStateBuilder()
+    const initialFormGroup = useMemo(() => 
+      new FormGroup()
       .addFormFieldBlock({accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
       .addFormFieldBlock({accessor : "lastname", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
       .addFormFieldBlock({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
@@ -33,9 +33,9 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       .buildState(), []
     )
 
-    const [formState, setFormState]= useState<IFormState>(initialFormState)
+    const [formState, setFormState]= useState<IFormGroup>(initialFormGroup)
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
-    const formStateRef = useRef<IFormState>(initialFormState)
+    const formStateRef = useRef<IFormGroup>(initialFormGroup)
     const {employeesList, setEmployeesList} = useContext(EmployeesContext)
 
     /**

@@ -1,10 +1,14 @@
-export class FormStateBuilder { // !!! transform to builder
+export class FormGroup { // !!! transform to builder
     
     #state = {}
 
     constructor(){
         this.#state = {}
         return this
+    }
+
+    getState(){
+        return {...this.#state}
     }
 
     /**
