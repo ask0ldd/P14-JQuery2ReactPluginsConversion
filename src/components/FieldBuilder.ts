@@ -75,5 +75,5 @@ export class FieldBuilder{
             console.error(e)
             return undefined
         }
-      }
+    }
 }
