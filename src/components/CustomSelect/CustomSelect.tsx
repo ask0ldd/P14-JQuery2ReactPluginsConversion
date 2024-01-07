@@ -22,16 +22,16 @@ styling option list
  * Component : A dropdown menu mimicking the HTML select component, with visual customization options.
  * @Component
  * @param {Object} props - Props.
- * @param {number} props.formState - Current values of the form elements.
+ * @param {number} props.formGroupState - Current values of the form elements.
  * @param {Object} props.options
  * @param {string} props.options[].label - Text displayed as an option.
  * @param {string} props.options[].value - Value sent on form submit when this option is selected.
  * @param {string} props.selectId - Id of the select, only used for options naming purposes.
  * @param {string} props.labelledBy - Id of the label related to the input.
  * @param {function} props.onValueChange - Function triggered when selecting a new option.
- * @return ( <CustomSelect formState={formState} options={options} selectId={selectId} labelledBy={labelledBy} onValueChange={onValueChange}/> )
+ * @return ( <CustomSelect formGroupState={formGroupState} options={options} selectId={selectId} labelledBy={labelledBy} onValueChange={onValueChange}/> )
  */
-function CustomSelect({formState, options, select, label } : IProps){ // should be able to pass the id of the element labelling the select
+function CustomSelect({formGroupState, options, select, label } : IProps){ // should be able to pass the id of the element labelling the select
     
     const labelId = label?.id ? label.id : select.id + '-label'
 
@@ -42,11 +42,11 @@ function CustomSelect({formState, options, select, label } : IProps){ // should 
     function setActiveOption(option : IOption){
         _setActiveOption({...option})
         activeOptionRef.current = {...option}
-        formState.set((prevState) => ({...prevState, [formState.fieldAccessor] : { 
+        formGroupState.set((prevState) => ({...prevState, [formGroupState.fieldAccessor] : { 
             value : option.value, 
             error : false,
-            validationFn : prevState[formState.fieldAccessor].validationFn,
-            isMandatory : prevState[formState.fieldAccessor].isMandatory
+            validationFn : prevState[formGroupState.fieldAccessor].validationFn,
+            isMandatory : prevState[formGroupState.fieldAccessor].isMandatory
         }}))
     }
 
@@ -59,7 +59,7 @@ function CustomSelect({formState, options, select, label } : IProps){ // should 
 
     useKeyboardHandler(
         select.id,
-        formState,
+        formGroupState,
         [...options], 
         activeOptionRef, 
         isListboxExpandedRef, 
@@ -99,7 +99,7 @@ export interface IOption{
 }
 
 interface IProps{
-    formState : {
+    formGroupState : {
         get : () => IFormGroup
         set : Dispatch<SetStateAction<IFormGroup>>
         fieldAccessor : string

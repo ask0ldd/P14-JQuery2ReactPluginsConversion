@@ -45,11 +45,16 @@ export class FieldBuilder{
 
     build(){
         try{
-          if(this.#accessor == null) throw new Error("Invalid Accessor")
-          return {accessor : this.#accessor, defaultValue : this.#defaultValue, validationFn : this.#validationFn, isMandatory : this.#isMandatory}
+            if(this.#accessor == null) throw new Error("Invalid Accessor")
+            return {
+                accessor : this.#accessor, 
+                defaultValue : this.#defaultValue, 
+                validationFn : this.#validationFn, 
+                isMandatory : this.#isMandatory
+            }
         }catch (e){
-          console.error(e)
-          return undefined
+            console.error(e)
+            return undefined
         }
       }
 }

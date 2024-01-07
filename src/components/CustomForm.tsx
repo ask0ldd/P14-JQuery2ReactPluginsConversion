@@ -22,8 +22,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
     const initialFormGroup = useMemo(() => 
       new FormGroup()
-      .addField(new FieldBuilder().setAccessor("firstname").setDefaultValue("aaa").setValidationFn(Validator.isName).setIsMandatory(true).build()
-      /*{accessor : "firstname", defaultValue : '', validationFn : Validator.isName, isMandatory : true}*/)
+      .addField(new FieldBuilder().setAccessor("firstname").setDefaultValue("aaa").setValidationFn(Validator.isName).setIsMandatory(true).build())
       .addField({accessor : "lastname", defaultValue : 'aaa', validationFn : Validator.isName, isMandatory : true})
       .addField({accessor : "birthdate", defaultValue : '', validationFn : Validator.isDatePast, isMandatory : true})
       .addField({accessor : "street", defaultValue : '', validationFn : Validator.isName, isMandatory : true})
@@ -35,9 +34,9 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       .build(), []
     )
 
-    const [formState, setFormState]= useState<IFormGroup>(initialFormGroup)
+    const [formGroupState, setFormGroupState]= useState<IFormGroup>(initialFormGroup)
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
-    const formStateRef = useRef<IFormGroup>(initialFormGroup)
+    const formGroupStateRef = useRef<IFormGroup>(initialFormGroup)
     const {employeesList, setEmployeesList} = useContext(EmployeesContext)
 
     /**
@@ -47,19 +46,19 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
      */
     function formValidation (){
       let isError = 0
-      formStateRef.current = formState
-      console.log(formStateRef.current)
-      for (const [key, formInput] of Object.entries(formStateRef.current)) {
+      formGroupStateRef.current = formGroupState
+      console.log(formGroupStateRef.current)
+      for (const [key, formInput] of Object.entries(formGroupStateRef.current)) {
         isError += +formInput.error
         // mandatory & blank ? => error
         if(formInput.isMandatory === true && formInput.value.trim() == ""){
-            const formInputState = {...formStateRef.current[key]}
+            const formInputState = {...formGroupStateRef.current[key]}
             isError++
             formInputState.error = true
-            formStateRef.current = {...formStateRef.current, [key] : formInputState}
+            formGroupStateRef.current = {...formGroupStateRef.current, [key] : formInputState}
         }
       }
-      setFormState({...formStateRef.current})
+      setFormGroupState({...formGroupStateRef.current})
       return Boolean(!isError)
     }
 
@@ -92,15 +91,15 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       if(formValidation()){
         // !!! before adding to employees, verify employee is not already existing
         const newEmployee = {
-          "firstName":formState.firstname.value || '',
-          "lastName":formState.lastname.value || '',
-          "street":formState.street.value || '',
-          "city":formState.city.value || '',
-          "zipCode":formState.zipcode.value || '',
-          "state":formState.state.value || '',
-          "birthDate":formState.birthdate.value || '',
-          "startingDate":formState.startdate.value || '',
-          "department":formState.department.value || ''
+          "firstName":formGroupState.firstname.value || '',
+          "lastName":formGroupState.lastname.value || '',
+          "street":formGroupState.street.value || '',
+          "city":formGroupState.city.value || '',
+          "zipCode":formGroupState.zipcode.value || '',
+          "state":formGroupState.state.value || '',
+          "birthDate":formGroupState.birthdate.value || '',
+          "startingDate":formGroupState.startdate.value || '',
+          "department":formGroupState.department.value || ''
         }
         for (const [key, value] of Object.entries(newEmployee)) {
           if(Validator.isDate(value)) newEmployee[key as keyof typeof newEmployee] = convertUSDatetoFr(newEmployee[key as keyof typeof newEmployee])
@@ -120,51 +119,51 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
             <FormInput input={{id : 'firstname', type : "text"}}
             label={{text : 'First Name'}}
             // !!! input id used as accessor if fieldValueAccessor not defined.
-            formState={{get : () => formState, set : setFormState}} 
+            formGroupState={{get : () => formGroupState, set : setFormGroupState}} 
             errorMessage = "Invalid Value."/>
 
             <FormInput input={{id : "lastname", type : "text"}}
             label={{text : 'Last Name', CSSClasses : ['defaultSpacing']}}
-            formState={{get : () => formState, set : setFormState}} 
+            formGroupState={{get : () => formGroupState, set : setFormGroupState}} 
             errorMessage = "Invalid Value."/>
 
             <DatePicker id={"birthdate"} 
             label={{text :"Birthdate", CSSClasses : ["defaultSpacing"]}} 
-            formState={{get : () => formState, set : setFormState, fieldAccessor : "birthdate"}}/>
+            formGroupState={{get : () => formGroupState, set : setFormGroupState, fieldAccessor : "birthdate"}}/>
 
             <h2>2. Address</h2>
 
             <FormInput input={{id : "street", type : "text"}} 
             label={{text : 'Street'}}
-            formState={{get : () => formState, set : setFormState}} 
+            formGroupState={{get : () => formGroupState, set : setFormGroupState}} 
             errorMessage = "Invalid Value."/>
 
             <FormInput input={{id : "city", type : "text"}} 
             label={{text : 'City', CSSClasses : ['defaultSpacing']}}
-            formState={{get : () => formState, set : setFormState}}
+            formGroupState={{get : () => formGroupState, set : setFormGroupState}}
             errorMessage = "Invalid Value."/>
 
             <CustomSelect select={{id:"state"}}
             label={{text : "State", CSSClasses : ["defaultSpacing"]}} 
-            formState={{get : () => formState, set : setFormState, fieldAccessor : 'state'}} 
+            formGroupState={{get : () => formGroupState, set : setFormGroupState, fieldAccessor : 'state'}} 
             // !!! add default : options={list : statesList, default : {label : 'defaultlabel' , value : 'defautvalue' }
             options={statesList} 
             />
 
             <FormInput input={{id : "zipcode", type : "number"}} 
             label={{text : 'ZIP Code', CSSClasses : ['defaultSpacing']}}
-            formState={{get : () => formState, set : setFormState}} 
+            formGroupState={{get : () => formGroupState, set : setFormGroupState}} 
             errorMessage = "Invalid Value."/>
 
             <h2>3. Professional</h2>
 
             <DatePicker id={"start-date"} 
             label={{text : "Integration Date"}} 
-            formState={{get : () => formState, set : setFormState, fieldAccessor : "startdate"}}/>
+            formGroupState={{get : () => formGroupState, set : setFormGroupState, fieldAccessor : "startdate"}}/>
 
             <CustomSelect select={{id:"department"}} 
             label={{text: "Departement", CSSClasses : ["defaultSpacing"]}} 
-            formState={{get : () => formState, set : setFormState, fieldAccessor : 'department'}} 
+            formGroupState={{get : () => formGroupState, set : setFormGroupState, fieldAccessor : 'department'}} 
             options={departmentsList}
             />
 

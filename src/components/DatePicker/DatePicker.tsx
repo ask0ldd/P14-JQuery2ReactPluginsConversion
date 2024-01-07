@@ -7,16 +7,16 @@ import { Dispatch, SetStateAction, ChangeEvent } from "react"
  * @Component
  * @return ( <DatePicker/> )
  */
-function DatePicker({formState, id, label} : IProps){
+function DatePicker({formGroupState, id, label} : IProps){
 
-    const stateAccessor = formState.fieldAccessor || id
+    const stateAccessor = formGroupState.fieldAccessor || id
     const errorMessage = "You need to select a Date."
 
     return(
         <>
             <label className={label?.CSSClasses?.join(' ')} htmlFor={id}>{label.text}</label>
-            <input type="date" id={id} value={formState.get()[stateAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
-                formState.set((prevState : IForm) => {
+            <input type="date" id={id} value={formGroupState.get()[stateAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
+                formGroupState.set((prevState : IForm) => {
                     return {...prevState, [stateAccessor] : {
                         value: e.target.value.toLowerCase().trim(), 
                         error : !prevState[stateAccessor].validationFn(e.target.value),
@@ -25,7 +25,7 @@ function DatePicker({formState, id, label} : IProps){
                     }}
                 })
             }}/>
-            {(formState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={id+"-error"}>{errorMessage}</p>}
+            {(formGroupState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={id+"-error"}>{errorMessage}</p>}
         </>
     )
 }
@@ -33,7 +33,7 @@ function DatePicker({formState, id, label} : IProps){
 export default DatePicker
 
 interface IProps{
-    formState : { 
+    formGroupState : { 
         get : () => IForm, 
         set : Dispatch<SetStateAction<IForm>>, 
         fieldAccessor? : string

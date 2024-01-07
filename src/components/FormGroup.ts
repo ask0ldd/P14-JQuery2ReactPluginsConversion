@@ -13,20 +13,21 @@ export class FormGroup {
         return this
     }
 
-    get(){
+    getState(){
         return {...this.#state}
     }
 
     /**
      * Add a new field to the FormGroup.
      * @param {Object} fieldArgs - The arguments to create a new field.
-     * @param {string} fieldArgs.accessor - The id to access the field in the FormGroup.
+     * @param {string} fieldArgs.accessor - The id to access a target FormGroup field.
      * @param {string} [fieldArgs.defaultValue] - The default value for the field (optional).
      * @param {(value: string) => boolean} [fieldArgs.validationFn] - The validation function for the new field (optional).
      * @param {boolean} fieldArgs.isMandatory - Indicates if the field is mandatory.
      * @returns {Object} - The updated FormGroup.
      */
-    addField(fieldArgs : {accessor : string, defaultValue? : string, validationFn? : (value: string) => boolean, isMandatory : boolean} | undefined){
+    addField(fieldArgs : Field | undefined){
+        // return this to keep chaining possible if this one field can't be added
         if (fieldArgs == null) return this
         this.#state = {...this.#state, 
             [fieldArgs.accessor] : {
@@ -49,4 +50,11 @@ export class FormGroup {
 
 function trueFn() : boolean{
     return true
+}
+
+interface Field{
+    accessor : string
+    defaultValue? : string
+    validationFn? : (value: string) => boolean
+    isMandatory : boolean
 }

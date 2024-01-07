@@ -4,7 +4,7 @@ import { IFormGroup, IOption } from '../CustomSelect'
 
 export function useKeyboardHandler(
     selectId : string,
-    formState : {
+    formGroupState : {
         get : () => IFormGroup
         set : Dispatch<SetStateAction<IFormGroup>>, 
         fieldAccessor? : string
@@ -75,7 +75,7 @@ export function useKeyboardHandler(
             window.removeEventListener('keydown', keyboardListener)
         }
 
-    }, [formState]) // sountenance :: each time formState is changing, the event listener is remounted with formstate new value => without that accessing formstate return a blank stale state
+    }, [formGroupState]) // sountenance :: each time formGroupState is changing, the event listener is remounted with formstate new value => without that accessing formstate return a blank stale state
 
     function setFirstOptionActive(e : KeyboardEvent){
         e.preventDefault()

@@ -6,15 +6,15 @@ import { Dispatch, SetStateAction } from "react"
  * @param {Object[]} props - Props.
  * @param {IInput} props.input - grouping some input properties values : {id, type, placeholder, CSSClasses, value}.
  * @param {ILabel} props.label - grouping some label properties values : {id, text, CSSClasses}.
- * @param {IFormGroup} props.formState - grouping : value, error, validationFn & isMandatory for each form field.
+ * @param {IFormGroup} props.formGroupState - grouping : value, error, validationFn & isMandatory for each form field.
  * @param {string} props.errorMessage - Table column header.
- * @return ( <FormInput input={input} label={label} formState={formState} errorMessage={errorMessage}/> )
+ * @return ( <FormInput input={input} label={label} formGroupState={formGroupState} errorMessage={errorMessage}/> )
  */
-function FormInput({input, label, formState, errorMessage} : IProps){
+function FormInput({input, label, formGroupState, errorMessage} : IProps){
 // should pass state &
     const labelId = label?.id ? label.id : input.id + '-label'
-    const stateAccessor = formState.fieldAccessor || input.id
-    // const defaultValue = input.value != null ? input.value : formState[formState.fieldAccessor as keyof typeof formState || input.id as keyof typeof formState] as string
+    const stateAccessor = formGroupState.fieldAccessor || input.id
+    // const defaultValue = input.value != null ? input.value : formGroupState[formGroupState.fieldAccessor as keyof typeof formGroupState || input.id as keyof typeof formGroupState] as string
       
     // !!!!! when datatype number input should accept letter but e is working
 
@@ -22,8 +22,8 @@ function FormInput({input, label, formState, errorMessage} : IProps){
         <>
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
             <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={input?.value}
-            onChange={(e) => formState.set((prevState) => updateTargetFieldState(stateAccessor, prevState, e.target.value))}/>
-            {(formState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
+            onChange={(e) => formGroupState.set((prevState) => updateTargetFieldState(stateAccessor, prevState, e.target.value))}/>
+            {(formGroupState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
         </>
     )
 
@@ -37,18 +37,18 @@ function FormInput({input, label, formState, errorMessage} : IProps){
     }
 
     /**
-     * Update the target formState field.
-     * @param {string} fieldAccessor - The key giving access to one specific formState field.
-     * @param {IFormGroup} formState - The current state of the form. Grouping : value, error, validationFn & isMandatory for each form field.
+     * Update the target formGroupState field.
+     * @param {string} fieldAccessor - The key giving access to one specific formGroupState field.
+     * @param {IFormGroup} formGroupState - The current state of the form. Grouping : value, error, validationFn & isMandatory for each form field.
      * @param {string} value - The new value for the field.
      * @returns {IFormGroup} - The updated form state.
      */
-    function updateTargetFieldState(fieldAccessor : string, formState : IFormGroup, value : string){
-        return {...formState, [fieldAccessor] : {
+    function updateTargetFieldState(fieldAccessor : string, formGroupState : IFormGroup, value : string){
+        return {...formGroupState, [fieldAccessor] : {
             value : formatInputValue(value), 
-            error : !formState[fieldAccessor].validationFn(value),
-            validationFn : formState[fieldAccessor].validationFn,
-            isMandatory : formState[fieldAccessor].isMandatory
+            error : !formGroupState[fieldAccessor].validationFn(value),
+            validationFn : formGroupState[fieldAccessor].validationFn,
+            isMandatory : formGroupState[fieldAccessor].isMandatory
         }}
     }
 }
@@ -58,7 +58,7 @@ export default FormInput
 interface IProps{
     input : IInput
     label : ILabel
-    formState : { 
+    formGroupState : { 
         get() : IFormGroup
         set : Dispatch<SetStateAction<IFormGroup>>
         fieldAccessor? : string
@@ -92,7 +92,7 @@ export interface IFormInput{
 }
 
 /*
-    onChange={(e) => formState.set((prevState) => ({...prevState, 
-            [formState.fieldAccessor || input.id] : { value : formatInputValue(e.target.value), error : !validation.validationFn(e.target.value) }})
+    onChange={(e) => formGroupState.set((prevState) => ({...prevState, 
+            [formGroupState.fieldAccessor || input.id] : { value : formatInputValue(e.target.value), error : !validation.validationFn(e.target.value) }})
     )}/>
 */
