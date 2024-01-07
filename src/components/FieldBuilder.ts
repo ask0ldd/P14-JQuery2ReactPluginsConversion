@@ -50,7 +50,8 @@ export class FieldBuilder{
                 accessor : this.#accessor, 
                 defaultValue : this.#defaultValue, 
                 validationFn : this.#validationFn, 
-                isMandatory : this.#isMandatory
+                isMandatory : this.#isMandatory,
+                error : false,
             }
         }catch (e){
             console.error(e)

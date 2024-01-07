@@ -21,8 +21,8 @@ function FormInput({input, label, formGroupState, errorMessage} : IProps){
     return (
         <>
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
-            <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={input?.value}
-            onChange={(e) => formGroupState.set((prevState) => updateTargetFieldState(fieldAccessor, prevState, e.target.value))}/>
+            <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={/*input?.value || */formGroupState.get()[fieldAccessor].value}
+            onChange={(e) => formGroupState.set(updateTargetFieldState(fieldAccessor, formGroupState.get(), e.target.value))}/>
             {(formGroupState.get()[fieldAccessor]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
         </>
     )
@@ -60,7 +60,7 @@ interface IProps{
     label : ILabel
     formGroupState : { 
         get() : IFormGroup
-        set : Dispatch<SetStateAction<IFormGroup>>
+        set : (state : IFormGroup) => void // Dispatch<SetStateAction<IFormGroup>>
         fieldAccessor? : string
     }
     errorMessage : string
@@ -81,18 +81,14 @@ interface IInput{
 }
 
 export interface IFormGroup{
-    [key: string]: IFormInput
-}
-  
-export interface IFormInput{
-    value : string
-    error : boolean
-    validationFn : (value: string) => boolean
-    isMandatory : boolean
+    [key: string]: IField
 }
 
-/*
-    onChange={(e) => formGroupState.set((prevState) => ({...prevState, 
-            [formGroupState.fieldAccessor || input.id] : { value : formatInputValue(e.target.value), error : !validation.validationFn(e.target.value) }})
-    )}/>
-*/
+interface IField{
+    accessor : string
+    defaultValue : string
+    validationFn : (value: string) => boolean
+    isMandatory : boolean
+    error : boolean
+    value : string
+}

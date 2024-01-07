@@ -6,7 +6,7 @@ export function useKeyboardHandler(
     selectId : string,
     formGroupState : {
         get : () => IFormGroup
-        set : Dispatch<SetStateAction<IFormGroup>>, 
+        set : (state : IFormGroup) => void, 
         fieldAccessor? : string
     },
     options : Array<IOption>, 

@@ -42,12 +42,15 @@ function CustomSelect({formGroupState, options, select, label } : IProps){ // sh
     function setActiveOption(option : IOption){
         _setActiveOption({...option})
         activeOptionRef.current = {...option}
-        formGroupState.set((prevState) => ({...prevState, [formGroupState.fieldAccessor] : { 
+        const currentState = formGroupState.get()
+        const fieldAccessor = formGroupState.fieldAccessor
+        formGroupState.set({...currentState, [fieldAccessor] : {
+            ...currentState[fieldAccessor],
             value : option.value, 
             error : false,
-            validationFn : prevState[formGroupState.fieldAccessor].validationFn,
-            isMandatory : prevState[formGroupState.fieldAccessor].isMandatory
-        }}))
+            validationFn : currentState[fieldAccessor].validationFn,
+            isMandatory : currentState[fieldAccessor].isMandatory
+        }})
     }
 
     const [isListboxExpanded, _setListboxAsExpanded] = useState<boolean>(false)
@@ -101,7 +104,7 @@ export interface IOption{
 interface IProps{
     formGroupState : {
         get : () => IFormGroup
-        set : Dispatch<SetStateAction<IFormGroup>>
+        set : (state : IFormGroup) => void
         fieldAccessor : string
     }
     options : Array<IOption>
@@ -117,12 +120,14 @@ export interface ILabel{
 }
 
 export interface IFormGroup{
-    [key: string]: IFormInput
-  }
+    [key: string]: IField//IFormInput
+}
   
-interface IFormInput{
-    value : string
-    error : boolean
+interface IField{
+    accessor : string
+    defaultValue : string
     validationFn : (value: string) => boolean
     isMandatory : boolean
+    error : boolean
+    value : string
 }
