@@ -1,20 +1,17 @@
-import { Dispatch, SetStateAction } from "react"
-
 /**
  * Component : Grouping of all the constitutive elements of a datatable.
  * @Component
  * @param {Object[]} props - Props.
  * @param {IInput} props.input - grouping some input properties values : {id, type, placeholder, CSSClasses, value}.
  * @param {ILabel} props.label - grouping some label properties values : {id, text, CSSClasses}.
- * @param {IFormGroup} props.formGroupState - grouping : value, error, validationFn & isMandatory for each form field.
+ * @param {IFormGroup} props.formGroupState - grouping : value, error, validationFn, error, defaultValue & isMandatory for each form field.
  * @param {string} props.errorMessage - Table column header.
  * @return ( <FormInput input={input} label={label} formGroupState={formGroupState} errorMessage={errorMessage}/> )
  */
 function FormInput({input, label, formGroupState, errorMessage} : IProps){
-// should pass state &
+
     const labelId = label?.id ? label.id : input.id + '-label'
     const fieldAccessor = formGroupState.fieldAccessor || input.id
-    // const defaultValue = input.value != null ? input.value : formGroupState[formGroupState.fieldAccessor as keyof typeof formGroupState || input.id as keyof typeof formGroupState] as string
       
     // !!!!! when datatype number input should accept letter but e is working
 
@@ -22,7 +19,7 @@ function FormInput({input, label, formGroupState, errorMessage} : IProps){
         <>
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
             <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={/*input?.value || */formGroupState.get()[fieldAccessor].value}
-            onChange={(e) => formGroupState.set(updateTargetFieldState(fieldAccessor, formGroupState.get(), e.target.value))}/>
+            onChange={(e) => formGroupState.set(updateFormGroupField(fieldAccessor, formGroupState.get(), e.target.value))}/>
             {(formGroupState.get()[fieldAccessor]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
         </>
     )
@@ -43,8 +40,9 @@ function FormInput({input, label, formGroupState, errorMessage} : IProps){
      * @param {string} value - The new value for the field.
      * @returns {IFormGroup} - The updated form state.
      */
-    function updateTargetFieldState(fieldAccessor : string, formGroupState : IFormGroup, value : string){
+    function updateFormGroupField(fieldAccessor : string, formGroupState : IFormGroup, value : string){
         return {...formGroupState, [fieldAccessor] : {
+            ...formGroupState[fieldAccessor],
             value : formatInputValue(value), 
             error : !formGroupState[fieldAccessor].validationFn(value),
             validationFn : formGroupState[fieldAccessor].validationFn,
@@ -60,7 +58,7 @@ interface IProps{
     label : ILabel
     formGroupState : { 
         get() : IFormGroup
-        set : (state : IFormGroup) => void // Dispatch<SetStateAction<IFormGroup>>
+        set : (state : IFormGroup) => void
         fieldAccessor? : string
     }
     errorMessage : string

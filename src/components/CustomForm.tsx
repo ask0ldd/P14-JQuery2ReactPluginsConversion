@@ -9,7 +9,6 @@ import { EmployeesContext } from "../contexts/EmployeesContext"
 import { IModalManager } from "./Modal/hooks/useModalManager"
 import '../style/CustomForm.css'
 import { FieldBuilder } from "./FieldBuilder"
-// import '../style/NewEmployeeForm.css'
 
 /**
  * Component : Form.
@@ -22,7 +21,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
   const initialFormGroup = useMemo(() => 
     new FormGroup()
-    .addField(new FieldBuilder().setAccessor("firstname").setDefaultValue("aaa").setValidationFn(Validator.isName).setIsMandatory(true).build())
+    .addField(new FieldBuilder().setAccessor("firstname").setDefaultValue("").setValidationFn(Validator.isName).setIsMandatory(true).build())
     .addField(new FieldBuilder().setAccessor("lastname").setDefaultValue("aaa").setValidationFn(Validator.isName).setIsMandatory(true).build())
     .addField(new FieldBuilder().setAccessor("birthdate").setDefaultValue("").setValidationFn(Validator.isDatePast).setIsMandatory(true).build())
     .addField(new FieldBuilder().setAccessor("street").setDefaultValue("").setValidationFn(Validator.isName).setIsMandatory(true).build())
@@ -82,8 +81,6 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
    */
   function formValidation (){
     let isError = 0
-    // formGroupStateRef.current = formGroupState
-    // console.log(formGroupStateRef.current)
     for (const [key, field] of Object.entries(formGroupStateRef.current)) {
       isError += +field.error
       // mandatory & blank ? => error

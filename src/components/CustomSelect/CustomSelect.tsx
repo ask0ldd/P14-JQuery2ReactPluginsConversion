@@ -2,7 +2,7 @@
 import './style/CustomSelect.css'
 import SelectComboBox from "./ComboBox"
 import OptionsList from "./OptionsList"
-import {useState, useRef, Dispatch, SetStateAction} from 'react'
+import {useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 import { SelectContext } from './contexts/SelectContext'
 
@@ -88,14 +88,6 @@ function CustomSelect({formGroupState, options, select, label } : IProps){ // sh
 
 export default CustomSelect
 
-/*export const SelectContext = createContext<ISelectContext>({
-    selectId : '',
-    options : [],  
-    activeOption : {get : () => ({label:'', value:''}), set : () => false},
-    listbox : {isExpanded : false, setAsExpanded : () => false},
-    label : {text : ''}
-})*/
-
 export interface IOption{
     label : string
     value : string
@@ -108,7 +100,6 @@ interface IProps{
         fieldAccessor : string
     }
     options : Array<IOption>
-    // onValueChange : (value : string, accessor? : string) => void
     select : {id : string}
     label : ILabel
 }
@@ -120,7 +111,7 @@ export interface ILabel{
 }
 
 export interface IFormGroup{
-    [key: string]: IField//IFormInput
+    [key: string]: IField
 }
   
 interface IField{
