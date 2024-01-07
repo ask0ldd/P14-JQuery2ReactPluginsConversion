@@ -9,23 +9,23 @@ import { Dispatch, SetStateAction, ChangeEvent } from "react"
  */
 function DatePicker({formGroupState, id, label} : IProps){
 
-    const stateAccessor = formGroupState.fieldAccessor || id
+    const fieldAccessor = formGroupState.fieldAccessor || id
     const errorMessage = "You need to select a Date."
 
     return(
         <>
             <label className={label?.CSSClasses?.join(' ')} htmlFor={id}>{label.text}</label>
-            <input type="date" id={id} value={formGroupState.get()[stateAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
+            <input type="date" id={id} value={formGroupState.get()[fieldAccessor].value} onChange={(e : ChangeEvent<HTMLInputElement>) => {
                 formGroupState.set((prevState : IForm) => {
-                    return {...prevState, [stateAccessor] : {
+                    return {...prevState, [fieldAccessor] : {
                         value: e.target.value.toLowerCase().trim(), 
-                        error : !prevState[stateAccessor].validationFn(e.target.value),
-                        validationFn : prevState[stateAccessor].validationFn,
-                        isMandatory : prevState[stateAccessor].isMandatory
+                        error : !prevState[fieldAccessor].validationFn(e.target.value),
+                        validationFn : prevState[fieldAccessor].validationFn,
+                        isMandatory : prevState[fieldAccessor].isMandatory
                     }}
                 })
             }}/>
-            {(formGroupState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={id+"-error"}>{errorMessage}</p>}
+            {(formGroupState.get()[fieldAccessor]?.error && errorMessage) && <p className="errorMessage" id={id+"-error"}>{errorMessage}</p>}
         </>
     )
 }

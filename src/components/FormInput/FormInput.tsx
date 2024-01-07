@@ -13,7 +13,7 @@ import { Dispatch, SetStateAction } from "react"
 function FormInput({input, label, formGroupState, errorMessage} : IProps){
 // should pass state &
     const labelId = label?.id ? label.id : input.id + '-label'
-    const stateAccessor = formGroupState.fieldAccessor || input.id
+    const fieldAccessor = formGroupState.fieldAccessor || input.id
     // const defaultValue = input.value != null ? input.value : formGroupState[formGroupState.fieldAccessor as keyof typeof formGroupState || input.id as keyof typeof formGroupState] as string
       
     // !!!!! when datatype number input should accept letter but e is working
@@ -22,8 +22,8 @@ function FormInput({input, label, formGroupState, errorMessage} : IProps){
         <>
             {label.text && <label id={labelId} htmlFor={input.id} className={label?.CSSClasses?.join(' ')}>{label.text}</label>}
             <input aria-labelledby={labelId} type={input.type} id={input.id} placeholder={input?.placeholder} className={input?.CSSClasses?.join(' ')} value={input?.value}
-            onChange={(e) => formGroupState.set((prevState) => updateTargetFieldState(stateAccessor, prevState, e.target.value))}/>
-            {(formGroupState.get()[stateAccessor]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
+            onChange={(e) => formGroupState.set((prevState) => updateTargetFieldState(fieldAccessor, prevState, e.target.value))}/>
+            {(formGroupState.get()[fieldAccessor]?.error && errorMessage) && <p className="errorMessage" id={input.id+"-error"}>{errorMessage}</p>}
         </>
     )
 
