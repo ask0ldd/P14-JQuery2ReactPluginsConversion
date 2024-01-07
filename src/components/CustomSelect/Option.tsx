@@ -29,7 +29,7 @@ function Option({index, option} : IProps){
 
     return (
         <li role="option" id={option.value} data-value={option.value} aria-selected={isOptionActive(options[index])} 
-        style={isOptionActive(options[index]) ? {background:'#dfdfdf'} : {}} 
+        style={isOptionActive(options[index]) ? {background:'#dfdfdf',} : {}} 
         onMouseDown={() => {activeOption.set(options[index]); listbox.setAsExpanded(false);}} value={option.value}>{option.label}</li>
     )
 }
