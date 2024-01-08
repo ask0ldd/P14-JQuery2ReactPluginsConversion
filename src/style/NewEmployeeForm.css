@@ -1,7 +1,12 @@
 #root {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 2rem 0 6rem 0;
+  width: 100%;
+  /*margin: 0 auto;*/
+  /*padding: 2rem 0 6rem 0;*/
+  padding: 0 0 6rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 
 a {
@@ -12,17 +17,25 @@ a {
   width: 100%;
 }
 
-.mainform {
+/*.mainform {
   display: flex;
   flex-direction: column;
   width: 360px;
   font-family: "Jost", sans-serif;
   font-size: 1rem;
+}*/
+
+main {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.mainform input[type="text"],
-.mainform input[type="number"],
-.mainform input[type="date"] {
+main input[type="text"],
+main input[type="number"],
+main input[type="date"] {
   border: 1px solid #c5c5c5;
   background: #f6f6f6;
   padding: 0.5em 0.6em 0.45em 0.6em;
@@ -33,7 +46,7 @@ a {
   margin-top: 0.325rem;
 }
 
-.mainform input[type="submit"] {
+main input[type="submit"] {
   margin-top: 2.325rem;
   /*height: 32px;*/
   font-family: "Jost", sans-serif;
@@ -44,7 +57,7 @@ a {
   cursor: pointer;
 }
 
-.mainform input[type="submit"]:hover {
+main input[type="submit"]:hover {
   background: #0078d7;
   border: 1px solid #0078d7;
   color: #fff;
@@ -56,7 +69,7 @@ label.defaultSpacing {
   margin-top: 1rem;
 }
 
-.mainform input:focus {
+main input:focus {
   outline: 1px solid #0078d7;
 }
 

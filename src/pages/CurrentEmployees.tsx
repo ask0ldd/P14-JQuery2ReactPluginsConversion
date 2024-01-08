@@ -8,6 +8,7 @@ import { ColumnBuilder } from '../components/DatasTable/builders/ColumnBuilder'
 import { TableModel } from '../components/DatasTable/models/TableModel'
 import { useContext } from 'react'
 import { EmployeesContext } from '../contexts/EmployeesContext'
+import Header from '../components/Header'
 
 /**
  * Component : Displaying the current employees datatable page.
@@ -29,11 +30,14 @@ function CurrentEmployees() {
   tableModel.addColumn(ColumnBuilder.startBuilder().setColumnName("Zip Code").setDatatypeAsNumber().setAccessor("zipCode").setSortability(true).build())
 
   return (
-    <main className='mainCE'>
-      <h1>Current Employees</h1>
-      <DatasTable tableModel={tableModel} tableDatas={employeesList}/>
-      <Link to={`/`} style={{width:'fit-content', justifySelf:'center', alignSelf:'center', display:'flex'}}>Home</Link>
-    </main>)
+    <>
+      <Header/>
+      <main className='mainCE'>
+        <DatasTable tableModel={tableModel} tableDatas={employeesList}/>
+        {/*<Link to={`/`} style={{width:'fit-content', justifySelf:'center', alignSelf:'center', display:'flex'}}>Home</Link>*/}
+      </main>
+    </>
+    )
 }
 
 export default CurrentEmployees

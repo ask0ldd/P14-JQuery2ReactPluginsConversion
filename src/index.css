@@ -32,6 +32,10 @@ body {
   /*place-items: center;*/
   min-width: 320px;
   min-height: 100vh;
+  flex-direction: column;
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 1;
 }
 
 h1 {

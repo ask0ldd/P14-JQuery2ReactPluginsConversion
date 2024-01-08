@@ -1,12 +1,14 @@
-.mainform {
+form {
   display: flex;
   flex-direction: column;
-  width: 360px;
+  max-width: 500px;
+  flex-grow: 1;
+  width: 100%;
   font-family: "Jost", sans-serif;
   font-size: 1rem;
 }
 
-.mainform input[type="submit"] {
+form input[type="submit"] {
   margin-top: 2.325rem;
   /*height: 32px;*/
   font-family: "Jost", sans-serif;
@@ -17,7 +19,7 @@
   cursor: pointer;
 }
 
-.mainform input[type="submit"]:hover {
+form input[type="submit"]:hover {
   background: #0078d7;
   border: 1px solid #0078d7;
   color: #fff;
@@ -25,6 +27,6 @@
   box-shadow: 0 4px 8px #72aedf;
 }
 
-.mainform input:focus {
+form input:focus {
   outline: 1px solid #0078d7;
 }

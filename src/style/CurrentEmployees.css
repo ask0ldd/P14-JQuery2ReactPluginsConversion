@@ -3,7 +3,8 @@
   flex-direction: column;
   font-family: "Jost", sans-serif;
   font-size: 1rem;
-  width: 1440px;
+  max-width: 1440px;
+  padding-top: 3rem;
 }
 
 #entriesNSearchContainer,

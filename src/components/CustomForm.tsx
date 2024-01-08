@@ -105,7 +105,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
   }
     
   return(
-      <form className="mainform">
+      <form>
           <h2>1. Personnal</h2>
 
           <FormInput input={{id : 'firstname', type : "text"}}

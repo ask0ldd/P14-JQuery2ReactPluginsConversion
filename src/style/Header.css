@@ -1,0 +1,40 @@
+header {
+  width: 100%;
+  height: 6rem;
+  /*background-color: #213547;*/
+  background: linear-gradient(90deg, #213547dd, #21354766);
+  color: #ffffff;
+  font-family: "Jost", sans-serif;
+  font-size: 2rem;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px #21354755;
+  border-bottom: 1px solid #213547aa;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  width: 100%;
+}
+
+.hrnet {
+  text-shadow: 0px 4px 8px rgb(16, 31, 44);
+}
+
+header nav {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2rem;
+}
+
+header a:any-link {
+  color: #ffffff;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  width: fit-content;
+}

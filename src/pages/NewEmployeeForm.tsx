@@ -7,6 +7,7 @@ import {useModalManager} from '../components/Modal/hooks/useModalManager'
 import CustomForm from '../components/CustomForm'
 import ModalBaseHeader from '../components/Modal/ModalBaseHeader'
 import { useEffect } from 'react'
+import Header from '../components/Header'
 
 // !!!!!!! create a button to fill the forms with mockdatas
 
@@ -27,20 +28,23 @@ function App() {
   }, [])
 
   return (
-    <main>
-      <Link to={`/employee-list`}>View Current Employees</Link>
+    <>
+      <Header/>
+      <main>
+        {/*<Link to={`/employee-list`}>View Current Employees</Link>*/}
 
-      <CustomForm modalManager={modalManager}/>
+        <CustomForm modalManager={modalManager}/>
 
-      <Modal modalManager={modalManager}>
-        {modalManager.getHeaderComponent()}
-        {modalManager.getBodyComponent()}
-      </Modal>
+        <Modal modalManager={modalManager}>
+          {modalManager.getHeaderComponent()}
+          {modalManager.getBodyComponent()}
+        </Modal>
 
-      {/*<button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => modalManager.displayModalPreset("default")}>Show alternate modale</button>
-      <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => modalManager.displayModalPreset("formError")}>Show alternate modale</button>*/}
-     
-    </main>
+        {/*<button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => modalManager.displayModalPreset("default")}>Show alternate modale</button>
+        <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => modalManager.displayModalPreset("formError")}>Show alternate modale</button>*/}
+      
+      </main>
+    </>
   )
 
   /**
