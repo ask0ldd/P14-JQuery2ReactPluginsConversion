@@ -123,6 +123,8 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
           label={{text :"Birthdate", CSSClasses : ["defaultSpacing"]}} 
           formGroupState={{get : () => formGroupStateRef.current, set : setFormGroupState, fieldAccessor : "birthdate"}}/>
 
+          <div style={{height:1, borderBottom:'1px dashed rgb(35, 131, 209)', marginTop:'2rem',}}></div>
+
           <h2>2. Address</h2>
 
           <FormInput input={{id : "street", type : "text"}} 
@@ -147,6 +149,8 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
           formGroupState={{get : () => formGroupStateRef.current, set : setFormGroupState}} 
           errorMessage = "Invalid Value."/>
 
+          <div style={{height:1, borderBottom:'1px dashed rgb(35, 131, 209)', marginTop:'2rem',}}></div>
+
           <h2>3. Professional</h2>
 
           <DatePicker id={"start-date"} 
@@ -167,69 +171,71 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
 
 export default CustomForm
 
-  const departmentsList = [
-    {label:'Engineering', value:'Engineering'}, 
-    {label:'Human Ressources', value:'Human Ressources'}, 
-    {label:'Marketing', value:'Marketing'}, 
-    {label:'Legal', value:'Legal'}, 
-    {label:'Sales', value:'Sales'},
-    {label:'Sales1', value:'Sales1'},
-    {label:'Sales2', value:'Sales2'},
-    {label:'Sales3', value:'Sales3'},
-    ]
-  
-  const statesList = [
-    {"label":"Alabama","value":"AL"},
-    {"label":"Alaska","value":"AK"},
-    {"label":"Arizona","value":"AZ"},
-    {"label":"Arkansas","value":"AR"},
-    {"label":"California","value":"CA"},
-    {"label":"Colorado","value":"CO"},
-    {"label":"Connecticut","value":"CT"},
-    {"label":"Delaware","value":"DE"},
-    {"label":"Florida","value":"FL"},
-    {"label":"Georgia","value":"GA"},
-    {"label":"Hawaii","value":"HI"},
-    {"label":"Idaho","value":"ID"},
-    {"label":"Illinois","value":"IL"},
-    {"label":"Indiana","value":"IN"},
-    {"label":"Iowa","value":"IA"},
-    {"label":"Kansas","value":"KS"},
-    {"label":"Kentucky","value":"KY"},
-    {"label":"Louisiana","value":"LA"},
-    {"label":"Maine","value":"ME"},
-    {"label":"Maryland","value":"MD"},
-    {"label":"Massachusetts","value":"MA"},
-    {"label":"Michigan","value":"MI"},
-    {"label":"Minnesota","value":"MN"},
-    {"label":"Mississippi","value":"MS"},
-    {"label":"Missouri","value":"MO"},
-    {"label":"Montana","value":"MT"},
-    {"label":"Nebraska","value":"NE"},
-    {"label":"Nevada","value":"NV"},
-    {"label":"New Hampshire","value":"NH"},
-    {"label":"New Jersey","value":"NJ"},
-    {"label":"New Mexico","value":"NM"},
-    {"label":"New York","value":"NY"},
-    {"label":"North Carolina","value":"NC"},
-    {"label":"North Dakota","value":"ND"},
-    {"label":"Ohio","value":"OH"},
-    {"label":"Oklahoma","value":"OK"},
-    {"label":"Oregon","value":"OR"},
-    {"label":"Pennsylvania","value":"PA"},
-    {"label":"Rhode Island","value":"RI"},
-    {"label":"South Carolina","value":"SC"},
-    {"label":"South Dakota","value":"SD"},
-    {"label":"Tennessee","value":"TN"},
-    {"label":"Texas","value":"TX"},
-    {"label":"Utah","value":"UT"},
-    {"label":"Vermont","value":"VT"},
-    {"label":"Virginia","value":"VA"},
-    {"label":"Washington","value":"WA"},
-    {"label":"West Virginia","value":"WV"},
-    {"label":"Wisconsin","value":"WI"},
-    {"label":"Wyoming","value":"WY"}
+// !!! should look for duplicates
+
+const departmentsList = [
+  {label:'Engineering', value:'Engineering'}, 
+  {label:'Human Ressources', value:'Human Ressources'}, 
+  {label:'Marketing', value:'Marketing'}, 
+  {label:'Legal', value:'Legal'}, 
+  {label:'Sales', value:'Sales'},
+  {label:'Sales1', value:'Sales1'},
+  {label:'Sales2', value:'Sales2'},
+  {label:'Sales3', value:'Sales3'},
   ]
+
+const statesList = [
+  {"label":"Alabama","value":"AL"},
+  {"label":"Alaska","value":"AK"},
+  {"label":"Arizona","value":"AZ"},
+  {"label":"Arkansas","value":"AR"},
+  {"label":"California","value":"CA"},
+  {"label":"Colorado","value":"CO"},
+  {"label":"Connecticut","value":"CT"},
+  {"label":"Delaware","value":"DE"},
+  {"label":"Florida","value":"FL"},
+  {"label":"Georgia","value":"GA"},
+  {"label":"Hawaii","value":"HI"},
+  {"label":"Idaho","value":"ID"},
+  {"label":"Illinois","value":"IL"},
+  {"label":"Indiana","value":"IN"},
+  {"label":"Iowa","value":"IA"},
+  {"label":"Kansas","value":"KS"},
+  {"label":"Kentucky","value":"KY"},
+  {"label":"Louisiana","value":"LA"},
+  {"label":"Maine","value":"ME"},
+  {"label":"Maryland","value":"MD"},
+  {"label":"Massachusetts","value":"MA"},
+  {"label":"Michigan","value":"MI"},
+  {"label":"Minnesota","value":"MN"},
+  {"label":"Mississippi","value":"MS"},
+  {"label":"Missouri","value":"MO"},
+  {"label":"Montana","value":"MT"},
+  {"label":"Nebraska","value":"NE"},
+  {"label":"Nevada","value":"NV"},
+  {"label":"New Hampshire","value":"NH"},
+  {"label":"New Jersey","value":"NJ"},
+  {"label":"New Mexico","value":"NM"},
+  {"label":"New York","value":"NY"},
+  {"label":"North Carolina","value":"NC"},
+  {"label":"North Dakota","value":"ND"},
+  {"label":"Ohio","value":"OH"},
+  {"label":"Oklahoma","value":"OK"},
+  {"label":"Oregon","value":"OR"},
+  {"label":"Pennsylvania","value":"PA"},
+  {"label":"Rhode Island","value":"RI"},
+  {"label":"South Carolina","value":"SC"},
+  {"label":"South Dakota","value":"SD"},
+  {"label":"Tennessee","value":"TN"},
+  {"label":"Texas","value":"TX"},
+  {"label":"Utah","value":"UT"},
+  {"label":"Vermont","value":"VT"},
+  {"label":"Virginia","value":"VA"},
+  {"label":"Washington","value":"WA"},
+  {"label":"West Virginia","value":"WV"},
+  {"label":"Wisconsin","value":"WI"},
+  {"label":"Wyoming","value":"WY"}
+]
 
 /**
  * Convert a date from USD format to FR format.

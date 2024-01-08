@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       <Header/>
-      <main style={{paddingTop:'2rem'}}>
+      <main style={{paddingTop:'1rem'}}>
         {/*<Link to={`/employee-list`}>View Current Employees</Link>*/}
 
         <CustomForm modalManager={modalManager}/>

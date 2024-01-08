@@ -12,7 +12,7 @@ improve keyboard handler highlighted / selected
 deal with error if options values are not unique
 style override
 override arrow color
-scrollbar if too many options / max height listbox
+scrollbar if too many options / max height listbox ?
 styling option list
 */
 
@@ -62,7 +62,7 @@ function CustomSelect({formGroupState, options, select, label } : IProps){ // sh
 
     useKeyboardHandler(
         select.id,
-        formGroupState,
+        /*formGroupState,*/
         [...options], 
         activeOptionRef, 
         isListboxExpandedRef, 
