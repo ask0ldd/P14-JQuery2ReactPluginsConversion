@@ -1,7 +1,7 @@
 form {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: 450px;
   flex-grow: 1;
   width: 100%;
   font-family: "Jost", sans-serif;

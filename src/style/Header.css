@@ -2,7 +2,8 @@ header {
   width: 100%;
   height: 6rem;
   /*background-color: #213547;*/
-  background: linear-gradient(90deg, #213547dd, #21354766);
+  /*background: linear-gradient(360deg, #213547dd, #213547bb);*/
+  background: linear-gradient(360deg, #2c91e4ee, #2c91e4bb);
   color: #ffffff;
   font-family: "Jost", sans-serif;
   font-size: 2rem;
@@ -10,8 +11,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 4px 8px #21354755;
-  border-bottom: 1px solid #213547aa;
+  box-shadow: 0px 4px 8px rgba(27, 93, 146, 0.486);
+  border-bottom: 1px solid rgb(35, 131, 209);
 }
 
 .headerContainer {
@@ -23,7 +24,7 @@ header {
 }
 
 .hrnet {
-  text-shadow: 0px 4px 8px rgb(16, 31, 44);
+  text-shadow: 0px 2px 4px rgba(17, 75, 122, 0.603);
 }
 
 header nav {

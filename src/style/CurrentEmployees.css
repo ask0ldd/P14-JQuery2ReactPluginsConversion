@@ -11,6 +11,15 @@
 #infosNPaginationContainer {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+#entriesNSearchContainer {
+  margin-bottom: 0.5rem;
+}
+
+#infosNPaginationContainer {
+  margin-top: 0.25rem;
 }
 
 .mainCE input[type="text"] {
