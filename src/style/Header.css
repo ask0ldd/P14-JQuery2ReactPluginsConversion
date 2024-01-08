@@ -38,4 +38,5 @@ header a:any-link {
   font-family: "Jost", sans-serif;
   font-size: 1rem;
   width: fit-content;
+  text-shadow: 0px 2px 4px rgba(17, 75, 122, 0.603);
 }
