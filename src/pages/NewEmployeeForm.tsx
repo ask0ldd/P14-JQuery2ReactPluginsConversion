@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import '../style/NewEmployeeForm.css'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import Modal from '../components/Modal/Modal'
 import {useModalManager} from '../components/Modal/hooks/useModalManager'
 import CustomForm from '../components/CustomForm'
@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       <Header/>
-      <main>
+      <main style={{paddingTop:'2rem'}}>
         {/*<Link to={`/employee-list`}>View Current Employees</Link>*/}
 
         <CustomForm modalManager={modalManager}/>

@@ -22,7 +22,7 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
   const initialFormGroup = useMemo(() => 
     new FormGroup()
     .addField(new FieldBuilder().setAccessor("firstname").setDefaultValue("").setValidationFn(Validator.isName).setIsMandatory(true).build())
-    .addField(new FieldBuilder().setAccessor("lastname").setDefaultValue("aaa").setValidationFn(Validator.isName).setIsMandatory(true).build())
+    .addField(new FieldBuilder().setAccessor("lastname").setDefaultValue("").setValidationFn(Validator.isName).setIsMandatory(true).build())
     .addField(new FieldBuilder().setAccessor("birthdate").setDefaultValue("").setValidationFn(Validator.isDatePast).setIsMandatory(true).build())
     .addField(new FieldBuilder().setAccessor("street").setDefaultValue("").setValidationFn(Validator.isName).setIsMandatory(true).build())
     .addField(new FieldBuilder().setAccessor("city").setDefaultValue("").setValidationFn(Validator.isName).setIsMandatory(true).build())
