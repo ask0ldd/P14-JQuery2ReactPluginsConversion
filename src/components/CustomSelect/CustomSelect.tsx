@@ -35,8 +35,9 @@ function CustomSelect({formGroupState, options, select, label } : IProps){ // sh
     
     const labelId = label?.id ? label.id : select.id + '-label'
 
-    // updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
+    // Updated state (always returning the non updated version) not accessible through event listeners => solution : tracking the state through a ref always updated simultaneously
     // https://medium.com/geographit/accessing-react-state-in-event-listeners-with-usestate-and-useref-hooks-8cceee73c559
+    // The listener belongs to the initial render and is not updated on subsequent rerenders
     const [activeOption, _setActiveOption] = useState<IOption>({...options[0]}) // deal with error if options missing
     const activeOptionRef = useRef<IOption>(activeOption)
     function setActiveOption(option : IOption){

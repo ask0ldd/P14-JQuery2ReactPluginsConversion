@@ -35,7 +35,6 @@ function CurrentEmployees() {
       <Header/>
       <main className='mainCE'>
         <DatasTable tableModel={tableModel} tableDatas={employeesList}/>
-        {/*<Link to={`/`} style={{width:'fit-content', justifySelf:'center', alignSelf:'center', display:'flex'}}>Home</Link>*/}
       </main>
       <Footer/>
     </>

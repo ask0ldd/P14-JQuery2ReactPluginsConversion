@@ -3,7 +3,7 @@ import '../style/Footer.css'
 function Footer(){
     return(
         <footer>
-aaa
+            <span style={{transform:'translateY(3px)'}}>@ 2024 HRNET USA, Inc. All rights reserved.</span>
         </footer>
     )
 }
