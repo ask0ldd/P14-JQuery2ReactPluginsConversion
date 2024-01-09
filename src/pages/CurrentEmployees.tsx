@@ -9,6 +9,7 @@ import { TableModel } from '../components/DatasTable/models/TableModel'
 import { useContext } from 'react'
 import { EmployeesContext } from '../contexts/EmployeesContext'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 /**
  * Component : Displaying the current employees datatable page.
@@ -36,6 +37,7 @@ function CurrentEmployees() {
         <DatasTable tableModel={tableModel} tableDatas={employeesList}/>
         {/*<Link to={`/`} style={{width:'fit-content', justifySelf:'center', alignSelf:'center', display:'flex'}}>Home</Link>*/}
       </main>
+      <Footer/>
     </>
     )
 }

@@ -8,6 +8,7 @@ import CustomForm from '../components/CustomForm'
 import ModalBaseHeader from '../components/Modal/ModalBaseHeader'
 import { useEffect } from 'react'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 // !!!!!!! create a button to fill the forms with mockdatas
 
@@ -44,6 +45,7 @@ function App() {
         <button style={{padding:'1rem', marginTop:'1rem', width:'100%'}} onClick={() => modalManager.displayModalPreset("formError")}>Show alternate modale</button>*/}
       
       </main>
+      <Footer/>
     </>
   )
 
