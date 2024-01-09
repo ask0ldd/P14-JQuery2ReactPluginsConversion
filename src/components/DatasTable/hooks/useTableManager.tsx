@@ -27,7 +27,7 @@ function useTableManager(tableModel : TableModel, tableDatas : Array<any>){
         tableDAO : new TableDAO(tableDatas),
         tableModel : tableModel,
         // get all the right arguments to pass the TableDAO so the filtered/sorted datas can be sent back
-        getProcessingArgs() {
+        getProcessingParameters() {
             return {search : this.search, datatype : this.tableModel.getDatatypeForAccessor(this.sorting.column), sorting : this.sorting}
         }
     }
