@@ -27,13 +27,13 @@ import { DatasTableContext } from './DatasTableContext'
 function DatasTable({tableModel, tableDatas} : IProps){
 
     // [perfs] tableModel & tableDatas props already triggering a re-render (being props), so no need of useState
-    // check if accessors & table datas properties are matching / if not : no table displayed
     const isColumnsDefinitionMatchingDatas = useMemo(() => {
 
         if(tableDatas.length === 0) return false
-        
+
         let areAllMatching = true
         const tableDatasPropertiesList = Object.getOwnPropertyNames(tableDatas[0])
+        // check if all accessors can be linked to a tabledatas key
         tableModel.getAccessorsList().forEach(accessor => {
             if(tableDatasPropertiesList.includes(accessor) === false) areAllMatching = false
             if(!areAllMatching) throw new Error("Some Accessors don't exist into the provided Dataset.")
@@ -41,7 +41,7 @@ function DatasTable({tableModel, tableDatas} : IProps){
         return areAllMatching
     }, [tableDatas, tableModel])
 
-    const {tableState, dispatch} = useTableManager(tableModel, tableDatas)
+    const {tableState, dispatch} = useTableManager(tableModel, [...tableDatas])
 
     return(
         <>
