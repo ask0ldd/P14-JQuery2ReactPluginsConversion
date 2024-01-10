@@ -30,7 +30,7 @@ function CurrentEmployees() {
 
   return (
     <>
-      <Header/>
+      <Header pageTitle='Current Employees'/>
       <main className='mainCE'>
         <DatasTable tableModel={tableModel} tableDatas={employeesList}/>
       </main>

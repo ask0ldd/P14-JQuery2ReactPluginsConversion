@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <Header/>
+      <Header pageTitle='Create Employee'/>
       <main style={{paddingTop:'1rem'}}>
 
         <CustomForm modalManager={modalManager}/>
