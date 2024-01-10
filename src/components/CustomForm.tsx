@@ -93,7 +93,6 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
       }
     }
     setFormGroupState({...formGroupStateRef.current})
-    // return 
     return Boolean(!isError)
   }
 
@@ -105,6 +104,8 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
   function isEmployeeAlreadyInContext(newEmployee : object){
     return employeesList.find(employee => JSON.stringify(employee) === JSON.stringify(newEmployee)) != null
   }
+
+  if(Object.keys(initialFormGroup).length === 0) return (<>No valid Field defined.</>)
     
   return(
       <form>
@@ -181,9 +182,9 @@ const departmentsList = [
   {label:'Marketing', value:'Marketing'}, 
   {label:'Legal', value:'Legal'}, 
   {label:'Sales', value:'Sales'},
-  {label:'Sales1', value:'Sales1'},
+  /*{label:'Sales1', value:'Sales1'},
   {label:'Sales2', value:'Sales2'},
-  {label:'Sales3', value:'Sales3'},
+  {label:'Sales3', value:'Sales3'},*/
   ]
 
 const statesList = [
