@@ -6,18 +6,6 @@ import {useState, useRef} from 'react'
 import { useKeyboardHandler } from './hooks/useKeyboardHandler'
 import { SelectContext } from './contexts/SelectContext'
 
-/* !!!
-add a way to define the default Option or a non option default value
-improve keyboard handler highlighted / selected
-deal with error if options values are not unique
-style override
-override arrow color
-scrollbar if too many options / max height listbox ?
-styling option list
-*/
-
-/* selectId added at the head of each react key of the component / subcomponents to ensure their unicity */
-
 /**
  * Component : A dropdown menu mimicking the HTML select component, with visual customization options.
  * @Component

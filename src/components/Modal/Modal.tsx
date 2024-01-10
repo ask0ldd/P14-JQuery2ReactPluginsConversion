@@ -19,7 +19,6 @@ function Modal({modalManager, containerCSSClass, children} : PropsWithChildren<I
     const dialogRef = useRef<HTMLDialogElement>(null)
 
     useEffect(() => {
-        console.log(modalManager.getVisibility())
         if(modalManager.getVisibility() && !dialogRef.current?.open) return dialogRef.current?.showModal()
         if(!modalManager.getVisibility() && dialogRef.current?.open) return dialogRef.current?.close()
     })

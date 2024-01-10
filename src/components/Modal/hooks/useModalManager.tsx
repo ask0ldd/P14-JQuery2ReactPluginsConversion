@@ -50,12 +50,9 @@ export function useModalManager({initialVisibility, activeComponents} : IModalOb
             const preset = this.getPresets().find(preset => preset.presetName === presetName)
             if(preset) return
             setModalPresets([...this.getPresets(), {presetName : presetName, header, body}])
-            console.log(this.getPresets())
         },
         displayModalPreset : function (presetName : string) {
-            console.log(this)
             const preset = this.getPresets().find(preset => preset.presetName === presetName)
-            console.log(preset)
             if(!preset) return
             this.setHeaderComponent(preset.header)
             this.setBodyComponent(preset.body)
