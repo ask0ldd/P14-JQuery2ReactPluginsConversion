@@ -12,8 +12,6 @@ function FormInput({input, label, formGroupState, errorMessage} : IProps){
 
     const labelId = label?.id ? label.id : input.id + '-label'
     const fieldAccessor = formGroupState.fieldAccessor || input.id
-      
-    // !!!!! when datatype number input should accept letter but e is working
 
     return (
         <>

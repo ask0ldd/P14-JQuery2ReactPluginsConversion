@@ -62,10 +62,11 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
         "startingDate":formGroupState.startdate.value || '',
         "department":formGroupState.department.value || ''
       }
+      // convert dates from US > FR
       for (const [key, value] of Object.entries(newEmployee)) {
         if(Validator.isDate(value)) newEmployee[key as keyof typeof newEmployee] = convertUSDatetoFr(newEmployee[key as keyof typeof newEmployee])
       }
-      // verify if the employee isn't already in the list
+      // verify if the new employee is unknown
       if(isEmployeeAlreadyInContext(newEmployee)) return
       setEmployeesList([...employeesList, newEmployee])
       modalManager.displayModalPreset("default")
@@ -88,10 +89,11 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
           const formFieldState = {...formGroupStateRef.current[key]}
           isError++
           formFieldState.error = true
-          formGroupStateRef.current = {...formGroupStateRef.current, [key] : formFieldState}
+          formGroupStateRef.current = {...formGroupStateRef.current, [key] : {...formFieldState}}
       }
     }
     setFormGroupState({...formGroupStateRef.current})
+    // return 
     return Boolean(!isError)
   }
 

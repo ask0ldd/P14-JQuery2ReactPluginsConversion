@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import '../style/NewEmployeeForm.css'
-// import { Link } from 'react-router-dom'
 import Modal from '../components/Modal/Modal'
 import {useModalManager} from '../components/Modal/hooks/useModalManager'
 import CustomForm from '../components/CustomForm'
@@ -9,8 +8,6 @@ import ModalBaseHeader from '../components/Modal/ModalBaseHeader'
 import { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-
-// !!!!!!! create a button to fill the forms with mockdatas
 
 /**
  * Component : Displaying the form page.
@@ -69,7 +66,7 @@ function App() {
   function ModalBodyInvalidForm() : JSX.Element {
     return(
       <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center',}}>
-        The form can't be validated !
+        The Form can't be Validated !
       </div>
     )
   }

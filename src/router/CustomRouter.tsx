@@ -13,7 +13,9 @@ import { useState } from 'react'
  * @return ( <CustomRouter/> )
  */
 function CustomRouter() {
+
     const [employeesList, setEmployeesList] = useState<Array<any>>(usersDatas)
+    
     return(
         <EmployeesContext.Provider value={{employeesList, setEmployeesList}}>
             <Router basename="/P14-JQuery2ReactPluginsConversion/">
