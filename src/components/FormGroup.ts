@@ -46,7 +46,7 @@ export class FormGroup {
      * @returns {Object} FormGroup.
      */
     build() {
-        if (Object.keys(this.#state).length === 0) throw new Error("No valid Field defined.")
+        // if (Object.keys(this.#state).length === 0) throw new Error("No valid Field defined.")
         return this.#state
     }
 }

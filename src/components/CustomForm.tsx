@@ -105,10 +105,12 @@ function CustomForm({modalManager} : {modalManager : IModalManager} ){
     return employeesList.find(employee => JSON.stringify(employee) === JSON.stringify(newEmployee)) != null
   }
 
-  if(Object.keys(initialFormGroup).length === 0) return (<>No valid Field defined.</>)
+  const isFormGroupEmpty = Object.keys(initialFormGroup).length === 0
     
   return(
-      <form>
+      isFormGroupEmpty ? 
+          <div className="noValidFieldMessage">No valid Field defined.</div> 
+      : <form>
           <h2>1. Personnal</h2>
 
           <FormInput input={{id : 'firstname', type : "text"}}

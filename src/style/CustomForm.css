@@ -30,3 +30,14 @@ form input[type="submit"]:hover {
 form input:focus {
   outline: 1px solid #0078d7;
 }
+
+.noValidFieldMessage {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+}

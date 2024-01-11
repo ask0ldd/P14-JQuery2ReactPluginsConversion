@@ -45,20 +45,21 @@ function DatasTable({tableModel, tableDatas} : IProps){
 
     return(
         <>
-            {isColumnsDefinitionMatchingDatas ? 
-            // providing model, datas & dispatch fn to the children components
-            <DatasTableContext.Provider value={{tableModel, dispatch, tableState}}>
-                <div id="entriesNSearchContainer">
-                    <NDisplayedSelect/>
-                    <SearchModule/>
-                </div>
-                <Table/>
-                <div id="infosNPaginationContainer">
-                    <NEntries/>
-                    <Pagination/>
-                </div>
-            </DatasTableContext.Provider> 
-            : <div>Users datas are missing some mandatory dataKeys.</div>}
+            { isColumnsDefinitionMatchingDatas ? 
+                // providing model, datas & dispatch fn to the children components
+                <DatasTableContext.Provider value={{tableModel, dispatch, tableState}}>
+                    <div id="entriesNSearchContainer">
+                        <NDisplayedSelect/>
+                        <SearchModule/>
+                    </div>
+                    <Table/>
+                    <div id="infosNPaginationContainer">
+                        <NEntries/>
+                        <Pagination/>
+                    </div>
+                </DatasTableContext.Provider> 
+                : <div>Users datas are missing some mandatory dataKeys.</div>
+            }
         </>
     )
 
