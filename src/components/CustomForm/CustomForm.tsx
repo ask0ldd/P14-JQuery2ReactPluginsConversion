@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useMemo, useRef, useState } from "react"
-import CustomSelect from "./CustomSelect/CustomSelect"
-import DatePicker from "./DatePicker/DatePicker"
-import FormInput, { IFormGroup } from "./FormInput/FormInput"
-import Validator from "../services/validators"
+import CustomSelect from "../CustomSelect/CustomSelect"
+import DatePicker from "../DatePicker/DatePicker"
+import FormInput, { IFormGroup } from "../FormInput/FormInput"
+import Validator from "../../services/validators"
 import { FormGroup } from "./FormGroup"
-import { EmployeesContext } from "../contexts/EmployeesContext"
-import { IModalManager } from "./Modal/hooks/useModalManager"
-import '../style/CustomForm.css'
+import { EmployeesContext } from "../../contexts/EmployeesContext"
+import { IModalManager } from "../Modal/hooks/useModalManager"
+import '../../style/CustomForm.css'
 import { FieldBuilder } from "./FieldBuilder"
 
 /**

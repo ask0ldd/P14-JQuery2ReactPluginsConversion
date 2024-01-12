@@ -3,8 +3,6 @@ import { useContext } from "react"
 import { DatasTableContext } from './DatasTableContext'
 import './style/Table.css'
 
-// !!! limit size of value in a cell & fix col sizes
-
 /**
  * Component : A simple HTML Table displaying all the requested data.
  * @Component
@@ -85,3 +83,5 @@ function Table() {
 }
 
 export default Table
+
+// !!! limit size of value in a cell & fix col sizes

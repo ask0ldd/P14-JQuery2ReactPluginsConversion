@@ -15,7 +15,7 @@ function NEntries(){
     const lastDisplayedEntry =  tableState.pagination ? Math.abs((tableState.pagination.currentPage)*tableState.pagination.nEntriesPerPage) : 10
     const totalEntries = tableState.tableDAO.getProcessedDatas(tableState.getProcessingParameters()).length
 
-    // first Entry displayed to last Entry displayed of total Entries
+    // "first Entry" to "last Entry" of "total Entries"
     return(
         <div id="infosContainer">Showing {totalEntries != 0 ? firstDisplayedEntry : 0} to {lastDisplayedEntry < totalEntries ? lastDisplayedEntry : totalEntries} of {totalEntries} entries</div>
     )

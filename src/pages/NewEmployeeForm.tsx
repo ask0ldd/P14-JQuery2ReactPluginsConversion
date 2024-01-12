@@ -3,7 +3,7 @@
 import '../style/NewEmployeeForm.css'
 import Modal from '../components/Modal/Modal'
 import {useModalManager} from '../components/Modal/hooks/useModalManager'
-import CustomForm from '../components/CustomForm'
+import CustomForm from '../components/CustomForm/CustomForm'
 import ModalBaseHeader from '../components/Modal/ModalBaseHeader'
 import { useEffect } from 'react'
 import Header from '../components/Header'
